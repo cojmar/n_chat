@@ -436,7 +436,7 @@
 				// console.log('silent.msg');
 				// console.log(JSON.stringify(data, null, 2));
 
-				net.log(net.normalize(data), 1, 10000);
+				//net.log(net.normalize(data), 1, 10000);
 				if (window.top === window) {
 					console.log(new Date().toString() + ': ' + data);
 				}
