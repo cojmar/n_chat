@@ -55,7 +55,7 @@
 			simplestorage: 'https://emupedia.net/beta/emuos/js/libraries/simplestorage-0.2.1.min',
 			socketio: 'https://emupedia.net/beta/emuos/js/libraries/socket.io-2.3.0.min',
 			text: 'https://emupedia.net/beta/emuos/js/libraries/requirejs-text-2.0.15',
-			twemoji: 'https://emupedia.net/beta/emuos/js/libraries/twemoji-12.1.4.min'
+			twemoji: 'https://emupedia.net/beta/emuos/js/libraries/twemoji-12.1.5.min'
 		},
 		shim: {
 			chat: {
