@@ -385,7 +385,7 @@
 					net.room_info.users[data.user] = data.data;
 				}
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" data-title="' + data.data.info.user + '">' + net.normalize(data.data.info.nick) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.data.info.user + '">' + net.normalize(data.data.info.nick) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
