@@ -4,7 +4,7 @@
 				'╠═ ║║║║ ║╠═╝╠═  ║ ║║╠═╣\n' +
 				'╚═╝╩ ╩╚═╝╩  ╚═╝═╩═╝╩╩ ╩');
 
-	// noinspection JSUnusedLocalSymbols,DuplicatedCode
+	// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 	define('optional', [], {
 		load: function(name, req, onload, config) {
 			var onLoadSuccess = function(moduleInstance) {
@@ -12,14 +12,17 @@
 			};
 
 			var onLoadFailure = function(err) {
+				// noinspection JSUnresolvedVariable
 				var failedId = err.requireModules && err.requireModules[0];
 				console.warn('Could not load optional module: ' + failedId);
 
+				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 				requirejs.undef(failedId);
 
 				// noinspection JSRedundantSwitchStatement
 				switch (failedId) {
 					default:
+						// noinspection JSUnresolvedFunction
 						define(failedId, [], function(){return {};});
 						break;
 				}
@@ -34,7 +37,7 @@
 		}
 	});
 
-	// noinspection JSFileReferences
+	// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 	requirejs.config({
 		urlArgs: 'rand=' + (new Date()).getTime(),
 		waitSeconds: 300,
@@ -95,7 +98,7 @@
 		}
 	});
 
-	// noinspection JSCheckFunctionSignatures,JSUnusedLocalSymbols,DuplicatedCode
+	// noinspection JSUnresolvedFunction
 	requirejs([
 		'jquery',
 		'json!https://emupedia.net/beta/emuos/js/config/emoticons.json',
@@ -105,7 +108,6 @@
 		'network',
 		'fingerprint'
 	], function($, emoticons_data, emoticons, twemoji, simplestorage, network, Fingerprint) {
-		// noinspection DuplicatedCode
 		$(function() {
 			var $body = $('body');
 			var net = network.start({
@@ -120,10 +122,6 @@
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
 
-			if (typeof simplestorage.get('nickname') !== 'undefined') {
-				simplestorage.deleteKey('nickname');
-			}
-
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
 
 			net.hash = function (str) {
@@ -136,13 +134,13 @@
 				return hash >>> 0;
 			};
 
-			// noinspection DuplicatedCode
 			net.str_replace = function(search, replace, subject) {
 				var i = 0;
 				var j = 0;
 				var k = 0;
 				var temp = '';
 				var repl = '';
+				// noinspection JSUnusedAssignment
 				var sl = 0;
 				var fl = 0;
 				var f = [].concat(search);
@@ -191,6 +189,7 @@
 			};
 
 			net.normalize = function(str) {
+				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
@@ -199,13 +198,13 @@
 				});
 			};
 
-			// noinspection DuplicatedCode
 			net.log = function (txt, color, hide) {
 				if (typeof color === 'undefined') {
 					color = 0;
 				}
 
 				if (!net.output_div.length) {
+					// noinspection JSUnresolvedVariable
 					if (net.config.mode === 1) {
 						console.log(txt);
 					}
@@ -239,6 +238,7 @@
 				net.output_div.append('<div class="'+ msg_class +'" style="' + color + '">' + time_stamp + txt + '</div>');
 
 				setTimeout(function() {
+					// noinspection JSUnresolvedFunction
 					$('.net_msg_hide').slideUp(200, function() {
 						$(this).remove();
 					});
@@ -247,7 +247,6 @@
 				net.output_div.get(0).scrollTop = net.output_div.get(0).scrollHeight;
 			};
 
-			// noinspection DuplicatedCode
 			net.send_input = function() {
 				var timestamp = Math.floor(Date.now() / 1000);
 
@@ -262,7 +261,7 @@
 				if (timestamp - net.last_send < 2) {
 					net.spam_cap++;
 				} else {
-					if (net.spam_cap > 10) {
+					if (net.spam_cap > 2) {
 						if (timestamp - net.last_send < 10) {
 							return false;
 						}
@@ -271,12 +270,13 @@
 					net.spam_cap = 0;
 				}
 
-				if (net.spam_cap > 10) {
+				if (net.spam_cap > 2) {
 					return false;
 				}
 
 				net.last_send = timestamp;
 
+				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
 
 				if (msg.trim() === '') {
@@ -307,15 +307,18 @@
 						data.data = json_data;
 					}
 
+					// noinspection JSUnresolvedFunction
 					net.send_cmd(data.cmd, data.data);
 				} else {
+					// noinspection JSUnresolvedFunction
 					net.send_cmd('room_msg', msg);
 				}
 
+				// noinspection JSUnresolvedFunction
 				net.text_input.val('');
 			};
 
-			// noinspection DuplicatedCode
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
@@ -323,18 +326,20 @@
 				var server = typeof data !== 'undefined' ? data.server : net.server;
 				// noinspection JSUnresolvedVariable
 				var socket_id = typeof data !== 'undefined' ? data.socket_id : net.socket.id;
-
+				// noinspection JSUnresolvedFunction
 				net.send_cmd('auth', {user: 'EMU-' + fingerprint, room: 'Emupedia'});
 				net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
 				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0);
 			});
 
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
 				// console.log(JSON.stringify(data, null, 2));
 				net.log('[disconnected][' + net.server + ']', 0);
 			});
 
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('auth.info', function (data) {
 				// console.log('auth.info');
 				// console.log(JSON.stringify(data, null, 2));
@@ -345,7 +350,7 @@
 				}
 			});
 
-			// noinspection DuplicatedCode
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.info', function (data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
@@ -354,30 +359,36 @@
 
 				var r_users = '';
 
+				// noinspection JSUnresolvedVariable
 				for (var n in data.users) {
-					// noinspection JSUnfilteredForInLoop
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					var color = (data.users[n].info.user !== data.me) ? net.colors[3] : net.colors[1];
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					r_users += '<div id="room_user_' + net.hash(data.users[n].info.user) + '" style="color: ' + color + '; word-break: keep-all;" data-title="' + data.users[n].info.user + '">' + net.normalize(data.users[n].info.nick) + '</div>';
+					r_users += '<div id="room_user_' + net.hash(data.users[n].info.user) + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.normalize(data.users[n].info.nick) + '</div>';
 				}
 
-				// noinspection JSUnresolvedVariable
+				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + data.users[data.me].info.nick + '" on "' + data.name + '"');
+				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(r_users);
+				// noinspection JSUnresolvedFunction
 				net.client_room.html(data.name);
 			});
 
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.user_join', function (data) {
 				// console.log('room.user_join');
 				// console.log(JSON.stringify(data, null, 2));
 
 				if (net.room_info) {
+					// noinspection JSUnresolvedVariable
 					net.room_info.users[data.user] = data.data;
 				}
 				// noinspection JSUnresolvedVariable
 				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" data-title="' + data.data.info.user + '">' + net.normalize(data.data.info.nick) + '</div>');
 			});
 
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.user_leave', function (data) {
 				// console.log('room.user_leave');
 				// console.log(JSON.stringify(data, null, 2));
@@ -385,13 +396,14 @@
 				var $el = $('#room_user_' + net.hash(data.user));
 
 				setTimeout(function() {
+					// noinspection JSUnresolvedFunction
 					$el.slideUp(200, function() {
 						$(this).remove();
 					});
 				}, 1000);
 			});
 
-			// noinspection DuplicatedCode
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.msg', function (data) {
 				// console.log('room.msg');
 				// console.log(JSON.stringify(data, null, 2));
@@ -399,7 +411,9 @@
 				var nick = data.user;
 
 				if (typeof net.room_info !== 'undefined') {
+					// noinspection JSUnresolvedVariable
 					if (typeof net.room_info.users[nick] !== 'undefined') {
+						// noinspection JSUnresolvedVariable
 						if (typeof net.room_info.users[nick].info !== 'undefined') {
 							// noinspection JSUnresolvedVariable
 							if (typeof net.room_info.users[nick].info.nick !== 'undefined') {
@@ -410,28 +424,31 @@
 					}
 				}
 
+				// noinspection JSUnresolvedVariable
 				net.log('<span style="color: ' + net.colors[3] + '; overflow: hidden;">[' + nick + '] </span>' + net.normalize(data.msg));
 			});
 
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.user_info',function(data) {
 				// console.log('room.user_info');
 				// console.log(JSON.stringify(data, null, 2));
 
-				// noinspection DuplicatedCode
+				// noinspection JSUnresolvedVariable
 				if (net.room_info.users[data.user]) {
 					for (var n in data.info) {
-						// noinspection JSUnfilteredForInLoop
+						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 						net.room_info.users[data.user].info[n] = data.info[n];
 					}
 
 					// noinspection JSUnresolvedVariable
 					if (data.info.nick) {
-						// noinspection JSUnresolvedVariable
+						// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 						$('#room_user_' + net.hash(data.user)).attr('data-title', data.user).data('title', data.user).html(net.normalize(data.info.nick));
 					}
 				}
 			});
 
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('silent.msg', function (data) {
 				// console.log('silent.msg');
 				// console.log(JSON.stringify(data, null, 2));
@@ -442,7 +459,7 @@
 				}
 			});
 
-			// noinspection DuplicatedCode
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('server.help', function (data) {
 				// console.log('server.help');
 				// console.log(JSON.stringify(data, null, 2));
@@ -456,7 +473,9 @@
 
 				net.log(msg);
 
+				// noinspection JSUnresolvedFunction
 				$('.do_cmd').off('click').on('click', function() {
+					// noinspection JSUnresolvedFunction
 					net.text_input.val($(this).html());
 					net.text_input.focus();
 				});
@@ -469,7 +488,7 @@
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
-									'<button id="client_emoticons">😀</button><input id="client_command" type="text" spellcheck="false" autocomplete="off" maxlength="500" /><button id="client_command_send">Send</button>' +
+									'<button id="client_emoticons">😀</button><input id="client_command" type="text" spellcheck="false" autocomplete="off" maxlength="160" /><button id="client_command_send">Send</button>' +
 								'</div>' +
 							'</div>';
 
@@ -481,11 +500,14 @@
 			net.output_div = $('#client_output');
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
+			// noinspection JSUnresolvedFunction
 			net.text_input.off('keypress').on('keypress', function (e) {
+				// noinspection JSDeprecatedSymbols
 				if (e.which === 13) {
 					net.send_input();
 				}
 			});
+			// noinspection JSUnresolvedFunction
 			net.text_input_button.off('click').on('click', function() {
 				net.send_input();
 			});
