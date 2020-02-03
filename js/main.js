@@ -135,6 +135,7 @@
 				'vagina',
 				'faggot',
 				'fagot',
+				'whore',
 				'bitch',
 				'dicks',
 				'pussy',
@@ -154,7 +155,8 @@
 				'shit',
 				'jew',
 				'gay',
-				' ass '
+				' ass ',
+				' cum '
 			];
 			var replace2 = [
 				'`ok teacher`',
@@ -169,6 +171,7 @@
 				'`toy`',
 				'`nice`',
 				'`nice`',
+				'`dog`',
 				'`dog`',
 				'`nails`',
 				'`cat`',
@@ -188,7 +191,8 @@
 				'`stuff`',
 				'`hebrew`',
 				'`nice`',
-				'`behind`'
+				'`behind`',
+				'`candy`'
 			];
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
