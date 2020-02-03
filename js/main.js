@@ -262,7 +262,7 @@
 					net.spam_cap++;
 				} else {
 					if (net.spam_cap > 2) {
-						if (timestamp - net.last_send < 10) {
+						if (timestamp - net.last_send < 2) {
 							return false;
 						}
 					}
