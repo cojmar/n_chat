@@ -283,6 +283,13 @@
 					return false;
 				}
 
+				// noinspection JSUnresolvedVariable
+				if (net.last_msg) {
+					if (net.last_msg === msg) {
+						return false;
+					}
+				}
+
 				if (msg.charAt(0) === '/') {
 					var data = {
 						cmd: '',
@@ -312,6 +319,7 @@
 				} else {
 					// noinspection JSUnresolvedFunction
 					net.send_cmd('room_msg', msg);
+					net.last_msg = msg;
 				}
 
 				// noinspection JSUnresolvedFunction
