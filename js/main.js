@@ -372,7 +372,9 @@
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(r_users);
 				// noinspection JSUnresolvedFunction
-				net.client_room.html(data.name);
+				net.client_room_name.text(data.name);
+				// noinspection JSUnresolvedVariable
+				net.client_room_online.text(Object.keys(net.room_info.users).length)
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -383,6 +385,8 @@
 				if (net.room_info) {
 					// noinspection JSUnresolvedVariable
 					net.room_info.users[data.user] = data.data;
+					// noinspection JSUnresolvedVariable
+					net.client_room_online.text(Object.keys(net.room_info.users).length);
 				}
 				// noinspection JSUnresolvedVariable
 				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.normalize(data.data.info.nick) + '</div>');
@@ -484,7 +488,7 @@
 			var network_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
 								'<div id="client_users" class="client_decoration client_right">' +
-									'<div id="client_room" class="client_decoration"></div>' +
+									'<div id="client_room" class="client_decoration"><span class="name"></span> (<span class="online">0</span> online)</div>' +
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
@@ -500,6 +504,8 @@
 			net.output_div = $('#client_output');
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
+			net.client_room_name = net.client_room.find('span.name');
+			net.client_room_online = net.client_room.find('span.online');
 			// noinspection JSUnresolvedFunction
 			net.text_input.off('keypress').on('keypress', function (e) {
 				// noinspection JSDeprecatedSymbols
