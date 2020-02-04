@@ -355,7 +355,9 @@
 				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
 
-				subject = net.str_ireplace(search2, replace2, subject);
+				if (net.client_room_name.text() === 'Emupedia') {
+					subject = net.str_ireplace(search2, replace2, subject);
+				}
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
 					folder: 'svg',
