@@ -731,7 +731,7 @@
 							// noinspection JSUnresolvedVariable
 							if (typeof net.room_info.users[nick].info.nick !== 'undefined') {
 								// noinspection JSUnresolvedVariable
-								nick = net.normalize(net.room_info.users[nick].info.nick);
+								nick = net.normalize_nicknames(net.room_info.users[nick].info.nick);
 							}
 						}
 					}
