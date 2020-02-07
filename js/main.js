@@ -108,7 +108,7 @@
 		'simplestorage',
 		'network',
 		'fingerprint'
-	], function($, emoticons_data, diacritics_map, emoticons, twemoji, simplestorage, network, Fingerprint) {
+	], function($, emoticons_data, diacritics_data, emoticons, twemoji, simplestorage, network, Fingerprint) {
 		$(function() {
 			var $body = $('body');
 			var net = network.start({
@@ -467,7 +467,7 @@
 
 			net.remove_diacritics = function(str) {
 				return str.replace(/[^\u0000-\u007E]/g, function (letter) {
-					return diacritics_map[letter] || letter;
+					return diacritics_data.mapping[letter] || letter;
 				});
 			};
 
