@@ -52,7 +52,7 @@
 			jqueryuicontextmenu: ['https://emupedia.net/beta/emuos/js/libraries/jquery-ui-contextmenu-1.18.1.min', 'https://emuos.net/beta/emuos/js/libraries/jquery-ui-contextmenu-1.18.1.min'],
 			jquerycustomscrollbar: ['https://emupedia.net/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min', 'https://emuos.net/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min'],
 			jqyeryajaxretry: ['https://emupedia.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', 'https://emuos.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min'],
-			json: ['https://emupedia.net/beta/emuos/js/libraries/requirejs-json-1.0.3', 'https://emuos.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min'],
+			json: ['https://emupedia.net/beta/emuos/js/libraries/requirejs-json-1.0.3', 'https://emuos.net/beta/emuos/js/libraries/requirejs-json-1.0.3'],
 			moment: ['https://emupedia.net/beta/emuos/js/libraries/moment-2.24.0.min', 'https://emuos.net/beta/emuos/js/libraries/moment-2.24.0.min'],
 			'moment-timezone': ['https://emupedia.net/beta/emuos/js/libraries/moment-timezone-0.5.27.min', 'https://emuos.net/beta/emuos/js/libraries/moment-timezone-0.5.27.min'],
 			network: ['https://emupedia.net/beta/emuos/js/network', 'https://emuos.net/beta/emuos/js/network'],
