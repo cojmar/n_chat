@@ -43,8 +43,6 @@
 		waitSeconds: 300,
 		paths: {
 			emoticons: ['https://emupedia.net/beta/emuos/js/emoticons', 'https://emuos.net/beta/emuos/js/emoticons'],
-			emoticons_data: ['https://emupedia.net/beta/emuos/js/config/emoticons.json', 'https://emuos.net/beta/emuos/js/config/emoticons.json'],
-			diacritics_map: ['https://emupedia.net/beta/emuos/js/config/diacritics.json', 'https://emuos.net/beta/emuos/js/config/diacritics.json'],
 			fingerprint: ['https://emupedia.net/beta/emuos/js/libraries/fingerprint-0.5.3', 'https://emuos.net/beta/emuos/js/libraries/fingerprint-0.5.3'],
 			jquery: ['https://emupedia.net/beta/emuos/js/libraries/jquery-2.2.4.min', 'https://emuos.net/beta/emuos/js/libraries/jquery-2.2.4.min'],
 			jquerymousewheel: ['https://emupedia.net/beta/emuos/js/libraries/jquery-mousewheel-3.1.13', 'https://emuos.net/beta/emuos/js/libraries/jquery-mousewheel-3.1.13'],
@@ -103,8 +101,8 @@
 	// noinspection JSUnresolvedFunction
 	requirejs([
 		'jquery',
-		'json!emoticons_data',
-		'json!diacritics_map',
+		'json!config/emoticons.json',
+		'json!config/diacritics.json',
 		'emoticons',
 		'twemoji',
 		'simplestorage',
