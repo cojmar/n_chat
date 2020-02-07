@@ -485,6 +485,19 @@
 				});
 			};
 
+			net.normalize_nicknames = function(str) {
+				var subject = $('<div />').text(str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
+
+				if (net.client_room_name.text() === 'Emupedia') {
+					subject = net.str_ireplace(search2, replace2, net.remove_diacritics(subject));
+				}
+
+				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+					folder: 'svg',
+					ext: '.svg'
+				});
+			};
+
 			net.log = function (txt, color, hide) {
 				if (typeof color === 'undefined') {
 					color = 0;
@@ -659,7 +672,7 @@
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					var color = (data.users[n].info.user !== data.me) ? net.colors[3] : net.colors[1];
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					r_users += '<div id="room_user_' + net.hash(data.users[n].info.user) + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.normalize(data.users[n].info.nick) + '</div>';
+					r_users += '<div id="room_user_' + net.hash(data.users[n].info.user) + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.normalize_nicknames(data.users[n].info.nick) + '</div>';
 				}
 
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
@@ -684,7 +697,7 @@
 					net.client_room_online.text(parseInt(net.client_room_online.text()) + 1);
 				}
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.normalize(data.data.info.nick) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.normalize_nicknames(data.data.info.nick) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -743,7 +756,7 @@
 					// noinspection JSUnresolvedVariable
 					if (data.info.nick) {
 						// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-						$('#room_user_' + net.hash(data.user)).attr('data-title', data.user).data('title', data.user).html(net.normalize(data.info.nick));
+						$('#room_user_' + net.hash(data.user)).attr('data-title', data.user).data('title', data.user).html(net.normalize_nicknames(data.info.nick));
 					}
 				}
 			});
