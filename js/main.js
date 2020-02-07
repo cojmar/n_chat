@@ -101,8 +101,8 @@
 	// noinspection JSUnresolvedFunction
 	requirejs([
 		'jquery',
-		'json!config/emoticons.json',
-		'json!config/diacritics.json',
+		'json!../data/emoticons.json',
+		'json!../data/diacritics.json',
 		'emoticons',
 		'twemoji',
 		'simplestorage',
