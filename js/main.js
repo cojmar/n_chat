@@ -380,9 +380,13 @@
 				// noinspection JSUnusedAssignment
 				var sl = 0;
 				var fl = 0;
+				// noinspection JSUnusedAssignment
 				var f = '';
+				// noinspection JSUnusedAssignment
 				var r = '';
+				// noinspection JSUnusedAssignment
 				var s = '';
+				// noinspection JSUnusedAssignment
 				var ra = '';
 				var otemp = '';
 				var oi = '';
@@ -394,6 +398,7 @@
 				if (typeof (search) === 'object') {
 					temp = search;
 					search = [];
+
 					for (i = 0; i < temp.length; i += 1) {
 						search[i] = temp[i].toLowerCase();
 					}
