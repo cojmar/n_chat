@@ -126,19 +126,24 @@
 			var replace = Object.values(emoticons_data.mapping);
 
 			var search2 = [
+				'p o r n h u b',
+				'B O O M E R',
 				'n i g g a s',
 				'n i g g a r',
 				'n i g g e r',
 				'f a g g o t',
+				'@gmail .com',
 				'@gmail.com',
 				'ok boomer',
 				'ok b00mer',
 				'B I T C H',
+				'N I G G A',
 				'porn hub',
 				'ni gg er',
 				'dick pic',
 				'ni gger',
 				'pornhub',
+				'C U N T',
 				'dic pic',
 				'dik pic',
 				'niggers',
@@ -208,22 +213,28 @@
 				' anal ',
 				' ass ',
 				' cum ',
-				'卐'
+				'卐',
+				'☭'
 			];
 			var replace2 = [
+				'`library`',
+				'`teacher`',
 				'`blacks`',
 				'`black`',
 				'`black`',
 				'`nice`',
 				'',
+				'',
 				'`ok teacher`',
 				'`ok teacher`',
 				'`dog`',
+				'`black`',
 				'`library`',
 				'`black`',
 				'`selfie`',
 				'`black`',
 				'`library`',
+				'`toy`',
 				'`selfie`',
 				'`selfie`',
 				'`blacks`',
@@ -232,7 +243,6 @@
 				'`smiling`',
 				'`selfie`',
 				'`lol`',
-				'`nail`',
 				'`nail`',
 				'`selfie`',
 				'`selfie`',
@@ -294,6 +304,7 @@
 				'`behind`',
 				'`behind`',
 				'`candy`',
+				'🌼',
 				'🌼'
 			];
 
