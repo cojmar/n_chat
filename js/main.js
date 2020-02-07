@@ -207,7 +207,8 @@
 				'g@y',
 				' anal ',
 				' ass ',
-				' cum '
+				' cum ',
+				'卐'
 			];
 			var replace2 = [
 				'`blacks`',
@@ -292,7 +293,8 @@
 				'`nice`',
 				'`behind`',
 				'`behind`',
-				'`candy`'
+				'`candy`',
+				'🌼'
 			];
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
