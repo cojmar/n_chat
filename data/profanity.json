@@ -4,13 +4,15 @@
 	},
 	"mapping": {
 		"en": {
+			"phonenumber": ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen"],
+			"gmail": ["gmail", "gmail.com", "gmail..com"],
 			"pornhub": ["p.o.r.n.h.u.b", "porn.hub", "pcornhub", "pornhub", "pronhub"],
-			"fuck": ["fuuuuck", "fuuuck", "fuuck", "f.u.c.k", "f.uck", "fu.c.k", "fu.ck", "fuc.k", "fuck", "fuc", "fuk", "fck", "ffs"],
+			"fuck": ["fuuuuck", "fuuuck", "fuuck", "fucking", "fuckin", "f.u.c.k", "f.uck", "fu.c.k", "fu.ck", "fuc.k", "fuck", "fuc", "fuk", "fck", "ffs"],
 			"shit": ["s.h.i.t", "\\$hit", "shit", "\\$h1t", "\\$h!t", "sh1t", "sh!t"],
 			"nigger": ["n.i.g.g.e.r", "ni.g.g.a", "nig.g.a", "ni.gga", "ni.gg.er", "ni.gger", "nig.ger", "niggers", "nigger", "n1gger", "nigg3r", "n1gg3r", "niggar", "n1ggar", "n.igga", "niger", "nigga", "n1gga", "negro", "nigro", "ngger", "nggr", "niga", "nigg", "nig "],
 			"boomer": ["b.o.o.m.e.r", "b.oo.m.r", "boommer", "boomer", "b00mer", "boomr"],
 			"faggot": ["f.a.g.g.o.t", "faggot", "f@ggot", "fagot", "f@got", "faggt", "fagg", "f@gg", "fag", "f@g"],
-			"bitch": ["b.i.t.c.h", "bit.ch", "bi.tch", "biatch", "bitch", "b1tch", "bltch", "b!tch", "beach", "bicth", "bich", "bish"],
+			"bitch": ["b.i.t.c.h", "bit.c.h", "bit.ch", "bi.tch", "biatch", "bitch", "b1tch", "bltch", "b!tch", "beach", "bicth", "bich", "bish"],
 			"hooker": ["hooker", "hoe"],
 			"prostitute": ["prostitute", "prostitution"],
 			"balls": ["balls", "ballz", "bolls", "bals", "balz"],
@@ -54,7 +56,7 @@
 			"pussy": ["p.u.s.s.y", "p.ussy", "puss.y", "pussy", "pussi", "pu55y", "pu\\$\\$y", "pssy", "puss", "pus"],
 			"whore": ["whore"],
 			"ligma": ["ligma"],
-			"nude": ["n.u.d.e", "nu.de", "nude"],
+			"nude": ["n.u.d.e.s", "n.u.d.e", "nud.es", "nu.de", "nudes", "nude", " nud"],
 			"nuts": ["nuts"],
 			"anal": ["analy", "@naly", "an@ly", "@n@ly", "anal", "@nal", "an@l", "@n@l"],
 			"horny": ["hor.ny", "horny", "hrny", "hony"],
@@ -74,6 +76,7 @@
 	},
 	"replace": {
 		"en": {
+			"": ["phonenumber", "gmail"],
 			"library": ["pornhub"],
 			"ballons": ["tits", "boobs"],
 			"candy": ["cum", "sperm", "pee", "urine", "nuts", "balls"],
