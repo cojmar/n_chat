@@ -331,6 +331,30 @@
 			};
 
 			net.remove_profanity = function(str) {
+				for (var profanity1 in profanity_data.mapping.en) {
+					// noinspection JSUnfilteredForInLoop
+					var profanity1sorted = profanity_data.mapping.en[profanity1].sort(function(a, b) {
+						return b.length - a.length
+					});
+
+					for (var p1 in profanity1sorted) {
+						// noinspection JSUnfilteredForInLoop
+						if (str.toLowerCase() === profanity1sorted[p1].split('.').join(' ')) {
+							str = profanity1;
+
+							for (var profanity2 in profanity_data.replace.en) {
+								// noinspection JSUnfilteredForInLoop
+								for (var p2 in profanity_data.replace.en[profanity2]) {
+									// noinspection JSUnfilteredForInLoop
+									if (str.toLowerCase() === profanity_data.replace.en[profanity2][p2]) {
+										return str = '`' + profanity2 + '`';
+									}
+								}
+							}
+						}
+					}
+				}
+
 				for (var r1 in search_regex) {
 					str = str.replace(search_regex[r1], ' ' + r1 + ' ');
 				}
