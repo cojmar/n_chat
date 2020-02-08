@@ -339,7 +339,7 @@
 
 					for (var p1 in profanity1sorted) {
 						// noinspection JSUnfilteredForInLoop
-						if (str.toLowerCase() === profanity1sorted[p1].split('.').join(' ')) {
+						if (str.toLowerCase() === profanity1sorted[p1].split('.').join(' ').split('\$').join('$')) {
 							str = profanity1;
 
 							for (var profanity2 in profanity_data.replace.en) {

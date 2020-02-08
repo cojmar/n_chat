@@ -29,7 +29,7 @@
 			"dick": ["d.i.c.k", "d.ick", "di.ck", "dic.k", "dick", "d!ck", "d1ck", "dic", "dik", "ick"],
 			"cock": ["c.o.c.k", "c.o.ck", "c.ock", "c.ok", "cock", "cok", "coc"],
 			"coochie": ["coochie", "coochee", "coochi"],
-			"dumbass": ["dumb.ass", "dumb.a\\$\\$", "dumb.@\\$\\$", "dumbass", "dumba$$", "dumb@$$"],
+			"dumbass": ["dumb.ass", "dumb.a\\$\\$", "dumb.@\\$\\$", "dumbass", "dumba\\$\\$", "dumb@\\$\\$"],
 			"cracker": ["cracker"],
 			"penis": ["p.e.n.i.s", "pen.is", "peni.s", "penis", "benis"],
 			"pee": ["pee"],
@@ -49,7 +49,7 @@
 			"assassin": ["assassin"],
 			"murder": ["murder"],
 			"poop": ["poop", "caca"],
-			"pussy": ["p.u.s.s.y", "p.ussy", "puss.y", "pussy", "pussi", "pu55y", "pu$$y", "pssy", "puss"],
+			"pussy": ["p.u.s.s.y", "p.ussy", "puss.y", "pussy", "pussi", "pu55y", "pu\\$\\$y", "pssy", "puss"],
 			"whore": ["whore"],
 			"ligma": ["ligma"],
 			"nude": ["n.u.d.e", "nu.de", "nude"],
@@ -65,7 +65,7 @@
 			"boobs": ["boobs"],
 			"jew": ["jew", "j3w"],
 			"aids": ["aids"],
-			" ass ": ["asss", " ass ", "a$$", "@$$"],
+			" ass ": ["asss", " ass ", "a\\$\\$", "@\\$\\$"],
 			"nazi": ["nazi", "nazy"],
 			"communist": ["communist", "commy"]
 		}
