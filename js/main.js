@@ -107,9 +107,8 @@
 		'emoticons',
 		'twemoji',
 		'simplestorage',
-		'network',
-		'fingerprint'
-	], function($, emoticons_data, diacritics_data, profanity_data, emoticons, twemoji, simplestorage, network, Fingerprint) {
+		'network'
+	], function($, emoticons_data, diacritics_data, profanity_data, emoticons, twemoji, simplestorage, network) {
 		$(function() {
 			var $body = $('body');
 			var net = network.start({
@@ -117,6 +116,11 @@
 				server: ~window.location.hostname.indexOf('emuos.net') ? 1 : 0,
 				mode: 0
 			});
+
+			// noinspection JSUnresolvedFunction
+			simplestorage.deleteKey('fingerprint');
+			// noinspection JSUnresolvedFunction
+			simplestorage.deleteKey('uuid');
 
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
@@ -163,30 +167,6 @@
 			}
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
-
-			net.hash = function (str) {
-				var hash = 5381, i = str.length;
-
-				while (i) {
-					hash = (hash * 33) ^ str.charCodeAt(--i);
-				}
-
-				return hash >>> 0;
-			};
-
-			net.uuid = function() {
-				var d = new Date().getTime();
-
-				return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-					var r = (d + Math.random() * 16) % 16 | 0;
-					d = Math.floor(d / 16);
-
-					return (c === 'x' ? r : (r & 0x7 | 0x8)).toString(16);
-				});
-			};
-
-			var fingerprint = net.hash(net.uuid());
-			fingerprint = typeof simplestorage.get('uuid') !== 'undefined' ? simplestorage.get('uuid') : simplestorage.set('uuid', fingerprint) && fingerprint;
 
 			net.str_replace = function(search, replace, subject) {
 				var i = 0;
@@ -552,7 +532,7 @@
 				// noinspection JSUnresolvedVariable
 				var socket_id = typeof data !== 'undefined' ? data.socket_id : net.socket.id;
 				// noinspection JSUnresolvedFunction
-				net.send_cmd('auth', {user: 'EMU-' + fingerprint, room: 'Emupedia'});
+				net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia'});
 				net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
 				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0);
 			});
@@ -568,6 +548,11 @@
 			net.socket.on('auth.info', function (data) {
 				// console.log('auth.info');
 				// console.log(JSON.stringify(data, null, 2));
+
+				// noinspection JSUnresolvedVariable
+				if (data.login && !simplestorage.get('uid')) {
+					simplestorage.set('uid', data.login)
+				}
 
 				// noinspection JSUnresolvedVariable
 				if (data.login === data.info.nick) {
