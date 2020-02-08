@@ -671,7 +671,7 @@
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
-									'<button id="client_emoticons">😀</button><input id="client_command" type="text" spellcheck="false" autocomplete="off" maxlength="160" /><button id="client_command_send">Send</button>' +
+									'<button id="client_emoticons">😀</button><input id="client_command" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
 								'</div>' +
 							'</div>';
 
