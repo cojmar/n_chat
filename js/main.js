@@ -574,7 +574,7 @@
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					var color = (data.users[n].info.user !== data.me) ? net.colors[3] : net.colors[1];
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					r_users += '<div id="room_user_' + net.hash(data.users[n].info.user) + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.normalize_nicknames(data.users[n].info.nick) + '</div>';
+					r_users += '<div id="room_user_' + data.users[n].info.user + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.normalize_nicknames(data.users[n].info.nick) + '</div>';
 				}
 
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
@@ -599,7 +599,7 @@
 					net.client_room_online.text(parseInt(net.client_room_online.text()) + 1);
 				}
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + net.hash(data.data.info.user) + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.normalize_nicknames(data.data.info.nick) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.normalize_nicknames(data.data.info.nick) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -607,7 +607,7 @@
 				// console.log('room.user_leave');
 				// console.log(JSON.stringify(data, null, 2));
 
-				var $el = $('#room_user_' + net.hash(data.user));
+				var $el = $('#room_user_' + data.user);
 				net.client_room_online.text(parseInt(net.client_room_online.text()) - 1);
 
 				setTimeout(function() {
@@ -658,7 +658,7 @@
 					// noinspection JSUnresolvedVariable
 					if (data.info.nick) {
 						// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-						$('#room_user_' + net.hash(data.user)).attr('data-title', data.user).data('title', data.user).html(net.normalize_nicknames(data.info.nick));
+						$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.normalize_nicknames(data.info.nick));
 					}
 				}
 			});
