@@ -225,6 +225,13 @@ if (typeof Math.imul === 'undefined') {
 
 // region String
 
+if (!String.prototype.trim) {
+	console.log('String.prototype.trim trim loaded!');
+	String.prototype.trim = function() {
+		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+	};
+}
+
 // IE 11.592.18362.0
 if (!String.prototype.startsWith) {
 	console.log('String.prototype.startsWith polyfill loaded!');
