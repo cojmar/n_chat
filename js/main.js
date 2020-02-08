@@ -103,12 +103,13 @@
 		'jquery',
 		'json!../data/emoticons.json',
 		'json!../data/diacritics.json',
+		'json!../data/profanity.json',
 		'emoticons',
 		'twemoji',
 		'simplestorage',
 		'network',
 		'fingerprint'
-	], function($, emoticons_data, diacritics_data, emoticons, twemoji, simplestorage, network, Fingerprint) {
+	], function($, emoticons_data, diacritics_data, profanity_data, emoticons, twemoji, simplestorage, network, Fingerprint) {
 		$(function() {
 			var $body = $('body');
 			var net = network.start({
@@ -123,188 +124,41 @@
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
 
-			var search2 = [
-				'p o r n h u b',
-				'B O O M E R',
-				'n i g g a s',
-				'n i g g a r',
-				'n i g g e r',
-				'f a g g o t',
-				'@gmail .com',
-				'@gmail.com',
-				'ok boomer',
-				'ok b00mer',
-				'B I T C H',
-				'N I G G A',
-				'porn hub',
-				'ni gg er',
-				'dick pic',
-				'ni gger',
-				'pornhub',
-				'C U N T',
-				'dic pic',
-				'dik pic',
-				'niggers',
-				'nig-ger',
-				'cracker',
-				'fucking',
-				'dickpic',
-				'f u c k',
-				'peni s',
-				'dicpic',
-				'dikpic',
-				'retard',
-				'hitler',
-				'nigger',
-				'nigg3r',
-				'n1gg3r',
-				'hentai',
-				'spicks',
-				'vagina',
-				'cancer',
-				'faggot',
-				'n igga',
-				'p ussy',
-				'puss y',
-				'negro',
-				'fagot',
-				'whore',
-				'bitch',
-				'bltch',
-				'b!tch',
-				'dicks',
-				'pussy',
-				'pu55y',
-				'penis',
-				'nigga',
-				'ligma',
-				'nudes',
-				'analy',
-				'fucks',
-				'f uck',
-				'fuc k',
-				'fu ck',
-				'spick',
-				'horny',
-				'cunts',
-				'dic k',
-				'd ick',
-				'di ck',
-				'g a y',
-				'fags',
-				'f@gs',
-				'cunt',
-				'dick',
-				'd1ck',
-				'fuck',
-				'cock',
-				'porn',
-				'homo',
-				'jews',
-				'shit',
-				'sh1t',
-				'aids',
-				'g @ay',
-				'jew',
-				'gay',
-				'g@y',
-				' anal ',
-				' ass ',
-				' cum ',
-				'卐',
-				'☭'
-			];
-			var replace2 = [
-				'`library`',
-				'`teacher`',
-				'`blacks`',
-				'`black`',
-				'`black`',
-				'`nice`',
-				'',
-				'',
-				'`ok teacher`',
-				'`ok teacher`',
-				'`dog`',
-				'`black`',
-				'`library`',
-				'`black`',
-				'`selfie`',
-				'`black`',
-				'`library`',
-				'`toy`',
-				'`selfie`',
-				'`selfie`',
-				'`blacks`',
-				'`blacks`',
-				'`biscuit`',
-				'`smiling`',
-				'`selfie`',
-				'`lol`',
-				'`nail`',
-				'`selfie`',
-				'`selfie`',
-				'`slow thinker`',
-				'`abraham lincoln`',
-				'`black`',
-				'`black`',
-				'`black`',
-				'`anime`',
-				'`latinos`',
-				'`toy`',
-				'`cookies`',
-				'`nice`',
-				'`black`',
-				'`toy`',
-				'`toy`',
-				'`black`',
-				'`nice`',
-				'`dog`',
-				'`dog`',
-				'`dog`',
-				'`dog`',
-				'`nails`',
-				'`cat`',
-				'`cat`',
-				'`nail`',
-				'`black`',
-				'`laughter`',
-				'`selfie`',
-				'`behind`',
-				'`cares`',
-				'`lol`',
-				'`lol`',
-				'`lol`',
-				'`latino`',
-				'`nice`',
-				'`toys`',
-				'`nail`',
-				'`nail`',
-				'`nail`',
-				'`nice`',
-				'`nice`',
-				'`nice`',
-				'`toy`',
-				'`nail`',
-				'`nail`',
-				'`lol`',
-				'`nail`',
-				'`movie`',
-				'`nice`',
-				'`hebrews`',
-				'`stuff`',
-				'`stuff`',
-				'`cookies`',
-				'`nice`',
-				'`hebrew`',
-				'`nice`',
-				'`nice`',
-				'`behind`',
-				'`behind`',
-				'`candy`',
-				'🌼',
-				'🌼'
-			];
+			var search_regex = {};
+			var replace_regex = {};
+
+			// noinspection DuplicatedCode,JSUnresolvedVariable
+			for (var profanity1 in profanity_data.mapping.en) {
+				var regex1 = '';
+				// noinspection JSUnfilteredForInLoop
+				for (var p1 in profanity_data.mapping.en[profanity1]) {
+					// noinspection JSUnfilteredForInLoop
+					regex1 += ' ' + profanity_data.mapping.en[profanity1][p1] + '|';
+					// noinspection JSUnfilteredForInLoop
+					regex1 += ' ' + profanity_data.mapping.en[profanity1][p1] + ' |';
+					// noinspection JSUnfilteredForInLoop
+					regex1 += profanity_data.mapping.en[profanity1][p1] + ' |';
+				}
+				// noinspection JSUnfilteredForInLoop
+				search_regex[profanity1] = new RegExp(regex1.slice(0, -1), 'gi');
+			}
+
+			// noinspection DuplicatedCode,JSUnresolvedVariable
+			for (var profanity2 in profanity_data.replace.en) {
+				// noinspection JSUnfilteredForInLoop
+				var regex2 = profanity_data.replace.en[profanity2][0] + '|';
+				// noinspection JSUnfilteredForInLoop,DuplicatedCode
+				for (var p2 in profanity_data.replace.en[profanity2]) {
+					// noinspection JSUnfilteredForInLoop
+					regex2 += ' ' + profanity_data.replace.en[profanity2][p2] + '|';
+					// noinspection JSUnfilteredForInLoop
+					regex2 += ' ' + profanity_data.replace.en[profanity2][p2] + ' |';
+					// noinspection JSUnfilteredForInLoop
+					regex2 += profanity_data.replace.en[profanity2][p2] + ' |';
+				}
+				// noinspection JSUnfilteredForInLoop
+				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
+			}
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
 
@@ -471,12 +325,24 @@
 				});
 			};
 
+			net.remove_profanity = function(str) {
+				for (var r1 in search_regex) {
+					str = str.replace(search_regex[r1], ' ' + r1 + ' ');
+				}
+
+				for (var r2 in replace_regex) {
+					str = str.replace(replace_regex[r2], ' `' + r2 + '` ');
+				}
+
+				return str.split('  ').join(' ').split('  ').join(' ');
+			};
+
 			net.normalize = function(str) {
 				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(str.replace(/[0-9]/g, '').replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
-					subject = net.str_ireplace(search2, replace2, net.remove_diacritics(subject));
+					subject = net.remove_profanity(net.remove_diacritics(subject));
 				}
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
@@ -489,7 +355,7 @@
 				var subject = $('<div />').text(str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
-					subject = net.str_ireplace(search2, replace2, net.remove_diacritics(subject));
+					subject = net.remove_profanity(net.remove_diacritics(subject));
 				}
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
