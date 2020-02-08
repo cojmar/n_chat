@@ -45,7 +45,10 @@
 			"vagina": ["vagina"],
 			"cancer": ["cancer"],
 			"rape": ["rape"],
+			"shooter": ["shooter"],
 			"rapist": ["rapist"],
+			"assassin": ["assassin"],
+			"murder": ["murder"],
 			"poop": ["poop", "caca"],
 			"pussy": ["p u s s y", "p ussy", "puss y", "pussy", "pussi", "pu55y", "pu$$y", "pssy", "puss"],
 			"whore": ["whore"],
@@ -63,7 +66,7 @@
 			"boobs": ["boobs"],
 			"jew": ["jew", "j3w"],
 			"aids": ["aids"],
-			"ass": ["asss", "ass", "a$$", "@$$"],
+			"ass": ["asss", " ass", "a$$", "@$$"],
 			"nazi": ["nazi", "nazy"],
 			"communist": ["communist", "commy"]
 		}
@@ -84,9 +87,10 @@
 			"black": ["nigger"],
 			"latino": ["spick"],
 			"friend": ["pedo", "rapist"],
+			"tree hugger": ["shooter", "terrorist", "assassin"],
 			"movie": ["porn"],
 			"student": ["nazi", "communist"],
-			"meet": ["gangbang", "kidnap", "bomb", "kill"],
+			"meet": ["gangbang", "kidnap", "bomb", "kill", "murder"],
 			"selfie": ["dickpic", "nude"],
 			"abraham lincoln": ["hitler", "stalin"],
 			"toy": ["vagina", "cunt", "coochie"],
@@ -98,7 +102,7 @@
 			"anime": ["hentai"],
 			"laughter": ["cancer", "ligma", "aids"],
 			"🌼": ["卐", "☭", "💩"],
-			"👌": ["🖕", "b=", "8="]
+			"👌": ["🖕", "b=", "8=", "===D"]
 		}
 	}
 }
