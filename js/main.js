@@ -118,9 +118,6 @@
 				mode: 0
 			});
 
-			var fingerprint = new Fingerprint().get();
-			fingerprint = typeof simplestorage.get('fingerprint') !== 'undefined' ? simplestorage.get('fingerprint') : simplestorage.set('fingerprint', fingerprint) && fingerprint;
-
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
 
@@ -176,6 +173,20 @@
 
 				return hash >>> 0;
 			};
+
+			net.uuid = function() {
+				var d = new Date().getTime();
+
+				return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+					var r = (d + Math.random() * 16) % 16 | 0;
+					d = Math.floor(d / 16);
+
+					return (c === 'x' ? r : (r & 0x7 | 0x8)).toString(16);
+				});
+			};
+
+			var fingerprint = net.hash(net.uuid());
+			fingerprint = typeof simplestorage.get('uuid') !== 'undefined' ? simplestorage.get('uuid') : simplestorage.set('uuid', fingerprint) && fingerprint;
 
 			net.str_replace = function(search, replace, subject) {
 				var i = 0;
