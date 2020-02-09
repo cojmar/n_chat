@@ -322,7 +322,7 @@
 			};
 
 			net.remove_profanity = function(str) {
-				str = str.split('  ').join(' ').split('  ').join(' ').split('  ').join(' ').split('  ').join(' ').split('  ').join(' ');
+				str = str.replace(/  +/g, ' ');
 
 				for (var profanity1 in profanity_data.mapping.en) {
 					// noinspection JSUnfilteredForInLoop
@@ -356,7 +356,7 @@
 					str = str.replace(replace_regex[r2], ' `' + r2 + '` ');
 				}
 
-				return str.split('  ').join(' ').split('  ').join(' ').split('  ').join(' ').split('  ').join(' ').split('  ').join(' ');
+				return str.replace(/  +/g, ' ');
 			};
 
 			net.normalize = function(str) {
