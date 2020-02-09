@@ -420,6 +420,13 @@
 						data.data = json_data;
 					}
 
+					if (net.client_cmd(data)) {
+						// noinspection JSUnresolvedFunction
+						net.text_input.val('');
+
+						return true;
+					}
+
 					// noinspection JSUnresolvedFunction
 					net.send_cmd(data.cmd, data.data);
 				} else {
@@ -430,6 +437,42 @@
 
 				// noinspection JSUnresolvedFunction
 				net.text_input.val('');
+			};
+
+			net.client_cmd = function(argz) {
+				var muted = net.room_info.data.muted || [];
+
+				switch (argz.cmd) {
+					case 'mute':
+						if (!~muted.indexOf(argz.data)) {
+							muted.push(argz.data);
+						}
+
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('set_room_data', {muted: false});
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('set_room_data', {muted: muted});
+						return true;
+					case 'unmute':
+						var index = muted.indexOf(argz.data);
+
+						if (index > -1) {
+							muted.splice(index, 1);
+						}
+
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('set_room_data', {muted: false});
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('set_room_data', {muted: muted});
+						return true;
+				}
+
+				return false;
+			};
+
+			net.check_msg = function(data) {
+				var muted = net.room_info.data.muted || [];
+				return !~muted.indexOf(data.user);
 			};
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -497,6 +540,13 @@
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			net.socket.on('room.data', function(data) {
+				// console.log('room.data');
+				// console.log(JSON.stringify(data, null, 2));
+				net.room_info.data = $.extend(net.room_info.data, data.data);
+			});
+
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.user_join', function (data) {
 				// console.log('room.user_join');
 				// console.log(JSON.stringify(data, null, 2));
@@ -531,6 +581,10 @@
 			net.socket.on('room.msg', function (data) {
 				// console.log('room.msg');
 				// console.log(JSON.stringify(data, null, 2));
+
+				if (!net.check_msg(data)) {
+					return false;
+				}
 
 				var nick = data.user;
 
