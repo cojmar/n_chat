@@ -122,7 +122,8 @@
 		'emoticons',
 		'twemoji',
 		'simplestorage',
-		'network'
+		'network',
+		'optional!ga'
 	], function($, emoticons_data, diacritics_data, profanity_data, emoticons, twemoji, simplestorage, network, ga) {
 		$(function() {
 			if (typeof ga === 'function') {
