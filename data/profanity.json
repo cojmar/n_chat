@@ -4,7 +4,7 @@
 	},
 	"mapping": {
 		"en": {
-			"phonenumber": ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen"],
+			"phonenumber": ["two", "three", "four", "five", "six", "seven", "eight", "nine", " ten", "eleven", "twelve", "thirteen"],
 			"gmail": ["gmail", "gmail.com", "gmail..com"],
 			"pornhub": ["p.o.r.n.h.u.b", "porn.hub", "pcornhub", "pornhub", "pronhub"],
 			"fuck": ["fuuuuck", "fuuuck", "fuuck", "fucking", "fuckin", "f.u.c.k", "f.uck", "fu.c.k", "fu.ck", "fuc.k", "fuck", "fuc", "fuk", "fck", "ffs"],
