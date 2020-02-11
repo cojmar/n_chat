@@ -590,6 +590,10 @@
 				// console.log('room.user_leave');
 				// console.log(JSON.stringify(data, null, 2));
 
+				if (net.room_info) {
+					if (net.room_info.users[data.user]) delete net.room_info.users[data.user]
+				}
+
 				var $el = $('#room_user_' + data.user);
 
 				setTimeout(function() {
