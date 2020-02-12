@@ -5,7 +5,8 @@
 	"mapping": {
 		"en": {
 			"phonenumber": ["two", "three", "four", "five", "six", "seven", "eight", "nine", " ten", "eleven", "elleven", "twelve", "twel ve", "thirteen"],
-			"email": ["email", "gmail", "yahoo", "@gmail.com", "@yahoo.com", "gmail.com", "yahoo.com", "rblx.gg", "discord.gg"],
+			"email": ["email", "gmail", "yahoo", "@gmail.com", "@yahoo.com"],
+			"website": ["gmail.com", "yahoo.com", "rblx.gg", "discord.gg", "grabify.link", "bmwforum.co", "leancoding.co", "spottyfly.com", "stopify.co", "yoütu.be", "discörd.com", "minecräft.com", "freegiftcards.co", "disçordapp.com", "fortnight.space", "fortnitechat.site", "joinmy.site", "curiouscat.club", "catsnthings.fun", "yourtube.site", "youtubeshort.watch", "catsnthing.com", "youtubeshort.pro", "amishdatacenter.com", "poweredbydialup.org", "amishprincess.com", "packetlivesmatter.club", "packetlivesmatter.online", "canadianlumberjacks.club", "canadianlumberjacks.online", "poweredbydialup.club", "poweredbydialup.online", "poweredbysecurity.org", "poweredbysecurity.online"],
 			"pornhub": ["p.o.r.n.h.u.b", "porn.hub", "pcornhub", "pornhub", "pronhub", "pornhub.com"],
 			"redtube": ["redtube", "red tube", "redtube.com"],
 			"fuck": ["fuuuuck", "fuuuck", "fuuck", "fu..cking", "fucking", "fuckin", "f.u.c.k", "f.uck", "fhuck", "fu.c.k", "fu.ck", "fuc.k", "fuck", "fker", "fuc", "fuk", "fck", "ffs"],
@@ -83,7 +84,7 @@
 	},
 	"replace": {
 		"en": {
-			"": ["phonenumber", "email"],
+			"": ["phonenumber", "email", "website"],
 			"library": ["pornhub"],
 			"ballons": ["tits", "boobs"],
 			"candy": ["analcum", "cum", "sperm", "semen", "pee", "urine", "nuts", "balls"],
