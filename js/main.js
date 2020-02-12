@@ -118,13 +118,13 @@
 		'jquery',
 		'json!../data/emoticons.json',
 		'json!../data/normalize.json',
-		'json!../data/profanity.json',
+		'json!../data/blacklist.json',
 		'emoticons',
 		'twemoji',
 		'simplestorage',
 		'network',
 		'optional!ga'
-	], function($, emoticons_data, normalize_data, profanity_data, emoticons, twemoji, simplestorage, network, ga) {
+	], function($, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ga) {
 		$(function() {
 			if (typeof ga === 'function') {
 				ga('send', {
@@ -148,11 +148,11 @@
 			var replace_regex = {};
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
-			for (var profanity1 in profanity_data.mapping.en) {
+			for (var profanity1 in blacklist_data.mapping.en) {
 				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var regex1 = profanity_data.mapping.en[profanity1][0] + '|';
+				var regex1 = blacklist_data.mapping.en[profanity1][0] + '|';
 				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var profanity1sorted = profanity_data.mapping.en[profanity1].sort(function(a, b) {
+				var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
 					return b.length - a.length
 				});
 				// noinspection JSUnfilteredForInLoop
@@ -169,17 +169,17 @@
 			}
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
-			for (var profanity2 in profanity_data.replace.en) {
+			for (var profanity2 in blacklist_data.replace.en) {
 				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var regex2 = profanity_data.replace.en[profanity2][0] + '|';
+				var regex2 = blacklist_data.replace.en[profanity2][0] + '|';
 				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				for (var p2 in profanity_data.replace.en[profanity2]) {
+				for (var p2 in blacklist_data.replace.en[profanity2]) {
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					regex2 += ' ' + profanity_data.replace.en[profanity2][p2] + '|';
+					regex2 += ' ' + blacklist_data.replace.en[profanity2][p2] + '|';
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					regex2 += ' ' + profanity_data.replace.en[profanity2][p2] + ' |';
+					regex2 += ' ' + blacklist_data.replace.en[profanity2][p2] + ' |';
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					regex2 += profanity_data.replace.en[profanity2][p2] + ' |';
+					regex2 += blacklist_data.replace.en[profanity2][p2] + ' |';
 				}
 				// noinspection JSUnfilteredForInLoop
 				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
@@ -243,6 +243,7 @@
 
 			net.remove_diacritics = function(str) {
 				return str.replace(/[^\u0020-\u007E]/g, function (letter) {
+					// noinspection JSUnresolvedVariable
 					return normalize_data.mapping.diacritics[letter] || letter;
 				});
 			};
@@ -258,9 +259,10 @@
 			net.remove_profanity = function(str) {
 				str = str.replace(/  +/g, ' ').trim();
 
-				for (var profanity1 in profanity_data.mapping.en) {
-					// noinspection JSUnfilteredForInLoop
-					var profanity1sorted = profanity_data.mapping.en[profanity1].sort(function(a, b) {
+				// noinspection JSUnresolvedVariable
+				for (var profanity1 in blacklist_data.mapping.en) {
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
 						return b.length - a.length
 					});
 
@@ -268,12 +270,12 @@
 						// noinspection JSUnfilteredForInLoop
 						if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
 							str = profanity1;
-
-							for (var profanity2 in profanity_data.replace.en) {
-								// noinspection JSUnfilteredForInLoop
-								for (var p2 in profanity_data.replace.en[profanity2]) {
-									// noinspection JSUnfilteredForInLoop
-									if (str.toLowerCase() === profanity_data.replace.en[profanity2][p2]) {
+							// noinspection JSUnresolvedVariable
+							for (var profanity2 in blacklist_data.replace.en) {
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								for (var p2 in blacklist_data.replace.en[profanity2]) {
+									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+									if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
 										return str = '`' + profanity2 + '`';
 									}
 								}
@@ -308,6 +310,7 @@
 			};
 
 			net.clean_nicknames = function(str) {
+				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
@@ -355,13 +358,18 @@
 					']&nbsp;</span>'
 				].join('');
 
-				var msg_class = typeof hide !== 'undefined' ? 'net_msg_hide' : 'net_msg';
+				var msg_class = typeof hide !== 'undefined' ? (hide > 0 ? 'net_msg_hide' : 'net_msg_hide_last') : 'net_msg';
 
 				net.output_div.append('<div class="'+ msg_class +'" style="' + color + '">' + time_stamp + txt + '</div>');
 
 				setTimeout(function() {
 					// noinspection JSUnresolvedFunction
 					$('.net_msg_hide').slideUp(200, function() {
+						$(this).remove();
+					});
+
+					// noinspection JSUnresolvedFunction
+					$('.net_msg_hide_last:not(:last-child)').slideUp(200, function() {
 						$(this).remove();
 					});
 				}, hide ? hide : 0);
@@ -510,14 +518,14 @@
 				// noinspection JSUnresolvedFunction
 				net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia'});
 				net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
-				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 5000);
+				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 0);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
 				// console.log(JSON.stringify(data, null, 2));
-				net.log('[disconnected][' + net.server + ']', 0, 5000);
+				net.log('[disconnected][' + net.server + ']', 0, 0);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -591,7 +599,11 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				if (net.room_info) {
-					if (net.room_info.users[data.user]) delete net.room_info.users[data.user]
+					// noinspection JSUnresolvedVariable
+					if (net.room_info.users[data.user]) {
+						// noinspection JSUnresolvedVariable
+						delete net.room_info.users[data.user]
+					}
 				}
 
 				var $el = $('#room_user_' + data.user);
