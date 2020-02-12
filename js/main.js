@@ -510,14 +510,14 @@
 				// noinspection JSUnresolvedFunction
 				net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia'});
 				net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
-				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0);
+				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 5000);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
 				// console.log(JSON.stringify(data, null, 2));
-				net.log('[disconnected][' + net.server + ']', 0);
+				net.log('[disconnected][' + net.server + ']', 0, 5000);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
