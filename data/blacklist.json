@@ -6,9 +6,7 @@
 		"en": {
 			"phonenumber": ["two", "three", "four", "five", "six", "seven", "eight", "nine", " ten", "eleven", "elleven", "twelve", "twel ve", "thirteen"],
 			"email": ["email", "gmail", "yahoo", "@gmail.com", "@yahoo.com"],
-			"website": ["gmail.com", "yahoo.com", "rblx.gg", "discord.gg", "grabify.link", "bmwforum.co", "leancoding.co", "spottyfly.com", "stopify.co", "yoütu.be", "discörd.com", "minecräft.com", "freegiftcards.co", "disçordapp.com", "fortnight.space", "fortnitechat.site", "joinmy.site", "curiouscat.club", "catsnthings.fun", "yourtube.site", "youtubeshort.watch", "catsnthing.com", "youtubeshort.pro", "amishdatacenter.com", "poweredbydialup.org", "amishprincess.com", "packetlivesmatter.club", "packetlivesmatter.online", "canadianlumberjacks.club", "canadianlumberjacks.online", "poweredbydialup.club", "poweredbydialup.online", "poweredbysecurity.org", "poweredbysecurity.online"],
-			"pornhub": ["p.o.r.n.h.u.b", "porn.hub", "pcornhub", "pornhub", "pronhub", "pornhub.com"],
-			"redtube": ["redtube", "red tube", "redtube.com"],
+			"website": ["gmail.com", "yahoo.com", "redtube", "red.tube", "redtube.com", "p.o.r.n.h.u.b", "porn.hub", "pornhub", "pronhub", "pornhub.com", "rblx.gg", "discord.gg", "iplogger.org", "2no.co", "iplogger.com", "iplogger.ru", "yip.su", "iplogger.co", "iplogger.info", "ipgrabber.ru", "ipgraber.ru", "iplis.ru", "02ip.ru", "ezstat.ru", "wow.link", "grabify.link", "bmwforum.co", "leancoding.co", "spottyfly.com", "stopify.co", "yoütu.be", "discörd.com", "minecräft.com", "freegiftcards.co", "disçordapp.com", "fortnight.space", "fortnitechat.site", "joinmy.site", "curiouscat.club", "catsnthings.fun", "yourtube.site", "youtubeshort.watch", "catsnthing.com", "youtubeshort.pro", "amishdatacenter.com", "poweredbydialup.org", "amishprincess.com", "packetlivesmatter.club", "packetlivesmatter.online", "canadianlumberjacks.club", "canadianlumberjacks.online", "poweredbydialup.club", "poweredbydialup.online", "poweredbysecurity.org", "poweredbysecurity.online"],
 			"fuck": ["fuuuuck", "fuuuck", "fuuck", "fu..cking", "fucking", "fuckin", "f.u.c.k", "f.uck", "fhuck", "fu.c.k", "fu.ck", "fuc.k", "fuck", "fker", "fuc", "fuk", "fck", "ffs"],
 			"shit": ["s.h.i.t", "sh.itt", "\\$hit", "shit", "\\$h1t", "\\$h!t", "sh1t", "sh!t"],
 			"nigger": ["n.i.g.g.e.r", "n.i.gg.e.r.s", "ni.g.g.e.r", "n.i.g.g.a", "ni.g.g.a", "nig.g.a", "ni.gga", "nlgger", "nlgga", "niggher", "nigghas", "ni.gg.er", "ni.gger", "nig.ger", "niggers", "niggass", "niigger", "nigger", "n1gger", "nigg3r", "n1gg3r", "niggar", "n1ggar", "n.igga", "niger", "niggas", "nigga", "nigg@", "n1gga", "negro", "nigro", "ngger", "nggr", "niga", "nigg", "nig "],
@@ -85,7 +83,6 @@
 	"replace": {
 		"en": {
 			"": ["phonenumber", "email", "website"],
-			"library": ["pornhub"],
 			"ballons": ["tits", "boobs"],
 			"candy": ["analcum", "cum", "sperm", "semen", "pee", "urine", "nuts", "balls"],
 			"lol": ["fuck"],
