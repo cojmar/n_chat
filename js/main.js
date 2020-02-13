@@ -419,7 +419,7 @@
 
 				// noinspection JSUnresolvedVariable
 				if (net.last_msg) {
-					if (net.last_msg === msg || (~msg.indexOf(net.last_msg) && msg.length >= 10)) {
+					if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
 						return false;
 					}
 				}
