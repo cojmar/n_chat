@@ -241,6 +241,21 @@
 				return sa ? s : s[0];
 			};
 
+			net.normalize = function(str) {
+				return str.replace(/[^\u0020-\u007E]/g, function (letter) {
+					var sets = Object.keys(normalize_data.mapping);
+					var result = letter;
+
+					for (var i in sets) {
+						if (sets[i] !== 'diacritics') {
+							result = normalize_data.mapping[sets[i]][letter] || letter;
+						}
+					}
+
+					return result;
+				});
+			};
+
 			net.remove_diacritics = function(str) {
 				return str.replace(/[^\u0020-\u007E]/g, function (letter) {
 					// noinspection JSUnresolvedVariable
@@ -253,7 +268,7 @@
 			};
 
 			net.remove_zalgo = function(str) {
-				return str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')
+				return str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '');
 			};
 
 			net.remove_profanity = function(str) {
@@ -270,6 +285,7 @@
 						// noinspection JSUnfilteredForInLoop
 						if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
 							str = profanity1;
+
 							// noinspection JSUnresolvedVariable
 							for (var profanity2 in blacklist_data.replace.en) {
 								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
@@ -296,11 +312,15 @@
 			};
 
 			net.clean = function(str) {
+				if (window['SYSTEM_FEATURE_ES6_STRING']) {
+					str = str.normalize('NFKD');
+				}
+
 				// noinspection JSUnresolvedFunction
-				var subject = $('<div />').text(net.remove_numbers(net.remove_zalgo(str))).html();
+				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
-					subject = net.remove_profanity(net.remove_diacritics(subject));
+					subject = net.remove_profanity(net.remove_numbers(net.remove_diacritics(subject)));
 				}
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
@@ -311,7 +331,7 @@
 
 			net.clean_nicknames = function(str) {
 				// noinspection JSUnresolvedFunction
-				var subject = $('<div />').text(str.replace(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '')).html();
+				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
 					subject = net.remove_profanity(net.remove_diacritics(subject));
