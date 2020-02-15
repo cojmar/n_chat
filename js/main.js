@@ -247,19 +247,10 @@
 					var result = letter;
 
 					for (var i in sets) {
-						if (sets[i] !== 'diacritics') {
-							result = normalize_data.mapping[sets[i]][letter] || letter;
-						}
+						result = normalize_data.mapping[sets[i]][letter] || letter;
 					}
 
 					return result;
-				});
-			};
-
-			net.remove_diacritics = function(str) {
-				return str.replace(/[^\u0020-\u007E]/g, function (letter) {
-					// noinspection JSUnresolvedVariable
-					return normalize_data.mapping.diacritics[letter] || letter;
 				});
 			};
 
@@ -320,7 +311,7 @@
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
-					subject = net.remove_profanity(net.remove_numbers(net.remove_diacritics(subject)));
+					subject = net.remove_profanity(net.remove_numbers(subject));
 				}
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
@@ -334,7 +325,7 @@
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
 				if (net.client_room_name.text() === 'Emupedia') {
-					subject = net.remove_profanity(net.remove_diacritics(subject));
+					subject = net.remove_profanity(subject);
 				}
 
 				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
