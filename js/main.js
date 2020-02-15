@@ -303,10 +303,6 @@
 			};
 
 			net.clean = function(str) {
-				if (window['SYSTEM_FEATURE_ES6_STRING']) {
-					str = str.normalize('NFKD');
-				}
-
 				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
