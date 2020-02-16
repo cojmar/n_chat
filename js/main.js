@@ -575,27 +575,54 @@
 						if (keyValue[0] === 'loc') {
 							switch (trace['loc']) {
 								case 'AG':
+								case 'AI':
+								case 'AS':
+								case 'AT':
 								case 'AU':
 								case 'BB':
 								case 'BS':
 								case 'BZ':
 								case 'CA':
+								case 'CY':
+								case 'DK':
 								case 'DM':
+								case 'FI':
 								case 'GB':
 								case 'GD':
+								case 'GI':
+								case 'GU':
 								case 'GY':
 								case 'IE':
+								case 'IL':
+								case 'IM':
 								case 'JA':
 								case 'JM':
 								case 'KN':
+								case 'KY':
 								case 'LC':
+								case 'LR':
+								case 'MH':
+								case 'MP':
+								case 'NR':
+								case 'MT':
+								case 'NL':
 								case 'NZ':
+								case 'PW':
+								case 'SE':
+								case 'SF':
+								case 'SG':
+								case 'SL':
+								case 'SR':
 								case 'TT':
 								case 'UK':
 								case 'US':
 								case 'VC':
+								case 'VG':
+								case 'VI':
+								case 'VU':
 								case 'WL':
 								case 'WG':
+								case 'WS':
 								case 'XX':
 									break;
 								default:
