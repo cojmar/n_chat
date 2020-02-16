@@ -307,7 +307,7 @@
 				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
-				if (net.client_room_name.text() === 'Emupedia') {
+				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_numbers(subject));
 				}
 
@@ -321,7 +321,7 @@
 				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
-				if (net.client_room_name.text() === 'Emupedia') {
+				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(subject);
 				}
 
