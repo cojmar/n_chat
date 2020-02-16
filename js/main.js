@@ -537,6 +537,7 @@
 					headers = {};
 				}
 
+				// noinspection JSUnresolvedFunction
 				return $.ajax({
 					type: type,
 					url: url + (!cache ? '?rand=' + new Date().getTime() : ''),
@@ -572,8 +573,34 @@
 						trace[keyValue[0]] = decodeURIComponent(keyValue[1] || '');
 
 						if (keyValue[0] === 'loc') {
-							if (trace['loc'] !== 'XX' && trace['loc'] !== 'US' && trace['loc'] !== 'GB' && trace['loc'] !== 'UK' && trace['loc'] !== 'AU') {
-								simplestorage.set('country', trace['loc']);
+							switch (trace['loc']) {
+								case 'AG':
+								case 'AU':
+								case 'BB':
+								case 'BS':
+								case 'BZ':
+								case 'CA':
+								case 'DM':
+								case 'GB':
+								case 'GD':
+								case 'GY':
+								case 'IE':
+								case 'JA':
+								case 'JM':
+								case 'KN':
+								case 'LC':
+								case 'NZ':
+								case 'TT':
+								case 'UK':
+								case 'US':
+								case 'VC':
+								case 'WL':
+								case 'WG':
+								case 'XX':
+									break;
+								default:
+									simplestorage.set('country', trace['loc']);
+									break;
 							}
 						}
 					});
