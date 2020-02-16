@@ -624,6 +624,8 @@
 								case 'WG':
 								case 'WS':
 								case 'XX':
+									// noinspection JSUnresolvedFunction
+									simplestorage.deleteKey('country');
 									break;
 								default:
 									simplestorage.set('country', trace['loc']);
