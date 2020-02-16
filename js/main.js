@@ -123,8 +123,9 @@
 		'twemoji',
 		'simplestorage',
 		'network',
+		'jqyeryajaxretry',
 		'optional!ga'
-	], function($, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ga) {
+	], function($, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ajaxretry, ga) {
 		$(function() {
 			if (typeof ga === 'function') {
 				ga('send', {
@@ -514,6 +515,43 @@
 				return !~muted.indexOf(data.user);
 			};
 
+			net.relay = function(url, data, type, headers) {
+				var ajax_retry_timeout		= 1000;
+				var ajax_retry_count		= 5;
+				var ajax_timeout			= 15 * 1000;
+				var cache					= false;
+				var data_type				= 'text';
+
+				if (typeof type === 'undefined') {
+					type = 'GET';
+				}
+
+				if (typeof data !== 'undefined') {
+					type = 'POST';
+					data_type = 'json';
+				} else {
+					data = {};
+				}
+
+				if (typeof headers === 'undefined') {
+					headers = {};
+				}
+
+				return $.ajax({
+					type: type,
+					url: url + (!cache ? '?rand=' + new Date().getTime() : ''),
+					headers: headers,
+					data: data,
+					dataType: data_type,
+					cache: cache,
+					timeout: ajax_timeout
+				}).retry({
+					times: ajax_retry_count,
+					timeout: ajax_retry_timeout,
+					statusCodes: [402, 403, 404, 405, 406, 407, 408, 410, 411, 412, 413, 414, 415, 416, 417, 501, 503, 504, 505]
+				});
+			}
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
@@ -522,10 +560,31 @@
 				var server = typeof data !== 'undefined' ? data.server : net.server;
 				// noinspection JSUnresolvedVariable
 				var socket_id = typeof data !== 'undefined' ? data.socket_id : net.socket.id;
+
 				// noinspection JSUnresolvedFunction
-				net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia'});
-				net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
-				net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 0);
+				net.relay('https://cloudflare.net/cdn-cgi/trace').done(function(data) {
+					var lines = data.split('\n');
+					var keyValue = '';
+					var trace = [];
+
+					lines.forEach(function(line) {
+						keyValue = line.split('=');
+						trace[keyValue[0]] = decodeURIComponent(keyValue[1] || '');
+
+						if (keyValue[0] === 'loc') {
+							if (trace['loc'] !== 'XX' && trace['loc'] !== 'US' && trace['loc'] !== 'GB' && trace['loc'] !== 'UK' && trace['loc'] !== 'AU') {
+								simplestorage.set('country', trace['loc']);
+							}
+						}
+					});
+				}).always(function() {
+					// noinspection JSUnresolvedFunction
+					net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia'});
+					// noinspection JSUnresolvedFunction
+					net.send_cmd('join', 'Emupedia' + (simplestorage.get('country') ? '-' + simplestorage.get('country') : ''));
+					net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
+					net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 0);
+				});
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
