@@ -855,6 +855,8 @@
 						net.send_input();
 						break;
 					case 96:
+						e.preventDefault();
+
 						if (typeof window.top !== 'undefined') {
 							if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
 								if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
