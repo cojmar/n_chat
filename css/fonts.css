@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'EmuOS';
+	src: url('../fonts/emuos.svg');
+	src: url('../fonts/emuos.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/emuos.woff2') format('woff2'),
+		 url('../fonts/emuos.woff') format('woff'),
+		 url('../fonts/emuos.ttf') format('truetype'),
+		 url('../fonts/emuos.svg#EmuOS') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
