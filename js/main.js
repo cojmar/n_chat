@@ -772,17 +772,19 @@
 				// console.log('room.user_info');
 				// console.log(JSON.stringify(data, null, 2));
 
-				// noinspection JSUnresolvedVariable
-				if (net.room_info.users[data.user]) {
-					for (var n in data.info) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						net.room_info.users[data.user].info[n] = data.info[n];
-					}
-
+				if (net.room_info) {
 					// noinspection JSUnresolvedVariable
-					if (data.info.nick) {
-						// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-						$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.clean_nicknames(data.info.nick));
+					if (net.room_info.users[data.user]) {
+						for (var n in data.info) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							net.room_info.users[data.user].info[n] = data.info[n];
+						}
+
+						// noinspection JSUnresolvedVariable
+						if (data.info.nick) {
+							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
+							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.clean_nicknames(data.info.nick));
+						}
 					}
 				}
 			});
