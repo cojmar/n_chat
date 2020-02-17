@@ -850,8 +850,19 @@
 			// noinspection JSUnresolvedFunction
 			net.text_input.off('keypress').on('keypress', function (e) {
 				// noinspection JSDeprecatedSymbols
-				if (e.which === 13) {
-					net.send_input();
+				switch (e.which) {
+					case 13:
+						net.send_input();
+						break;
+					case 96:
+						if (typeof window.top !== 'undefined') {
+							if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
+								if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
+									window.top['NETWORK_CONNECTION']['hide']();
+								}
+							}
+						}
+						break;
 				}
 			});
 			// noinspection JSUnresolvedFunction
