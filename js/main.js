@@ -480,39 +480,43 @@
 			};
 
 			net.client_cmd = function(argz) {
-				var muted = net.room_info.data.muted || [];
+				if (net.room_info) {
+					var muted = net.room_info.data.muted || [];
 
-				switch (argz.cmd) {
-					case 'mute':
-						if (!~muted.indexOf(argz.data)) {
-							muted.push(argz.data);
-						}
+					switch (argz.cmd) {
+						case 'mute':
+							if (!~muted.indexOf(argz.data)) {
+								muted.push(argz.data);
+							}
 
-						// noinspection JSUnresolvedFunction
-						net.send_cmd('set_room_data', {muted: false});
-						// noinspection JSUnresolvedFunction
-						net.send_cmd('set_room_data', {muted: muted});
-						return true;
-					case 'unmute':
-						var index = muted.indexOf(argz.data);
+							// noinspection JSUnresolvedFunction
+							net.send_cmd('set_room_data', {muted: false});
+							// noinspection JSUnresolvedFunction
+							net.send_cmd('set_room_data', {muted: muted});
+							return true;
+						case 'unmute':
+							var index = muted.indexOf(argz.data);
 
-						if (index > -1) {
-							muted.splice(index, 1);
-						}
+							if (index > -1) {
+								muted.splice(index, 1);
+							}
 
-						// noinspection JSUnresolvedFunction
-						net.send_cmd('set_room_data', {muted: false});
-						// noinspection JSUnresolvedFunction
-						net.send_cmd('set_room_data', {muted: muted});
-						return true;
+							// noinspection JSUnresolvedFunction
+							net.send_cmd('set_room_data', {muted: false});
+							// noinspection JSUnresolvedFunction
+							net.send_cmd('set_room_data', {muted: muted});
+							return true;
+					}
 				}
 
 				return false;
 			};
 
 			net.check_msg = function(data) {
-				var muted = net.room_info.data.muted || [];
-				return !~muted.indexOf(data.user);
+				if (net.room_info) {
+					var muted = net.room_info.data.muted || [];
+					return !~muted.indexOf(data.user);
+				}
 			};
 
 			net.relay = function(url, data, type, headers) {
