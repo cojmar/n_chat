@@ -667,8 +667,6 @@
 					// noinspection JSUnresolvedFunction
 					net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + (simplestorage.get('country') ? '-' + simplestorage.get('country') : '')});
 					net.rooms = {};
-					// noinspection JSUnresolvedFunction
-					net.send_cmd('list', {});
 					net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
 					net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 0);
 				});
@@ -695,6 +693,9 @@
 				if (data.login === data.info.nick) {
 					net.log('Type /nick <nickname> to set your name', 0);
 				}
+
+				// noinspection JSUnresolvedFunction
+				net.send_cmd('list', {});
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
