@@ -608,6 +608,7 @@
 								case 'NL':
 								case 'NZ':
 								case 'PW':
+								case 'RO':
 								case 'SE':
 								case 'SF':
 								case 'SG':
