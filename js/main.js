@@ -112,6 +112,7 @@
 	// noinspection JSUnresolvedFunction
 	requirejs([
 		'jquery',
+		'jqueryui',
 		'json!../data/emoticons.json',
 		'json!../data/normalize.json',
 		'json!../data/blacklist.json',
@@ -121,7 +122,7 @@
 		'network',
 		'jqyeryajaxretry',
 		'optional!ga'
-	], function($, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ajaxretry, ga) {
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ajaxretry, ga) {
 		$(function() {
 			if (typeof ga === 'function') {
 				ga('send', {
@@ -553,6 +554,34 @@
 				});
 			}
 
+			net.render_room_select = function(cb) {
+				var html = '';
+
+				for (var room in net.rooms) {
+					if (~room.indexOf('Emupedia')) {
+						if (net.room_info) {
+							if (room === net.room_info.name) {
+								// noinspection JSUnfilteredForInLoop
+								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' online)</option>'
+							} else {
+								// noinspection JSUnfilteredForInLoop
+								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' online)</option>'
+							}
+						} else {
+							// noinspection JSUnfilteredForInLoop
+							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' online)</option>'
+						}
+					}
+				}
+
+				// noinspection JSUnresolvedFunction
+				net.client_rooms.html(html);
+
+				if (typeof cb === 'function') {
+					cb();
+				}
+			}
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
@@ -636,9 +665,10 @@
 					});
 				}).always(function() {
 					// noinspection JSUnresolvedFunction
-					net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia'});
+					net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + (simplestorage.get('country') ? '-' + simplestorage.get('country') : '')});
+					net.rooms = {};
 					// noinspection JSUnresolvedFunction
-					net.send_cmd('join', 'Emupedia' + (simplestorage.get('country') ? '-' + simplestorage.get('country') : ''));
+					net.send_cmd('list', {});
 					net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
 					net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 0);
 				});
@@ -790,6 +820,16 @@
 				}
 			});
 
+			net.socket.on('rooms.list', function(data) {
+				net.rooms = data;
+				net.render_room_select(function() {
+					// noinspection JSUnresolvedFunction
+					$('#client_rooms-button').css('display', 'block');
+					// noinspection JSUnresolvedFunction
+					net.client_rooms.selectmenu('refresh');
+				});
+			});
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			/*net.socket.on('silent.msg', function (data) {
 				// console.log('silent.msg');
@@ -826,7 +866,7 @@
 			var network_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
 								'<div id="client_users" class="client_decoration client_right">' +
-									'<div id="client_room" class="client_decoration"><span class="name"></span> (<span class="online">0</span> online)</div>' +
+									'<div id="client_room" class="client_decoration"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> online)</div>' +
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
@@ -842,6 +882,7 @@
 			net.output_div = $('#client_output');
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
+			net.client_rooms = $('#client_rooms');
 			net.client_room_name = net.client_room.find('span.name');
 			net.client_room_online = net.client_room.find('span.online');
 			// noinspection JSUnresolvedFunction
@@ -868,6 +909,21 @@
 			net.text_input_button.off('click').on('click', function() {
 				net.send_input();
 			});
+
+			// noinspection JSUnresolvedVariable
+			if (typeof $.fn.selectmenu === 'function') {
+				// noinspection JSUnresolvedFunction
+				net.client_rooms.selectmenu({
+					change: function(e, ui) {
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('join', ui.item.value);
+					},
+					open: function(e, ui) {
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('list', {});
+					}
+				});
+			}
 		});
 	});
 } (this));
