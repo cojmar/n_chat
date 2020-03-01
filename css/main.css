@@ -271,7 +271,10 @@
 	border: 1px solid rgba(128, 128, 128, 0.35);
 	border-radius: 0;
 	text-align: center;
-	max-height: 250px;
+	margin-top: 1px;
+	margin-left: -3px;
+	min-width: 200px;
+	max-height: 285px;
 }
 
 .ui-selectmenu-button span.ui-selectmenu-text {
