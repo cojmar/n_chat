@@ -71,6 +71,7 @@
 			network: ['/beta/emuos/js/network', '//emupedia.net/beta/emuos/js/network', '//emuos.net/beta/emuos/js/network'],
 			noext: ['/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-noext-1.0.3'],
 			simplestorage: ['/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emupedia.net/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emuos.net/beta/emuos/js/libraries/simplestorage-0.2.1.min'],
+			socket: ['/beta/emuos/js/socket', '//emupedia.net/beta/emuos/js/socket', '//emuos.net/beta/emuos/js/socket'],
 			socketio: ['/beta/emuos/js/libraries/socket.io-2.3.0.min', '//emupedia.net/beta/emuos/js/libraries/socket.io-2.3.0.min', '//emuos.net/beta/emuos/js/libraries/socket.io-2.3.0.min'],
 			text: ['/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emupedia.net/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emuos.net/beta/emuos/js/libraries/requirejs-text-2.0.15'],
 			twemoji: ['/beta/emuos/js/libraries/twemoji-12.1.5.min', '//emupedia.net/beta/emuos/js/libraries/twemoji-12.1.5.min', '//emuos.net/beta/emuos/js/libraries/twemoji-12.1.5.min']
@@ -95,7 +96,7 @@
 				deps: ['jquerymousewheel']
 			},
 			network: {
-				deps: ['socketio']
+				deps: ['socket']
 			},
 			'moment-timezone': {
 				exports: 'moment',
@@ -105,12 +106,7 @@
 				exports: 'twemoji'
 			}
 		},
-		map: {
-			'*': {
-				io: 'socketio',
-				'socket.io': 'socketio'
-			}
-		}
+		map: {}
 	});
 
 	// noinspection JSUnresolvedFunction
@@ -137,7 +133,7 @@
 
 			var $body = $('body');
 			var net = network.start({
-				servers: ['https://ws.emupedia.net/', 'https://ws.emuos.net/'],
+				servers: ['wss://ws.emupedia.net:3000', 'wss://ws.emuos.net:3000'],
 				server: ~window.location.hostname.indexOf('emuos.net') ? 1 : 0,
 				mode: 0
 			});
