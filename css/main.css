@@ -116,12 +116,12 @@
 	margin: 2px 2px 2px 0;
 	padding: 5px;
 	height: calc(100% - 50px);
-	width: calc(30% - 30px);
+	width: calc(35% - 30px);
 }
 
 .client_left {
 	float: left;
-	width: 70%;
+	width: 65%;
 	margin: 2px;
 	padding: 5px;
 	height: calc(100% - 50px);
