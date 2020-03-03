@@ -71,7 +71,7 @@
 			network: ['/beta/emuos/js/network', '//emupedia.net/beta/emuos/js/network', '//emuos.net/beta/emuos/js/network'],
 			noext: ['/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-noext-1.0.3'],
 			simplestorage: ['/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emupedia.net/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emuos.net/beta/emuos/js/libraries/simplestorage-0.2.1.min'],
-			socket: ['/beta/emuos/js/socket', '//emupedia.net/beta/emuos/js/socket', '//emuos.net/beta/emuos/js/socket'],
+			socket: ['https://ws.emupedia.net/app/u_socket_es5.js', 'https://ws.emuos.net/app/u_socket_es5.js', '/beta/emuos/js/socket', '//emupedia.net/beta/emuos/js/socket', '//emuos.net/beta/emuos/js/socket'],
 			socketio: ['/beta/emuos/js/libraries/socket.io-2.3.0.min', '//emupedia.net/beta/emuos/js/libraries/socket.io-2.3.0.min', '//emuos.net/beta/emuos/js/libraries/socket.io-2.3.0.min'],
 			text: ['/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emupedia.net/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emuos.net/beta/emuos/js/libraries/requirejs-text-2.0.15'],
 			twemoji: ['/beta/emuos/js/libraries/twemoji-12.1.5.min', '//emupedia.net/beta/emuos/js/libraries/twemoji-12.1.5.min', '//emuos.net/beta/emuos/js/libraries/twemoji-12.1.5.min']
