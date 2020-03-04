@@ -562,14 +562,14 @@
 						if (net.room_info) {
 							if (room === net.room_info.name) {
 								// noinspection JSUnfilteredForInLoop
-								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' online)</option>'
+								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
 							} else {
 								// noinspection JSUnfilteredForInLoop
-								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' online)</option>'
+								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
 							}
 						} else {
 							// noinspection JSUnfilteredForInLoop
-							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' online)</option>'
+							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
 						}
 					}
 				}
@@ -728,11 +728,9 @@
 				net.client_room_online.text(users_online);
 				// noinspection JSUnresolvedFunction
 				net.output_div.html('');
-				net.log('You are now chatting in ' + data.name);
+				net.log('You are now chatting in ' + data.name + ' with ' + users_online + ' users');
 				// noinspection JSUnresolvedVariable
-				net.log('There are ' + users_online + ' users online');
-				// noinspection JSUnresolvedVariable
-				$('.ui-selectmenu-text').text(data.name + ' (' + users_online + ' online)');
+				$('.ui-selectmenu-text').text(data.name + ' (' + users_online + ' users)');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -753,7 +751,7 @@
 					// noinspection JSUnresolvedVariable
 					net.client_room_online.text(Object.keys(net.room_info.users).length);
 					// noinspection JSUnresolvedVariable
-					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' online)');
+					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' users)');
 				}
 				// noinspection JSUnresolvedVariable
 				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.clean_nicknames(data.data.info.nick) + '</div>');
@@ -897,7 +895,7 @@
 			var network_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
 								'<div id="client_users" class="client_decoration client_right">' +
-									'<div id="client_room" class="client_decoration"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> online)</div>' +
+									'<div id="client_room" class="client_decoration"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
