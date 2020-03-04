@@ -715,6 +715,9 @@
 					r_users += '<div id="room_user_' + data.users[n].info.user + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.clean_nicknames(data.users[n].info.nick) + '</div>';
 				}
 
+				// noinspection JSUnresolvedVariable
+				var users_online = Object.keys(net.room_info.users).length;
+
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + data.users[data.me].info.nick + '" on "' + data.name + '"');
 				// noinspection JSUnresolvedFunction
@@ -722,9 +725,14 @@
 				// noinspection JSUnresolvedFunction
 				net.client_room_name.text(data.name);
 				// noinspection JSUnresolvedVariable
-				net.client_room_online.text(Object.keys(net.room_info.users).length);
+				net.client_room_online.text(users_online);
+				// noinspection JSUnresolvedFunction
+				net.output_div.html('');
+				net.log('You are now chatting in ' + data.name);
 				// noinspection JSUnresolvedVariable
-				$('.ui-selectmenu-text').text(data.name + ' (' + Object.keys(net.room_info.users).length + ' online)');
+				net.log('There are ' + users_online + ' users online');
+				// noinspection JSUnresolvedVariable
+				$('.ui-selectmenu-text').text(data.name + ' (' + users_online + ' online)');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
