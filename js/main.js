@@ -826,7 +826,25 @@
 			});
 
 			net.socket.on('rooms.list', function(data) {
-				net.rooms = data;
+				var sortable = [];
+				for (var room in data) {
+					// noinspection JSUnfilteredForInLoop
+					if (data[room] > 0) {
+						// noinspection JSUnfilteredForInLoop
+						sortable.push([room, data[room]]);
+					}
+				}
+
+				sortable.sort(function(a, b) {
+					return b[1] - a[1];
+				});
+
+				var objSorted = {};
+				sortable.forEach(function(item) {
+					objSorted[item[0]] = item[1];
+				})
+
+				net.rooms = objSorted;
 				net.render_room_select(function() {
 					// noinspection JSUnresolvedFunction
 					$('#client_rooms-button').css('display', 'block');
