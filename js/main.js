@@ -674,7 +674,7 @@
 
 				// noinspection JSUnresolvedVariable
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + net.clean_nicknames(users_obj[me]) + '" on "' + room + '"');
+				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + users_obj[me] + '" on "' + room + '"');
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
@@ -788,7 +788,7 @@
 							// noinspection JSUnresolvedVariable
 							if (data.info.nick) {
 								// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-								net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + net.clean_nicknames(data.info.nick) + '" on "' + data.room + '"');
+								net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + data.info.nick + '" on "' + data.room + '"');
 							}
 						}
 					}
