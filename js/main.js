@@ -558,6 +558,7 @@
 				var html = '';
 
 				for (var room in net.rooms) {
+					// noinspection JSUnfilteredForInLoop
 					if (~room.indexOf('Emupedia')) {
 						if (net.room_info) {
 							if (room === net.room_info.name) {
@@ -582,101 +583,17 @@
 				}
 			}
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,JSUnusedLocalSymbols
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
-
-				var server = typeof data !== 'undefined' ? data.server : net.server;
-				// noinspection JSUnresolvedVariable
-				var socket_id = typeof data !== 'undefined' ? data.socket_id : net.socket.id;
-
-				// noinspection JSUnresolvedFunction
-				net.relay('https://cloudflare.net/cdn-cgi/trace').done(function(data) {
-					var lines = data.split('\n');
-					var keyValue = '';
-					var trace = [];
-
-					lines.forEach(function(line) {
-						keyValue = line.split('=');
-						trace[keyValue[0]] = decodeURIComponent(keyValue[1] || '');
-
-						if (keyValue[0] === 'loc') {
-							switch (trace['loc']) {
-								case 'AG':
-								case 'AI':
-								case 'AS':
-								case 'AT':
-								case 'AU':
-								case 'BB':
-								case 'BS':
-								case 'BZ':
-								case 'CA':
-								case 'CY':
-								case 'DK':
-								case 'DM':
-								case 'FI':
-								case 'GB':
-								case 'GD':
-								case 'GI':
-								case 'GU':
-								case 'GY':
-								case 'IE':
-								case 'IL':
-								case 'IM':
-								case 'JA':
-								case 'JM':
-								case 'KN':
-								case 'KY':
-								case 'LC':
-								case 'LR':
-								case 'MH':
-								case 'MP':
-								case 'NR':
-								case 'MT':
-								case 'NL':
-								case 'NZ':
-								case 'PW':
-								case 'RO':
-								case 'SE':
-								case 'SF':
-								case 'SG':
-								case 'SL':
-								case 'SR':
-								case 'TT':
-								case 'UK':
-								case 'US':
-								case 'VC':
-								case 'VG':
-								case 'VI':
-								case 'VU':
-								case 'WL':
-								case 'WG':
-								case 'WS':
-								case 'XX':
-									// noinspection JSUnresolvedFunction
-									simplestorage.deleteKey('country');
-									break;
-								default:
-									simplestorage.set('country', trace['loc']);
-									break;
-							}
-						}
-					});
-				}).always(function() {
-					// noinspection JSUnresolvedFunction
-					net.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + (simplestorage.get('country') ? '-' + simplestorage.get('country') : '')});
-					net.rooms = {};
-					net.chat_id = '<span style="color: #2c487e;">[' + socket_id + '] </span>';
-					net.log('[connected][' + server + '] [id][' + socket_id + ']', 0, 0);
-				});
+				net.log('[connected]', 0, 0);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
-				// console.log(JSON.stringify(data, null, 2));
-				net.log('[disconnected][' + net.server + ']', 0, 0);
+				net.log('[disconnected]', 0, 0);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -702,35 +619,73 @@
 			net.socket.on('room.info', function (data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
-
 				net.room_info = data;
-
-				var r_users = '';
-
-				// noinspection JSUnresolvedVariable
-				for (var n in data.users) {
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					var color = (data.users[n].info.user !== data.me) ? net.colors[3] : net.colors[1];
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					r_users += '<div id="room_user_' + data.users[n].info.user + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.users[n].info.user + '" data-title="' + data.users[n].info.user + '">' + net.clean_nicknames(data.users[n].info.nick) + '</div>';
-				}
 
 				// noinspection JSUnresolvedVariable
 				var users_online = Object.keys(net.room_info.users).length;
+				// noinspection JSUnresolvedVariable
+				var me = net.room_info.me;
+				var room = net.room_info.name;
+				var users_array_default = [];
+				var users_array_nick = [];
+				var users_list = '';
 
+				// noinspection JSUnresolvedVariable
+				for (var users in data.users) {
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var user = data.users[users].info.user;
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var nick = data.users[users].info.nick;
+
+					var is_nick = isNaN(parseInt(nick));
+
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+
+					if (is_nick) {
+						users_array_nick.push([user, nick]);
+					} else {
+						users_array_default.push([user, nick]);
+					}
+				}
+
+				users_array_nick.sort(function(a, b) {
+					return a[1].localeCompare(b[1]);
+				});
+
+				users_array_default.sort();
+
+				var users_obj = {};
+
+				users_array_nick.forEach(function(item) {
+					users_obj[item[0]] = item[1];
+				});
+
+				users_array_default.forEach(function(item) {
+					users_obj[item[0]] = item[1];
+				});
+
+				// noinspection JSUnresolvedVariable
+				for (var u in users_obj) {
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var color = u !== me ? net.colors[3] : net.colors[1];
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					users_list += '<div id="room_user_' + u + '" style="color: ' + color + '; word-break: keep-all;" title="' + u + '" data-title="' + u + '">' + net.clean_nicknames(users_obj[u]) + '</div>';
+				}
+
+				// noinspection JSUnresolvedVariable
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + data.users[data.me].info.nick + '" on "' + data.name + '"');
+				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + me + '" on "' + room + '"');
 				// noinspection JSUnresolvedFunction
-				net.client_room_users.html(r_users);
+				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
-				net.client_room_name.text(data.name);
+				net.client_room_name.text(room);
 				// noinspection JSUnresolvedVariable
 				net.client_room_online.text(users_online);
 				// noinspection JSUnresolvedFunction
 				net.output_div.html('');
-				net.log('You are now chatting in ' + data.name + ' with ' + users_online + ' users');
+				net.log('You are now chatting in ' + room + ' with ' + users_online + ' users');
 				// noinspection JSUnresolvedVariable
-				$('.ui-selectmenu-text').text(data.name + ' (' + users_online + ' users)');
+				$('.ui-selectmenu-text').text(room + ' (' + users_online + ' users)');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -827,11 +782,23 @@
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.clean_nicknames(data.info.nick));
 						}
+
+						// noinspection JSUnresolvedVariable
+						if (data.user === net.room_info.me) {
+							// noinspection JSUnresolvedVariable
+							if (data.info.nick) {
+								// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+								net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + net.clean_nicknames(data.info.nick) + '" on "' + data.room + '"');
+							}
+						}
 					}
 				}
 			});
 
 			net.socket.on('rooms.list', function(data) {
+				// console.log('rooms.list');
+				// console.log(JSON.stringify(data, null, 2));
+
 				var sortable = [];
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
@@ -848,7 +815,7 @@
 				var objSorted = {};
 				sortable.forEach(function(item) {
 					objSorted[item[0]] = item[1];
-				})
+				});
 
 				net.rooms = objSorted;
 				net.render_room_select(function() {
@@ -892,7 +859,7 @@
 				});
 			});
 
-			var network_ui = '<div id="client_container" class="client_decoration">' +
+			var chat_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
 								'<div id="client_users" class="client_decoration client_right">' +
 									'<div id="client_room" class="client_decoration"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
@@ -903,7 +870,7 @@
 								'</div>' +
 							'</div>';
 
-			$body.append(network_ui);
+			$body.append(chat_ui);
 
 			net.console = $('#client_container');
 			net.text_input = $('#client_command');
@@ -941,7 +908,7 @@
 
 			// noinspection JSUnresolvedVariable
 			if (typeof $.fn.selectmenu === 'function') {
-				// noinspection JSUnresolvedFunction
+				// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 				net.client_rooms.selectmenu({
 					change: function(e, ui) {
 						// noinspection JSUnresolvedFunction
