@@ -674,7 +674,7 @@
 
 				// noinspection JSUnresolvedVariable
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + me + '" on "' + room + '"');
+				net.text_input.attr('placeholder', 'Press "`" (tilda) to Show / Hide chat. You are Typing as "' + users_obj[me] + '" on "' + room + '"');
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
