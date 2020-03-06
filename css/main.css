@@ -1,5 +1,5 @@
 /*noinspection DuplicatedCode*/
-#client_command {
+#client_command { 
 	height: 21px;
 	width: calc(100% - 50px - 20px);
 	box-sizing: border-box;
