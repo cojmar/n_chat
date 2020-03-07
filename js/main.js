@@ -609,6 +609,9 @@
 				if (data.login === data.info.nick) {
 					net.log('Type /nick <nickname> to set your name', 0);
 				}
+
+				// noinspection JSUnresolvedFunction
+				net.send_cmd('list', {});
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
