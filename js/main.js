@@ -822,8 +822,13 @@
 				net.render_room_select(function() {
 					// noinspection JSUnresolvedFunction
 					$('#client_rooms-button').css('display', 'block');
-					// noinspection JSUnresolvedFunction
-					net.client_rooms.selectmenu('refresh');
+					if (typeof net.client_rooms !== 'undefined') {
+						// noinspection JSUnresolvedVariable
+						if (typeof net.client_rooms.selectmenu === 'function') {
+							// noinspection JSUnresolvedFunction
+							net.client_rooms.selectmenu('refresh');
+						}
+					}
 				});
 			});
 
