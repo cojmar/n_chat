@@ -67,7 +67,7 @@
 			jqyeryajaxretry: ['/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', '//emupedia.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', '//emuos.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min'],
 			json: ['/beta/emuos/js/libraries/requirejs-json-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-json-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-json-1.0.3'],
 			moment: ['/beta/emuos/js/libraries/moment-2.24.0.min', '//emupedia.net/beta/emuos/js/libraries/moment-2.24.0.min', '//emuos.net/beta/emuos/js/libraries/moment-2.24.0.min'],
-			'moment-timezone': ['/beta/emuos/js/libraries/moment-timezone-0.5.27.min', '//emupedia.net/beta/emuos/js/libraries/moment-timezone-0.5.27.min', '//emuos.net/beta/emuos/js/libraries/moment-timezone-0.5.27.min'],
+			'moment-timezone': ['/beta/emuos/js/libraries/moment-timezone-0.5.28.min', '//emupedia.net/beta/emuos/js/libraries/moment-timezone-0.5.28.min', '//emuos.net/beta/emuos/js/libraries/moment-timezone-0.5.28.min'],
 			network: ['/beta/emuos/js/network', '//emupedia.net/beta/emuos/js/network', '//emuos.net/beta/emuos/js/network'],
 			noext: ['/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-noext-1.0.3'],
 			simplestorage: ['/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emupedia.net/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emuos.net/beta/emuos/js/libraries/simplestorage-0.2.1.min'],
@@ -744,17 +744,18 @@
 					return false;
 				}
 
-				var nick = data.user;
+				var user = data.user;
+				var nick = '';
 
 				if (typeof net.room_info !== 'undefined') {
 					// noinspection JSUnresolvedVariable
-					if (typeof net.room_info.users[nick] !== 'undefined') {
+					if (typeof net.room_info.users[user] !== 'undefined') {
 						// noinspection JSUnresolvedVariable
-						if (typeof net.room_info.users[nick].info !== 'undefined') {
+						if (typeof net.room_info.users[user].info !== 'undefined') {
 							// noinspection JSUnresolvedVariable
-							if (typeof net.room_info.users[nick].info.nick !== 'undefined') {
+							if (typeof net.room_info.users[user].info.nick !== 'undefined') {
 								// noinspection JSUnresolvedVariable
-								nick = net.clean_nicknames(net.room_info.users[nick].info.nick);
+								nick = net.clean_nicknames(net.room_info.users[user].info.nick);
 							}
 						}
 					}
