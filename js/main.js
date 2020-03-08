@@ -377,8 +377,23 @@
 						$(this).remove();
 					});
 				}, hide ? hide : 0);
+				
+				userNearBottom = function() {
+					const threshold = 14;
+					const position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
+					const height = net.output_div.get(0).scrollHeight;
+					return position > height - threshold;
+				}
 
-				net.output_div.get(0).scrollTop = net.output_div.get(0).scrollHeight;
+				scrollToBottom = function() {
+					net.output_div.get(0).scroll({
+						top: net.output_div.get(0).scrollHeight,
+						left: 0,
+						behavior: 'smooth'
+					})
+				}
+				
+				if (userNearBottom()) scrollToBottom();
 			};
 
 			net.send_input = function() {
