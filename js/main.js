@@ -379,9 +379,9 @@
 				}, hide ? hide : 0);
 				
 				userNearBottom = function() {
-					const threshold = 14;
-					const position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
-					const height = net.output_div.get(0).scrollHeight;
+					var threshold = 14;
+					var position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
+					var height = net.output_div.get(0).scrollHeight;
 					return position > height - threshold;
 				}
 
