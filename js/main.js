@@ -464,6 +464,7 @@
 					}
 
 					// noinspection JSUnresolvedFunction
+					if (data.cmd == "nick" && data.data == "") return false;
 					net.send_cmd(data.cmd, data.data);
 				} else {
 					// noinspection JSUnresolvedFunction
@@ -746,18 +747,8 @@
 				var user = data.user;
 				var nick = '';
 
-				if (typeof net.room_info !== 'undefined') {
-					// noinspection JSUnresolvedVariable
-					if (typeof net.room_info.users[user] !== 'undefined') {
-						// noinspection JSUnresolvedVariable
-						if (typeof net.room_info.users[user].info !== 'undefined') {
-							// noinspection JSUnresolvedVariable
-							if (typeof net.room_info.users[user].info.nick !== 'undefined') {
-								// noinspection JSUnresolvedVariable
-								nick = net.clean_nicknames(net.room_info.users[user].info.nick);
-							}
-						}
-					}
+				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
+					nick = net.clean_nicknames(net.room_info.users[user].info.nick);
 				}
 
 				// noinspection JSUnresolvedVariable
