@@ -377,23 +377,25 @@
 						$(this).remove();
 					});
 				}, hide ? hide : 0);
-				
-				userNearBottom = function() {
+
+				var userNearBottom = function() {
 					var threshold = 14;
 					var position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
 					var height = net.output_div.get(0).scrollHeight;
 					return position > height - threshold;
 				}
 
-				scrollToBottom = function() {
+				var scrollToBottom = function() {
 					net.output_div.get(0).scroll({
 						top: net.output_div.get(0).scrollHeight,
 						left: 0,
 						behavior: 'smooth'
 					})
 				}
-				
-				if (userNearBottom()) scrollToBottom();
+
+				if (userNearBottom()) {
+					scrollToBottom();
+				}
 			};
 
 			net.send_input = function() {
@@ -479,7 +481,11 @@
 					}
 
 					// noinspection JSUnresolvedFunction
-					if (data.cmd == "nick" && data.data == "") return false;
+					if (data.cmd === 'nick' && data.data === '') {
+						return false;
+					}
+
+					// noinspection JSUnresolvedFunction
 					net.send_cmd(data.cmd, data.data);
 				} else {
 					// noinspection JSUnresolvedFunction
@@ -762,7 +768,9 @@
 				var user = data.user;
 				var nick = '';
 
+				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
+					// noinspection JSUnresolvedVariable
 					nick = net.clean_nicknames(net.room_info.users[user].info.nick);
 				}
 
