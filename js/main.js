@@ -377,8 +377,23 @@
 						$(this).remove();
 					});
 				}, hide ? hide : 0);
+				
+				userNearBottom = function() {
+					var threshold = 14;
+					var position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
+					var height = net.output_div.get(0).scrollHeight;
+					return position > height - threshold;
+				}
 
-				net.output_div.get(0).scrollTop = net.output_div.get(0).scrollHeight;
+				scrollToBottom = function() {
+					net.output_div.get(0).scroll({
+						top: net.output_div.get(0).scrollHeight,
+						left: 0,
+						behavior: 'smooth'
+					})
+				}
+				
+				if (userNearBottom()) scrollToBottom();
 			};
 
 			net.send_input = function() {
@@ -464,6 +479,7 @@
 					}
 
 					// noinspection JSUnresolvedFunction
+					if (data.cmd == "nick" && data.data == "") return false;
 					net.send_cmd(data.cmd, data.data);
 				} else {
 					// noinspection JSUnresolvedFunction
@@ -746,18 +762,8 @@
 				var user = data.user;
 				var nick = '';
 
-				if (typeof net.room_info !== 'undefined') {
-					// noinspection JSUnresolvedVariable
-					if (typeof net.room_info.users[user] !== 'undefined') {
-						// noinspection JSUnresolvedVariable
-						if (typeof net.room_info.users[user].info !== 'undefined') {
-							// noinspection JSUnresolvedVariable
-							if (typeof net.room_info.users[user].info.nick !== 'undefined') {
-								// noinspection JSUnresolvedVariable
-								nick = net.clean_nicknames(net.room_info.users[user].info.nick);
-							}
-						}
-					}
+				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
+					nick = net.clean_nicknames(net.room_info.users[user].info.nick);
 				}
 
 				// noinspection JSUnresolvedVariable
