@@ -379,18 +379,19 @@
 				}, hide ? hide : 0);
 
 				var userNearBottom = function() {
-					var threshold = 14;
+					var threshold = 100;
 					var position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
 					var height = net.output_div.get(0).scrollHeight;
 					return position > height - threshold;
 				}
 
 				var scrollToBottom = function() {
-					net.output_div.get(0).scroll({
+					/*net.output_div.get(0).scroll({
 						top: net.output_div.get(0).scrollHeight,
 						left: 0,
 						behavior: 'smooth'
-					})
+					});*/
+					net.output_div.get(0).scrollTop = net.output_div.get(0).scrollHeight;
 				}
 
 				if (userNearBottom()) {
