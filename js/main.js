@@ -378,24 +378,10 @@
 					});
 				}, hide ? hide : 0);
 
-				var userNearBottom = function() {
-					var threshold = 100;
-					var position = net.output_div.get(0).scrollTop + net.output_div.get(0).offsetHeight;
-					var height = net.output_div.get(0).scrollHeight;
-					return position > height - threshold;
-				}
+				var output = net.output_div.get(0);
 
-				var scrollToBottom = function() {
-					/*net.output_div.get(0).scroll({
-						top: net.output_div.get(0).scrollHeight,
-						left: 0,
-						behavior: 'smooth'
-					});*/
-					net.output_div.get(0).scrollTop = net.output_div.get(0).scrollHeight;
-				}
-
-				if (userNearBottom()) {
-					scrollToBottom();
+				if (output.scrollTop + output.offsetHeight > output.scrollHeight - 200) {
+					output.scrollTop = output.scrollHeight;
 				}
 			};
 
