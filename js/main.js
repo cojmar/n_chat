@@ -762,7 +762,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.log('<span style="color: ' + net.colors[3] + '; overflow: hidden;">[' + nick + '] </span>' + net.clean(data.msg));
+				net.log('<span style="color: ' + net.colors[3] + '; overflow: hidden;" title="' + user + '">[' + nick + '] </span>' + net.clean(data.msg));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
