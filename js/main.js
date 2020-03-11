@@ -682,7 +682,7 @@
 
 				// noinspection JSUnresolvedVariable
 				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-				net.text_input.attr('placeholder', 'You are Typing as "' + users_obj[me] + '". To change nick, type /nick and your new nickname.');
+				net.text_input.attr('placeholder', 'You are typing as "' + users_obj[me] + '". To change nick, type /nick and your new nickname.');
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
