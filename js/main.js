@@ -18,7 +18,7 @@
 	window.__ga__.q = [['create', 'UA-47896346-6', 'auto']];
 	window.__ga__.l = Date.now();
 
-	// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
+	// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols,DuplicatedCode
 	define('optional', [], {
 		load: function(name, req, onload, config) {
 			var onLoadSuccess = function(moduleInstance) {
@@ -421,7 +421,7 @@
 					return false;
 				}
 
-				if (msg.trim().length <= 1) {
+				if (msg.trim().length <= 0) {
 					return false;
 				}
 
