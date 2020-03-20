@@ -638,7 +638,6 @@
 			net.socket.on('room.info', function (data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
-				net.socket.room = data;
 
 				// noinspection JSUnresolvedVariable
 				var users_online = Object.keys(net.socket.room.users).length;
@@ -709,9 +708,6 @@
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
-				// console.log('room.data');
-				// console.log(JSON.stringify(data, null, 2));
-				net.socket.room.data = $.extend(net.socket.room.data, data.data);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -720,8 +716,6 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				if (net.socket.room) {
-					// noinspection JSUnresolvedVariable
-					net.socket.room.users[data.user] = data.data;
 					// noinspection JSUnresolvedVariable
 					net.client_room_online.text(Object.keys(net.socket.room.users).length);
 					// noinspection JSUnresolvedVariable
@@ -735,14 +729,6 @@
 			net.socket.on('room.user_leave', function (data) {
 				// console.log('room.user_leave');
 				// console.log(JSON.stringify(data, null, 2));
-
-				if (net.socket.room) {
-					// noinspection JSUnresolvedVariable
-					if (net.socket.room.users[data.user]) {
-						// noinspection JSUnresolvedVariable
-						delete net.socket.room.users[data.user]
-					}
-				}
 
 				var $el = $('#room_user_' + data.user);
 
