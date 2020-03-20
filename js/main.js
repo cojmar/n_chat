@@ -495,8 +495,8 @@
 			};
 
 			net.client_cmd = function(argz) {
-				if (net.socket.room) {
-					var muted = net.socket.room.data.muted || [];
+				if (net.room_info) {
+					var muted = net.room_info.data.muted || [];
 
 					switch (argz.cmd) {
 						case 'mute':
@@ -528,9 +528,8 @@
 			};
 
 			net.check_msg = function(data) {
-				// noinspection JSUnresolvedVariable
-				if (net.socket.room) {
-					var muted = net.socket.room.data.muted || [];
+				if (net.room_info) {
+					var muted = net.room_info.data.muted || [];
 					return !~muted.indexOf(data.user);
 				}
 			};
@@ -579,8 +578,8 @@
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
 					if (~room.indexOf('Emupedia')) {
-						if (net.socket.room) {
-							if (room === net.socket.room.name) {
+						if (net.room_info) {
+							if (room === net.room_info.name) {
 								// noinspection JSUnfilteredForInLoop
 								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
 							} else {
@@ -638,12 +637,13 @@
 			net.socket.on('room.info', function (data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
+				net.room_info = data;
 
 				// noinspection JSUnresolvedVariable
-				var users_online = Object.keys(net.socket.room.users).length;
+				var users_online = Object.keys(net.room_info.users).length;
 				// noinspection JSUnresolvedVariable
-				var me = net.socket.room.me;
-				var room = net.socket.room.name;
+				var me = net.room_info.me;
+				var room = net.room_info.name;
 				var users_array_default = [];
 				var users_array_nick = [];
 				var users_list = '';
@@ -708,6 +708,9 @@
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
+				// console.log('room.data');
+				// console.log(JSON.stringify(data, null, 2));
+				net.room_info.data = $.extend(net.room_info.data, data.data);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -715,11 +718,13 @@
 				// console.log('room.user_join');
 				// console.log(JSON.stringify(data, null, 2));
 
-				if (net.socket.room) {
+				if (net.room_info) {
 					// noinspection JSUnresolvedVariable
-					net.client_room_online.text(Object.keys(net.socket.room.users).length);
+					net.room_info.users[data.user] = data.data;
 					// noinspection JSUnresolvedVariable
-					$('.ui-selectmenu-text').text(net.socket.room.name + ' (' + Object.keys(net.socket.room.users).length + ' users)');
+					net.client_room_online.text(Object.keys(net.room_info.users).length);
+					// noinspection JSUnresolvedVariable
+					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' users)');
 				}
 				// noinspection JSUnresolvedVariable
 				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.clean_nicknames(data.data.info.nick) + '</div>');
@@ -729,6 +734,14 @@
 			net.socket.on('room.user_leave', function (data) {
 				// console.log('room.user_leave');
 				// console.log(JSON.stringify(data, null, 2));
+
+				if (net.room_info) {
+					// noinspection JSUnresolvedVariable
+					if (net.room_info.users[data.user]) {
+						// noinspection JSUnresolvedVariable
+						delete net.room_info.users[data.user]
+					}
+				}
 
 				var $el = $('#room_user_' + data.user);
 
@@ -753,9 +766,9 @@
 				var nick = '';
 
 				// noinspection JSUnresolvedVariable
-				if (typeof net.socket.room !== 'undefined' && typeof net.socket.room.users[user] !== 'undefined' && typeof net.socket.room.users[user].info !== 'undefined' && typeof net.socket.room.users[user].info.nick !== 'undefined') {
+				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
 					// noinspection JSUnresolvedVariable
-					nick = net.clean_nicknames(net.socket.room.users[user].info.nick);
+					nick = net.clean_nicknames(net.room_info.users[user].info.nick);
 				}
 
 				// noinspection JSUnresolvedVariable
@@ -767,12 +780,12 @@
 				// console.log('room.user_info');
 				// console.log(JSON.stringify(data, null, 2));
 
-				if (net.socket.room) {
+				if (net.room_info) {
 					// noinspection JSUnresolvedVariable
-					if (net.socket.room.users[data.user]) {
+					if (net.room_info.users[data.user]) {
 						for (var n in data.info) {
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							net.socket.room.users[data.user].info[n] = data.info[n];
+							net.room_info.users[data.user].info[n] = data.info[n];
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -782,7 +795,7 @@
 						}
 
 						// noinspection JSUnresolvedVariable
-						if (data.user === net.socket.room.me) {
+						if (data.user === net.room_info.me) {
 							// noinspection JSUnresolvedVariable
 							if (data.info.nick) {
 								// noinspection JSUnresolvedFunction,JSUnresolvedVariable
