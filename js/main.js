@@ -505,7 +505,7 @@
 						}
 
 						for (var user in net.room_info.users) {
-							if (net.room_info.users[user].info.nick.toLowerCase() === data.data) {
+							if (net.room_info.users[user].info.nick.toLowerCase() === data.data.toLowerCase()) {
 								setTimeout(function () {
 									alert('Nickname already taken!');
 								}, 100);
