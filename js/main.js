@@ -448,6 +448,12 @@
 					}
 				}
 
+				if (net.last_last_last_msg) {
+					if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
+						return false;
+					}
+				}
+
 				if (!(~msg.indexOf(' ') || ~msg.indexOf('.') || ~msg.indexOf(':') || ~msg.indexOf('/') || ~msg.indexOf('\\')) && msg.length >= 20) {
 					return false;
 				}
@@ -493,6 +499,7 @@
 				} else {
 					// noinspection JSUnresolvedFunction
 					net.send_cmd('room_msg', msg);
+					net.last_last_last_msg = net.last_last_msg;
 					net.last_last_msg = net.last_msg;
 					net.last_msg = msg;
 				}
