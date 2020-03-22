@@ -491,26 +491,7 @@
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
 						if (data.data === '') {
-							setTimeout(function () {
-								alert('Nickname cannot be empty!');
-							}, 100);
 							return false;
-						}
-
-						if (~data.data.toLowerCase().indexOf('admin') || ~data.data.toLowerCase().indexOf('emupedia') || ~data.data.toLowerCase().indexOf('emuos')) {
-							setTimeout(function () {
-								alert('Nickname not allowed!');
-							}, 100);
-							return false;
-						}
-
-						for (var user in net.room_info.users) {
-							if (net.room_info.users[user].info.nick.toLowerCase() === data.data.toLowerCase()) {
-								setTimeout(function () {
-									alert('Nickname already taken!');
-								}, 100);
-								return false;
-							}
 						}
 					}
 
