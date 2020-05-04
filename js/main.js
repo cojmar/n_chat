@@ -66,14 +66,14 @@
 			jquerycustomscrollbar: ['/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min', '//emupedia.net/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min', '//emuos.net/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min'],
 			jqyeryajaxretry: ['/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', '//emupedia.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', '//emuos.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min'],
 			json: ['/beta/emuos/js/libraries/requirejs-json-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-json-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-json-1.0.3'],
-			moment: ['/beta/emuos/js/libraries/moment-2.24.0.min', '//emupedia.net/beta/emuos/js/libraries/moment-2.24.0.min', '//emuos.net/beta/emuos/js/libraries/moment-2.24.0.min'],
+			moment: ['/beta/emuos/js/libraries/moment-2.25.1.min', '//emupedia.net/beta/emuos/js/libraries/moment-2.25.1.min', '//emuos.net/beta/emuos/js/libraries/moment-2.25.1.min'],
 			'moment-timezone': ['/beta/emuos/js/libraries/moment-timezone-0.5.28.min', '//emupedia.net/beta/emuos/js/libraries/moment-timezone-0.5.28.min', '//emuos.net/beta/emuos/js/libraries/moment-timezone-0.5.28.min'],
 			network: ['/beta/emuos/js/network', '//emupedia.net/beta/emuos/js/network', '//emuos.net/beta/emuos/js/network'],
 			noext: ['/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-noext-1.0.3'],
 			simplestorage: ['/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emupedia.net/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emuos.net/beta/emuos/js/libraries/simplestorage-0.2.1.min'],
-			socket: ['https://ws.emupedia.net/app/u_socket_es5', 'https://ws.emuos.net/app/u_socket_es5', '/beta/emuos/js/socket', '//emupedia.net/beta/emuos/js/socket', '//emuos.net/beta/emuos/js/socket'],
+			socket: ['/beta/emuos/js/socket', '//emupedia.net/beta/emuos/js/socket', '//emuos.net/beta/emuos/js/socket'],
 			text: ['/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emupedia.net/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emuos.net/beta/emuos/js/libraries/requirejs-text-2.0.15'],
-			twemoji: ['/beta/emuos/js/libraries/twemoji-12.1.5.min', '//emupedia.net/beta/emuos/js/libraries/twemoji-12.1.5.min', '//emuos.net/beta/emuos/js/libraries/twemoji-12.1.5.min']
+			twemoji: ['/beta/emuos/js/libraries/twemoji-12.1.6.min', '//emupedia.net/beta/emuos/js/libraries/twemoji-12.1.6.min', '//emuos.net/beta/emuos/js/libraries/twemoji-12.1.6.min']
 		},
 		shim: {
 			chat: {
