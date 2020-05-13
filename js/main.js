@@ -55,26 +55,7 @@
 	requirejs.config({
 		urlArgs: 'rand=' + (new Date()).getTime(),
 		waitSeconds: 300,
-		paths: {
-			emoticons: ['/beta/emuos/js/emoticons', '//emupedia.net/beta/emuos/js/emoticons', '//emuos.net/beta/emuos/js/emoticons'],
-			fingerprint: ['/beta/emuos/js/libraries/fingerprint-0.5.3', '//emupedia.net/beta/emuos/js/libraries/fingerprint-0.5.3', '//emuos.net/beta/emuos/js/libraries/fingerprint-0.5.3'],
-			ga: '//www.google-analytics.com/analytics',
-			jquery: ['/beta/emuos/js/libraries/jquery-2.2.4.min', '//emupedia.net/beta/emuos/js/libraries/jquery-2.2.4.min', '//emuos.net/beta/emuos/js/libraries/jquery-2.2.4.min'],
-			jquerymousewheel: ['/beta/emuos/js/libraries/jquery-mousewheel-3.1.13', '//emupedia.net/beta/emuos/js/libraries/jquery-mousewheel-3.1.13', '//emuos.net/beta/emuos/js/libraries/jquery-mousewheel-3.1.13'],
-			jqueryui: ['/beta/emuos/js/libraries/jquery-ui-1.11.4.min', '//emupedia.net/beta/emuos/js/libraries/jquery-ui-1.11.4.min', '//emuos.net/beta/emuos/js/libraries/jquery-ui-1.11.4.min'],
-			jqueryuicontextmenu: ['/beta/emuos/js/libraries/jquery-ui-contextmenu-1.18.1.min', '//emupedia.net/beta/emuos/js/libraries/jquery-ui-contextmenu-1.18.1.min', '//emuos.net/beta/emuos/js/libraries/jquery-ui-contextmenu-1.18.1.min'],
-			jquerycustomscrollbar: ['/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min', '//emupedia.net/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min', '//emuos.net/beta/emuos/js/libraries/jquery-customscrollbar-3.1.5.min'],
-			jqyeryajaxretry: ['/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', '//emupedia.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min', '//emuos.net/beta/emuos/js/libraries/jquery-ajax-retry-0.2.8.min'],
-			json: ['/beta/emuos/js/libraries/requirejs-json-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-json-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-json-1.0.3'],
-			moment: ['/beta/emuos/js/libraries/moment-2.25.3.min', '//emupedia.net/beta/emuos/js/libraries/moment-2.25.3.min', '//emuos.net/beta/emuos/js/libraries/moment-2.25.3.min'],
-			'moment-timezone': ['/beta/emuos/js/libraries/moment-timezone-0.5.28.min', '//emupedia.net/beta/emuos/js/libraries/moment-timezone-0.5.28.min', '//emuos.net/beta/emuos/js/libraries/moment-timezone-0.5.28.min'],
-			network: ['/beta/emuos/js/network', '//emupedia.net/beta/emuos/js/network', '//emuos.net/beta/emuos/js/network'],
-			noext: ['/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emupedia.net/beta/emuos/js/libraries/requirejs-noext-1.0.3', '//emuos.net/beta/emuos/js/libraries/requirejs-noext-1.0.3'],
-			simplestorage: ['/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emupedia.net/beta/emuos/js/libraries/simplestorage-0.2.1.min', '//emuos.net/beta/emuos/js/libraries/simplestorage-0.2.1.min'],
-			socket: ['/beta/emuos/js/socket', '//emupedia.net/beta/emuos/js/socket', '//emuos.net/beta/emuos/js/socket'],
-			text: ['/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emupedia.net/beta/emuos/js/libraries/requirejs-text-2.0.15', '//emuos.net/beta/emuos/js/libraries/requirejs-text-2.0.15'],
-			twemoji: ['/beta/emuos/js/libraries/twemoji-13.0.0.min', '//emupedia.net/beta/emuos/js/libraries/twemoji-13.0.0.min', '//emuos.net/beta/emuos/js/libraries/twemoji-13.0.0.min']
-		},
+		paths: $sys.lib,
 		shim: {
 			chat: {
 				deps: ['jquery', 'simplestorage', 'fingerprint', 'network']
@@ -82,17 +63,29 @@
 			fingerprint: {
 				exports: 'Fingerprint'
 			},
-			jquerymousewheel: {
+			jquery: {
+				exports: 'jQuery'
+			},
+			'jquery-1.x': {
+				exports: 'jQuery'
+			},
+			'jquery-2.x': {
+				exports: 'jQuery'
+			},
+			'jquery-3.x': {
+				exports: 'jQuery'
+			},
+			'jquery-mousewheel': {
 				deps: ['jquery']
 			},
-			jqueryui: {
+			'jquery-ui': {
 				deps: ['jquery']
 			},
-			jqueryuicontextmenu: {
-				deps: ['jqueryui']
+			'jquery-ui-contextmenu': {
+				deps: ['jquery-ui']
 			},
-			jquerycustomscrollbar: {
-				deps: ['jquerymousewheel']
+			'jquery-custom-scrollbar': {
+				deps: ['jquery-mousewheel']
 			},
 			network: {
 				deps: ['socket']
@@ -105,13 +98,21 @@
 				exports: 'twemoji'
 			}
 		},
-		map: {}
+		map: {
+			'*': {
+				jquery: 'jquery-2.x',
+				'jquery-ui': 'jquery-ui-1.11.x',
+				json: 'requirejs-json',
+				noext: 'requirejs-noext',
+				text: 'requirejs-text'
+			}
+		}
 	});
 
 	// noinspection JSUnresolvedFunction
 	requirejs([
 		'jquery',
-		'jqueryui',
+		'jquery-ui',
 		'json!../data/emoticons.json',
 		'json!../data/normalize.json',
 		'json!../data/blacklist.json',
@@ -119,7 +120,7 @@
 		'twemoji',
 		'simplestorage',
 		'network',
-		'jqyeryajaxretry',
+		'jquery-ajax-retry',
 		'optional!ga'
 	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ajaxretry, ga) {
 		$(function() {
