@@ -6,8 +6,8 @@
 	import Icon from 'fa-svelte';
 	import Popper from 'popper.js';
 
-	import ClickOutside from 'svelte-click-outside';
-	import {Tabs, Tab, TabList, TabPanel} from 'svelte-tabs';
+	import ClickOutside from './ClickOutside.svelte';
+	import {Tabs, Tab, TabList, TabPanel} from '../Tabs/';
 
 	import EmojiDetail from './EmojiDetail.svelte';
 	import EmojiList from './EmojiList.svelte';
