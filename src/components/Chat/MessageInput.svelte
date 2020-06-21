@@ -43,7 +43,7 @@
 
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import EmojiSelector from './EmojiSelector/EmojiSelector.svelte';
+	import { EmojiSelector } from '../Emoji';
 
 	const dispatch = createEventDispatcher();
 

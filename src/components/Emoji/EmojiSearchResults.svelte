@@ -13,7 +13,7 @@
 	const dispatch = createEventDispatcher();
 
 	$: searchResults = emojiData.filter(emoji => (
-			emoji.names.find(name => name.indexOf(searchText) >= 0)
+		emoji.names.find(name => name.indexOf(searchText) >= 0)
 	));
 
 	function onMouseOver() {

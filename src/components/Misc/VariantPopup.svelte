@@ -4,7 +4,7 @@
 	import {faTimes} from '@fortawesome/free-solid-svg-icons';
 	import Icon from 'fa-svelte';
 
-	import Emoji from './Emoji.svelte';
+	import Emoji from '../Emoji/Emoji.svelte';
 
 	export let variants;
 

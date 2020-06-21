@@ -81,25 +81,30 @@
 			switch (event.key) {
 				case 'ArrowRight':
 					selectedIndex += 1;
+
 					if (selectedIndex > tabs.length - 1) {
 						selectedIndex = 0;
 					}
+
 					selectTab(tabs[selectedIndex]);
 					tabElements[selectedIndex].focus();
 					break;
 
 				case 'ArrowLeft':
 					selectedIndex -= 1;
+
 					if (selectedIndex < 0) {
 						selectedIndex = tabs.length - 1;
 					}
+
 					selectTab(tabs[selectedIndex]);
 					tabElements[selectedIndex].focus();
+					break;
 			}
 		}
 	}
 </script>
 
 <div class="svelte-tabs" on:keydown={handleKeyDown}>
-	<slot></slot>
+	<slot />
 </div>

@@ -1,3 +1,80 @@
+<style>
+	.svelte-emoji-picker {
+		background: #fff;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		width: 23rem;
+		height: 21rem;
+		margin: 0 0.5em;
+		box-shadow: 0 0 3px 1px #ccc;
+	}
+
+	.svelte-emoji-picker :global(a) {
+		color: rgb(0,100,200);
+		text-decoration: none;
+	}
+
+	.svelte-emoji-picker :global(a:hover) {
+		text-decoration: underline;
+	}
+
+	.svelte-emoji-picker :global(a:visited) {
+		color: rgb(0,80,160);
+	}
+
+	.svelte-emoji-picker :global(label) {
+		display: block;
+	}
+
+	.svelte-emoji-picker :global(input, button, select, textarea) {
+		font-family: inherit;
+		font-size: inherit;
+		padding: 0.4em;
+		box-sizing: border-box;
+		border: 1px solid #ccc;
+		border-radius: 2px;
+	}
+
+	.svelte-emoji-picker :global(input:disabled) {
+		color: #ccc;
+	}
+
+	.svelte-emoji-picker :global(input[type="range"]) {
+		height: 0;
+	}
+
+	.svelte-emoji-picker :global(button) {
+		/*color: #333;*/
+		/*background-color: #f4f4f4;*/
+		outline: none;
+	}
+
+	.svelte-emoji-picker :global(button:active) {
+		background-color: #ddd;
+	}
+
+	.svelte-emoji-picker :global(button:focus) {
+		border-color: #666;
+	}
+
+	.svelte-emoji-picker__trigger {
+		cursor: pointer;
+	}
+
+	.svelte-emoji-picker__emoji-tabs {
+		padding: 0.25em;
+		height: 15rem;
+	}
+
+	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs ul.svelte-tabs__tab-list) {
+		display: flex;
+	}
+
+	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs li.svelte-tabs__tab) {
+		flex-grow: 1;
+	}
+</style>
+
 <script>
 	import {createEventDispatcher, onMount, tick} from 'svelte';
 
@@ -6,14 +83,14 @@
 	import Icon from 'fa-svelte';
 	import Popper from 'popper.js';
 
-	import ClickOutside from './ClickOutside.svelte';
+	import ClickOutside from '../Misc/ClickOutside.svelte';
 	import {Tabs, Tab, TabList, TabPanel} from '../Tabs/';
 
 	import EmojiDetail from './EmojiDetail.svelte';
 	import EmojiList from './EmojiList.svelte';
 	import EmojiSearch from './EmojiSearch.svelte';
 	import EmojiSearchResults from './EmojiSearchResults.svelte';
-	import VariantPopup from './VariantPopup.svelte';
+	import VariantPopup from '../Misc/VariantPopup.svelte';
 
 	import emojiData from './data/emoji.js';
 
@@ -39,6 +116,7 @@
 	const emojiCategories = {};
 	emojiData.forEach(emoji => {
 		let categoryList = emojiCategories[emoji.category];
+
 		if (!categoryList) {
 			categoryList = emojiCategories[emoji.category] = [];
 		}
@@ -138,45 +216,16 @@
 	}
 </script>
 
-<style>
-	.svelte-emoji-picker {
-		background: #FFFFFF;
-		border: 1px solid #CCCCCC;
-		border-radius: 5px;
-		width: 23rem;
-		height: 21rem;
-		margin: 0 0.5em;
-		box-shadow: 0px 0px 3px 1px #CCCCCC;
-	}
-
-	.svelte-emoji-picker__trigger {
-		cursor: pointer;
-	}
-
-	.svelte-emoji-picker__emoji-tabs {
-		padding: 0.25em;
-		height: 15rem;
-	}
-
-	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs ul.svelte-tabs__tab-list) {
-		display: flex;
-	}
-
-	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs li.svelte-tabs__tab) {
-		flex-grow: 1;
-	}
-</style>
-
-<svelte:body on:keydown={onKeyDown}/>
+<svelte:body on:keydown={onKeyDown} />
 
 <button type="button" class="svelte-emoji-picker__trigger" bind:this={triggerButtonEl} on:click|preventDefault={togglePicker}>
-	<Icon icon={smileIcon}/>
+	<Icon icon={smileIcon} />
 </button>
 
 {#if pickerVisible}
 	<ClickOutside on:clickoutside={hidePicker} exclude={[triggerButtonEl]}>
 		<div class="svelte-emoji-picker" bind:this={pickerEl} on:keydown={onKeyDown}>
-			<EmojiSearch bind:searchText={searchText}/>
+			<EmojiSearch bind:searchText={searchText} />
 			{#if searchText}
 				<EmojiSearchResults searchText={searchText} on:emojihover={showEmojiDetails} on:emojiclick={onEmojiClick}/>
 			{:else}
@@ -184,22 +233,22 @@
 					<Tabs initialSelectedIndex={1}>
 						<TabList>
 							<Tab>
-								<Icon icon={faHistory}/>
+								<Icon icon={faHistory} />
 							</Tab>
 							{#each categoryOrder as category}
 								<Tab>
-									<Icon icon={categoryIcons[category]}/>
+									<Icon icon={categoryIcons[category]} />
 								</Tab>
 							{/each}
 						</TabList>
 
 						<TabPanel>
-							<EmojiList name="Recently Used" emojis={recentEmojis} on:emojihover={showEmojiDetails} on:emojiclick={onEmojiClick}/>
+							<EmojiList name="Recently Used" emojis={recentEmojis} on:emojihover={showEmojiDetails} on:emojiclick={onEmojiClick} />
 						</TabPanel>
 
 						{#each categoryOrder as category}
 							<TabPanel>
-								<EmojiList name={category} emojis={emojiCategories[category]} on:emojihover={showEmojiDetails} on:emojiclick={onEmojiClick}/>
+								<EmojiList name={category} emojis={emojiCategories[category]} on:emojihover={showEmojiDetails} on:emojiclick={onEmojiClick} />
 							</TabPanel>
 						{/each}
 					</Tabs>

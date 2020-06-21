@@ -34,7 +34,7 @@
 	}
 
 	.svelte-tabs__tab:focus {
-		outline: thin dotted;
+		/*outline: thin dotted;*/
 	}
 
 	.svelte-tabs__selected {

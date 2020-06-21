@@ -1,6 +1,6 @@
 <style>
 	#message-container {
-		height: calc(100% - 37px);
+		height: calc(100% - 45px);
 		overflow-y: auto;
 		padding: 0 10px;
 	}

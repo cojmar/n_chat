@@ -151,9 +151,11 @@
 
 		<!-- region Styles -->
 
+		<!--suppress CssUnusedSymbol -->
 		<style type="text/css">
 			html {
 				height: 100%;
+
 			}
 
 			body {
@@ -163,58 +165,6 @@
 				overflow: hidden;
 			}
 
-			a {
-				color: rgb(0,100,200);
-				text-decoration: none;
-			}
-
-			a:hover {
-				text-decoration: underline;
-			}
-
-			a:visited {
-				color: rgb(0,80,160);
-			}
-
-			label {
-				display: block;
-			}
-
-			input, button, select, textarea {
-				font-family: inherit;
-				font-size: inherit;
-				padding: 0.4em;
-				box-sizing: border-box;
-				border: 1px solid #ccc;
-				border-radius: 2px;
-			}
-
-			input:disabled {
-				color: #ccc;
-			}
-
-			input[type="range"] {
-				height: 0;
-			}
-
-			button {
-				color: #333;
-				background-color: #f4f4f4;
-				outline: none;
-			}
-
-			button:active {
-				background-color: #ddd;
-			}
-
-			button:focus {
-				border-color: #666;
-			}
-
-			.svelte-emoji-picker {
-				box-sizing: border-box;
-			}
-
 			.emuchat body {
 				background-color: #333;
 				background-image: url(assets/images/logos/emuchat/emuchat-logo-1024.png);
@@ -222,6 +172,139 @@
 				background-position: center;
 				background-size: 30%;
 				color: #fff;
+			}
+
+			.clearfix::after {
+				display: block;
+				clear: both;
+				content: '';
+			}
+
+			.visible {
+				visibility: visible !important;
+			}
+
+			.invisible {
+				visibility: hidden !important;
+			}
+
+			.text-monospace {
+				font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+				'Courier New', monospace !important;
+			}
+
+			.text-justify {
+				text-align: justify !important;
+			}
+
+			.text-wrap {
+				white-space: normal !important;
+			}
+
+			.text-nowrap {
+				white-space: nowrap !important;
+			}
+
+			.text-truncate {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.text-left {
+				text-align: left !important;
+			}
+
+			.text-right {
+				text-align: right !important;
+			}
+
+			.text-center {
+				text-align: center !important;
+			}
+
+			@media (min-width: 576px) {
+				.text-sm-left {
+					text-align: left !important;
+				}
+				.text-sm-right {
+					text-align: right !important;
+				}
+				.text-sm-center {
+					text-align: center !important;
+				}
+			}
+
+			@media (min-width: 768px) {
+				.text-md-left {
+					text-align: left !important;
+				}
+				.text-md-right {
+					text-align: right !important;
+				}
+				.text-md-center {
+					text-align: center !important;
+				}
+			}
+
+			@media (min-width: 992px) {
+				.text-lg-left {
+					text-align: left !important;
+				}
+				.text-lg-right {
+					text-align: right !important;
+				}
+				.text-lg-center {
+					text-align: center !important;
+				}
+			}
+
+			@media (min-width: 1200px) {
+				.text-xl-left {
+					text-align: left !important;
+				}
+				.text-xl-right {
+					text-align: right !important;
+				}
+				.text-xl-center {
+					text-align: center !important;
+				}
+			}
+
+			.text-lowercase {
+				text-transform: lowercase !important;
+			}
+
+			.text-uppercase {
+				text-transform: uppercase !important;
+			}
+
+			.text-capitalize {
+				text-transform: capitalize !important;
+			}
+
+			.font-weight-light {
+				font-weight: 300 !important;
+			}
+
+			.font-weight-lighter {
+				font-weight: lighter !important;
+			}
+
+			.font-weight-normal {
+				font-weight: 400 !important;
+			}
+
+			.font-weight-bold {
+				font-weight: 700 !important;
+			}
+
+			.font-weight-bolder {
+				font-weight: bolder !important;
+			}
+
+			.font-italic {
+				font-style: italic !important;
 			}
 
 			::-webkit-scrollbar {
