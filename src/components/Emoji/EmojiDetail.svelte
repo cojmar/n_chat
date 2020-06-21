@@ -4,7 +4,7 @@
 
 <style>
 	.svelte-emoji-picker__emoji-detail {
-		border-top: 1px solid #CCCCCC;
+		border-top: 1px solid #7d7d7d;
 		padding: 0.25em;
 		font-size: 0.8em;
 		font-weight: bold;

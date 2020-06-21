@@ -10,12 +10,13 @@
 	h3 {
 		margin: 0.25em;
 		font-size: 0.9em;
-		color: #333333;
+		color: #7d7d7d;
 	}
 
 	.svelte-emoji-picker__emoji-list {
 		height: 11rem;
-		overflow-y: scroll;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 
 	.svelte-emoji-picker__emoji-list.tall {

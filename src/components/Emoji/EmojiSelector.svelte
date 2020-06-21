@@ -1,12 +1,12 @@
 <style>
 	.svelte-emoji-picker {
-		background: #fff;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		width: 23rem;
+		background: #2c2c2c;
+		border: 1px solid #7d7d7d;
+		/*border-radius: 5px;*/
+		width: 25rem;
 		height: 21rem;
 		margin: 0 0.5em;
-		box-shadow: 0 0 3px 1px #ccc;
+		/*box-shadow: 0 0 3px 1px #ccc;*/
 	}
 
 	.svelte-emoji-picker :global(a) {
@@ -50,7 +50,7 @@
 	}
 
 	.svelte-emoji-picker :global(button:active) {
-		background-color: #ddd;
+		background-color: #7d7d7d;
 	}
 
 	.svelte-emoji-picker :global(button:focus) {

@@ -33,16 +33,19 @@
 
 	.svelte-emoji-picker__search input {
 		width: 100%;
-		border-radius: 5px;
+		border-radius: 0;
+		border-color: #7d7d7d;
+		background-color: #2c2c2c;
+		color: #7d7d7d;
 	}
 
 	.svelte-emoji-picker__search input:focus {
 		outline: none;
-		border-color: #4F81E5;
+		border-color: #395fa4;
 	}
 
 	.icon {
-		color: #AAAAAA;
+		color: #aaa;
 		position: absolute;
 		font-size: 1em;
 		top: calc(50% - 0.5em);

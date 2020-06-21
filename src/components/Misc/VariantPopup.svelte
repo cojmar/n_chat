@@ -25,7 +25,7 @@
 		top: 0;
 		left: 0;
 		background: rgba(0, 0, 0, 0.5);
-		width: 23rem;
+		width: 25rem;
 		height: 21rem;
 		display: flex;
 		flex-direction: column;
@@ -33,7 +33,7 @@
 	}
 
 	.svelte-emoji-picker__variants {
-		background: #FFFFFF;
+		background: #2c2c2c;
 		margin: 0.5em;
 		padding: 0.5em;
 		text-align: center;

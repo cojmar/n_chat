@@ -22,6 +22,7 @@
 		box-sizing: border-box;
 		color: #7d7d7d;
 		padding: 5px 8px;
+		height: 28px;
 		float: left;
 	}
 

@@ -31,7 +31,7 @@
 	}
 
 	button:hover {
-		background: #E8F4F9;
+		background: #7d7d7d;
 		border-radius: 5px;
 	}
 </style>
