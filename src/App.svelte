@@ -1,12 +1,16 @@
 <style>
 	.chat-wrapper {
-		height: 100%;
-		background-color: #302f2f;
+		width: calc(100% - 2px);
+		height: calc(100% - 2px);
+		box-sizing: border-box;
+		background-color: rgba(51, 51, 51, 0.8);
 		color: #b0a9a9;
+		border: 1px solid #4c4c4c;
 	}
 
 	.chat-container {
 		position: relative;
+		width: 100%;
 		height: 100%;
 		overflow: hidden;
 	}

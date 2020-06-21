@@ -1,43 +1,57 @@
 <style>
-	#chat-input {
+	.chat-input-wrapper {
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: 100%;
-		height: 37px;
-		padding-top: 5px;
-		/*background-color: white;*/
+		width: calc(100% - 16px);
+		border: 1px solid #4c4c4c;
+		margin: 0 2px 2px;
+		height: 28px;
+		padding: 5px;
 	}
 
-	#chat-input input {
-		width: 90%;
-		border-radius: 10px;
-		border: none;
-		border: 1px solid rgba(0, 0, 0, 0.2);
+	.chat-input {
+		height: 28px;
+		overflow: hidden;
+	}
+
+	.chat-input input {
+		width: calc(100% - 56px);
+		background-color: #2c2c2c;
+		border: 1px solid #7d7d7d;
+		box-sizing: border-box;
+		color: #7d7d7d;
 		padding: 5px 8px;
 		float: left;
 	}
 
-	#chat-input button {
-		background: none;
-		border: none;
-		width: 5%;
-		padding-top: 2px;
+	.chat-input button {
+		background: none transparent;
+		box-sizing: border-box;
+		border: 1px solid #7d7d7d;
+		border-left: none;
+		width: 28px;
+		height: 28px;
+		padding: 0;
 		margin: 0;
+		vertical-align: middle;
+		cursor: pointer;
+		border-radius: 0;
+		float: left;
 	}
 
-	#chat-input button svg {
+	.chat-input button svg {
 		width: 24px;
 		height: 24px;
-		text-align: center;
+		vertical-align: middle;
 	}
 
-	#chat-input button:hover {
-		cursor: pointer;
+	.chat-input button svg path {
+		fill: #7d7d7d;
 	}
 
-	#chat-input button:hover svg path {
-		fill: #a62824;
+	.chat-input button:hover svg path {
+		fill: #395fa4;
 	}
 </style>
 
@@ -63,12 +77,14 @@
 	}
 </script>
 
-<form id="chat-input" on:submit|preventDefault={handleSubmit}>
-	<EmojiSelector on:emoji={onEmoji} />
-	<input type="text" placeholder="Enter a message" bind:value={input} />
-	<button type="submit" disabled={!input}>
-		<svg viewBox="0 0 24 24">
-			<path fill="#424242" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-		</svg>
-	</button>
-</form>
+<div class="chat-input-wrapper">
+	<form class="chat-input" on:submit|preventDefault={handleSubmit}>
+		<EmojiSelector on:emoji={onEmoji} />
+		<input type="text" placeholder="Enter a message" bind:value={input} />
+		<button type="submit" disabled={!input}>
+			<svg viewBox="0 0 24 24">
+				<path fill="#424242" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+			</svg>
+		</button>
+	</form>
+</div>

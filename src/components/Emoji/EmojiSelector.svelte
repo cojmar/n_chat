@@ -58,7 +58,32 @@
 	}
 
 	.svelte-emoji-picker__trigger {
+		background-color: #2c2c2c;
+		border: 1px solid #7d7d7d;
+		border-right: none;
+		color: #7d7d7d;
+		width: 28px;
+		height: 28px;
+		padding: 0;
 		cursor: pointer;
+		vertical-align: top;
+		float: left;
+		overflow: hidden;
+		border-radius: 0;
+	}
+
+	.svelte-emoji-picker__trigger :global(svg) {
+		width: 20px;
+		height: 20px;
+		vertical-align: middle;
+	}
+
+	.svelte-emoji-picker__trigger :global(svg path) {
+		fill: #7d7d7d;
+	}
+
+	.svelte-emoji-picker__trigger:hover :global(svg path) {
+		fill: #395fa4;
 	}
 
 	.svelte-emoji-picker__emoji-tabs {
