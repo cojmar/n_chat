@@ -72,6 +72,12 @@
 		border-radius: 0;
 	}
 
+	.svelte-emoji-picker__trigger:active,
+	.svelte-emoji-picker__trigger:focus {
+		outline: 1px solid #395fa4;
+		outline-offset: -1px;
+	}
+
 	.svelte-emoji-picker__trigger :global(svg) {
 		width: 20px;
 		height: 20px;

@@ -24,6 +24,13 @@
 		padding: 5px 8px;
 		height: 28px;
 		float: left;
+		outline: none;
+	}
+
+	.chat-input input:active,
+	.chat-input input:focus {
+		outline: 1px solid #395fa4;
+		outline-offset: -1px;
 	}
 
 	.chat-input button {
@@ -39,6 +46,13 @@
 		cursor: pointer;
 		border-radius: 0;
 		float: left;
+		outline: none;
+	}
+
+	.chat-input button:active,
+	.chat-input button:focus {
+		outline: 1px solid #395fa4;
+		outline-offset: -1px;
 	}
 
 	.chat-input button svg {
