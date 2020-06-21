@@ -238,6 +238,8 @@
 	font-size: 13px;
 	line-height: 18px;
 	text-align: center;
+	padding: 0;
+	margin: 0;
 	color: #395fa4;
 }
 
@@ -271,7 +273,7 @@
 	color: rgba(128, 128, 128, 0.35);
 }
 
-.ui-menu-item.ui-state-focus {
+.ui-menu-item-wrapper.ui-state-active {
 	color: #395fa4;
 	background: none;
 	border: none;

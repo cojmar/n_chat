@@ -165,6 +165,45 @@
 				overflow: hidden;
 			}
 
+			@font-face {
+				font-family: 'EmuOS';
+				src: url(assets/fonts/emuos.eot);
+				src: url(assets/fonts/emuos.eot?#iefix) format('embedded-opentype'),
+				url(assets/fonts/emuos.woff2) format('woff2'),
+				url(assets/fonts/emuos.woff) format('woff'),
+				url(assets/fonts/emuos.ttf) format('truetype'),
+				url(assets/fonts/emuos.svg#emuos) format('svg');
+				font-display: swap;
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			@font-face {
+				font-family: 'DOSVGA';
+				src: url(assets/fonts/dosvga.eot);
+				src: url(assets/fonts/dosvga.eot?#iefix) format('embedded-opentype'),
+				url(assets/fonts/dosvga.woff2) format('woff2'),
+				url(assets/fonts/dosvga.woff) format('woff'),
+				url(assets/fonts/dosvga.ttf) format('truetype'),
+				url(assets/fonts/dosvga.svg#dosvga) format('svg');
+				font-display: swap;
+				font-weight: normal;
+				font-style: normal;
+			}
+
+			@font-face {
+				font-family: 'FIXEDSYS';
+				src: url(assets/fonts/fixedsys.eot);
+				src: url(assets/fonts/fixedsys.eot?#iefix) format('embedded-opentype'),
+				url(assets/fonts/fixedsys.woff2) format('woff2'),
+				url(assets/fonts/fixedsys.woff) format('woff'),
+				url(assets/fonts/fixedsys.ttf) format('truetype'),
+				url(assets/fonts/fixedsys.svg#fixedsys) format('svg');
+				font-display: swap;
+				font-weight: normal;
+				font-style: normal;
+			}
+
 			.emuchat body {
 				background-color: #333;
 				background-image: url(assets/images/logos/emuchat/emuchat-logo-256.png);
@@ -188,8 +227,7 @@
 			}
 
 			.text-monospace {
-				font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-				'Courier New', monospace !important;
+				font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
 			}
 
 			.text-justify {
@@ -332,7 +370,7 @@
 		<!-- endregion -->
 	</head>
 	<body>
-		<script type="text/javascript" src="assets/js/libraries/polyfill-es7-babel-polyfill-7.10.1.min.js"></script>
+		<script type="text/javascript" src="assets/js/libraries/babel-polyfill-7.10.1.min.js"></script>
 		<script type="text/javascript" src="assets/js/main.min.js"></script>
 		<noscript>Your browser does not support JavaScript!</noscript>
 	</body>

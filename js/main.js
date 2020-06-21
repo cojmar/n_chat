@@ -1,8 +1,8 @@
 // noinspection ThisExpressionReferencesGlobalObjectJS,JSUnusedLocalSymbols,DuplicatedCode
 (function(global) {
-	console.log('╔═╗╔╦╗╦ ╦╔═╗╔═╗╔╦═╗╦╔═╗\n' +
-				'╠═ ║║║║ ║╠═╝╠═  ║ ║║╠═╣\n' +
-				'╚═╝╩ ╩╚═╝╩  ╚═╝═╩═╝╩╩ ╩');
+	console.log('╔═╗╔╦╗╦ ╦╔═╗╦ ╦╔═╗╔╦╗\n' +
+				'╠═ ║║║║ ║║  ╠═╣╠═╣ ║ \n' +
+				'╚═╝╩ ╩╚═╝╚═╝╩ ╩╩ ╩ ╩ ');
 
 	window.GoogleAnalyticsObject = '__ga__';
 	window.__ga__ = function() {
@@ -63,18 +63,6 @@
 			fingerprint: {
 				exports: 'Fingerprint'
 			},
-			jquery: {
-				exports: 'jQuery'
-			},
-			'jquery-1.x': {
-				exports: 'jQuery'
-			},
-			'jquery-2.x': {
-				exports: 'jQuery'
-			},
-			'jquery-3.x': {
-				exports: 'jQuery'
-			},
 			'jquery-mousewheel': {
 				deps: ['jquery']
 			},
@@ -100,8 +88,6 @@
 		},
 		map: {
 			'*': {
-				jquery: 'jquery-2.x',
-				'jquery-ui': 'jquery-ui-1.11.x',
 				json: 'requirejs-json',
 				noext: 'requirejs-noext',
 				text: 'requirejs-text'
@@ -892,7 +878,7 @@
 			var chat_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
 								'<div id="client_users" class="client_decoration client_right">' +
-									'<div id="client_room" class="client_decoration"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
