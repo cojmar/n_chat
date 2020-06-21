@@ -214,7 +214,7 @@
 						transition:currentTransitionWindow={state.transitionWindowProps}
 						style={cssWindow}>
 					{#if state.closeButton}
-						<button on:click={close} class="close"/>
+						<button on:click={close} class="close" type="button"/>
 					{/if}
 					<div class="content" style={cssContent}>
 						<svelte:component this={Component} {...props}/>

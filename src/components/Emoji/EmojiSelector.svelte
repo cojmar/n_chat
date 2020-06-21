@@ -66,11 +66,15 @@
 		height: 15rem;
 	}
 
-	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs ul.svelte-tabs__tab-list) {
+	:global(.svelte-emoji-picker__emoji-tabs .tabs .tabs-panel) {
+		padding: 0;
+	}
+
+	:global(.svelte-emoji-picker__emoji-tabs .tabs .tab-list) {
 		display: flex;
 	}
 
-	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs li.svelte-tabs__tab) {
+	:global(.svelte-emoji-picker__emoji-tabs .tabs .tab-list button) {
 		flex-grow: 1;
 	}
 </style>
@@ -84,7 +88,7 @@
 	import Popper from 'popper.js';
 
 	import ClickOutside from '../Misc/ClickOutside.svelte';
-	import {Tabs, Tab, TabList, TabPanel} from '../Tabs/';
+	import {Tabs, Tab, TabList, TabPanel} from '../Svelteit/';
 
 	import EmojiDetail from './EmojiDetail.svelte';
 	import EmojiList from './EmojiList.svelte';
@@ -218,7 +222,7 @@
 
 <svelte:body on:keydown={onKeyDown} />
 
-<button type="button" class="svelte-emoji-picker__trigger" bind:this={triggerButtonEl} on:click|preventDefault={togglePicker}>
+<button class="svelte-emoji-picker__trigger" bind:this={triggerButtonEl} on:click|preventDefault={togglePicker} type="button">
 	<Icon icon={smileIcon} />
 </button>
 

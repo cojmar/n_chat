@@ -14,7 +14,7 @@
 
 <script>
 	import {MessageInput, MessageList} from "./components/Chat";
-	import {Tabs, Tab, TabList, TabPanel} from './components/Tabs';
+	import {Tabs, Tab, TabList, TabPanel} from './components/Svelteit';
 
 	let channels = [{
 		name: 'one',
