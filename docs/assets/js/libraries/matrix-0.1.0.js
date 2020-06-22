@@ -6,13 +6,14 @@ c.height = window.innerHeight;
 c.width = window.innerWidth;
 
 // the characters
-var gurmukhi = '੧੨੩੪੫੬੭੮੯੦ੳਅਰਤਯਪਸਦਗਹਜਕਲਙੜਚਵਬਨਮੲਥਫਸ਼ਧਘਝਖਲ਼ੜ੍ਹਛਭਣ'
-var sanskrit = '१२३४५६७८९अरतयपसदगहजकलङषचवबनमआथय़फशधघझखळक्षछभणऒ'
-var hanzi = '田由甲申甴电甶男甸甹町画甼甽甾甿畀畁畂畃畄畅畆畇畈畉畊畋界畍畎畏畐畑呂'
+// var gurmukhi = '੧੨੩੪੫੬੭੮੯੦ੳਅਰਤਯਪਸਦਗਹਜਕਲਙੜਚਵਬਨਮੲਥਫਸ਼ਧਘਝਖਲ਼ੜ੍ਹਛਭਣ'
+// var sanskrit = '१२३४५६७८९अरतयपसदगहजकलङषचवबनमआथय़फशधघझखळक्षछभणऒ'
+// var hanzi = '田由甲申甴电甶男甸甹町画甼甽甾甿畀畁畂畃畄畅畆畇畈畉畊畋界畍畎畏畐畑呂'
 var katakana = '゠クタハムヰアケチヒモヲィコッャンイツヤウゥサフュヵテユヶェショワエトヘヨォスラヱオナリカセニホル・ヌレーキソネロヽノマヮミ'
-var hex = 'ABCDEF01234567890'
+// var hex = 'ABCDEF01234567890'
 // converting the string into an array of single characters
-var characters = (hanzi + katakana + sanskrit + gurmukhi + hex).split('');
+// var characters = (hanzi + katakana + sanskrit + gurmukhi + hex).split('');
+var characters = katakana.split('');
 var font_size = 12;
 var columns = c.width/font_size;    // number of columns for the rain
 
@@ -21,7 +22,7 @@ var drops = [];
 // x below is the x coordinate
 // 1 = y-coordinate of the drop (same for every drop initially)
 for (var x = 0; x < columns; x++) {
-	drops[x] = 1;
+	drops[x] = Math.random() * 100;
 }
 
 /*function getColor() {
@@ -64,4 +65,4 @@ function draw() {
 	}
 }
 
-setInterval(draw, 33);
+setInterval(draw, 66);
