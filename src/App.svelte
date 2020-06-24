@@ -48,30 +48,30 @@
 		overflow-x: auto;
 	}
 
-	:global(.tab-list button) {
-		color: #b0a9a9;
-		border-bottom: 2px solid #7d7d7d;
-		border-radius: 0;
-		outline: 1px solid #7d7d7d;
-		outline-offset: -2px;
+	.chat-container :global(.tab-list button) {
+		color: #b0a9a9 !important;
+		border-bottom: 2px solid #7d7d7d !important;
+		border-radius: 0 !important;
+		outline: 1px solid #7d7d7d !important;
+		outline-offset: -2px !important;
 	}
 
-	:global(.tab-list button:active) {
-		background-color: #7d7d7d;
-		outline: 1px solid #fff;
-		color: #fff;
+	.chat-container :global(.tab-list button:active) {
+		background-color: #7d7d7d !important;
+		outline: 1px solid #fff !important;
+		color: #fff !important;
 	}
 
-	:global(.tab-list button:hover) {
-		border-bottom: 2px solid #fff;
-		outline: 1px solid #fff;
+	.chat-container :global(.tab-list button:hover) {
+		border-bottom: 2px solid #fff !important;
+		outline: 1px solid #fff !important;
 	}
 
-	:global(.tab-list button.selected) {
-		color: #fff;
-		border-bottom: 2px solid #fff;
-		border-radius: 0;
-		font-weight: normal;
+	.chat-container :global(.tab-list button.selected) {
+		color: #fff !important;
+		border-bottom: 2px solid #fff !important;
+		border-radius: 0 !important;
+		font-weight: normal !important;
 	}
 
 	.chat-container :global(.tabs-panel) {
