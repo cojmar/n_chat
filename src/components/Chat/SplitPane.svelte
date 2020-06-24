@@ -92,7 +92,7 @@
 	.divider::after {
 		content: '';
 		position: absolute;
-		background-color: #eee;
+		background-color: #4c4c4c;
 	}
 
 	.horizontal {

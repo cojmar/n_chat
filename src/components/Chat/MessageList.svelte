@@ -1,8 +1,12 @@
 <style>
-	#message-container {
-		height: calc(100% - 45px);
+	.message-container {
+		height: 100%;
 		overflow-y: auto;
 		padding: 0 10px;
+	}
+
+	.message-container p {
+		margin: 0;
 	}
 </style>
 
@@ -12,7 +16,7 @@
 	export let messages = [];
 </script>
 
-<div id="message-container">
+<div class="message-container">
 	{#each messages as message}
 		<Message author="me" message={message.text} />
 	{:else}

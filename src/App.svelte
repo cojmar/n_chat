@@ -22,15 +22,63 @@
 		box-sizing: border-box;
 	}
 
+	.chat-container :global(section p) {
+		margin: 0;
+	}
+
+	.chat-container :global(.tabs) {
+		height: 100%;
+	}
+
 	.chat-container :global(.tab-list) {
-		height: 50px;
-		overflow-x: auto;
+		height: 42px;
+		overflow-x: hidden;
 		overflow-y: hidden;
 		white-space: nowrap;
+		border-bottom: 1px solid #4c4c4c;
+		border-radius: 0;
+	}
+
+	.chat-container :global(.container) {
+		border: 1px solid #4c4c4c;
+		border-radius: 0;
+	}
+
+	.chat-container :global(.tab-list:hover) {
+		overflow-x: auto;
+	}
+
+	:global(.tab-list button) {
+		color: #b0a9a9;
+		border-bottom: 2px solid #7d7d7d;
+		border-radius: 0;
+		outline: 1px solid #7d7d7d;
+		outline-offset: -2px;
+	}
+
+	:global(.tab-list button:active) {
+		background-color: #7d7d7d;
+		outline: 1px solid #fff;
+		color: #fff;
+	}
+
+	:global(.tab-list button:hover) {
+		border-bottom: 2px solid #fff;
+		outline: 1px solid #fff;
+	}
+
+	:global(.tab-list button.selected) {
+		color: #fff;
+		border-bottom: 2px solid #fff;
+		border-radius: 0;
+		font-weight: normal;
 	}
 
 	.chat-container :global(.tabs-panel) {
-		height: 300px;
+		width: calc(100% - 6px);
+		height: calc(100% - 91px);
+		margin: 2px;
+		padding: 0;
 	}
 </style>
 
@@ -217,7 +265,7 @@
 						</section>
 
 						<section slot="b">
-							<h1>right area</h1>
+							<p>right area</p>
 						</section>
 					</SplitPane>
 					<MessageInput on:message="{event => handleMessage(event, tabIndex)}" />

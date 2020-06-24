@@ -36,7 +36,7 @@
 		border-radius: 0;
 		border-color: #7d7d7d;
 		background-color: #2c2c2c;
-		color: #7d7d7d;
+		color: #fff;
 	}
 
 	.svelte-emoji-picker__search input:focus {

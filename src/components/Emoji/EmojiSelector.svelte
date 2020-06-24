@@ -27,8 +27,8 @@
 	}
 
 	.svelte-emoji-picker :global(input, button, select, textarea) {
-		font-family: inherit;
-		font-size: inherit;
+		/* font-family: inherit; */
+		/* font-size: inherit; */
 		padding: 0.4em;
 		box-sizing: border-box;
 		border: 1px solid #ccc;
@@ -44,8 +44,7 @@
 	}
 
 	.svelte-emoji-picker :global(button) {
-		/*color: #333;*/
-		/*background-color: #f4f4f4;*/
+		border-color: #7d7d7d;
 		outline: none;
 	}
 
@@ -53,8 +52,8 @@
 		background-color: #7d7d7d;
 	}
 
-	.svelte-emoji-picker :global(button:focus) {
-		border-color: #666;
+	.svelte-emoji-picker :global(button:hover) {
+		border-color: #fff;
 	}
 
 	.svelte-emoji-picker__trigger {
