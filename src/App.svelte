@@ -1,5 +1,6 @@
 <style>
 	.chat-wrapper {
+		position: relative;
 		width: calc(100% - 2px);
 		height: calc(100% - 2px);
 		box-sizing: border-box;
@@ -14,10 +15,21 @@
 		height: 100%;
 		overflow: hidden;
 	}
+
+	.chat-container :global(section) {
+		position: relative;
+		height: 100%;
+		box-sizing: border-box;
+	}
+
+	.chat-container :global(.tabs-panel) {
+		height: 300px;
+	}
 </style>
 
 <script>
-	import {MessageInput, MessageList} from "./components/Chat";
+	import SplitPane from './components/Chat/SplitPane.svelte';
+	import {MessageInput, MessageList} from './components/Chat';
 	import {Tabs, Tab, TabList, TabPanel} from './components/Svelteit';
 
 	let channels = [{
@@ -52,7 +64,15 @@
 
 			{#each channels as channel, tabIndex}
 				<TabPanel>
-					<MessageList messages="{channel.messages}" />
+					<SplitPane type="horizontal">
+						<section slot="a">
+							<MessageList messages="{channel.messages}" />
+						</section>
+
+						<section slot="b">
+							<h1>right area</h1>
+						</section>
+					</SplitPane>
 					<MessageInput on:message="{event => handleMessage(event, tabIndex)}" />
 				</TabPanel>
 			{:else}
