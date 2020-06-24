@@ -29,7 +29,7 @@
 
 	.chat-input input:active,
 	.chat-input input:focus {
-		outline: 1px solid #395fa4;
+		outline: 1px solid #fff;
 		outline-offset: -1px;
 	}
 
@@ -51,7 +51,7 @@
 
 	.chat-input button:active,
 	.chat-input button:focus {
-		outline: 1px solid #395fa4;
+		outline: 1px solid #fff;
 		outline-offset: -1px;
 	}
 
@@ -66,7 +66,7 @@
 	}
 
 	.chat-input button:hover svg path {
-		fill: #395fa4;
+		fill: #fff;
 	}
 </style>
 

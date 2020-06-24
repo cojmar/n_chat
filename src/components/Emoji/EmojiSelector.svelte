@@ -74,7 +74,7 @@
 
 	.svelte-emoji-picker__trigger:active,
 	.svelte-emoji-picker__trigger:focus {
-		outline: 1px solid #395fa4;
+		outline: 1px solid #fff;
 		outline-offset: -1px;
 	}
 
@@ -89,7 +89,7 @@
 	}
 
 	.svelte-emoji-picker__trigger:hover :global(svg path) {
-		fill: #395fa4;
+		fill: #fff;
 	}
 
 	.svelte-emoji-picker__emoji-tabs {

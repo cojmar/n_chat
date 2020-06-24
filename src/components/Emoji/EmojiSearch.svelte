@@ -41,7 +41,7 @@
 
 	.svelte-emoji-picker__search input:focus {
 		outline: none;
-		border-color: #395fa4;
+		border-color: #fff;
 	}
 
 	.icon {
