@@ -72,8 +72,7 @@
 		border-radius: 0;
 	}
 
-	.svelte-emoji-picker__trigger:active,
-	.svelte-emoji-picker__trigger:focus {
+	.svelte-emoji-picker__trigger:hover {
 		outline: 1px solid #fff;
 		outline-offset: -1px;
 	}

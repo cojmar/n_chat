@@ -49,8 +49,7 @@
 		outline: none;
 	}
 
-	.chat-input button:active,
-	.chat-input button:focus {
+	.chat-input button:hover {
 		outline: 1px solid #fff;
 		outline-offset: -1px;
 	}
