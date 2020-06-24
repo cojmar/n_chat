@@ -137,8 +137,13 @@
 		width: 100%;
 	}
 
-	.top { top: 0; }
-	.bottom { bottom: 0; }
+	.top {
+		top: 0;
+	 }
+
+	.bottom {
+		bottom: 0;
+	 }
 </style>
 
 <div class="container" bind:this={refs.container}>

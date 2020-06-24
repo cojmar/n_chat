@@ -80,6 +80,14 @@
 		margin: 2px;
 		padding: 0;
 	}
+
+	.chat-container :global(.horizontal:after) {
+		left: 6px;
+		width: 3px;
+		background: transparent;
+		border-left: 1px solid #4c4c4c;
+		border-right: 1px solid #4c4c4c;
+	}
 </style>
 
 <script>
