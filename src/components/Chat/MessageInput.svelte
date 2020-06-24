@@ -31,6 +31,7 @@
 	.chat-input input:focus {
 		outline: 1px solid #fff;
 		outline-offset: -1px;
+		color: #fff;
 	}
 
 	.chat-input button {
