@@ -70,6 +70,7 @@
 		float: left;
 		overflow: hidden;
 		border-radius: 0;
+		outline: none;
 	}
 
 	.svelte-emoji-picker__trigger:hover {
