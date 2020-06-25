@@ -1,1 +1,0 @@
-<div>Panel</div>
