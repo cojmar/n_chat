@@ -127,6 +127,7 @@
 
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
+			var normalize = Object.keys(normalize_data.mapping);
 
 			var search_regex = {};
 			var replace_regex = {};
@@ -171,71 +172,65 @@
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
 
-			net.str_replace = function(search, replace, subject) {
-				var i = 0;
-				var j = 0;
-				var k = 0;
-				var temp = '';
-				var repl = '';
-				// noinspection JSUnusedAssignment
-				var sl = 0;
-				var fl = 0;
-				var f = [].concat(search);
-				var ff = [];
-				var ffl = 0;
-				var r = [].concat(replace);
-				var s = subject;
-				var ra = Object.prototype.toString.call(r) === '[object Array]';
-				var sa = Object.prototype.toString.call(s) === '[object Array]';
-				s = [].concat(s);
+			net.str_replace = function(search, replace, subject, countObj) {
+				var i = 0
+				var j = 0
+				var temp = ''
+				var repl = ''
+				var sl = 0
+				var fl = 0
+				var f = [].concat(search)
+				var r = [].concat(replace)
+				var s = subject
+				var ra = Object.prototype.toString.call(r) === '[object Array]'
+				var sa = Object.prototype.toString.call(s) === '[object Array]'
+				s = [].concat(s)
 
-				if (typeof (search) === 'object' && typeof (replace) === 'string') {
-					temp = replace;
-					replace = [];
-
+				if (typeof search === 'object' && typeof replace === 'string') {
+					temp = replace
+					replace = []
 					for (i = 0; i < search.length; i += 1) {
-						replace[i] = temp;
+						replace[i] = temp
 					}
+					temp = ''
+					r = [].concat(replace)
+					ra = Object.prototype.toString.call(r) === '[object Array]'
+				}
 
-					temp = '';
-					r = [].concat(replace);
-					ra = Object.prototype.toString.call(r) === '[object Array]';
+				if (typeof countObj !== 'undefined') {
+					countObj.value = 0
 				}
 
 				for (i = 0, sl = s.length; i < sl; i++) {
 					if (s[i] === '') {
-						continue;
+						continue
 					}
-
 					for (j = 0, fl = f.length; j < fl; j++) {
-						temp = s[i] + '';
-						repl = ra ? (typeof r[j] !== 'undefined' ? r[j] : '') : r[0];
-						ff = temp.split(' ');
-
-						for (k = 0, ffl = ff.length; k < ffl; k++) {
-							if (ff[k] === f[j]) {
-								ff[k] = repl;
-							}
+						temp = s[i] + ''
+						repl = ra ? (r[j] !== undefined ? r[j] : '') : r[0]
+						s[i] = (temp).split(f[j]).join(repl)
+						if (typeof countObj !== 'undefined') {
+							countObj.value += ((temp.split(f[j])).length - 1)
 						}
-
-						s[i] = ff.join(' ');
 					}
 				}
-
-				return sa ? s : s[0];
+				return sa ? s : s[0]
 			};
 
 			net.normalize = function(str) {
-				return str.replace(/[^\u0020-\u007E]/g, function (letter) {
-					var sets = Object.keys(normalize_data.mapping);
-					var result = letter;
+				var arr = Array.from(str)
 
-					for (var i in sets) {
-						result = normalize_data.mapping[sets[i]][letter] || letter;
+				for (var i in arr) {
+					for (var j in normalize) {
+						// noinspection JSUnfilteredForInLoop
+						if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+							// noinspection JSUnfilteredForInLoop
+							arr[i] = normalize_data.mapping[normalize[j]][arr[i]]
+						}
 					}
+				}
 
-					return result;
-				});
+				return arr.join('')
 			};
 
 			net.remove_numbers = function(str) {
@@ -312,7 +307,7 @@
 
 			net.clean_nicknames = function(str) {
 				// noinspection JSUnresolvedFunction
-				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
+				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_websites(subject));
