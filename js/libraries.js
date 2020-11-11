@@ -631,6 +631,14 @@
 				'//emuos.net/beta/emuos/assets/js/libraries/select2-4.0.13.min',
 				'//emuos.org/beta/emuos/assets/js/libraries/select2-4.0.13.min'
 		],
+		'seedrandom': [
+				'libraries/seedrandom-3.0.5.min',
+				'/beta/emuos/assets/js/libraries/seedrandom-3.0.5.min',
+				'//emupedia.net/beta/emuos/assets/js/libraries/seedrandom-3.0.5.min',
+				'//emupedia.org/beta/emuos/assets/js/libraries/seedrandom-3.0.5.min',
+				'//emuos.net/beta/emuos/assets/js/libraries/seedrandom-3.0.5.min',
+				'//emuos.org/beta/emuos/assets/js/libraries/seedrandom-3.0.5.min'
+		],
 		'simplestorage': [
 				'libraries/simplestorage-0.2.1.min',
 				'/beta/emuos/assets/js/libraries/simplestorage-0.2.1.min',

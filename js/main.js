@@ -102,13 +102,17 @@
 		'json!../data/emoticons.json',
 		'json!../data/normalize.json',
 		'json!../data/blacklist.json',
+		'json!../data/adjectives.json',
+		'json!../data/animals.json',
+		'json!../data/colors.json',
 		'emoticons',
 		'twemoji',
+		'seedrandom',
 		'simplestorage',
 		'network',
 		'jquery-ajax-retry',
 		'optional!ga'
-	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, emoticons, twemoji, simplestorage, network, ajaxretry, ga) {
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, emoticons, twemoji, seedrandom, simplestorage, network, ajaxretry, ga) {
 		$(function() {
 			if (typeof ga === 'function') {
 				ga('send', {
@@ -172,11 +176,40 @@
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
 
+			net.random_integer = function(rand, min, max) {
+				return Math.floor(rand * (max - min + 1) + min)
+			};
+
+			net.random_pickone = function(rand, arr) {
+				return arr[net.random_integer(rand, 0, arr.length - 1)]
+			}
+
+			net.is_default_nick = function(nick) {
+				return !isNaN(parseInt(nick)) && nick.indexOf('-') === 10;
+			}
+
+			net.friendly_name = function(seed) {
+				var rand = seedrandom(seed);
+
+				// noinspection JSUnresolvedFunction
+				var adjective = net.random_pickone(rand(), adjectives);
+				// noinspection JSUnresolvedFunction
+				var color = net.random_pickone(rand(), colors);
+				// noinspection JSUnresolvedFunction
+				var animal = net.random_pickone(rand(), animals);
+				var name = color + ' ' + adjective + ' ' + animal;
+
+				return name.toLowerCase().split(' ').map(function(word) {
+					return word.charAt(0).toUpperCase() + word.slice(1);
+				}).join(' ');
+			}
+
 			net.str_replace = function(search, replace, subject, countObj) {
 				var i = 0;
 				var j = 0;
 				var temp = '';
 				var repl = '';
+				// noinspection JSUnusedAssignment
 				var sl = 0;
 				var fl = 0;
 				var f = [].concat(search);
@@ -656,14 +689,10 @@
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					var nick = data.users[users].info.nick;
 
-					var is_nick = isNaN(parseInt(nick));
-
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-
-					if (is_nick) {
-						users_array_nick.push([user, nick]);
-					} else {
+					if (net.is_default_nick(nick)) {
 						users_array_default.push([user, nick]);
+					} else {
+						users_array_nick.push([user, nick]);
 					}
 				}
 
@@ -680,7 +709,7 @@
 				});
 
 				users_array_default.forEach(function(item) {
-					users_obj[item[0]] = item[1];
+					users_obj[item[0]] = net.friendly_name(item[1]);
 				});
 
 				// noinspection JSUnresolvedVariable
@@ -728,7 +757,7 @@
 					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' users)');
 				}
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + net.clean_nicknames(data.data.info.nick) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -747,7 +776,7 @@
 				var $el = $('#room_user_' + data.user);
 
 				setTimeout(function() {
-					// noinspection JSUnresolvedFunction
+					// noinspection JSUnresolvedFunction,JSValidateTypes
 					$el.slideUp(200, function() {
 						$(this).remove();
 					});
@@ -769,7 +798,7 @@
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
 					// noinspection JSUnresolvedVariable
-					nick = net.clean_nicknames(net.room_info.users[user].info.nick);
+					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
 				}
 
 				// noinspection JSUnresolvedVariable
@@ -792,7 +821,7 @@
 						// noinspection JSUnresolvedVariable
 						if (data.info.nick) {
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.clean_nicknames(data.info.nick));
+							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -800,7 +829,7 @@
 							// noinspection JSUnresolvedVariable
 							if (data.info.nick) {
 								// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-								net.text_input.attr('placeholder', 'You are typing as "' + data.info.nick + '". To change it, type /nick and your new nickname.');
+								net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick)) + '". To change it, type /nick and your new nickname.');
 							}
 						}
 					}
