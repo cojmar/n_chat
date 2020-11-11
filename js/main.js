@@ -255,19 +255,21 @@
 			};
 
 			net.normalize = function(str) {
-				var arr = Array.from(str)
+				/*var arr = Array.from(str);
 
 				for (var i in arr) {
 					for (var j in normalize) {
 						// noinspection JSUnfilteredForInLoop
 						if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
 							// noinspection JSUnfilteredForInLoop
-							arr[i] = normalize_data.mapping[normalize[j]][arr[i]]
+							arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
 						}
 					}
 				}
 
-				return arr.join('')
+				return arr.join('');*/
+
+				return str;
 			};
 
 			net.remove_numbers = function(str) {
