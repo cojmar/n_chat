@@ -338,7 +338,7 @@
 					subject = net.remove_profanity(net.remove_websites(net.remove_numbers(subject)));
 				}
 
-				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+				return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
 					folder: 'svg',
 					ext: '.svg'
 				});
@@ -352,7 +352,7 @@
 					subject = net.remove_profanity(net.remove_websites(subject));
 				}
 
-				return twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+				return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
 					folder: 'svg',
 					ext: '.svg'
 				});
