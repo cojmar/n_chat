@@ -320,11 +320,17 @@
 				return str.replace(/  +/g, ' ').trim();
 			};
 
-			net.remove_websites = function(str) {
+			net.remove_spam = function(str) {
 				// noinspection JSUnresolvedVariable
 				for (var website in blacklist_data.mapping.en.website) {
 					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
 					str = str.replace(new RegExp(blacklist_data.mapping.en.website[website], 'gi'), '');
+				}
+
+				// noinspection JSUnresolvedVariable
+				for (var spam in blacklist_data.mapping.en.spam) {
+					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
+					str = str.replace(new RegExp(blacklist_data.mapping.en.spam[spam], 'gi'), '');
 				}
 
 				return str.replace(/  +/g, ' ').trim();
@@ -335,7 +341,7 @@
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(net.remove_websites(net.remove_numbers(subject)));
+					subject = net.remove_profanity(net.remove_spam(net.remove_numbers(subject)));
 				}
 
 				return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
@@ -349,7 +355,7 @@
 				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(net.remove_websites(subject));
+					subject = net.remove_profanity(net.remove_spam(subject));
 				}
 
 				return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
