@@ -135,7 +135,8 @@
 				style: 'twemoji',
 				position: 'bottom',
 				emojiSize: '1.2em',
-				emojisPerRow: 6
+				emojisPerRow: 6,
+				rows: 5
 			});
 
 			var search = Object.keys(emoticons_data.mapping);
