@@ -263,6 +263,14 @@
 				'//emuos.net/beta/emuos/assets/js/libraries/esheep-0.7.2.min',
 				'//emuos.org/beta/emuos/assets/js/libraries/esheep-0.7.2.min'
 		],
+		'emoji-button': [
+				'libraries/emoji-button-3.1.1.min',
+				'/beta/emuos/assets/js/libraries/emoji-button-3.1.1.min',
+				'//emupedia.net/beta/emuos/assets/js/libraries/emoji-button-3.1.1.min',
+				'//emupedia.org/beta/emuos/assets/js/libraries/emoji-button-3.1.1.min',
+				'//emuos.net/beta/emuos/assets/js/libraries/emoji-button-3.1.1.min',
+				'//emuos.org/beta/emuos/assets/js/libraries/emoji-button-3.1.1.min'
+		],
 		'fetch': [
 				'libraries/fetch-3.0.0',
 				'/beta/emuos/assets/js/libraries/fetch-3.0.0',

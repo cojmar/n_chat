@@ -109,10 +109,11 @@
 		'twemoji',
 		'seedrandom',
 		'simplestorage',
+		'emoji-button',
 		'network',
 		'jquery-ajax-retry',
 		'optional!ga'
-	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, emoticons, twemoji, seedrandom, simplestorage, network, ajaxretry, ga) {
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, emoticons, twemoji, seedrandom, simplestorage, EmojiButton, network, ajaxretry, ga) {
 		$(function() {
 			if (typeof ga === 'function') {
 				ga('send', {
@@ -127,6 +128,14 @@
 				servers: ['wss://ws.emupedia.net', 'wss://ws.emuos.net'],
 				server: ~window.location.hostname.indexOf('emuos.net') ? 1 : 0,
 				mode: 0
+			});
+
+			var picker = new EmojiButton({
+				theme: 'dark',
+				style: 'twemoji',
+				position: 'bottom',
+				emojiSize: '1.2em',
+				emojisPerRow: 6
 			});
 
 			var search = Object.keys(emoticons_data.mapping);
@@ -929,6 +938,7 @@
 			$body.append(chat_ui);
 
 			net.console = $('#client_container');
+			net.emoji_button = $('#client_emoticons');
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
@@ -960,6 +970,14 @@
 			// noinspection JSUnresolvedFunction
 			net.text_input_button.off('click').on('click', function() {
 				net.send_input();
+			});
+
+			picker.on('emoji', function(emoji) {
+				net.text_input.get(0).value += emoji;
+			});
+
+			net.emoji_button.off('click').on('click', function() {
+				picker.togglePicker(net.emoji_button.get(0));
 			});
 
 			// noinspection JSUnresolvedVariable
