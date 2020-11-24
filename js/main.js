@@ -688,6 +688,27 @@
 				net.send_cmd('list', {});
 			});
 
+			net.socket.on('my.info', function(data) {
+				// console.log('my.info');
+				// console.log(JSON.stringify(data, null, 2));
+
+				if (typeof net.room_info.data.admins !== 'undefined') {
+					if (Array.isArray(net.room_info.data.admins)) {
+						if (net.room_info.data.admins.indexOf(data.info.user) === -1) {
+							net.room_info.data.admins.push(data.info.user)
+						} else {
+							net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(data.info.user), 1)
+						}
+
+						net.send_cmd('set_room_data', {admins: net.room_info.data.admins});
+					} else {
+						net.send_cmd('set_room_data', {admins: [data.info.user]});
+					}
+				} else {
+					net.send_cmd('set_room_data', {admins: [data.info.user]});
+				}
+			});
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.info', function (data) {
 				// console.log('room.info');
@@ -737,6 +758,17 @@
 				for (var u in users_obj) {
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					var color = u !== me ? net.colors[3] : net.colors[1];
+
+					if (typeof net.room_info.data.admins !== 'undefined') {
+						if (Array.isArray(net.room_info.data.admins)) {
+							if (net.room_info.data.admins.length > 0) {
+								if (net.room_info.data.admins.indexOf(u) !== -1) {
+									color = net.colors[2]
+								}
+							}
+						}
+					}
+
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					users_list += '<div id="room_user_' + u + '" style="color: ' + color + '; word-break: keep-all;" title="' + u + '" data-title="' + u + '">' + net.clean_nicknames(users_obj[u]) + '</div>';
 				}
@@ -777,8 +809,22 @@
 					// noinspection JSUnresolvedVariable
 					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' users)');
 				}
+
+				var color = net.colors[3];
+
+				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
+				if (typeof net.room_info.data.admins !== 'undefined') {
+					if (Array.isArray(net.room_info.data.admins)) {
+						if (net.room_info.data.admins.length > 0) {
+							if (net.room_info.data.admins.indexOf(data.data.info.user) !== -1) {
+								color = net.colors[2]
+							}
+						}
+					}
+				}
+
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + net.colors[3] + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" style="color: ' + color + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
