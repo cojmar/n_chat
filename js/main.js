@@ -688,24 +688,27 @@
 				net.send_cmd('list', {});
 			});
 
-			net.socket.on('my.info', function(data) {
-				console.log('my.info');
+			net.socket.on('su', function(data) {
+				console.log('su');
 				console.log(JSON.stringify(data, null, 2));
 
-				if (typeof net.room_info.data.admins !== 'undefined') {
-					if (Array.isArray(net.room_info.data.admins)) {
-						if (net.room_info.data.admins.indexOf(data.info.user) === -1) {
-							net.room_info.data.admins.push(data.info.user)
-						} else {
-							net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(data.info.user), 1)
-						}
+				if (data) {
+					// noinspection DuplicatedCode
+					if (typeof net.room_info.data.admins !== 'undefined') {
+						if (Array.isArray(net.room_info.data.admins)) {
+							if (net.room_info.data.admins.indexOf(net.room_info.me) === -1) {
+								net.room_info.data.admins.push(net.room_info.me)
+							} else {
+								net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
+							}
 
-						net.send_cmd('set_room_data', {admins: net.room_info.data.admins});
+							net.send_cmd('set_room_data', {admins: net.room_info.data.admins});
+						} else {
+							net.send_cmd('set_room_data', {admins: [net.room_info.me]});
+						}
 					} else {
-						net.send_cmd('set_room_data', {admins: [data.info.user]});
+						net.send_cmd('set_room_data', {admins: [net.room_info.me]});
 					}
-				} else {
-					net.send_cmd('set_room_data', {admins: [data.info.user]});
 				}
 			});
 
