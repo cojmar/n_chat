@@ -796,7 +796,7 @@
 				net.room_info.data = $.extend(net.room_info.data, data.data);
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.user_join', function (data) {
 				// console.log('room.user_join');
 				// console.log(JSON.stringify(data, null, 2));
@@ -850,7 +850,7 @@
 				}, 1000);
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.msg', function (data) {
 				// console.log('room.msg');
 				// console.log(JSON.stringify(data, null, 2));
@@ -868,8 +868,22 @@
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
 				}
 
+				var color = net.colors[3];
+
+				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
+				if (typeof net.room_info.data.admins !== 'undefined') {
+					if (Array.isArray(net.room_info.data.admins)) {
+						if (net.room_info.data.admins.length > 0) {
+							if (net.room_info.data.admins.indexOf(data.user) !== -1) {
+								color = net.colors[2]
+							}
+						}
+					}
+				}
+
+
 				// noinspection JSUnresolvedVariable
-				net.log('<span style="color: ' + net.colors[3] + '; overflow: hidden;" title="' + user + '">[' + nick + '] </span>' + net.clean(data.msg));
+				net.log('<span style="color: ' + color + '; overflow: hidden;" title="' + user + '">[' + nick + '] </span>' + net.clean(data.msg));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
