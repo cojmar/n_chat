@@ -689,8 +689,8 @@
 			});
 
 			net.socket.on('my.info', function(data) {
-				// console.log('my.info');
-				// console.log(JSON.stringify(data, null, 2));
+				console.log('my.info');
+				console.log(JSON.stringify(data, null, 2));
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
