@@ -1035,7 +1035,7 @@
 					if (typeof e.originalEvent.clipboardData.getData === 'function') {
 						var paste = e.originalEvent.clipboardData.getData('text')
 
-						if (paste.length > 20) {
+						if (paste.length > 20 || net.text_input.val().length + paste.length > 20) {
 							e.preventDefault();
 							return false;
 						}
