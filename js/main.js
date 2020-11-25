@@ -141,6 +141,7 @@
 
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
+			// noinspection JSUnusedLocalSymbols
 			var normalize = Object.keys(normalize_data.mapping);
 
 			var search_regex = {};
@@ -1030,7 +1031,16 @@
 						break;
 				}
 			}).off('paste').on('paste', function(e) {
-				e.preventDefault();
+				if (typeof e.originalEvent.clipboardData !== 'undefined') {
+					if (typeof e.originalEvent.clipboardData.getData === 'function') {
+						var paste = e.originalEvent.clipboardData.getData('text')
+
+						if (paste.length > 20) {
+							e.preventDefault();
+							return false;
+						}
+					}
+				}
 			});
 
 			// noinspection JSUnresolvedFunction
