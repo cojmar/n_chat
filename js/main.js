@@ -437,34 +437,6 @@
 			};
 
 			net.send_input = function() {
-				var timestamp = Math.floor(Date.now() / 1000);
-
-				if (!net.last_send) {
-					net.last_send = 0;
-				}
-
-				if (!net.spam_cap) {
-					net.spam_cap = 0;
-				}
-
-				if (timestamp - net.last_send < 2) {
-					net.spam_cap++;
-				} else {
-					if (net.spam_cap > 2) {
-						if (timestamp - net.last_send < 2) {
-							return false;
-						}
-					}
-
-					net.spam_cap = 0;
-				}
-
-				if (net.spam_cap > 2) {
-					return false;
-				}
-
-				net.last_send = timestamp;
-
 				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
 
@@ -495,9 +467,23 @@
 					}
 				}
 
-				if (!(~msg.indexOf(' ') || ~msg.indexOf('.') || ~msg.indexOf(':') || ~msg.indexOf('/') || ~msg.indexOf('\\')) && msg.length >= 20) {
-					return false;
+				var timestamp = Math.floor(Date.now() / 1000);
+
+				if (!net.spam_cap || net.spam_cap < 0) {
+					net.spam_cap = 1;
 				}
+
+				if (net.last_send) {
+					if (timestamp - net.last_send < net.spam_cap) {
+						net.last_send = timestamp;
+						net.spam_cap++;
+						net.log('You are writting to fast, wait ' + net.spam_cap + ' second(s)', 1);
+						net.text_input.val('');
+						return false;
+					}
+				}
+
+				net.last_send = timestamp;
 
 				if (msg.charAt(0) === '/') {
 					var data = {
@@ -544,6 +530,7 @@
 					net.last_last_last_msg = net.last_last_msg;
 					net.last_last_msg = net.last_msg;
 					net.last_msg = msg;
+					net.spam_cap = 1;
 				}
 
 				// noinspection JSUnresolvedFunction
@@ -1059,7 +1046,7 @@
 			net.client_room_name = net.client_room.find('span.name');
 			net.client_room_online = net.client_room.find('span.online');
 			// noinspection JSUnresolvedFunction
-			net.text_input.off('keypress').on('keypress', function (e) {
+			net.text_input.off('keypress').on('keypress', function(e) {
 				// noinspection JSDeprecatedSymbols
 				switch (e.which) {
 					case 13:
@@ -1077,11 +1064,14 @@
 						}
 						break;
 				}
+			}).off('paste').on('paste', function(e) {
+				e.preventDefault();
 			});
+
 			// noinspection JSUnresolvedFunction
 			net.text_input_button.off('click').on('click', function() {
 				net.send_input();
-			});
+			})
 
 			picker.on('emoji', function(emoji) {
 				net.text_input.get(0).value += emoji;
