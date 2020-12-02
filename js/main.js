@@ -805,7 +805,7 @@
 					if (Array.isArray(net.admins)) {
 						for (var a1 in net.admins) {
 							// noinspection JSUnfilteredForInLoop
-							if (net.admins[a1] !== 'undefined') {
+							if (typeof net.admins[a1] !== 'undefined') {
 								// noinspection JSUnfilteredForInLoop
 								$('#room_user_' + net.admins[a1]).css('color', net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3]);
 							}
@@ -820,7 +820,7 @@
 							if (Array.isArray(net.admins)) {
 								for (var a2 in net.admins) {
 									// noinspection JSUnfilteredForInLoop
-									if (net.admins[a2] !== 'undefined') {
+									if (typeof net.admins[a2] !== 'undefined') {
 										// noinspection JSUnfilteredForInLoop
 										$('#room_user_' + net.admins[a2]).css('color', net.colors[2]);
 									}
