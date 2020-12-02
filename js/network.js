@@ -94,7 +94,8 @@
 				'room.msg',
 				'rooms.list',
 				'silent.msg',
-				'server.help'
+				'server.help',
+				'su'
 			];
 
 			cmds.forEach(function (value) {
