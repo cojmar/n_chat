@@ -692,9 +692,11 @@
 									net.send_cmd('set_room_data', {admins: 1});
 									net.send_cmd('set_room_data', {admins: net.room_info.data.admins});
 								} else {
+									net.send_cmd('set_room_data', {admins: 1});
 									net.send_cmd('set_room_data', {admins: [net.room_info.me]});
 								}
 							} else {
+								net.send_cmd('set_room_data', {admins: 1});
 								net.send_cmd('set_room_data', {admins: [net.room_info.me]});
 							}
 						}
