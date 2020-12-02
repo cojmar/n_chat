@@ -689,7 +689,7 @@
 									} else {
 										net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
 									}
-
+									net.send_cmd('set_room_data', {admins: 1});
 									net.send_cmd('set_room_data', {admins: net.room_info.data.admins});
 								} else {
 									net.send_cmd('set_room_data', {admins: [net.room_info.me]});
@@ -707,6 +707,14 @@
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
 				net.room_info = data;
+
+				if (typeof net.room_info.data !== 'undefined') {
+					if (typeof net.room_info.data.admins !== 'undefined') {
+						if (Array.isArray(net.room_info.data.admins)) {
+							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
+						}
+					}
+				}
 
 				// noinspection JSUnresolvedVariable
 				var users_online = Object.keys(net.room_info.users).length;
@@ -740,7 +748,7 @@
 				var users_obj = {};
 
 				users_array_nick.forEach(function(item) {
-					users_obj[item[0]] = item[1];
+					users_obj[item[0]] = net.clean_nicknames(item[1]);
 				});
 
 				users_array_default.forEach(function(item) {
@@ -767,7 +775,7 @@
 					}
 
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					users_list += '<div id="room_user_' + u + '" style="color: ' + color + '; word-break: keep-all;" title="' + u + '" data-title="' + u + '">' + net.clean_nicknames(users_obj[u]) + '</div>';
+					users_list += '<div id="room_user_' + u + '" style="color: ' + color + '; word-break: keep-all;" title="' + u + '" data-title="' + u + '">' + users_obj[u] + '</div>';
 				}
 
 				// noinspection JSUnresolvedVariable
@@ -790,6 +798,36 @@
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
+
+				if (typeof net.admins !== 'undefined') {
+					if (Array.isArray(net.admins)) {
+						for (var a1 in net.admins) {
+							// noinspection JSUnfilteredForInLoop
+							if (net.admins[a1] !== 'undefined') {
+								// noinspection JSUnfilteredForInLoop
+								$('#room_user_' + net.admins[a1]).css('color', net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3]);
+							}
+						}
+					}
+				}
+
+				if (typeof net.room_info.data.admins !== 'undefined') {
+					if (Array.isArray(net.room_info.data.admins)) {
+						net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
+						if (typeof net.admins !== 'undefined') {
+							if (Array.isArray(net.admins)) {
+								for (var a2 in net.admins) {
+									// noinspection JSUnfilteredForInLoop
+									if (net.admins[a1] !== 'undefined') {
+										// noinspection JSUnfilteredForInLoop
+										$('#room_user_' + net.admins[a2]).css('color', net.colors[2]);
+									}
+								}
+							}
+						}
+					}
+				}
+
 				net.room_info.data = $.extend(net.room_info.data, data.data);
 			});
 
@@ -1033,7 +1071,7 @@
 			}).off('paste').on('paste', function(e) {
 				if (typeof e.originalEvent.clipboardData !== 'undefined') {
 					if (typeof e.originalEvent.clipboardData.getData === 'function') {
-						var paste = e.originalEvent.clipboardData.getData('text')
+						var paste = e.originalEvent.clipboardData.getData('text');
 
 						if (net.text_input.val().length + paste.length > 50) {
 							e.preventDefault();
