@@ -820,7 +820,7 @@
 							if (Array.isArray(net.admins)) {
 								for (var a2 in net.admins) {
 									// noinspection JSUnfilteredForInLoop
-									if (net.admins[a1] !== 'undefined') {
+									if (net.admins[a2] !== 'undefined') {
 										// noinspection JSUnfilteredForInLoop
 										$('#room_user_' + net.admins[a2]).css('color', net.colors[2]);
 									}
