@@ -185,7 +185,7 @@
 				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
 			}
 
-			net.colors = ['rgba(180, 173, 173, 0.973)', '#395fa4', '#159904', 'rgba(128, 128, 128, 0.35)'];
+			net.colors = ['rgba(180, 173, 173, 0.973)', 'rgb(57, 95, 164)', 'rgb(21, 153, 4)', 'rgba(128, 128, 128, 0.35)'];
 
 			net.random_integer = function(rand, min, max) {
 				return Math.floor(rand * (max - min + 1) + min)
@@ -803,23 +803,28 @@
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
+						// noinspection DuplicatedCode
 						if (typeof net.admins !== 'undefined') {
 							if (Array.isArray(net.admins)) {
 								for (var a1 in net.admins) {
 									// noinspection JSUnfilteredForInLoop
 									if (typeof net.admins[a1] !== 'undefined') {
-										// noinspection JSUnfilteredForInLoop
-										console.log(net.admins[a1]);
-										console.log(net.colors[3]);
+
 										// noinspection JSUnfilteredForInLoop
 										var color1 = net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3];
+										var color2 = net.colors[2];
 										// noinspection JSUnfilteredForInLoop
 										var el1 = $('#room_user_' + net.admins[a1]);
 
-										if (el1.css('color') !== color1) {
-											// noinspection JSUnfilteredForInLoop
+										console.log(el1, 'color before', el1.css('color'));
+
+										if (el1.css('color') === color1) {
+											el1.css('color', color2);
+										} else {
 											el1.css('color', color1);
 										}
+
+										console.log(el1, 'color after', el1.css('color'));
 									}
 								}
 							}
@@ -828,23 +833,28 @@
 						if (net.admins.length !== JSON.parse(JSON.stringify(net.room_info.data.admins)).length) {
 							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
 
+							// noinspection DuplicatedCode
 							if (typeof net.admins !== 'undefined') {
 								if (Array.isArray(net.admins)) {
 									for (var a2 in net.admins) {
 										// noinspection JSUnfilteredForInLoop
 										if (typeof net.admins[a2] !== 'undefined') {
+
 											// noinspection JSUnfilteredForInLoop
-											console.log(net.admins[a2]);
-											console.log(net.colors[2]);
-											// noinspection JSUnfilteredForInLoop
-											var color2 = net.colors[2];
+											var color3 = net.room_info.me === net.admins[a2] ? net.colors[1] : net.colors[3];
+											var color4 = net.colors[2];
 											// noinspection JSUnfilteredForInLoop
 											var el2 = $('#room_user_' + net.admins[a2]);
 
-											if (el2.css('color') !== color2) {
-												// noinspection JSUnfilteredForInLoop
-												el2.css('color', color2);
+											console.log(el2, 'color before', el2.css('color'));
+
+											if (el2.css('color') === color3) {
+												el2.css('color', color4);
+											} else {
+												el2.css('color', color3);
 											}
+
+											console.log(el2, 'color after', el2.css('color'));
 										}
 									}
 								}
