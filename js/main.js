@@ -812,7 +812,14 @@
 										console.log(net.admins[a1]);
 										console.log(net.colors[3]);
 										// noinspection JSUnfilteredForInLoop
-										$('#room_user_' + net.admins[a1]).css('color', net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3]);
+										var color1 = net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3];
+										// noinspection JSUnfilteredForInLoop
+										var el1 = $('#room_user_' + net.admins[a1]);
+
+										if (el1.css('color') !== color1) {
+											// noinspection JSUnfilteredForInLoop
+											el1.css('color', color1);
+										}
 									}
 								}
 							}
@@ -830,7 +837,14 @@
 											console.log(net.admins[a2]);
 											console.log(net.colors[2]);
 											// noinspection JSUnfilteredForInLoop
-											$('#room_user_' + net.admins[a2]).css('color', net.colors[2]);
+											var color2 = net.room_info.me === net.colors[2];
+											// noinspection JSUnfilteredForInLoop
+											var el2 = $('#room_user_' + net.admins[a1]);
+
+											if (el2.css('color') !== color2) {
+												// noinspection JSUnfilteredForInLoop
+												el2.css('color', color2);
+											}
 										}
 									}
 								}
