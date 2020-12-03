@@ -801,34 +801,37 @@
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
 
-				if (typeof net.admins !== 'undefined') {
-					if (Array.isArray(net.admins)) {
-						for (var a1 in net.admins) {
-							// noinspection JSUnfilteredForInLoop
-							if (typeof net.admins[a1] !== 'undefined') {
-								// noinspection JSUnfilteredForInLoop
-								console.log(net.admins[a1]);
-								console.log(net.colors[3]);
-								// noinspection JSUnfilteredForInLoop
-								$('#room_user_' + net.admins[a1]).css('color', net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3]);
-							}
-						}
-					}
-				}
-
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
-						net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
 						if (typeof net.admins !== 'undefined') {
 							if (Array.isArray(net.admins)) {
-								for (var a2 in net.admins) {
+								for (var a1 in net.admins) {
 									// noinspection JSUnfilteredForInLoop
-									if (typeof net.admins[a2] !== 'undefined') {
+									if (typeof net.admins[a1] !== 'undefined') {
 										// noinspection JSUnfilteredForInLoop
-										console.log(net.admins[a2]);
-										console.log(net.colors[2]);
+										console.log(net.admins[a1]);
+										console.log(net.colors[3]);
 										// noinspection JSUnfilteredForInLoop
-										$('#room_user_' + net.admins[a2]).css('color', net.colors[2]);
+										$('#room_user_' + net.admins[a1]).css('color', net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3]);
+									}
+								}
+							}
+						}
+
+						if (net.admins.length !== JSON.parse(JSON.stringify(net.room_info.data.admins)).length) {
+							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
+
+							if (typeof net.admins !== 'undefined') {
+								if (Array.isArray(net.admins)) {
+									for (var a2 in net.admins) {
+										// noinspection JSUnfilteredForInLoop
+										if (typeof net.admins[a2] !== 'undefined') {
+											// noinspection JSUnfilteredForInLoop
+											console.log(net.admins[a2]);
+											console.log(net.colors[2]);
+											// noinspection JSUnfilteredForInLoop
+											$('#room_user_' + net.admins[a2]).css('color', net.colors[2]);
+										}
 									}
 								}
 							}
