@@ -842,15 +842,24 @@
 											// noinspection JSUnfilteredForInLoop
 											var el2 = $('#room_user_' + net.admins[a2]);
 
-											console.log(el1, 'ON START');
-											console.log(el2, 'color before', el2.css('color'));
-											if (el2.css('color') === color3) {
-												el2.css('color', color4);
-											} else {
-												el2.css('color', color3);
-											}
-											console.log(el2, 'color after', el2.css('color'));
-											console.log(el1, 'ON START');
+											setTimeout(function() {
+												// noinspection JSReferencingMutableVariableFromClosure
+												console.log(el2, 'ON START');
+												// noinspection JSReferencingMutableVariableFromClosure
+												console.log(el2, 'color before', el2.css('color'));
+												// noinspection JSReferencingMutableVariableFromClosure
+												if (el2.css('color') === color3) {
+													// noinspection JSReferencingMutableVariableFromClosure
+													el2.css('color', color4);
+												} else {
+													// noinspection JSReferencingMutableVariableFromClosure
+													el2.css('color', color3);
+												}
+												// noinspection JSReferencingMutableVariableFromClosure
+												console.log(el2, 'color after', el2.css('color'));
+												// noinspection JSReferencingMutableVariableFromClosure
+												console.log(el2, 'ON START');
+											}, 10)
 										}
 									}
 								}
