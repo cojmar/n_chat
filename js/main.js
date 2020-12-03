@@ -837,7 +837,7 @@
 											console.log(net.admins[a2]);
 											console.log(net.colors[2]);
 											// noinspection JSUnfilteredForInLoop
-											var color2 = net.room_info.me === net.colors[2];
+											var color2 = net.colors[2];
 											// noinspection JSUnfilteredForInLoop
 											var el2 = $('#room_user_' + net.admins[a2]);
 
