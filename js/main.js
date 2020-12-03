@@ -839,7 +839,7 @@
 											// noinspection JSUnfilteredForInLoop
 											var color2 = net.room_info.me === net.colors[2];
 											// noinspection JSUnfilteredForInLoop
-											var el2 = $('#room_user_' + net.admins[a1]);
+											var el2 = $('#room_user_' + net.admins[a2]);
 
 											if (el2.css('color') !== color2) {
 												// noinspection JSUnfilteredForInLoop
