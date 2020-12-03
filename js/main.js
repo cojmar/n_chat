@@ -809,18 +809,11 @@
 								for (var a1 in net.admins) {
 									// noinspection JSUnfilteredForInLoop
 									if (typeof net.admins[a1] !== 'undefined') {
-
 										// noinspection JSUnfilteredForInLoop
 										var color1 = net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3];
-
 										// noinspection JSUnfilteredForInLoop
 										var el1 = $('#room_user_' + net.admins[a1]);
-
-										console.log(el1, 'OFF START');
-										console.log(el1, 'color before', el1.css('color'));
 										el1.css('color', color1);
-										console.log(el1, 'color after', el1.css('color'));
-										console.log(el1, 'OFF END');
 									}
 								}
 							}
@@ -828,25 +821,18 @@
 
 						if (net.admins.length !== JSON.parse(JSON.stringify(net.room_info.data.admins)).length) {
 							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
-
 							// noinspection DuplicatedCode
 							if (typeof net.admins !== 'undefined') {
 								if (Array.isArray(net.admins)) {
 									for (var a2 in net.admins) {
 										// noinspection JSUnfilteredForInLoop
 										if (typeof net.admins[a2] !== 'undefined') {
-
 											// noinspection JSUnfilteredForInLoop
 											var color3 = net.room_info.me === net.admins[a2] ? net.colors[1] : net.colors[3];
 											var color4 = net.colors[2];
 											// noinspection JSUnfilteredForInLoop
 											var el2 = $('#room_user_' + net.admins[a2]);
-
 											setTimeout(function() {
-												// noinspection JSReferencingMutableVariableFromClosure
-												console.log(el2, 'ON START');
-												// noinspection JSReferencingMutableVariableFromClosure
-												console.log(el2, 'color before', el2.css('color'));
 												// noinspection JSReferencingMutableVariableFromClosure
 												if (el2.css('color') === color3) {
 													// noinspection JSReferencingMutableVariableFromClosure
@@ -855,10 +841,6 @@
 													// noinspection JSReferencingMutableVariableFromClosure
 													el2.css('color', color3);
 												}
-												// noinspection JSReferencingMutableVariableFromClosure
-												console.log(el2, 'color after', el2.css('color'));
-												// noinspection JSReferencingMutableVariableFromClosure
-												console.log(el2, 'ON START');
 											}, 10)
 										}
 									}
