@@ -439,7 +439,7 @@
 
 			net.send_input = function() {
 				// noinspection JSUnresolvedFunction
-				var msg = net.text_input.val();
+				var msg = net.clean(net.text_input.val());
 
 				if (msg.trim() === '') {
 					return false;
