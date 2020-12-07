@@ -483,7 +483,7 @@
 					net.text_input.val('');
 					return;
 				} else {
-					msg = net.clean(msg);
+					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(msg))));
 				}
 
 				if (msg.trim() === '') {
