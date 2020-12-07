@@ -482,7 +482,7 @@
 					net.send_cmd(data.cmd, data.data);
 					net.text_input.val('');
 					return;
-				} else {
+				} else if (~net.client_room_name.text().indexOf('Emupedia')) {
 					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(msg))));
 				}
 
