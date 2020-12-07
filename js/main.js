@@ -483,7 +483,7 @@
 					net.text_input.val('');
 					return;
 				} else {
-					msg = net.clean(msg)
+					msg = net.clean(msg);
 				}
 
 				if (msg.trim() === '') {
