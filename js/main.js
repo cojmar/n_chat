@@ -439,7 +439,52 @@
 
 			net.send_input = function() {
 				// noinspection JSUnresolvedFunction
-				var msg = net.clean(net.text_input.val());
+				var msg = net.text_input.val();
+
+				if (msg.charAt(0) === '/') {
+					var data = {
+						cmd: '',
+						data: ''
+					};
+
+					msg = msg.substr(1).split(' ');
+					data.cmd = msg.shift();
+					data.data = msg.join(' ');
+
+					while (data.data.charAt(0) === ' ') {
+						data.data = data.data.substr(1);
+					}
+
+					if ((data.data.charAt(0) === '[') || (data.data.charAt(0) === '{')) {
+						try {
+							eval('var json_data=' + data.data);
+						} catch (e) {
+							var json_data = data.data;
+						}
+
+						data.data = json_data;
+					}
+
+					if (net.client_cmd(data)) {
+						// noinspection JSUnresolvedFunction
+						net.text_input.val('');
+						return true;
+					}
+
+					// noinspection JSUnresolvedFunction
+					if (data.cmd === 'nick') {
+						if (data.data === '') {
+							return false;
+						}
+					}
+
+					// noinspection JSUnresolvedFunction
+					net.send_cmd(data.cmd, data.data);
+					net.text_input.val('');
+					return;
+				} else {
+					msg = net.clean(msg)
+				}
 
 				if (msg.trim() === '') {
 					return false;
@@ -486,53 +531,12 @@
 
 				net.last_send = timestamp;
 
-				if (msg.charAt(0) === '/') {
-					var data = {
-						cmd: '',
-						data: ''
-					};
-
-					msg = msg.substr(1).split(' ');
-					data.cmd = msg.shift();
-					data.data = msg.join(' ');
-
-					while (data.data.charAt(0) === ' ') {
-						data.data = data.data.substr(1);
-					}
-
-					if ((data.data.charAt(0) === '[') || (data.data.charAt(0) === '{')) {
-						try {
-							eval('var json_data=' + data.data);
-						} catch (e) {
-							var json_data = data.data;
-						}
-
-						data.data = json_data;
-					}
-
-					if (net.client_cmd(data)) {
-						// noinspection JSUnresolvedFunction
-						net.text_input.val('');
-						return true;
-					}
-
-					// noinspection JSUnresolvedFunction
-					if (data.cmd === 'nick') {
-						if (data.data === '') {
-							return false;
-						}
-					}
-
-					// noinspection JSUnresolvedFunction
-					net.send_cmd(data.cmd, data.data);
-				} else {
-					// noinspection JSUnresolvedFunction
-					net.send_cmd('room_msg', msg);
-					net.last_last_last_msg = net.last_last_msg;
-					net.last_last_msg = net.last_msg;
-					net.last_msg = msg;
-					net.spam_cap = 1;
-				}
+				// noinspection JSUnresolvedFunction
+				net.send_cmd('room_msg', msg);
+				net.last_last_last_msg = net.last_last_msg;
+				net.last_last_msg = net.last_msg;
+				net.last_msg = msg;
+				net.spam_cap = 1;
 
 				// noinspection JSUnresolvedFunction
 				net.text_input.val('');
