@@ -351,7 +351,7 @@
 				return str.replace(/  +/g, ' ').trim();
 			}
 
-			net.clean = function(str) {
+			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
 				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
 
@@ -359,13 +359,17 @@
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
 				}
 
-				return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
-					folder: 'svg',
-					ext: '.svg'
-				});
+				if (typeof emoji === 'undefined') {
+					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+						folder: 'svg',
+						ext: '.svg'
+					});
+				}
+
+				return subject
 			};
 
-			net.clean_nicknames = function(str) {
+			net.clean_nicknames = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
 				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
 
@@ -373,10 +377,14 @@
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
 				}
 
-				return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
-					folder: 'svg',
-					ext: '.svg'
-				});
+				if (typeof emoji === 'undefined') {
+					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+						folder: 'svg',
+						ext: '.svg'
+					});
+				}
+
+				return subject
 			};
 
 			net.log = function (txt, color, hide) {
@@ -785,8 +793,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-				net.text_input.attr('placeholder', 'You are typing as "' + users_obj[me] + '". To change nick, type /nick and your new nickname.');
+				net.text_input.attr('placeholder', 'You are typing as "' + net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true) + '". To change nick, type /nick and your new nickname.');
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
@@ -978,7 +985,7 @@
 							// noinspection JSUnresolvedVariable
 							if (data.info.nick) {
 								// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-								net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick)) + '". To change it, type /nick and your new nickname.');
+								net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick, true)) + '". To change it, type /nick and your new nickname.');
 							}
 						}
 					}
