@@ -87,8 +87,10 @@
 	"replace": {
 		"en": {
 			"": ["phonenumber", "email", "website", "spam"],
+			"tree hugger": ["shooter", "terrorist", "assassin"],
 			"ballons": ["tits", "boobs"],
 			"candy": ["analcum", "cum", "sperm", "semen", "pee", "urine", "nuts", "balls"],
+			"smart": ["dumbass", "motherfucker", "fucker"],
 			"lol": ["fuck"],
 			"nail": ["dick", "cock", "penis", "boner"],
 			"nice": ["faggot", "gay", "homo", "horny", "pervert", "dickhead"],
@@ -101,7 +103,6 @@
 			"latino": ["spick", "beaner"],
 			"friend": ["pedo", "rapist"],
 			"flowers": ["deaththreats"],
-			"tree hugger": ["shooter", "terrorist", "assassin"],
 			"movie": ["porn"],
 			"student": ["nazi", "communist"],
 			"meet": ["gangbang", "kidnap", "bomb", "kill", "murder"],
@@ -113,7 +114,6 @@
 			"dog": ["bitch", "whore", "hooker", "prostitute"],
 			"play": ["rape", "sex", "masturbate", "jackoff", "shagg"],
 			"slow thinker": ["retard", "imbecile"],
-			"smart": ["dumbass", "motherfucker", "fucker"],
 			"anime": ["hentai"],
 			"laughter": ["cancer", "ligma", "aids"],
 			"🌼": ["卐", "☭", "💩"],
