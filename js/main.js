@@ -266,7 +266,7 @@
 			};
 
 			net.normalize = function(str) {
-				/*var arr = Array.from(str);
+				var arr = Array.from(str);
 
 				for (var i in arr) {
 					for (var j in normalize) {
@@ -278,9 +278,7 @@
 					}
 				}
 
-				return arr.join('');*/
-
-				return str;
+				return arr.join('');
 			};
 
 			net.remove_numbers = function(str) {
@@ -353,7 +351,7 @@
 
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = $('<div />').text(net.remove_zalgo(net.normalize(str))).html();
+				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
@@ -371,7 +369,7 @@
 
 			net.clean_nicknames = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
+				var subject = net.remove_zalgo($('<div />').html(str).text());
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
@@ -491,7 +489,7 @@
 					net.text_input.val('');
 					return;
 				} else if (~net.client_room_name.text().indexOf('Emupedia')) {
-					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(msg))));
+					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg))))));
 				}
 
 				if (msg.trim() === '') {
@@ -505,18 +503,21 @@
 				// noinspection JSUnresolvedVariable
 				if (net.last_msg) {
 					if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
+						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
 					}
 				}
 
 				if (net.last_last_msg) {
 					if (net.last_last_msg === msg || ((~msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(msg)) && msg.length >= 10)) {
+						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
 					}
 				}
 
 				if (net.last_last_last_msg) {
 					if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
+						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
 					}
 				}
