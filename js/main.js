@@ -794,7 +794,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.text_input.attr('placeholder', 'You are typing as "' + net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true) + '". To change nick, type /nick and your new nickname.');
+				net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
