@@ -656,12 +656,12 @@
 				'//emuos.org/beta/emuos/assets/js/libraries/simplestorage-0.2.1.min'
 		],
 		'twemoji': [
-				'libraries/twemoji-13.0.0.min',
-				'/beta/emuos/assets/js/libraries/twemoji-13.0.0.min',
-				'//emupedia.net/beta/emuos/assets/js/libraries/twemoji-13.0.0.min',
-				'//emupedia.org/beta/emuos/assets/js/libraries/twemoji-13.0.0.min',
-				'//emuos.net/beta/emuos/assets/js/libraries/twemoji-13.0.0.min',
-				'//emuos.org/beta/emuos/assets/js/libraries/twemoji-13.0.0.min'
+				'libraries/twemoji-13.0.1.min',
+				'/beta/emuos/assets/js/libraries/twemoji-13.0.1.min',
+				'//emupedia.net/beta/emuos/assets/js/libraries/twemoji-13.0.1.min',
+				'//emupedia.org/beta/emuos/assets/js/libraries/twemoji-13.0.1.min',
+				'//emuos.net/beta/emuos/assets/js/libraries/twemoji-13.0.1.min',
+				'//emuos.org/beta/emuos/assets/js/libraries/twemoji-13.0.1.min'
 		],
 		'webcomponents': [
 				'libraries/webcomponents-2.4.3.min',
