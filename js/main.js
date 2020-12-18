@@ -125,8 +125,8 @@
 
 			var $body = $('body');
 			var net = network.start({
-				servers: ['wss://ws.emupedia.net', 'wss://ws.emuos.net'],
-				server: ~window.location.hostname.indexOf('emuos.net') ? 1 : 0,
+				servers: ['https://ws.emupedia.net/ws/', 'https://ws.emuos.net/ws/', 'https://ws.emuos.org/ws/'],
+				server: ~window.location.hostname.indexOf('emuos.org') ? 2 : (~window.location.hostname.indexOf('emuos.net') ? 1 : 0),
 				mode: 0
 			});
 
