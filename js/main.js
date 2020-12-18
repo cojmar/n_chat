@@ -726,9 +726,15 @@
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
 						if (Array.isArray(net.room_info.data.admins)) {
-							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
+							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins)) || [];
+						} else {
+							net.admins = [];
 						}
+					} else {
+						net.admins = [];
 					}
+				} else {
+					net.admins = [];
 				}
 
 				// noinspection JSUnresolvedVariable
