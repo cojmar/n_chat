@@ -602,6 +602,7 @@
 				}
 			};
 
+			// noinspection DuplicatedCode
 			net.relay = function(url, data, type, headers) {
 				var ajax_retry_timeout		= 1000;
 				var ajax_retry_count		= 5;
@@ -1079,6 +1080,9 @@
 
 			net.socket.on('chat.show', function() {
 				console.log('show');
+
+				var output = net.output_div.get(0);
+				output.scrollTop = output.scrollHeight;
 			});
 
 			net.socket.on('chat.hide', function() {
