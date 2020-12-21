@@ -281,6 +281,12 @@
 				return arr.join('');
 			};
 
+			net.htmlentities = function(str) {
+				return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
+					return '&#'+i.charCodeAt(0)+';';
+				});
+			};
+
 			net.remove_numbers = function(str) {
 				return str.replace(/[0-9]/g, '');
 			};
@@ -349,9 +355,10 @@
 				return str.replace(/  +/g, ' ').trim();
 			}
 
+			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
+				var subject = net.remove_zalgo(net.normalize(net.htmlentities(str)));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
@@ -367,9 +374,10 @@
 				return subject
 			};
 
+			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo($('<div />').html(str).text());
+				var subject = net.remove_zalgo(net.htmlentities(str));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
