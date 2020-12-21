@@ -461,6 +461,16 @@
 						data.data = data.data.substr(1);
 					}
 
+					if ((data.data.charAt(0) === '[') || (data.data.charAt(0) === '{')) {
+						try {
+							eval('var json_data=' + data.data);
+						} catch (e) {
+							var json_data = data.data;
+						}
+
+						data.data = json_data;
+					}
+
 					if (net.client_cmd(data)) {
 						// noinspection JSUnresolvedFunction
 						net.text_input.val('');
