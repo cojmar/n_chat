@@ -57,6 +57,16 @@
 	overflow-x: hidden;
 }
 
+/*noinspection CssInvalidHtmlTagReference*/
+#client_room_users xmp {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	word-break: keep-all;
+	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
+	font-size: 12px;
+}
+
 #client_room_users .emoji {
 	width: 14px;
 	vertical-align: sub;
@@ -105,6 +115,16 @@
 #client_output {
 	position: relative;
 	overflow-x: hidden;
+}
+
+/*noinspection CssInvalidHtmlTagReference*/
+#client_output .net_msg xmp {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	word-break: break-all;
+	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
+	font-size: 12px;
 }
 
 /*noinspection DuplicatedCode*/

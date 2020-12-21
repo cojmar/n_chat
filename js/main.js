@@ -351,7 +351,7 @@
 
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
+				var subject = net.remove_zalgo(net.normalize('<xmp>' + $('<div />').html(str).text() + '</xmp>'));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
@@ -369,7 +369,7 @@
 
 			net.clean_nicknames = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo($('<div />').html(str).text());
+				var subject = net.remove_zalgo('<xmp>' + $('<div />').html(str).text() + '</xmp>');
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
@@ -531,7 +531,7 @@
 				net.last_send = timestamp;
 
 				// noinspection JSUnresolvedFunction
-				net.send_cmd('room_msg', $('<div />').html(msg).text());
+				net.send_cmd('room_msg', msg);
 				net.last_last_last_msg = net.last_last_msg;
 				net.last_last_msg = net.last_msg;
 				net.last_msg = msg;
