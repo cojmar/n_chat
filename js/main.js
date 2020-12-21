@@ -358,39 +358,39 @@
 			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(net.htmlentities(str)));
+				var subject = net.remove_zalgo(net.normalize(str));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
 				}
 
 				if (typeof emoji === 'undefined') {
-					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+					return twemoji.parse(net.str_replace(search, replace, net.htmlentities(subject)), {}, emoticons_data.emoticons.mapping, {
 						folder: 'svg',
 						ext: '.svg'
 					});
 				}
 
-				return subject
+				return net.htmlentities(subject)
 			};
 
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.htmlentities(str));
+				var subject = net.remove_zalgo(str);
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
 				}
 
 				if (typeof emoji === 'undefined') {
-					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+					return twemoji.parse(net.str_replace(search, replace, net.htmlentities(subject)), {}, emoticons_data.emoticons.mapping, {
 						folder: 'svg',
 						ext: '.svg'
 					});
 				}
 
-				return subject;
+				return net.htmlentities(subject);
 			};
 
 			net.log = function (txt, color, hide) {
