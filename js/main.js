@@ -549,7 +549,7 @@
 				net.last_send = timestamp;
 
 				// noinspection JSUnresolvedFunction
-				net.send_cmd('room_msg', $('<div />').html(msg).text());
+				net.send_cmd('room_msg', msg);
 				net.last_last_last_msg = net.last_last_msg;
 				net.last_last_msg = net.last_msg;
 				net.last_msg = msg;
