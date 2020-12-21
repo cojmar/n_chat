@@ -281,11 +281,11 @@
 				return arr.join('');
 			};
 
-			net.htmlentities = function(str) {
+			/*net.htmlentities = function(str) {
 				return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
 					return '&#'+i.charCodeAt(0)+';';
 				});
-			};
+			};*/
 
 			net.remove_numbers = function(str) {
 				return str.replace(/[0-9]/g, '');
@@ -365,13 +365,13 @@
 				}
 
 				if (typeof emoji === 'undefined') {
-					return twemoji.parse(net.str_replace(search, replace, net.htmlentities(subject)), {}, emoticons_data.emoticons.mapping, {
+					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
 						folder: 'svg',
 						ext: '.svg'
 					});
 				}
 
-				return net.htmlentities(subject)
+				return subject
 			};
 
 			// noinspection DuplicatedCode
@@ -384,13 +384,13 @@
 				}
 
 				if (typeof emoji === 'undefined') {
-					return twemoji.parse(net.str_replace(search, replace, net.htmlentities(subject)), {}, emoticons_data.emoticons.mapping, {
+					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
 						folder: 'svg',
 						ext: '.svg'
 					});
 				}
 
-				return net.htmlentities(subject);
+				return subject;
 			};
 
 			net.log = function (txt, color, hide) {

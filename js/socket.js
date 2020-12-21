@@ -1,12 +1,29 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) {
+	"@babel/helpers - typeof";
+	if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+		_typeof = function _typeof(obj) {
+			return typeof obj;
+		};
+	} else {
+		_typeof = function _typeof(obj) {
+			return obj &&
+			typeof Symbol === "function" &&
+			obj.constructor === Symbol &&
+			obj !== Symbol.prototype ?
+				"symbol" :
+				typeof obj;
+		};
+	}
+	return _typeof(obj);
+}
 
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
+(function(factory) {
+	if (typeof define === "function" && define.amd) {
 		define(factory);
 	} else return factory();
-})(function () {
+})(function() {
 	var _arguments2 = arguments;
 	var run_mode = {
 		main: false,
@@ -18,7 +35,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 		run_mode.use_worker = true;
 
 		try {
-			run_mode.main = typeof window !== 'undefined' ? true : false;
+			run_mode.main = typeof window !== "undefined" ? true : false;
 		} catch (error) {
 			run_mode.main = false;
 		}
@@ -28,8 +45,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 		run_mode.main = true;
 	} //console.log(JSON.stringify(run_mode))
 
-
-	var u_socket = /*#__PURE__*/function () {
+	var u_socket = /*#__PURE__*/ (function() {
 		function u_socket() {
 			var _arguments = arguments,
 				_this = this;
@@ -64,7 +80,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 		_proto.do_merge = function do_merge(data1, data2) {
 			var ret = false;
 
-			if (_typeof(data1) !== 'object' || _typeof(data2) !== 'object') {
+			if (_typeof(data1) !== "object" || _typeof(data2) !== "object") {
 				data1 = data2;
 				return true;
 			}
@@ -74,7 +90,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 					data1[n] = data2[n];
 					if (!ret) ret = true;
 				} else {
-					if (_typeof(data1[n]) === 'object' && _typeof(data2[n]) === 'object') {
+					if (
+						_typeof(data1[n]) === "object" &&
+						_typeof(data2[n]) === "object"
+					) {
 						var ret2 = this.do_merge(data1[n], data2[n]);
 						if (!ret) ret = ret2;
 					} else {
@@ -91,52 +110,64 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 			var _this2 = this;
 
 			if (this.keep_alive_interval) clearInterval(this.keep_alive_interval);
-			this.keep_alive_interval = setInterval(function () {
-				_this2.send('ping');
+			this.keep_alive_interval = setInterval(function() {
+				_this2.send("ping");
 			}, 30000);
 			return this;
 		};
 
 		_proto.getBaseUrl = function getBaseUrl() {
 			if (!run_mode.main) return false;
-			return window.location.href.split('://')[1].split('/')[0];
+			if (typeof window === "undefined") return "localhost";
+			return window.location.href.split("://")[1].split("/")[0];
 		};
 
 		_proto.map_room = function map_room(ev, data) {
 			switch (ev) {
-				case 'room.info':
+				case "room.info":
 					this.room = data;
 					break;
 
-				case 'my.info':
-				case 'auth.info':
+				case "my.info":
+				case "auth.info":
 					this.me = data;
 					break;
 
-				case 'room.user_join':
-					if (data.user && this.room && data.room && this.room.room === data.room) {
+				case "room.user_join":
+					if (
+						data.user &&
+						this.room &&
+						data.room &&
+						this.room.room === data.room
+					) {
 						if (data.user === this.room.me) return false;
 						this.room.users[data.user] = data.data;
 					}
 
 					break;
 
-				case 'room.user_leave':
-					if (data.user && this.room && data.room && this.room.room === data.room) {
+				case "room.user_leave":
+					if (
+						data.user &&
+						this.room &&
+						data.room &&
+						this.room.room === data.room
+					) {
 						if (this.room.users[data.user]) delete this.room.users[data.user];
 					}
 
 					break;
 
-				case 'room.user_data':
+				case "room.user_data":
 					if (data.user && this.room && this.room.users[data.user]) {
 						this.do_merge(this.room.users[data.user].data, data.data);
-						if (data.user === this.room.me && this.me) this.do_merge(this.me.data, data.data);
+						if (data.user === this.room.me && this.me)
+							this.do_merge(this.me.data, data.data);
 					}
 
 					break;
 
-				case 'room.data':
+				case "room.data":
 					if (this.room && this.room.name === data.room) {
 						this.do_merge(this.room.data, data.data);
 					}
@@ -147,18 +178,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 			return true;
 		};
 
+		_proto.strip_html = function strip_html(str) {
+			return str.replace(/(<([^>]+)>)/gi, "").replace('<', '&lt;').replace('>', '&gt;')
+		};
+
 		_proto.emit_event = function emit_event(ev, data) {
 			if (!ev) return false;
+			if (ev === "room.msg" && data.msg) data.msg = this.strip_html(data.msg);
 			if (!this.map_room(ev, data)) return false;
-			if (_typeof(this.events[ev]) === 'object') this.events[ev].forEach(function (cb) {
-				cb(data);
-			});
-			if (_typeof(this.events['cmd']) === 'object') this.events['cmd'].forEach(function (cb) {
-				cb({
-					cmd: ev,
-					data: data
+			if (_typeof(this.events["cmd"]) === "object")
+				this.events["cmd"].forEach(function(cb) {
+					cb({
+						cmd: ev,
+						data: data
+					});
 				});
-			});
+			if (_typeof(this.events[ev]) === "object")
+				this.events[ev].forEach(function(cb) {
+					cb(data);
+				});
 		};
 
 		_proto.connect = function connect() {
@@ -171,7 +209,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 			var last_on = Math.floor(Date.now() / 1000) - this.last_on_set;
 
 			if (last_on < 2) {
-				this.connect_timeout = setTimeout(function () {
+				this.connect_timeout = setTimeout(function() {
 					_this3.connect();
 				});
 				return this;
@@ -189,7 +227,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 		_proto.on = function on(cmd, call_back) {
 			this.last_on_set = Math.floor(Date.now() / 1000);
 			if (!cmd) return this;
-			if (typeof call_back !== 'function') return this;
+			if (typeof call_back !== "function") return this;
 
 			if (!this.events[cmd]) {
 				this.events[cmd] = [];
@@ -208,28 +246,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 			this.ws = new WebSocket(this.server);
 
-			this.ws.onopen = function () {
+			this.ws.onopen = function() {
 				_this4.connected = true;
 
-				_this4.emit_event('connect', {
+				_this4.emit_event("connect", {
 					server: _this4.server
 				});
 			};
 
-			this.ws.onclose = function (close_event) {
+			this.ws.onclose = function(close_event) {
 				_this4.connected = false;
 
 				if (close_event.code !== 4666) {
 					if (_this4.connect_timeout) clearTimeout(_this4.connect_timeout);
-					_this4.connect_timeout = setTimeout(function () {
+					_this4.connect_timeout = setTimeout(function() {
 						_this4.connect();
 					}, 10000);
 				}
 
-				_this4.emit_event('disconnect', close_event);
+				_this4.emit_event("disconnect", close_event);
 			};
 
-			this.ws.onmessage = function (message) {
+			this.ws.onmessage = function(message) {
 				var data;
 
 				try {
@@ -245,8 +283,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 		};
 
 		_proto.send = function send(data) {
-			if (data.cmd === 'connect') return this.connect(data.data);
-			if (data.cmd === 'disconnect') return this.disconnect();
+			if (data.cmd === "connect") return this.connect(data.data);
+			if (data.cmd === "disconnect") return this.disconnect();
 			if (!this.connected) return this;
 			this.socket.send(JSON.stringify(data));
 			return this;
@@ -260,34 +298,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 		};
 
 		return u_socket;
-	}();
+	})();
 
 	var network = new u_socket();
 
 	if (!run_mode.main && run_mode.use_worker) {
-		addEventListener('message', function (e) {
+		addEventListener("message", function(e) {
 			var cmd_data = e.data;
 
 			switch (cmd_data.cmd) {
-				default:
-					network[cmd_data.cmd](cmd_data.data);
+				default: network[cmd_data.cmd](cmd_data.data);
 					break;
 
-				case 'on':
-					network.on(cmd_data.data.cmd, function (data) {
+				case "on":
+					network.on(cmd_data.data.cmd, function(data) {
 						cmd_data.data.data = data;
 						postMessage(cmd_data.data);
 					});
 					break;
 			} //postMessage(cmd_data);
 			//console.log(JSON.stringify( cmd_data));
-
 		});
 		return true;
 	}
 
 	if (run_mode.main && run_mode.use_worker && run_mode.worker) {
-		run_mode.worker.onmessage = function (e) {
+		run_mode.worker.onmessage = function(e) {
 			var data = e.data;
 			data.cmd = data.cmd || false;
 			data.id = data.id || 0;
@@ -296,34 +332,34 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 			if (cb) cb(data.data);
 		};
 
-		network.connect = function (data) {
-			setTimeout(function () {
+		network.connect = function(data) {
+			setTimeout(function() {
 				run_mode.worker.postMessage({
-					cmd: 'connect',
+					cmd: "connect",
 					data: data
 				});
 			}, 500);
 			return network;
 		};
 
-		network.send = function (data) {
+		network.send = function(data) {
 			run_mode.worker.postMessage({
-				cmd: 'send',
+				cmd: "send",
 				data: data
 			});
 			return network;
 		};
 
-		network.on = function (cmd, call_back) {
+		network.on = function(cmd, call_back) {
 			if (!cmd) return network;
-			if (typeof call_back !== 'function') return network;
+			if (typeof call_back !== "function") return network;
 
 			if (!network.events[cmd]) {
 				network.events[cmd] = [];
 			}
 
 			run_mode.worker.postMessage({
-				cmd: 'on',
+				cmd: "on",
 				data: {
 					cmd: cmd,
 					id: network.events[cmd].length
@@ -335,11 +371,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 		network.connect_socket(1);
 
-		network.socket.on = function () {
+		network.socket.on = function() {
 			network.on(_arguments2);
 		};
 	}
 
-	window.u_network = network;
+	if (typeof window !== "undefined") window.u_network = network;
 	return network;
 });
