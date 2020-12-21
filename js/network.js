@@ -95,7 +95,9 @@
 				'rooms.list',
 				'silent.msg',
 				'server.help',
-				'su'
+				'su',
+				'chat.show',
+				'chat.hide'
 			];
 
 			cmds.forEach(function (value) {
