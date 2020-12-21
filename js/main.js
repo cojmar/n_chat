@@ -351,7 +351,7 @@
 
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize('<xmp>' + $('<div />').html(str).text() + '</xmp>'));
+				var subject = net.remove_zalgo(net.normalize($('<div />').html(str).text()));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
@@ -369,7 +369,7 @@
 
 			net.clean_nicknames = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo('<xmp>' + $('<div />').html(str).text() + '</xmp>');
+				var subject = net.remove_zalgo($('<div />').html(str).text());
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
@@ -382,7 +382,7 @@
 					});
 				}
 
-				return subject
+				return subject;
 			};
 
 			net.log = function (txt, color, hide) {
