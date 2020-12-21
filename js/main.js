@@ -124,9 +124,12 @@
 			}
 
 			var $body = $('body');
+			var servers =['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/','ws://cojmar.ddns.net/ws/']
+			var domains = ['emupedia.net','emupedia.org','emuos.net','emuos.org','cojmar.ddns.net']
+
 			var net = network.start({
-				servers: ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/'],
-				server: ~window.location.hostname.indexOf('emupedia.net') ? 0 : (~window.location.hostname.indexOf('emupedia.org') ? 1 : (~window.location.hostname.indexOf('emuos.net') ? 2 : (~window.location.hostname.indexOf('emuos.org') ? 3 : 0))),
+				servers:servers,
+				server: ~domains.indexOf(window.location.hostname) ? domains.indexOf(window.location.hostname) : 0,
 				mode: 0
 			});
 

@@ -3,3 +3,4 @@ node_modules/
 Thumbs.db
 .DS_Store
 .vscode
+debug.log
