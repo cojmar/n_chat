@@ -793,6 +793,18 @@
 					var color = u !== me ? net.colors[3] : net.colors[1];
 
 					if (typeof net.room_info !== 'undefined') {
+						var room_user = net.room_info.users[u] || false
+
+
+						if (room_user && room_user.info.present && room_user.info.present.item_index !== -1){
+							if(room_user.info.present.items[room_user.info.present.item_index].color){
+								color = room_user.info.present.items[room_user.info.present.item_index].color
+							}
+						}
+
+
+
+
 						if (typeof net.room_info.data !== 'undefined') {
 							if (typeof net.room_info.data.admins !== 'undefined') {
 								if (Array.isArray(net.room_info.data.admins)) {
@@ -900,6 +912,13 @@
 
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 				if (typeof net.room_info !== 'undefined') {
+
+					var room_user = net.room_info.users[data.user] || false
+					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1){
+						if(room_user.info.present.items[room_user.info.present.item_index].color){
+							color = room_user.info.present.items[room_user.info.present.item_index].color
+						}
+					}
 					if (typeof net.room_info.data !== 'undefined') {
 						if (typeof net.room_info.data.admins !== 'undefined') {
 							if (Array.isArray(net.room_info.data.admins)) {
@@ -962,6 +981,13 @@
 
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 				if (typeof net.room_info !== 'undefined') {
+					var room_user = net.room_info.users[data.user] || false
+					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1){
+						if(room_user.info.present.items[room_user.info.present.item_index].color){
+							color = room_user.info.present.items[room_user.info.present.item_index].color
+						}
+					}
+
 					if (typeof net.room_info.data !== 'undefined') {
 						if (typeof net.room_info.data.admins !== 'undefined') {
 							if (Array.isArray(net.room_info.data.admins)) {
@@ -996,6 +1022,15 @@
 						if (data.info.nick) {
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
+						}
+
+						if (data.info.present && data.info.present.item_index!=-1) {
+							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
+							var present = data.info.present.items[data.info.present.item_index]
+							if (present.color){
+								//console.log(present)
+								$('#room_user_' + data.user).css('color',present.color);
+							}
 						}
 
 						// noinspection JSUnresolvedVariable
