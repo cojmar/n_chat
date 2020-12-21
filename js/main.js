@@ -1074,6 +1074,14 @@
 				});
 			});
 
+			net.socket.on('chat.show', function() {
+				console.log('show');
+			});
+
+			net.socket.on('chat.hide', function() {
+				console.log('hide');
+			});
+
 			var chat_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
 								'<div id="client_users" class="client_decoration client_right">' +
