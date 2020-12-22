@@ -93,7 +93,6 @@
 				'room.data',
 				'room.msg',
 				'rooms.list',
-				'silent.msg',
 				'server.help',
 				'su',
 				'chat.show',

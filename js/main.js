@@ -1081,17 +1081,6 @@
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-			/*net.socket.on('silent.msg', function (data) {
-				// console.log('silent.msg');
-				// console.log(JSON.stringify(data, null, 2));
-
-				//net.log(net.clean(data), 1, 10000);
-				if (window.top === window) {
-					console.log(new Date().toString() + ': ' + data);
-				}
-			});*/
-
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('server.help', function (data) {
 				// console.log('server.help');
 				// console.log(JSON.stringify(data, null, 2));
@@ -1114,14 +1103,8 @@
 			});
 
 			net.socket.on('chat.show', function() {
-				console.log('show');
-
 				var output = net.output_div.get(0);
 				output.scrollTop = output.scrollHeight;
-			});
-
-			net.socket.on('chat.hide', function() {
-				console.log('hide');
 			});
 
 			var chat_ui = '<div id="client_container" class="client_decoration">' +
@@ -1145,6 +1128,7 @@
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
 			net.client_rooms = $('#client_rooms');
+			net.user_colors = $('#client_user_colors');
 			net.client_room_name = net.client_room.find('span.name');
 			net.client_room_online = net.client_room.find('span.online');
 			// noinspection JSUnresolvedFunction
