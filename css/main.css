@@ -1,7 +1,7 @@
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;
-	width: calc(100% - 50px - 20px - 20px);
+	width: calc(100% - 50px - 20px - 19px);
 	box-sizing: border-box;
 	border: 1px rgba(128, 128, 128, 0.973) solid;
 	outline: none;
@@ -18,6 +18,7 @@
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 	color: rgba(128, 128, 128, 0.973);
 	border: 1px rgba(128, 128, 128, 0.973) solid;
+	border-left: none;
 	background-color: rgba(48, 47, 47, 0.85);
 	padding: 0;
 	vertical-align: top;
@@ -36,7 +37,7 @@
 
 #client_container {
 	width: 100%;
-	height: 100%;
+	height: calc(100% - 2px);
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -49,12 +50,26 @@
 	overflow: hidden;
 }
 
+/*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_room_users {
 	margin: -4px;
 	height: calc(100% - 18px);
 	padding: 2px;
 	overflow-y: auto;
 	overflow-x: hidden;
+
+	scrollbar-base-color: #222;
+	scrollbar-3dlight-color: #222;
+	scrollbar-highlight-color: #222;
+	scrollbar-track-color: #3e3e42;
+	scrollbar-arrow-color: #111;
+	scrollbar-shadow-color: #222;
+	scrollbar-dark-shadow-color: #222;
+
+	scrollbar-width: thin;
+	scrollbar-face-color: rgba(0, 0, 0, 0.38);
+	scrollbar-track-color: rgba(34, 33, 33, 0.95);
+	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
 /*noinspection CssInvalidHtmlTagReference*/
@@ -103,6 +118,7 @@
 	width: calc(35% - 28px);
 }
 
+/*noinspection CssUnknownProperty,DuplicatedCode*/
 .client_left {
 	float: left;
 	width: 65%;
@@ -110,6 +126,19 @@
 	padding: 5px;
 	height: calc(100% - 50px);
 	overflow-y: auto;
+
+	scrollbar-base-color: #222;
+	scrollbar-3dlight-color: #222;
+	scrollbar-highlight-color: #222;
+	scrollbar-track-color: #3e3e42;
+	scrollbar-arrow-color: #111;
+	scrollbar-shadow-color: #222;
+	scrollbar-dark-shadow-color: #222;
+
+	scrollbar-width: thin;
+	scrollbar-face-color: rgba(0, 0, 0, 0.38);
+	scrollbar-track-color: rgba(34, 33, 33, 0.95);
+	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
 #client_output {
@@ -179,7 +208,7 @@
 
 #client_input {
 	float: left;
-	width: calc(100% - 16px);
+	width: calc(100% - 17px);
 	height: 20px;
 	padding: 5px;
 	margin: 0 2px 2px;
@@ -268,6 +297,7 @@
 	color: #395fa4;
 }
 
+/*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_rooms-menu {
 	background: #302f2f;
 	border: 1px solid rgba(128, 128, 128, 0.35);
@@ -280,6 +310,19 @@
 	max-height: 285px;
 	white-space: nowrap;
 	overflow-x: hidden;
+
+	scrollbar-base-color: #222;
+	scrollbar-3dlight-color: #222;
+	scrollbar-highlight-color: #222;
+	scrollbar-track-color: #3e3e42;
+	scrollbar-arrow-color: #111;
+	scrollbar-shadow-color: #222;
+	scrollbar-dark-shadow-color: #222;
+
+	scrollbar-width: thin;
+	scrollbar-face-color: rgba(0, 0, 0, 0.38);
+	scrollbar-track-color: rgba(34, 33, 33, 0.95);
+	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
 .ui-selectmenu-button span.ui-selectmenu-text {
@@ -306,6 +349,35 @@
 	font-size: 13px;
 }
 
+.emoji-picker {
+	border-radius: 0 !important;
+}
+
 .emoji-picker__emojis {
 	overflow-x: hidden;
+}
+
+.emoji-picker__search {
+	border-radius: 0 !important;
+}
+
+.emoji-picker.dark .emoji-picker__search {
+	background: rgba(43, 42, 42, 0.85) !important;
+	border-color: rgba(128, 128, 128, 0.973) !important;
+}
+
+/*noinspection CssUnknownProperty,DuplicatedCode*/
+.emoji-picker__emojis {
+	scrollbar-base-color: #222;
+	scrollbar-3dlight-color: #222;
+	scrollbar-highlight-color: #222;
+	scrollbar-track-color: #3e3e42;
+	scrollbar-arrow-color: #111;
+	scrollbar-shadow-color: #222;
+	scrollbar-dark-shadow-color: #222;
+
+	scrollbar-width: thin;
+	scrollbar-face-color: rgba(0, 0, 0, 0.38);
+	scrollbar-track-color: rgba(34, 33, 33, 0.95);
+	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
