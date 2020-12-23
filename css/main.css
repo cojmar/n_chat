@@ -1,7 +1,7 @@
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;
-	width: calc(100% - 50px - 20px);
+	width: calc(100% - 50px - 20px - 20px);
 	box-sizing: border-box;
 	border: 1px rgba(128, 128, 128, 0.973) solid;
 	outline: none;
@@ -97,10 +97,10 @@
 
 .client_right {
 	float: left;
-	margin: 2px 2px 2px 0;
+	margin: 1px 0 0 0;
 	padding: 5px;
-	height: calc(100% - 50px);
-	width: calc(35% - 30px);
+	height: calc(100% - 46px);
+	width: calc(35% - 28px);
 }
 
 .client_left {
@@ -186,7 +186,7 @@
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 }
 
-#client_emoticons {
+#client_emoticons, #client_colors {
 	width: 21px;
 	height: 21px;
 	outline: none;
@@ -197,6 +197,11 @@
 	padding: 0;
 	overflow: hidden;
 	vertical-align: top;
+}
+
+#client_colors {
+	border-left: none;
+	border-right: none;
 }
 
 #client_console [data-title] {

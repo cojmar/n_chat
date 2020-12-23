@@ -1109,12 +1109,12 @@
 
 			var chat_ui = '<div id="client_container" class="client_decoration">' +
 								'<div id="client_output" class="client_decoration client_left"></div>' +
-								'<div id="client_users" class="client_decoration client_right">' +
+								'<div id="client_users" class="client_right">' +
 									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
-									'<button id="client_emoticons">😀</button><input id="client_command" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
 								'</div>' +
 							'</div>';
 
@@ -1122,13 +1122,13 @@
 
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
+			net.color_button = $('#client_colors');
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
 			net.client_rooms = $('#client_rooms');
-			net.user_colors = $('#client_user_colors');
 			net.client_room_name = net.client_room.find('span.name');
 			net.client_room_online = net.client_room.find('span.online');
 			// noinspection JSUnresolvedFunction
