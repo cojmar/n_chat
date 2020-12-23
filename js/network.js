@@ -96,7 +96,8 @@
 				'server.help',
 				'su',
 				'chat.show',
-				'chat.hide'
+				'chat.hide',
+				'present'
 			];
 
 			cmds.forEach(function (value) {

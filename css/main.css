@@ -325,6 +325,17 @@
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
+#client_color_popover {
+	display: none;
+	padding: 10px;
+	background: #302f2f;
+	border: 1px rgba(128, 128, 128, 0.35) solid;
+}
+
+#client_color_popover a {
+	display: block;
+}
+
 .ui-selectmenu-button span.ui-selectmenu-text {
 	padding: 0;
 	text-align: center;
@@ -347,6 +358,41 @@
 	border: none;
 	font-weight: bold;
 	font-size: 13px;
+}
+
+@-webkit-keyframes glow {
+	from {
+		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+	}
+	to {
+		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+	}
+}
+
+@-moz-keyframes glow {
+	from {
+		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+	}
+	to {
+		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+	}
+}
+
+@keyframes glow {
+	from {
+		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+	}
+	to {
+		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+	}
+}
+
+.glow {
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+	-moz-animation: glow 1s ease-in-out infinite alternate;
+	animation: glow 1s ease-in-out infinite alternate;
+	text-shadow: 0 0 0 #1eff00;
+	color: #000 !important;
 }
 
 .emoji-picker {
