@@ -694,13 +694,13 @@
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
-				net.log('You are now connected to the server', 1, 0);
+				net.log('You are now connected to the server', 1);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
-				net.log('You were disconnected from the server, trying to reconnect...', 1, 0);
+				net.log('You were disconnected from the server, trying to reconnect...', 1);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -831,7 +831,6 @@
 								if (Array.isArray(net.room_info.data.admins)) {
 									if (net.room_info.data.admins.length > 0) {
 										if (net.room_info.data.admins.indexOf(u) !== -1) {
-											color = net.colors[2];
 											glow = 'class="glow"';
 										}
 									}
@@ -854,7 +853,7 @@
 				net.client_room_online.text(users_online);
 				// noinspection JSUnresolvedFunction
 				net.output_div.html('');
-				net.log('You are now chatting in ' + room + ' with ' + users_online + ' users');
+				net.log('You are now chatting in ' + room + ' with ' + users_online + ' users', 1);
 				// noinspection JSUnresolvedVariable
 				$('.ui-selectmenu-text').text(room + ' (' + users_online + ' users)');
 			});
@@ -866,50 +865,18 @@
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
-						// noinspection DuplicatedCode
-						if (typeof net.admins !== 'undefined') {
-							if (Array.isArray(net.admins)) {
-								for (var a1 in net.admins) {
-									// noinspection JSUnfilteredForInLoop
-									if (typeof net.admins[a1] !== 'undefined') {
-										// noinspection JSUnfilteredForInLoop
-										var color1 = net.room_info.me === net.admins[a1] ? net.colors[1] : net.colors[3];
-										// noinspection JSUnfilteredForInLoop
-										var el1 = $('#room_user_' + net.admins[a1]);
-										el1.css('color', color1);
-										el1.toggleClass('glow');
-									}
-								}
-							}
-						}
+						$('#client_room_users > div').removeClass('glow');
 
 						if (net.admins.length !== JSON.parse(JSON.stringify(net.room_info.data.admins)).length) {
 							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
-							// noinspection DuplicatedCode
+
 							if (typeof net.admins !== 'undefined') {
 								if (Array.isArray(net.admins)) {
 									for (var a2 in net.admins) {
 										// noinspection JSUnfilteredForInLoop
 										if (typeof net.admins[a2] !== 'undefined') {
 											// noinspection JSUnfilteredForInLoop
-											var color3 = net.room_info.me === net.admins[a2] ? net.colors[1] : net.colors[3];
-											var color4 = net.colors[2];
-											// noinspection JSUnfilteredForInLoop
-											var el2 = $('#room_user_' + net.admins[a2]);
-											setTimeout(function() {
-												// noinspection JSReferencingMutableVariableFromClosure
-												if (el2.css('color') === color3 || el2.hasClass('glow')) {
-													// noinspection JSReferencingMutableVariableFromClosure
-													el2.css('color', color4);
-													// noinspection JSReferencingMutableVariableFromClosure
-													el2.removeClass('glow');
-												} else {
-													// noinspection JSReferencingMutableVariableFromClosure
-													el2.css('color', color3);
-													// noinspection JSReferencingMutableVariableFromClosure
-													el2.addClass('glow');
-												}
-											}, 10)
+											$('#room_user_' + net.admins[a2]).addClass('glow');
 										}
 									}
 								}
@@ -956,7 +923,6 @@
 							if (Array.isArray(net.room_info.data.admins)) {
 								if (net.room_info.data.admins.length > 0) {
 									if (net.room_info.data.admins.indexOf(data.data.info.user) !== -1) {
-										color = net.colors[2];
 										glow = 'class="glow"'
 									}
 								}
@@ -1031,7 +997,6 @@
 							if (Array.isArray(net.room_info.data.admins)) {
 								if (net.room_info.data.admins.length > 0) {
 									if (net.room_info.data.admins.indexOf(data.user) !== -1) {
-										color = net.colors[2];
 										glow = 'class="glow"';
 									}
 								}

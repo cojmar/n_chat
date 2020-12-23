@@ -392,7 +392,6 @@
 	-moz-animation: glow 1s ease-in-out infinite alternate;
 	animation: glow 1s ease-in-out infinite alternate;
 	text-shadow: 0 0 0 #1eff00;
-	color: #000 !important;
 }
 
 .emoji-picker {
