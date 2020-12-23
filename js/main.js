@@ -1025,12 +1025,14 @@
 							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
 						}
 
-						if (data.info.present && data.info.present.item_index!=-1) {
+						// noinspection JSUnresolvedVariable
+						if (data.info.present && data.info.present.item_index !== -1) {
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 							var present = data.info.present.items[data.info.present.item_index]
-							if (present.color){
+
+							if (present.color) {
 								//console.log(present)
-								$('#room_user_' + data.user).css('color',present.color);
+								$('#room_user_' + data.user).css('color', present.color);
 							}
 						}
 
@@ -1114,7 +1116,7 @@
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
 								'<div id="client_input" class="client_decoration">' +
-									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
 								'</div>' +
 							'</div>';
 
