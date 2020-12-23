@@ -471,8 +471,6 @@
 					}
 				}
 
-				console.log('is_admin', is_admin);
-
 				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
 
@@ -879,7 +877,7 @@
 										// noinspection JSUnfilteredForInLoop
 										var el1 = $('#room_user_' + net.admins[a1]);
 										el1.css('color', color1);
-										el1.addClass('glow');
+										el1.toggleClass('glow');
 									}
 								}
 							}
@@ -900,13 +898,15 @@
 											var el2 = $('#room_user_' + net.admins[a2]);
 											setTimeout(function() {
 												// noinspection JSReferencingMutableVariableFromClosure
-												if (el2.css('color') === color3) {
+												if (el2.css('color') === color3 || el2.hasClass('glow')) {
 													// noinspection JSReferencingMutableVariableFromClosure
 													el2.css('color', color4);
+													// noinspection JSReferencingMutableVariableFromClosure
 													el2.removeClass('glow');
 												} else {
 													// noinspection JSReferencingMutableVariableFromClosure
 													el2.css('color', color3);
+													// noinspection JSReferencingMutableVariableFromClosure
 													el2.addClass('glow');
 												}
 											}, 10)
@@ -1276,7 +1276,6 @@
 				console.log('color');
 				e.preventDefault();
 				e.stopPropagation();
-
 				net.color_popover.hide();
 			});
 
