@@ -563,7 +563,7 @@
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
-						net.log('You are writting to fast, wait ' + net.spam_cap + ' second(s)', 1);
+						net.log('You are writing too fast, wait ' + net.spam_cap + ' second(s)', 1);
 						net.text_input.val('');
 						return false;
 					}
@@ -694,13 +694,13 @@
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
-				net.log('[connected]', 0, 0);
+				net.log('You are now connected to the server', 1, 0);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
-				net.log('[disconnected]', 0, 0);
+				net.log('You were disconnected from the server, trying to reconnect...', 1, 0);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
