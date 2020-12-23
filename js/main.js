@@ -1107,6 +1107,7 @@
 			net.socket.on('chat.show', function() {
 				var output = net.output_div.get(0);
 				output.scrollTop = output.scrollHeight;
+				net.text_input.get(0).focus();
 			});
 
 			var chat_ui = '<div id="client_container" class="client_decoration">' +
