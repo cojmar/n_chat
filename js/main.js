@@ -194,6 +194,20 @@
 
 			net.colors = ['rgba(180, 173, 173, 0.973)', 'rgb(57, 95, 164)', 'rgb(21, 153, 4)', 'rgba(128, 128, 128, 0.35)'];
 
+			net.increase_brightness = function(hex, percent) {
+				hex = hex.replace(/^\s*#|\s*$/g, '');
+
+				if (hex.length === 3) {
+					hex = hex.replace(/(.)/g, '$1$1');
+				}
+
+				var r = parseInt(hex.substr(0, 2), 16),
+					g = parseInt(hex.substr(2, 2), 16),
+					b = parseInt(hex.substr(4, 2), 16);
+
+				return '#' + ((0 | (1 << 8) + r + (256 - r) * percent / 100).toString(16)).substr(1) + ((0 | (1 << 8) + g + (256 - g) * percent / 100).toString(16)).substr(1) + ((0 | (1 << 8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+			}
+
 			net.random_integer = function(rand, min, max) {
 				return Math.floor(rand * (max - min + 1) + min)
 			};
@@ -816,13 +830,13 @@
 
 					if (typeof net.room_info !== 'undefined') {
 						// noinspection JSUnresolvedVariable
-						var room_user = net.room_info.users[u] || false
-						// noinspection JSUnresolvedVariable
+						var room_user = net.room_info.users[u] || false;
+						// noinspection JSUnresolvedVariable,DuplicatedCode
 						if (room_user && room_user.info.present && room_user.info.present.item_index !== -1) {
 							// noinspection JSUnresolvedVariable
 							if (room_user.info.present.items[room_user.info.present.item_index].color) {
 								// noinspection JSUnresolvedVariable
-								color = room_user.info.present.items[room_user.info.present.item_index].color
+								color = room_user.info.present.items[room_user.info.present.item_index].color;
 							}
 						}
 
@@ -840,7 +854,7 @@
 					}
 
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + color + '; word-break: keep-all;" title="' + u + '" data-title="' + u + '">' + users_obj[u] + '</div>';
+					users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + u + '" data-title="' + u + '">' + users_obj[u] + '</div>';
 				}
 
 				// noinspection JSUnresolvedVariable
@@ -908,13 +922,13 @@
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 				if (typeof net.room_info !== 'undefined') {
 					// noinspection JSUnresolvedVariable
-					var room_user = net.room_info.users[data.user] || false
-					// noinspection JSUnresolvedVariable
+					var room_user = net.room_info.users[data.user] || false;
+					// noinspection JSUnresolvedVariable,DuplicatedCode
 					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1) {
 						// noinspection JSUnresolvedVariable
 						if (room_user.info.present.items[room_user.info.present.item_index].color) {
 							// noinspection JSUnresolvedVariable
-							color = room_user.info.present.items[room_user.info.present.item_index].color
+							color = room_user.info.present.items[room_user.info.present.item_index].color;
 						}
 					}
 
@@ -932,7 +946,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + color + '; word-break: keep-all;" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -982,13 +996,13 @@
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 				if (typeof net.room_info !== 'undefined') {
 					// noinspection JSUnresolvedVariable
-					var room_user = net.room_info.users[data.user] || false
-					// noinspection JSUnresolvedVariable
-					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1){
+					var room_user = net.room_info.users[data.user] || false;
+					// noinspection JSUnresolvedVariable,DuplicatedCode
+					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1) {
 						// noinspection JSUnresolvedVariable
-						if(room_user.info.present.items[room_user.info.present.item_index].color){
+						if (room_user.info.present.items[room_user.info.present.item_index].color) {
 							// noinspection JSUnresolvedVariable
-							color = room_user.info.present.items[room_user.info.present.item_index].color
+							color = room_user.info.present.items[room_user.info.present.item_index].color;
 						}
 					}
 
@@ -1010,7 +1024,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.log('<span ' + glow + ' style="color: ' + color + '; overflow: hidden;" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
+				net.log('<span ' + glow + ' style="color: ' + color + '; overflow: hidden; --glow-color-1: ' + (glow ? '#4c4c4c' : color) + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1038,7 +1052,6 @@
 							var present = data.info.present.items[data.info.present.item_index]
 
 							if (present.color) {
-								//console.log(present)
 								$('#room_user_' + data.user).css('color', present.color);
 							}
 						}

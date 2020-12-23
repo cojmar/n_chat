@@ -1,3 +1,8 @@
+:root {
+	--glow-color-1: #159904;
+	--glow-color-2: #1eff00;
+}
+
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;
@@ -387,11 +392,47 @@
 	}
 }
 
+/*noinspection CssOverwrittenProperties*/
 .glow {
 	-webkit-animation: glow 1s ease-in-out infinite alternate;
 	-moz-animation: glow 1s ease-in-out infinite alternate;
 	animation: glow 1s ease-in-out infinite alternate;
 	text-shadow: 0 0 0 #1eff00;
+	text-shadow: 0 0 0 var(--glow-color-2);
+}
+
+@supports (display: var(--glow-color-1)) {
+	@-webkit-keyframes glow {
+		from {
+			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px var(--glow-color-1), 0 0 4px var(--glow-color-1), 0 0 5px var(--glow-color-1), 0 0 6px var(--glow-color-1), 0 0 7px var(--glow-color-1);
+		}
+		to {
+			text-shadow: 0 0 2px #fff, 0 0 3px var(--glow-color-2), 0 0 4px var(--glow-color-2), 0 0 5px var(--glow-color-2), 0 0 6px var(--glow-color-2), 0 0 7px var(--glow-color-2), 0 0 8px var(--glow-color-2);
+		}
+	}
+
+	@-moz-keyframes glow {
+		from {
+			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px var(--glow-color-1), 0 0 4px var(--glow-color-1), 0 0 5px var(--glow-color-1), 0 0 6px var(--glow-color-1), 0 0 7px var(--glow-color-1);
+		}
+		to {
+			text-shadow: 0 0 2px #fff, 0 0 3px var(--glow-color-2), 0 0 4px var(--glow-color-2), 0 0 5px var(--glow-color-2), 0 0 6px var(--glow-color-2), 0 0 7px var(--glow-color-2), 0 0 8px var(--glow-color-2);
+		}
+	}
+
+	@keyframes glow {
+		from {
+			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px var(--glow-color-1), 0 0 4px var(--glow-color-1), 0 0 5px var(--glow-color-1), 0 0 6px var(--glow-color-1), 0 0 7px var(--glow-color-1);
+		}
+		to {
+			text-shadow: 0 0 2px #fff, 0 0 3px var(--glow-color-2), 0 0 4px var(--glow-color-2), 0 0 5px var(--glow-color-2), 0 0 6px var(--glow-color-2), 0 0 7px var(--glow-color-2), 0 0 8px var(--glow-color-2);
+		}
+	}
+
+	/*noinspection CssOverwrittenProperties*/
+	.glow {
+		text-shadow: 0 0 0 var(--glow-color-2);
+	}
 }
 
 .emoji-picker {
