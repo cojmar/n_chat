@@ -8,10 +8,10 @@
 	height: 21px;
 	width: calc(100% - 50px - 20px - 19px);
 	box-sizing: border-box;
-	border: 1px rgba(128, 128, 128, 0.973) solid;
+	border: 1px #808080 solid;
 	outline: none;
 	background-color: rgba(43, 42, 42, 0.85);
-	color: rgba(180, 173, 173, 0.973);
+	color: #b4adad;
 	vertical-align: top;
 }
 
@@ -21,8 +21,8 @@
 	outline: none;
 	cursor: pointer;
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
-	color: rgba(128, 128, 128, 0.973);
-	border: 1px rgba(128, 128, 128, 0.973) solid;
+	color: #808080;
+	border: 1px #808080 solid;
 	border-left: none;
 	background-color: rgba(48, 47, 47, 0.85);
 	padding: 0;
@@ -30,14 +30,14 @@
 }
 
 #client_command_send:active {
-	color: rgba(128, 128, 128, 0.35);
-	border: 1px rgba(128, 128, 128, 0.35) solid;
+	color: #4c4c4c;
+	border: 1px #4c4c4c solid;
 }
 
 .client_decoration {
 	background-color: rgba(48, 47, 47, 0.85);
 	background-color: #302f2f;
-	border: 1px rgba(128, 128, 128, 0.35) solid;
+	border: 1px #4c4c4c solid;
 }
 
 #client_container {
@@ -46,7 +46,7 @@
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	color: rgba(180, 173, 173, 0.973);
+	color: #b4adad;
 	font-size: 12px;
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 }
@@ -225,8 +225,8 @@
 	height: 21px;
 	outline: none;
 	cursor: pointer;
-	color: rgba(128, 128, 128, 0.973);
-	border: 1px rgba(128, 128, 128, 0.973) solid;
+	color: #808080;
+	border: 1px #808080 solid;
 	background-color: rgba(48, 47, 47, 0.85);
 	padding: 0;
 	overflow: hidden;
@@ -305,7 +305,7 @@
 /*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_rooms-menu {
 	background: #302f2f;
-	border: 1px solid rgba(128, 128, 128, 0.35);
+	border: 1px solid #4c4c4c;
 	border-radius: 0;
 	text-align: center;
 	margin-top: -1px;
@@ -334,7 +334,7 @@
 	display: none;
 	padding: 10px;
 	background: #302f2f;
-	border: 1px rgba(128, 128, 128, 0.35) solid;
+	border: 1px #4c4c4c solid;
 }
 
 #client_color_popover a {
@@ -354,7 +354,7 @@
 	border: none;
 	font-weight: bold;
 	font-size: 13px;
-	color: rgba(128, 128, 128, 0.35);
+	color: #4c4c4c;
 }
 
 .ui-menu-item-wrapper.ui-state-active {
@@ -449,7 +449,7 @@
 
 .emoji-picker.dark .emoji-picker__search {
 	background: rgba(43, 42, 42, 0.85) !important;
-	border-color: rgba(128, 128, 128, 0.973) !important;
+	border-color: #808080 !important;
 }
 
 /*noinspection CssUnknownProperty,DuplicatedCode*/

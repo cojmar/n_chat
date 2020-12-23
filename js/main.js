@@ -128,8 +128,8 @@
 			}
 
 			var $body = $('body');
-			var servers =['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/','ws://cojmar.ddns.net/ws/']
-			var domains = ['emupedia.net','emupedia.org','emuos.net','emuos.org','cojmar.ddns.net']
+			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
+			var domains = ['emupedia.net', 'emupedia.org', 'emuos.net', 'emuos.org', 'cojmar.ddns.net'];
 
 			var net = network.start({
 				servers:servers,
@@ -192,7 +192,7 @@
 				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
 			}
 
-			net.colors = ['rgba(180, 173, 173, 0.973)', 'rgb(57, 95, 164)', 'rgb(21, 153, 4)', 'rgba(128, 128, 128, 0.35)'];
+			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c'];
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -1113,7 +1113,7 @@
 							html += '<a href="javascript:;" class="color-claim" style="color: red;">Claim Color</a>'
 						}
 
-						html += '<a href="javascript:;" class="color" style="color: rgba(128, 128, 128, 0.35);" data-index="0" data-color="rgba(128, 128, 128, 0.35)">Normal Color</a>';
+						html += '<a href="javascript:;" class="color" style="color: #4c4c4c;" data-index="0" data-color="#4c4c4c">Normal Color</a>';
 
 						var i = 1;
 
