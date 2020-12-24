@@ -97,7 +97,8 @@
 				'su',
 				'chat.show',
 				'chat.hide',
-				'present'
+				'present',
+				'present.info'
 			];
 
 			cmds.forEach(function (value) {
