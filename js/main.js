@@ -890,7 +890,7 @@
 										// noinspection JSUnfilteredForInLoop
 										if (typeof net.admins[a2] !== 'undefined') {
 											// noinspection JSUnfilteredForInLoop
-											$('#room_user_' + net.admins[a2]).addClass('glow');
+											$('#room_user_' + net.admins[a2]).css('color', '#4c4c4c').addClass('glow');
 										}
 									}
 								}
@@ -1024,7 +1024,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.log('<span ' + glow + ' style="color: ' + color + '; overflow: hidden; --glow-color-1: ' + (glow ? '#4c4c4c' : color) + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
+				net.log('<span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
