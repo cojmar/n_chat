@@ -1,6 +1,14 @@
 :root {
+	--animation-duration: 0.2s;
+	--animation-easing: ease-in-out;
 	--glow-color-1: #159904;
 	--glow-color-2: #1eff00;
+}
+
+hr {
+	margin-top: 2px;
+	border-color: #808080;
+	border-width: 1px;
 }
 
 /*noinspection DuplicatedCode*/
@@ -330,11 +338,38 @@
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
+/*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_color_popover {
 	display: none;
+	opacity: 1;
+	visibility: hidden;
 	padding: 10px;
+	font-size: 18px;
+	text-align: center;
 	background: #302f2f;
 	border: 1px #4c4c4c solid;
+	max-height: 200px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	scrollbar-base-color: #222;
+	scrollbar-3dlight-color: #222;
+	scrollbar-highlight-color: #222;
+	scrollbar-track-color: #3e3e42;
+	scrollbar-arrow-color: #111;
+	scrollbar-shadow-color: #222;
+	scrollbar-dark-shadow-color: #222;
+
+	scrollbar-width: thin;
+	scrollbar-face-color: rgba(0, 0, 0, 0.38);
+	scrollbar-track-color: rgba(34, 33, 33, 0.95);
+	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
+
+	animation: show var(--animation-duration) var(--animation-easing);
+}
+
+.hide {
+	animation: hide var(--animation-duration) var(--animation-easing) !important;
 }
 
 #client_color_popover a {
@@ -363,6 +398,89 @@
 	border: none;
 	font-weight: bold;
 	font-size: 13px;
+}
+
+@-webkit-keyframes show {
+	0% {
+		opacity: 0;
+		transform: scale3d(0.8, 0.8, 0.8);
+	}
+
+	50% {
+		transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@-moz-keyframes show {
+	0% {
+		opacity: 0;
+		transform: scale3d(0.8, 0.8, 0.8);
+	}
+
+	50% {
+		transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes show {
+	0% {
+		opacity: 0;
+		transform: scale3d(0.8, 0.8, 0.8);
+	}
+
+	50% {
+		transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@-webkit-keyframes hide {
+	0% {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale3d(0.8, 0.8, 0.8);
+	}
+}
+
+@-moz-keyframes hide {
+	0% {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale3d(0.8, 0.8, 0.8);
+	}
+}
+
+@keyframes hide {
+	0% {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale3d(0.8, 0.8, 0.8);
+	}
 }
 
 @-webkit-keyframes glow {

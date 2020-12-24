@@ -1052,7 +1052,7 @@
 							var present = data.info.present.items[data.info.present.item_index]
 
 							if (present.color) {
-								$('#room_user_' + data.user).css('color', present.color);
+								$('#room_user_' + data.user).css('color', present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
 							}
 						}
 
@@ -1103,30 +1103,31 @@
 			});
 
 			net.socket.on('present.info', function(data) {
-				console.log(data);
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = '';
 
 						// noinspection JSUnresolvedVariable
 						if (data.claimable) {
-							html += '<a href="javascript:;" class="color-claim" style="color: red;">Claim Color</a>'
+							html += '<a href="javascript:;" class="color-claim" style="color: orange; text-decoration: none;">🎁 Click here to claim a new color! 🎁</a><hr />';
 						}
 
-						html += '<a href="javascript:;" class="color" style="color: #4c4c4c;" data-index="0" data-color="#4c4c4c">Normal Color</a>';
+						//html += '<a href="javascript:;" class="color" style="color: #4c4c4c; text-decoration: none;" data-index="0" data-color="#4c4c4c">Default Color</a>';
 
 						var i = 1;
 
 						for (var item in data.items) {
-							html += '<a href="javascript:;" class="color" style="color: red;" data-index="'+ i +'" data-color="red">Color ' + i + '</a>';
+							// noinspection JSUnfilteredForInLoop
+							html += '<a href="javascript:;" class="color" style="color: ' + data.items[item].color + '; text-decoration: none;" data-index="'+ i +'" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
 							i++;
 						}
 
 						net.color_popover.html(html);
 					}
 
-					net.color_popover.show();
+					net.color_popover.removeClass('hide');
 					net.color_popover_instance.update();
+					net.color_popover.show();
 				}
 			});
 
@@ -1225,11 +1226,15 @@
 				net.text_input.get(0).value += emoji;
 			});
 
+			Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
+
 			// noinspection JSUnresolvedFunction
 			net.color_popover_instance = new Popper(net.emoji_button.get(0), net.color_popover.get(0), {
 				placement: 'top-start',
 				onCreate: function() {
-					net.color_popover.hide();
+					net.color_popover.css('visibility', 'hidden');
+					net.color_popover_instance.update();
+					net.color_popover.css('visibility', 'visible');
 				},
 				modifiers: {
 					flip: {
@@ -1237,7 +1242,7 @@
 					},
 					offset: {
 						enabled: true,
-						offset: '0,20'
+						offset: '0,2'
 					}
 				}
 			});
@@ -1247,22 +1252,23 @@
 			});
 
 			net.color_button.off('click').on('click', function() {
-				//net.send_cmd('present', '');
+				if (net.color_popover.is(':visible')) {
+					net.color_popover.addClass('hide');
+					setTimeout(function() {
+						net.color_popover.hide();
+						net.color_popover.removeClass('hide');
+					}, 200);
+				} else {
+					net.send_cmd('present', '');
+				}
 			});
 
-			$(document).on('click', '#client_color_popover a.color', function(e) {
-				console.log('color');
-				e.preventDefault();
-				e.stopPropagation();
-				net.color_popover.hide();
+			$(document).on('click', '#client_color_popover a.color', function() {
+				net.send_cmd('present', $(this).data('index'));
 			});
 
-			$(document).on('click', '#client_color_popover a.color-claim', function(e) {
-				console.log('claim');
-				e.preventDefault();
-				e.stopPropagation();
+			$(document).on('click', '#client_color_popover a.color-claim', function() {
 				net.send_cmd('present', 'claim');
-				net.color_popover.hide();
 			});
 
 			// noinspection JSUnresolvedVariable
@@ -1281,8 +1287,12 @@
 			}
 
 			$(document).mouseup(function(e) {
-				if (!net.color_popover.is(e.target) && net.color_popover.has(e.target).length === 0) {
-					net.color_popover.hide();
+				if (!net.color_popover.is(e.target) && !net.color_button.is(e.target) && net.color_popover.has(e.target).length === 0) {
+					net.color_popover.addClass('hide');
+					setTimeout(function() {
+						net.color_popover.removeClass('hide');
+						net.color_popover.hide();
+					}, 200);
 				}
 			});
 		});
