@@ -1257,7 +1257,7 @@
 					setTimeout(function() {
 						net.color_popover.hide();
 						net.color_popover.removeClass('hide');
-					}, 200);
+					}, 300);
 				} else {
 					net.send_cmd('present', '');
 				}
@@ -1292,7 +1292,7 @@
 					setTimeout(function() {
 						net.color_popover.removeClass('hide');
 						net.color_popover.hide();
-					}, 200);
+					}, 300);
 				}
 			});
 		});
