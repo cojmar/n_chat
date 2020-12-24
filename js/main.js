@@ -1125,9 +1125,8 @@
 						net.color_popover.html(html);
 					}
 
-					net.color_popover.removeClass('hide');
 					net.color_popover_instance.update();
-					net.color_popover.show();
+					net.color_popover.toggleClass('show');
 				}
 			});
 
@@ -1171,7 +1170,7 @@
 								'</div>' +
 							'</div>';
 
-			try { $body.append(chat_ui) } catch(e) {}
+			$body.append(chat_ui);
 
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
@@ -1252,12 +1251,8 @@
 			});
 
 			net.color_button.off('click').on('click', function() {
-				if (net.color_popover.is(':visible')) {
-					net.color_popover.addClass('hide');
-					setTimeout(function() {
-						net.color_popover.hide();
-						net.color_popover.removeClass('hide');
-					}, 300);
+				if (net.color_popover.css('visibility') === 'visibile') {
+					net.color_popover.removeClass('show');
 				} else {
 					net.send_cmd('present', '');
 				}
@@ -1269,6 +1264,7 @@
 
 			$(document).on('click', '#client_color_popover a.color-claim', function() {
 				net.send_cmd('present', 'claim');
+				net.color_popover.toggleClass('show');
 			});
 
 			// noinspection JSUnresolvedVariable
@@ -1288,11 +1284,7 @@
 
 			$(document).mouseup(function(e) {
 				if (!net.color_popover.is(e.target) && !net.color_button.is(e.target) && net.color_popover.has(e.target).length === 0) {
-					net.color_popover.addClass('hide');
-					setTimeout(function() {
-						net.color_popover.removeClass('hide');
-						net.color_popover.hide();
-					}, 300);
+					net.color_popover.removeClass('show');
 				}
 			});
 		});

@@ -340,8 +340,7 @@ hr {
 
 /*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_color_popover {
-	display: none;
-	opacity: 1;
+	opacity: 0;
 	visibility: hidden;
 	padding: 10px;
 	font-size: 18px;
@@ -365,11 +364,13 @@ hr {
 	scrollbar-track-color: rgba(34, 33, 33, 0.95);
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 
-	animation: show var(--animation-duration) var(--animation-easing);
+	animation: hide var(--animation-duration) var(--animation-easing);
 }
 
-.hide {
-	animation: hide var(--animation-duration) var(--animation-easing) !important;
+#client_color_popover.show {
+	opacity: 1;
+	visibility: visible !important;
+	animation: show var(--animation-duration) var(--animation-easing) !important;
 }
 
 #client_color_popover a {
@@ -402,7 +403,7 @@ hr {
 
 @-webkit-keyframes show {
 	0% {
-		opacity: 0;
+		opacity: 0 !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 
@@ -411,13 +412,14 @@ hr {
 	}
 
 	100% {
+		opacity: 1 !important;
 		transform: scale3d(1, 1, 1);
 	}
 }
 
 @-moz-keyframes show {
 	0% {
-		opacity: 0;
+		opacity: 0 !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 
@@ -426,14 +428,14 @@ hr {
 	}
 
 	100% {
-		opacity: 1;
+		opacity: 1 !important;
 		transform: scale3d(1, 1, 1);
 	}
 }
 
 @keyframes show {
 	0% {
-		opacity: 0;
+		opacity: 0 !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 
@@ -442,43 +444,43 @@ hr {
 	}
 
 	100% {
-		opacity: 1;
+		opacity: 1 !important;
 		transform: scale3d(1, 1, 1);
 	}
 }
 
 @-webkit-keyframes hide {
 	0% {
-		opacity: 1;
+		opacity: 1 !important;
 		transform: scale3d(1, 1, 1);
 	}
 
 	100% {
-		opacity: 0;
+		opacity: 0 !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 }
 
 @-moz-keyframes hide {
 	0% {
-		opacity: 1;
+		opacity: 1 !important;
 		transform: scale3d(1, 1, 1);
 	}
 
 	100% {
-		opacity: 0;
+		opacity: 0 !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 }
 
 @keyframes hide {
 	0% {
-		opacity: 1;
+		opacity: 1 !important;
 		transform: scale3d(1, 1, 1);
 	}
 
 	100% {
-		opacity: 0;
+		opacity: 0 !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 }
