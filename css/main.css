@@ -403,7 +403,8 @@ hr {
 
 @-webkit-keyframes show {
 	0% {
-		opacity: 0 !important;
+		opacity: 0;
+		visibility: visible !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 
@@ -412,14 +413,16 @@ hr {
 	}
 
 	100% {
-		opacity: 1 !important;
+		opacity: 1;
+		visibility: visible !important;
 		transform: scale3d(1, 1, 1);
 	}
 }
 
 @-moz-keyframes show {
 	0% {
-		opacity: 0 !important;
+		opacity: 0;
+		visibility: visible !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 
@@ -428,14 +431,16 @@ hr {
 	}
 
 	100% {
-		opacity: 1 !important;
+		opacity: 1;
+		visibility: visible !important;
 		transform: scale3d(1, 1, 1);
 	}
 }
 
 @keyframes show {
 	0% {
-		opacity: 0 !important;
+		opacity: 0;
+		visibility: visible !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 
@@ -444,43 +449,50 @@ hr {
 	}
 
 	100% {
-		opacity: 1 !important;
+		opacity: 1;
+		visibility: visible !important;
 		transform: scale3d(1, 1, 1);
 	}
 }
 
 @-webkit-keyframes hide {
 	0% {
-		opacity: 1 !important;
+		opacity: 1;
+		visibility: visible !important;
 		transform: scale3d(1, 1, 1);
 	}
 
 	100% {
-		opacity: 0 !important;
+		opacity: 0 ;
+		visibility: hidden !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 }
 
 @-moz-keyframes hide {
 	0% {
-		opacity: 1 !important;
+		opacity: 1;
+		visibility: visible !important;
 		transform: scale3d(1, 1, 1);
 	}
 
 	100% {
-		opacity: 0 !important;
+		opacity: 0;
+		visibility: hidden !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 }
 
 @keyframes hide {
 	0% {
-		opacity: 1 !important;
+		opacity: 1;
+		visibility: visible !important;
 		transform: scale3d(1, 1, 1);
 	}
 
 	100% {
-		opacity: 0 !important;
+		opacity: 0;
+		visibility: hidden !important;
 		transform: scale3d(0.8, 0.8, 0.8);
 	}
 }
