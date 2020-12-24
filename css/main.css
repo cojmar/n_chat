@@ -485,43 +485,36 @@ hr {
 	}
 }
 
-@-webkit-keyframes glow {
-	from {
-		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+@supports not (--css: variables) {
+	@-webkit-keyframes glow {
+		from {
+			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+		}
+		to {
+			text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+		}
 	}
-	to {
-		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+
+	@-moz-keyframes glow {
+		from {
+			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+		}
+		to {
+			text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+		}
+	}
+
+	@keyframes glow {
+		from {
+			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+		}
+		to {
+			text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+		}
 	}
 }
 
-@-moz-keyframes glow {
-	from {
-		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
-	}
-	to {
-		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
-	}
-}
-
-@keyframes glow {
-	from {
-		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
-	}
-	to {
-		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
-	}
-}
-
-/*noinspection CssOverwrittenProperties*/
-.glow {
-	-webkit-animation: glow 1s ease-in-out infinite alternate;
-	-moz-animation: glow 1s ease-in-out infinite alternate;
-	animation: glow 1s ease-in-out infinite alternate;
-	text-shadow: 0 0 0 #1eff00;
-	text-shadow: 0 0 0 var(--glow-color-2);
-}
-
-@supports (display: var(--glow-color-1)) {
+@supports (--css: variables) {
 	@-webkit-keyframes glow {
 		from {
 			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px var(--glow-color-1), 0 0 4px var(--glow-color-1), 0 0 5px var(--glow-color-1), 0 0 6px var(--glow-color-1), 0 0 7px var(--glow-color-1);
@@ -548,11 +541,16 @@ hr {
 			text-shadow: 0 0 2px #fff, 0 0 3px var(--glow-color-2), 0 0 4px var(--glow-color-2), 0 0 5px var(--glow-color-2), 0 0 6px var(--glow-color-2), 0 0 7px var(--glow-color-2), 0 0 8px var(--glow-color-2);
 		}
 	}
+}
 
-	/*noinspection CssOverwrittenProperties*/
-	.glow {
-		text-shadow: 0 0 0 var(--glow-color-2);
-	}
+/*noinspection CssOverwrittenProperties*/
+.glow {
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+	-moz-animation: glow 1s ease-in-out infinite alternate;
+	animation: glow 1s ease-in-out infinite alternate;
+
+	/*text-shadow: 0 0 0 #1eff00;*/
+	/*text-shadow: 0 0 0 var(--glow-color-2);*/
 }
 
 .emoji-picker {

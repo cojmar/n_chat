@@ -1052,7 +1052,8 @@
 							var present = data.info.present.items[data.info.present.item_index]
 
 							if (present.color) {
-								$('#room_user_' + data.user).css('color', present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
+								// noinspection JSJQueryEfficiency
+								$('#room_user_' + data.user).css('color', $('#room_user_' + data.user).hasClass('glow') ? '#4c4c4c' : present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
 							}
 						}
 
