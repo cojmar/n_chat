@@ -1171,7 +1171,7 @@
 								'</div>' +
 							'</div>';
 
-			$body.append(chat_ui);
+			try { $body.append(chat_ui) } catch(e) {}
 
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
