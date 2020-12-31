@@ -1292,8 +1292,7 @@
             });
 
             $(document).on('click', '#client_color_popover a.color-claim', function() {
-
-                if (!net.socket.me || !net.socket.me.info.present.custom_color) {
+                if ($('#client_color_popover a.color-claim').html().indexOf('CUSTOM') === -1) {
                     net.color_popover.removeClass('show');
                     net.send_cmd('present', 'claim');
                 }
