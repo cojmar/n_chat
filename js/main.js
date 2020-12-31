@@ -1129,17 +1129,20 @@
                         //html += '<a href="javascript:;" class="color" style="color: #4c4c4c; text-decoration: none;" data-index="0" data-color="#4c4c4c">Default Color</a>';
 
                         var i = 1;
-
+                        var last_color = '#000000';
                         for (var item in data.items) {
                             // noinspection JSUnfilteredForInLoop
                             html += '<a href="javascript:;" class="color" style="color: ' + data.items[item].color + '; text-decoration: none;" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
                             i++;
+                            last_color = data.items[item].color;
                         }
 
                         net.color_popover.html(html);
                         if (data.claimable && data.custom_color) {
                             $('#custom_color').spectrum({
                                 appendTo: '#client_color_popover',
+                                allowEmpty: true,
+                                color: last_color,
                             }).on('change', function(e, color) {
                                 //net.color_popover.removeClass('show');
                                 net.send_cmd('present', color.toHexString());
