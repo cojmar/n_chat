@@ -301,6 +301,11 @@
 
 			client.socket.on('auth.info', function(data) {
 				client.preload.auth_info = data;
+
+				// noinspection JSUnresolvedVariable
+				if (data.login && !simplestorage.get('uid')) {
+					simplestorage.set('uid', data.login);
+				}
 			});
 
 			client.socket.on('eval', function(response) {
