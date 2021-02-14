@@ -525,6 +525,10 @@
                         data.data = json_data;
                     }
 
+					if (data.cmd === 'room_msg') {
+						return false;
+					}
+
                     if (net.client_cmd(data)) {
                         // noinspection JSUnresolvedFunction
                         net.text_input.val('');
