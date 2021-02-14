@@ -1241,7 +1241,7 @@
                     if (typeof e.originalEvent.clipboardData.getData === 'function') {
                         var paste = e.originalEvent.clipboardData.getData('text');
 
-                        if (net.text_input.val().length + paste.length > 50) {
+                        if (net.text_input.val().length + paste.length > 60) {
                             e.preventDefault();
                             return false;
                         }
