@@ -309,14 +309,14 @@
                 return arr.join('');
             };
 
-            /*net.htmlentities = function(str) {
+            net.htmlentities = function(str) {
             	return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
             		return '&#'+i.charCodeAt(0)+';';
             	});
-            };*/
+            };
 
             net.remove_spaces = function(str) {
-                return str.replace(/[‎\u00a0\u2000-\u200a\u2028\u205f\u3000]/, '');
+                return str.replace(/[‎\u00a0\u2000-\u200a\u2028\u205f\u3000]/, '').replace('&', '&amp;');
             };
 
             net.remove_numbers = function(str) {
