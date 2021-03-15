@@ -315,6 +315,10 @@
             	});
             };*/
 
+            net.remove_spaces = function(str) {
+                return str.replace(/[‎\u00a0\u2000-\u200a\u2028\u205f\u3000]/, '');
+            };
+
             net.remove_numbers = function(str) {
                 return str.replace(/[0-9]/g, '');
             };
@@ -328,6 +332,7 @@
             };
 
             net.remove_profanity = function(str) {
+                str = net.remove_spaces(str);
                 str = str.replace(/  +/g, ' ').trim();
 
                 // noinspection JSUnresolvedVariable
