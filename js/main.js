@@ -541,7 +541,7 @@
                     }
 
                     // noinspection JSUnresolvedFunction
-                    if (data.cmd === 'nick' && data.data === '') {
+                    if (data.cmd === 'nick' && net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data)))))) === '') {
                         return false;
                     }
 
