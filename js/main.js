@@ -852,7 +852,7 @@
                         // noinspection JSUnresolvedVariable
                         var room_user = net.room_info.users[u] || false;
                         // noinspection JSUnresolvedVariable,DuplicatedCode
-                        if (room_user && room_user.info.present && room_user.info.present.items && room_user.info.present.item_index !== -1) {
+                        if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index].color) {
                             // noinspection JSUnresolvedVariable
                             if (room_user.info.present.items[room_user.info.present.item_index].color) {
                                 // noinspection JSUnresolvedVariable
@@ -944,7 +944,7 @@
                     // noinspection JSUnresolvedVariable
                     var room_user = net.room_info.users[data.user] || false;
                     // noinspection JSUnresolvedVariable,DuplicatedCode
-                    if (room_user && room_user.info.present && room_user.info.present.items && room_user.info.present.item_index !== -1) {
+                    if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index].color) {
                         // noinspection JSUnresolvedVariable
                         if (room_user.info.present.items[room_user.info.present.item_index].color) {
                             // noinspection JSUnresolvedVariable
@@ -1018,7 +1018,7 @@
                     // noinspection JSUnresolvedVariable
                     var room_user = net.room_info.users[data.user] || false;
                     // noinspection JSUnresolvedVariable,DuplicatedCode
-                    if (room_user && room_user.info.present && room_user.info.present.items && room_user.info.present.item_index !== -1) {
+                    if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index].color) {
                         // noinspection JSUnresolvedVariable
                         if (room_user.info.present.items[room_user.info.present.item_index].color) {
                             // noinspection JSUnresolvedVariable
