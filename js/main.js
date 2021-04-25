@@ -850,6 +850,8 @@
                                 // noinspection JSUnresolvedVariable
                                 color = room_user.info.present.items[room_user.info.present.item_index].color;
                             }
+                        } else {
+                            console.log(room_user.info)
                         }
 
                         if (typeof net.room_info.data !== 'undefined') {
