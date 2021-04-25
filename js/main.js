@@ -135,8 +135,8 @@
             }
 
             var $body = $('body');
-			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
-			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
+            var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
+            var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
 
             var net = network.start({
                 servers: servers,
@@ -310,9 +310,9 @@
             };
 
             net.htmlentities = function(str) {
-            	return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
-            		return '&#'+i.charCodeAt(0)+';';
-            	});
+                return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
+                    return '&#' + i.charCodeAt(0) + ';';
+                });
             };
 
             net.remove_spaces = function(str) {
@@ -530,9 +530,9 @@
                         data.data = json_data;
                     }
 
-					if (data.cmd === 'room_msg') {
-						return false;
-					}
+                    if (data.cmd === 'room_msg') {
+                        return false;
+                    }
 
                     if (net.client_cmd(data)) {
                         // noinspection JSUnresolvedFunction
@@ -542,11 +542,11 @@
 
                     // noinspection JSUnresolvedFunction
                     if (data.cmd === 'nick') {
-                    	data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data))))));
+                        data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data))))));
 
-                    	if (data.data === '' || data.data.length <= 1) {
-							return false;
-						}
+                        if (data.data === '' || data.data.length <= 1) {
+                            return false;
+                        }
                     }
 
                     // noinspection JSUnresolvedFunction
@@ -852,7 +852,7 @@
                         // noinspection JSUnresolvedVariable
                         var room_user = net.room_info.users[u] || false;
                         // noinspection JSUnresolvedVariable,DuplicatedCode
-                        if (room_user && room_user.info.present && room_user.info.present.item_index !== -1) {
+                        if (room_user && room_user.info.present && room_user.info.present.items && room_user.info.present.item_index !== -1) {
                             // noinspection JSUnresolvedVariable
                             if (room_user.info.present.items[room_user.info.present.item_index].color) {
                                 // noinspection JSUnresolvedVariable
@@ -944,7 +944,7 @@
                     // noinspection JSUnresolvedVariable
                     var room_user = net.room_info.users[data.user] || false;
                     // noinspection JSUnresolvedVariable,DuplicatedCode
-                    if (room_user && room_user.info.present && room_user.info.present.item_index !== -1) {
+                    if (room_user && room_user.info.present && room_user.info.present.items && room_user.info.present.item_index !== -1) {
                         // noinspection JSUnresolvedVariable
                         if (room_user.info.present.items[room_user.info.present.item_index].color) {
                             // noinspection JSUnresolvedVariable
@@ -1018,7 +1018,7 @@
                     // noinspection JSUnresolvedVariable
                     var room_user = net.room_info.users[data.user] || false;
                     // noinspection JSUnresolvedVariable,DuplicatedCode
-                    if (room_user && room_user.info.present && room_user.info.present.item_index !== -1) {
+                    if (room_user && room_user.info.present && room_user.info.present.items && room_user.info.present.item_index !== -1) {
                         // noinspection JSUnresolvedVariable
                         if (room_user.info.present.items[room_user.info.present.item_index].color) {
                             // noinspection JSUnresolvedVariable
