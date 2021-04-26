@@ -557,29 +557,31 @@
                     return false;
                 }
 
+                var timestamp = Math.floor(Date.now() / 1000);
                 // noinspection JSUnresolvedVariable
-                if (net.last_msg && !is_admin) {
+                var spam_time = (net.last_send) ? timestamp - net.last_send < 120 : false
+                if (net.last_msg && !is_admin && spam_time) {
                     if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
                         net.log('You can\'t repeat yourself, write something different', 1);
                         return false;
                     }
                 }
 
-                if (net.last_last_msg && !is_admin) {
+                if (net.last_last_msg && !is_admin && spam_time) {
                     if (net.last_last_msg === msg || ((~msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(msg)) && msg.length >= 10)) {
                         net.log('You can\'t repeat yourself, write something different', 1);
                         return false;
                     }
                 }
 
-                if (net.last_last_last_msg && !is_admin) {
+                if (net.last_last_last_msg && !is_admin && spam_time) {
                     if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
                         net.log('You can\'t repeat yourself, write something different', 1);
                         return false;
                     }
                 }
 
-                var timestamp = Math.floor(Date.now() / 1000);
+
 
                 if (!net.spam_cap || net.spam_cap < 0) {
                     net.spam_cap = 1;
