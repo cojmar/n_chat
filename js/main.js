@@ -1054,12 +1054,13 @@
 
                 // noinspection JSUnresolvedVariable
                 var XP = net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000)
-                var curPoints = XP / 1000
+                var div = 50
+                var curPoints = XP / div
                 var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
 
                 var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2); //Required XP
                 var pointsRequired = pointsNextLevel - curPoints; //Result
-                var timeRequired = new Date((pointsRequired * 1000) * 1000).toISOString().substr(11, 8)
+                var timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8)
 
 
 
