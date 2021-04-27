@@ -1048,7 +1048,7 @@
                 }
 
                 // noinspection JSUnresolvedVariable
-                var XP = net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000)
+                var XP = (net.room_info.users[user] && net.room_info.users[user].info) ? net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000) : 1
                 var div = 50
                 var curPoints = XP / div
                 var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
