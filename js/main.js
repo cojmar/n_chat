@@ -126,11 +126,6 @@
         'libraries/spectrum'
     ], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, emoticons, twemoji, seedrandom, simplestorage, EmojiButton, network, ajaxretry, Popper, ga, spectrum) {
         $(function() {
-
-
-
-
-
             if (typeof ga === 'function') {
                 ga('send', {
                     hitType: 'pageview',
@@ -989,16 +984,16 @@
             net.romanize = function(num) {
                 if (isNaN(num))
                     return NaN;
-                var digits = String(+num).split(""),
-                    key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
-                        "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
-                        "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
-                    ],
-                    roman = "",
+
+                var digits = String(+num).split(''),
+                    key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM', '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC', '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+                    roman = '',
                     i = 3;
+
                 while (i--)
-                    roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-                return Array(+digits.join("") + 1).join("M") + roman;
+                    roman = (key[+digits.pop() + (i * 10)] || '') + roman;
+
+                return Array(+digits.join('') + 1).join('M') + roman;
             }
 
             // noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -1061,8 +1056,6 @@
                 var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2); //Required XP
                 var pointsRequired = pointsNextLevel - curPoints; //Result
                 var timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8)
-
-
 
                 net.log('<span title="User Level ' + curLevel + ', Next Level in ' + timeRequired + '" style="color:#395fa4;margin-left:-4px;">[' + net.romanize(curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
             });
