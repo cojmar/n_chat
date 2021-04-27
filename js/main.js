@@ -1054,8 +1054,8 @@
 
                 // noinspection JSUnresolvedVariable
                 var XP = net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000)
-                var level = net.romanize(Math.floor(Math.sqrt(XP) * 0.005) + 1)
-                net.log('<span style="color:#395fa4">[' + level + ']</span>&nbsp;<span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
+                var level = Math.floor(Math.sqrt(XP) * 0.005) + 1
+                net.log('<span title="User Level ' + level + '" style="color:#395fa4;margin-left:-4px;">[' + net.romanize(level) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
             });
 
             // noinspection JSUnresolvedFunction,JSUnresolvedVariable
