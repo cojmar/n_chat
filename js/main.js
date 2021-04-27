@@ -986,6 +986,21 @@
                 }, 1000);
             });
 
+            net.romanize = function(num) {
+                if (isNaN(num))
+                    return NaN;
+                var digits = String(+num).split(""),
+                    key = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+                        "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+                        "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
+                    ],
+                    roman = "",
+                    i = 3;
+                while (i--)
+                    roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+                return Array(+digits.join("") + 1).join("M") + roman;
+            }
+
             // noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
             net.socket.on('room.msg', function(data) {
                 // console.log('room.msg');
@@ -1038,7 +1053,9 @@
                 }
 
                 // noinspection JSUnresolvedVariable
-                net.log('<span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
+                var XP = net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000)
+                var level = net.romanize(Math.floor(Math.sqrt(XP) * 0.005) + 1)
+                net.log('<span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + level + '][' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
             });
 
             // noinspection JSUnresolvedFunction,JSUnresolvedVariable
