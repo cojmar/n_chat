@@ -555,6 +555,7 @@
                 var timestamp = Math.floor(Date.now() / 1000);
                 // noinspection JSUnresolvedVariable
                 var spam_time = (net.last_send) ? timestamp - net.last_send < 20 : false
+
                 if (net.last_msg && !is_admin && spam_time) {
                     if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
                         net.log('You can\'t repeat yourself, write something different', 1);
@@ -575,8 +576,6 @@
                         return false;
                     }
                 }
-
-
 
                 if (!net.spam_cap || net.spam_cap < 0) {
                     net.spam_cap = 1;
@@ -1048,9 +1047,9 @@
                 }
 
                 // noinspection JSUnresolvedVariable
-                var XP = (net.room_info.users[user] && net.room_info.users[user].info) ? net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000) : 1
-                var div = 50
-                var curPoints = XP / div
+                var XP = (net.room_info.users[user] && net.room_info.users[user].info) ? net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000) : 1;
+                var div = 50;
+                var curPoints = XP / div;
                 var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
 
                 var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2); //Required XP
