@@ -556,6 +556,7 @@
                 var timestamp = Math.floor(Date.now() / 1000);
                 // noinspection JSUnresolvedVariable
                 var spam_time = (net.last_send) ? timestamp - net.last_send < 20 : false
+                spam_time = true
 
                 // noinspection DuplicatedCode
                 if (net.last_msg && !is_admin && spam_time) {
@@ -1220,17 +1221,17 @@
                 net.text_input.get(0).focus();
             });
 
-            var chat_ui =   '<div id="client_container" class="client_decoration">' +
-                                '<div id="client_output" class="client_decoration client_left"></div>' +
-                                '<div id="client_users" class="client_right">' +
-                                    '<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-                                    '<div id="client_room_users" class="client_decoration"></div>' +
-                                '</div>' +
-                                '<div id="client_color_popover" style="min-height:250px;"></div>' +
-                                '<div id="client_input" class="client_decoration">' +
-                                    '<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-                                '</div>' +
-                            '</div>';
+            var chat_ui = '<div id="client_container" class="client_decoration">' +
+                '<div id="client_output" class="client_decoration client_left"></div>' +
+                '<div id="client_users" class="client_right">' +
+                '<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+                '<div id="client_room_users" class="client_decoration"></div>' +
+                '</div>' +
+                '<div id="client_color_popover" style="min-height:250px;"></div>' +
+                '<div id="client_input" class="client_decoration">' +
+                '<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+                '</div>' +
+                '</div>';
 
             $body.append(chat_ui);
 
