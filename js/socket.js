@@ -284,7 +284,7 @@ function _typeof(obj) {
 
         _proto.send = function send(data) {
             if (data.cmd === "connect") return this.connect(data.data);
-            if (data.cmd === "disconnect") return this; //return this.disconnect();
+            if (data.cmd === "disconnect") return this.disconnect();
             if (!this.connected) return this;
             this.socket.send(JSON.stringify(data));
             return this;
