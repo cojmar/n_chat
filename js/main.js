@@ -135,8 +135,8 @@
             }
 
             var $body = $('body');
-            var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
-            var domains = ['emupedia.net', 'emupedia.org', 'emuos.net', 'emuos.org', 'cojmar.ddns.net'];
+			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
+			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
 
             var net = network.start({
                 servers: servers,
@@ -309,14 +309,18 @@
                 return arr.join('');
             };
 
-            /*net.htmlentities = function(str) {
+            net.htmlentities = function(str) {
             	return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
             		return '&#'+i.charCodeAt(0)+';';
             	});
-            };*/
+            };
+
+            net.remove_spaces = function(str) {
+                return str.replace(/[‎‏​‍‌\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g).replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '').replace(/[&]/g, '&amp;');
+            };
 
             net.remove_numbers = function(str) {
-                return str.replace(/[0-9]/g, '');
+                return str.replace(/[0-9⇂↊ᄅӠƐ０１２３４５６７８９𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡⓪①②➁③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴₀₁₂₃₄₅₆₇₈₉⁰¹²³⁴⁵⁶⁷⁸⁹⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇]/g, '');
             };
 
             net.remove_duplicates = function(str) {
@@ -328,6 +332,7 @@
             };
 
             net.remove_profanity = function(str) {
+                str = net.remove_spaces(str);
                 str = str.replace(/  +/g, ' ').trim();
 
                 // noinspection JSUnresolvedVariable
@@ -526,6 +531,10 @@
                         data.data = json_data;
                     }
 
+					if (data.cmd === 'room_msg') {
+						return false;
+					}
+
                     if (net.client_cmd(data)) {
                         // noinspection JSUnresolvedFunction
                         net.text_input.val('');
@@ -533,8 +542,12 @@
                     }
 
                     // noinspection JSUnresolvedFunction
-                    if (data.cmd === 'nick' && data.data === '') {
-                        return false;
+                    if (data.cmd === 'nick') {
+                    	data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data))))));
+
+                    	if (data.data === '' || data.data.length <= 1) {
+							return false;
+						}
                     }
 
                     // noinspection JSUnresolvedFunction
@@ -1271,7 +1284,7 @@
                     if (typeof e.originalEvent.clipboardData.getData === 'function') {
                         var paste = e.originalEvent.clipboardData.getData('text');
 
-                        if (net.text_input.val().length + paste.length > 50) {
+                        if (net.text_input.val().length + paste.length > 60) {
                             e.preventDefault();
                             return false;
                         }
