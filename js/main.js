@@ -320,7 +320,7 @@
 			};
 
 			net.remove_spaces = function(str) {
-				return str.replace(/[︎‎‏​‍‌\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '').replace(/[&]/g, '&amp;');
+				return str.replace(/[︎‎‏​‍‌\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ]/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '').replace(/&/g, '&amp;');
 			};
 
 			net.remove_numbers = function(str) {
