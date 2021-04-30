@@ -179,7 +179,7 @@ function _typeof(obj) {
 		};
 
 		_proto.strip_html = function strip_html(str) {
-			return str.replace(/(<([^>]+)>)/gi, "").replace('<', '&lt;').replace('>', '&gt;')
+			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/(<([^>]+)>)/gi, '');
 		};
 
 		_proto.emit_event = function emit_event(ev, data) {
