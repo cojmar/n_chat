@@ -316,7 +316,7 @@
 			};
 
 			net.remove_spaces = function(str) {
-				return str.replace(/[︎︎‎‏​‍‌\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '').replace(/[&]/g, '&amp;');
+				return str.replace(/[︎‎‏​‍‌\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '').replace(/[&]/g, '&amp;');
 			};
 
 			net.remove_numbers = function(str) {
@@ -568,8 +568,7 @@
 
 				var timestamp = Math.floor(Date.now() / 1000);
 				// noinspection JSUnresolvedVariable
-				var spam_time = (net.last_send) ? timestamp - net.last_send < 20 : false
-				spam_time = true
+				var spam_time = net.last_send ? timestamp - net.last_send < 20 : false
 
 				// noinspection DuplicatedCode
 				if (net.last_msg && !is_admin && spam_time) {
