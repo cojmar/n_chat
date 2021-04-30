@@ -293,15 +293,19 @@
 				return sa ? s : s[0];
 			};
 
-			net.normalize = function(str) {
+			net.normalize = function(str, type) {
 				var arr = Array.from(str);
 
 				for (var i in arr) {
 					for (var j in normalize) {
-						// noinspection JSUnfilteredForInLoop
-						if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+						if (normalize[j] === type || typeof type === 'undefined') {
 							// noinspection JSUnfilteredForInLoop
-							arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
+							if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+								// noinspection JSUnfilteredForInLoop
+								arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
+							}
+						} else {
+							break;
 						}
 					}
 				}
@@ -391,7 +395,7 @@
 			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str));
+				var subject = net.remove_zalgo(net.normalize(str, 'wide'));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
@@ -413,7 +417,7 @@
 				var subject = net.remove_zalgo(str);
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.normalize(subject, 'wide'))));
 				}
 
 				if (typeof emoji === 'undefined') {
@@ -543,7 +547,7 @@
 
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
-						data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data))))));
+						data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, 'wide'))))));
 
 						if (data.data === '' || data.data.length <= 1) {
 							return false;
@@ -555,7 +559,7 @@
 					net.text_input.val('');
 					return;
 				} else if (~net.client_room_name.text().indexOf('Emupedia') && !is_admin) {
-					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg))))));
+					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, 'wide'))))));
 				}
 
 				if (msg.trim() === '') {
@@ -840,7 +844,7 @@
 				var users_obj = {};
 
 				users_array_nick.forEach(function(item) {
-					users_obj[item[0]] = net.clean_nicknames(item[1]);
+					users_obj[item[0]] = net.clean_nicknames(item[1], true);
 				});
 
 				users_array_default.forEach(function(item) {
@@ -971,7 +975,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick, true)) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1027,7 +1031,7 @@
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
 					// noinspection JSUnresolvedVariable
-					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
+					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick, true);
 				}
 
 				var color = net.colors[3];
@@ -1092,7 +1096,7 @@
 						// noinspection JSUnresolvedVariable
 						if (data.info.nick) {
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
+							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick, true));
 						}
 
 						// noinspection JSUnresolvedVariable
