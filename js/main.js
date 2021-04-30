@@ -1243,7 +1243,7 @@
 									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
 									'<div id="client_room_users" class="client_decoration"></div>' +
 								'</div>' +
-								'<div id="client_color_popover" style="min-height:250px;"></div>' +
+								'<div id="client_color_popover"></div>' +
 								'<div id="client_input" class="client_decoration">' +
 									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
 								'</div>' +

@@ -348,8 +348,8 @@ hr {
 	background: #302f2f;
 	border: 1px #4c4c4c solid;
 	max-height: 200px;
-	overflow-x: hidden;
-	overflow-y: auto;
+	/*overflow-x: hidden;*/
+	/*overflow-y: auto;*/
 
 	scrollbar-base-color: #222;
 	scrollbar-3dlight-color: #222;
