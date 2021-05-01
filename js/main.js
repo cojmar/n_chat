@@ -335,7 +335,7 @@
 			};
 
 			net.remove_spaces = function(str) {
-				return str.replace(/[\u00a0\u064b\u1160\u2000-\u200f\u2028\u202e\u202d\u202f\u205f\u2060\u2063\u2800\u3000\u3164\udb40\udc20-\udb40\udc2f\udb40\udc30-\udb40\udc3f\udb40\udc40-\udb40\udc4f\udb40\udc50\udb40-\udc5f\udb40\udc60-\udb40\udc6f\udb40\udc70-\udb40\udc7f\ufe0e\ufe0f	]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&nbsp;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '');
+				return str.replace(/[\u00a0\u064b\u1160\u2000-\u200f\u2028\u202e\u202d\u202f\u205f\u2060\u2063\u2800\u3000\u3164\udb40\udc20-\udb40\udc2f\udb40\udc30-\udb40\udc3f\udb40\udc40-\udb40\udc4f\udb40\udc50\udb40-\udc5f\udb40\udc60-\udb40\udc6f\udb40\udc70-\udb40\udc7f\ufe0e\ufe0f	]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&nbsp;/g, '');
 			};
 
 			net.remove_numbers = function(str) {
