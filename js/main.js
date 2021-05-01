@@ -313,6 +313,21 @@
 				return arr.join('');
 			};
 
+			net.romanize = function(num) {
+				if (isNaN(num))
+					return NaN;
+
+				var digits = String(+num).split(''),
+					key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM', '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC', '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+					roman = '',
+					i = 3;
+
+				while (i--)
+					roman = (key[+digits.pop() + (i * 10)] || '') + roman;
+
+				return Array(+digits.join('') + 1).join('M') + roman;
+			};
+
 			net.htmlentities = function(str) {
 				return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
 					return '&#'+i.charCodeAt(0)+';';
@@ -320,7 +335,7 @@
 			};
 
 			net.remove_spaces = function(str) {
-				return str.replace(/[︎‎‏​️‍‌‮‭ᅠ  ⠀⁣          ⁠	ً\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&nbsp;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '');
+				return str.replace(/[︎‎‏​️‍‌‮‭ᅠ  ⠀⁣          ⁠	ً\u00a0\u2000-\u200a\u2028\u205f\u3000ㅤ󠁿󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&nbsp;/g, '').replace(/&#x3164;/g, '').replace(/&#8203;/g, '').replace(/&#8204;/g, '').replace(/&#8205;/g, '').replace(/&#12644;/g, '');
 			};
 
 			net.remove_numbers = function(str) {
@@ -1000,21 +1015,6 @@
 					});
 				}, 1000);
 			});
-
-			net.romanize = function(num) {
-				if (isNaN(num))
-					return NaN;
-
-				var digits = String(+num).split(''),
-					key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM', '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC', '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
-					roman = '',
-					i = 3;
-
-				while (i--)
-					roman = (key[+digits.pop() + (i * 10)] || '') + roman;
-
-				return Array(+digits.join('') + 1).join('M') + roman;
-			}
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.msg', function(data) {
