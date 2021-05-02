@@ -592,10 +592,16 @@
 				}
 
 				if (msg.trim() === '') {
+					if (net.text_input.val().length > 0) {
+						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 1);
+					}
 					return false;
 				}
 
 				if (msg.trim().length <= 0) {
+					if (net.text_input.val().length > 0) {
+						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 1);
+					}
 					return false;
 				}
 
