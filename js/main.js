@@ -137,6 +137,7 @@
 			var $body = $('body');
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
+			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles-numbers-only', 'circles-bold-numbers-only', 'inverted-circles-numbers-only', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript-numbers-only', 'superscript-numbers-only'];
 
 			var net = network.start({
 				servers: servers,
@@ -298,11 +299,24 @@
 
 				for (var i in arr) {
 					for (var j in normalize) {
-						if (normalize[j] === type || typeof type === 'undefined') {
-							// noinspection JSUnfilteredForInLoop
-							if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+						if (typeof type !== 'undefined') {
+							if (Array.isArray(type)) {
+								for (var k in type) {
+									// noinspection JSUnfilteredForInLoop
+									if (normalize[j] === type[k]) {
+										// noinspection JSUnfilteredForInLoop
+										if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+											// noinspection JSUnfilteredForInLoop
+											arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
+										}
+									}
+								}
+							} else if (normalize[j] === type) {
 								// noinspection JSUnfilteredForInLoop
-								arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
+								if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+									// noinspection JSUnfilteredForInLoop
+									arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
+								}
 							}
 						} else {
 							break;
@@ -339,7 +353,7 @@
 			};
 
 			net.remove_numbers = function(str) {
-				return str.replace(/[0-9⇂↊ᄅӠƐ０１２３４５６７８９𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡⓪①②➁③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴₀₁₂₃₄₅₆₇₈₉⁰¹²³⁴⁵⁶⁷⁸⁹⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇]/g, '');
+				return str.replace(/[0-9]/g, '');
 			};
 
 			net.remove_duplicates = function(str) {
@@ -410,7 +424,7 @@
 			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str, 'wide'));
+				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
@@ -432,7 +446,7 @@
 				var subject = net.remove_zalgo(str);
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.normalize(subject, 'wide'))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.normalize(subject, normalize_types))));
 				}
 
 				if (typeof emoji === 'undefined') {
@@ -562,7 +576,7 @@
 
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
-						data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, 'wide'))))));
+						data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types))))));
 
 						if (data.data === '' || data.data.length <= 1) {
 							return false;
@@ -574,7 +588,7 @@
 					net.text_input.val('');
 					return;
 				} else if (~net.client_room_name.text().indexOf('Emupedia') && !is_admin) {
-					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, 'wide'))))));
+					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types))))));
 				}
 
 				if (msg.trim() === '') {
