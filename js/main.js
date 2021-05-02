@@ -353,7 +353,7 @@
 			};
 
 			net.remove_numbers = function(str) {
-				return str.replace(/[0-9]/g, '');
+				return str.replace(/[0-9\u20e3]/g, '').replace(/\ud83d\udd1f/g, '');
 			};
 
 			net.remove_duplicates = function(str) {
