@@ -533,10 +533,8 @@
 				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
 
-				if (!is_admin) {
-					if (msg.length > 159) {
-						msg = msg.substring(0, 159)
-					}
+				if (msg.length > 159 && !is_admin) {
+					msg = msg.substring(0, 159)
 				}
 
 				if (msg.charAt(0) === '/') {
@@ -591,14 +589,7 @@
 					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types))))));
 				}
 
-				if (msg.trim() === '') {
-					if (net.text_input.val().length > 0) {
-						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 1);
-					}
-					return false;
-				}
-
-				if (msg.trim().length <= 0) {
+				if (msg.trim() === '' || msg.trim().length <= 0) {
 					if (net.text_input.val().length > 0) {
 						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 1);
 					}
