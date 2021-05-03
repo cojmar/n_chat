@@ -17,6 +17,7 @@ hr {
 	width: calc(100% - 50px - 20px - 19px);
 	box-sizing: border-box;
 	border: 1px #808080 solid;
+	border-radius: 0;
 	outline: none;
 	background-color: rgba(43, 42, 42, 0.85);
 	color: #b4adad;
@@ -31,6 +32,7 @@ hr {
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 	color: #808080;
 	border: 1px #808080 solid;
+	border-radius: 0;
 	border-left: none;
 	background-color: rgba(48, 47, 47, 0.85);
 	padding: 0;
@@ -235,6 +237,7 @@ hr {
 	cursor: pointer;
 	color: #808080;
 	border: 1px #808080 solid;
+	border-radius: 0;
 	background-color: rgba(48, 47, 47, 0.85);
 	padding: 0;
 	overflow: hidden;

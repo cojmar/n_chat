@@ -349,7 +349,7 @@
 			};
 
 			net.remove_spaces = function(str) {
-				return str.replace(/[\u00a0\u064b\u1160\u2000-\u200f\u2028\u202a\u202c\u202d\u202e\u202f\u205f\u2060\u2062\u2063\u20e3\u2800\u3000\u3164\ufe0e\ufe0f\udb40\udc20\udb40\udc21\udb40\udc22\udb40\udc23\udb40\udc24\udb40\udc25\udb40\udc26\udb40\udc27\udb40\udc28\udb40\udc29\udb40\udc2a\udb40\udc2c\udb40\udc2d\udb40\udc2e\udb40\udc2f\udb40\udc30\udb40\udc31\udb40\udc32\udb40\udc33\udb40\udc34\udb40\udc35\udb40\udc36\udb40\udc37\udb40\udc38\udb40\udc39\udb40\udc3a\udb40\udc3b\udb40\udc3c\udb40\udc3d\udb40\udc3e\udb40\udc3f\udb40\udc40\udb40\udc41\udb40\udc42\udb40\udc43\udb40\udc44\udb40\udc45\udb40\udc46\udb40\udc47\udb40\udc48\udb40\udc49\udb40\udc4a\udb40\udc4b\udb40\udc4c\udb40\udc4d\udb40\udc4e\udb40\udc4f\udb40\udc50\udb40\udc51\udb40\udc52\udb40\udc53\udb40\udc54\udb40\udc55\udb40\udc56\udb40\udc57\udb40\udc58\udb40\udc59\udb40\udc5a\udb40\udc5c\udb40\udc5d\udb40\udc5e\udb40\udc5f\udb40\udc60\udb40\udc61\udb40\udc62\udb40\udc63\udb40\udc64\udb40\udc65\udb40\udc66\udb40\udc67\udb40\udc68\udb40\udc69\udb40\udc6a\udb40\udc6b\udb40\udc6c\udb40\udc6d\udb40\udc6e\udb40\udc6f\udb40\udc70\udb40\udc71\udb40\udc72\udb40\udc73\udb40\udc74\udb40\udc75\udb40\udc76\udb40\udc77\udb40\udc78\udb40\udc79\udb40\udc7a\udb40\udc7b\udb40\udc7d\udb40\udc7e\udb40\udc7f\ufeff	]/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&nbsp;/g, '');
+				return str.replace(/[\u00a0\u064b\u1160\u2000-\u200f\u2028\u202a\u202c\u202d\u202e\u202f\u205f\u2060\u2062\u2063\u20e3\u2800\u3000\u3164\ufe00-\ufe0f\ufeff	]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/&lrm;/g, '').replace(/&rlm;/g, '').replace(/&ZeroWidthSpace;/g, '').replace(/&zwj;/g, '').replace(/&zwnj;/g, '').replace(/&nbsp;/g, '');
 			};
 
 			net.remove_numbers = function(str) {
@@ -427,15 +427,17 @@
 				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
+					subject = net.remove_spam(net.remove_duplicates(net.remove_numbers(subject)));
 				}
 
 				if (typeof emoji === 'undefined') {
-					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+					subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
 						folder: 'svg',
 						ext: '.svg'
 					});
 				}
+
+				subject = net.remove_profanity(subject);
 
 				return subject
 			};
@@ -446,15 +448,17 @@
 				var subject = net.remove_zalgo(str);
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.normalize(subject, normalize_types))));
+					subject = net.remove_spam(net.remove_duplicates(net.normalize(subject, normalize_types)));
 				}
 
 				if (typeof emoji === 'undefined') {
-					return twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+					subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
 						folder: 'svg',
 						ext: '.svg'
 					});
 				}
+
+				subject = net.remove_profanity(subject);
 
 				return subject;
 			};
@@ -574,7 +578,7 @@
 
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
-						data.data = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types))))));
+						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types)))));
 
 						if (data.data === '' || data.data.length <= 1) {
 							return false;
@@ -586,7 +590,7 @@
 					net.text_input.val('');
 					return;
 				} else if (~net.client_room_name.text().indexOf('Emupedia') && !is_admin) {
-					msg = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types))))));
+					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
 				if (msg.trim() === '' || msg.trim().length <= 0) {
