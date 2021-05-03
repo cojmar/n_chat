@@ -1,26 +1,21 @@
-"use strict";
+'use strict';
 
 function _typeof(obj) {
-	"@babel/helpers - typeof";
-	if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+	'@babel/helpers - typeof';
+	if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
 		_typeof = function _typeof(obj) {
 			return typeof obj;
 		};
 	} else {
 		_typeof = function _typeof(obj) {
-			return obj &&
-				typeof Symbol === "function" &&
-				obj.constructor === Symbol &&
-				obj !== Symbol.prototype ?
-				"symbol" :
-				typeof obj;
+			return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
 		};
 	}
 	return _typeof(obj);
 }
 
 (function(factory) {
-	if (typeof define === "function" && define.amd) {
+	if (typeof define === 'function' && define.amd) {
 		define(factory);
 	} else return factory();
 })(function() {
@@ -31,16 +26,16 @@ function _typeof(obj) {
 		worker: false
 	};
 
-	if (typeof Worker2 !== "undefined") {
+	if (typeof Worker2 !== 'undefined') {
 		run_mode.use_worker = true;
 
 		try {
-			run_mode.main = typeof window !== "undefined" ? true : false;
+			run_mode.main = typeof window !== 'undefined';
 		} catch (error) {
 			run_mode.main = false;
 		}
 
-		run_mode.worker = run_mode.main ? new Worker("app/u_socket.js") : false;
+		run_mode.worker = run_mode.main ? new Worker('app/u_socket.js') : false;
 	} else {
 		run_mode.main = true;
 	} //console.log(JSON.stringify(run_mode))
@@ -69,7 +64,7 @@ function _typeof(obj) {
 				}
 			};
 			this.events = {};
-			this.server = "ws://" + this.getBaseUrl() + ":3000";
+			this.server = 'ws://' + this.getBaseUrl() + ':3000';
 			this.connected = false;
 			this.last_on_set = Math.floor(Date.now() / 1000);
 			this.keep_alive();
@@ -80,7 +75,7 @@ function _typeof(obj) {
 		_proto.do_merge = function do_merge(data1, data2) {
 			var ret = false;
 
-			if (_typeof(data1) !== "object" || _typeof(data2) !== "object") {
+			if (_typeof(data1) !== 'object' || _typeof(data2) !== 'object') {
 				data1 = data2;
 				return true;
 			}
@@ -91,8 +86,8 @@ function _typeof(obj) {
 					if (!ret) ret = true;
 				} else {
 					if (
-						_typeof(data1[n]) === "object" &&
-						_typeof(data2[n]) === "object"
+						_typeof(data1[n]) === 'object' &&
+						_typeof(data2[n]) === 'object'
 					) {
 						var ret2 = this.do_merge(data1[n], data2[n]);
 						if (!ret) ret = ret2;
@@ -111,29 +106,29 @@ function _typeof(obj) {
 
 			if (this.keep_alive_interval) clearInterval(this.keep_alive_interval);
 			this.keep_alive_interval = setInterval(function() {
-				_this2.send("ping");
+				_this2.send('ping');
 			}, 30000);
 			return this;
 		};
 
 		_proto.getBaseUrl = function getBaseUrl() {
 			if (!run_mode.main) return false;
-			if (typeof window === "undefined") return "localhost";
-			return window.location.href.split("://")[1].split("/")[0];
+			if (typeof window === 'undefined') return 'localhost';
+			return window.location.href.split('://')[1].split('/')[0];
 		};
 
 		_proto.map_room = function map_room(ev, data) {
 			switch (ev) {
-				case "room.info":
+				case 'room.info':
 					this.room = data;
 					break;
 
-				case "my.info":
-				case "auth.info":
+				case 'my.info':
+				case 'auth.info':
 					this.me = data;
 					break;
 
-				case "room.user_join":
+				case 'room.user_join':
 					if (
 						data.user &&
 						this.room &&
@@ -146,7 +141,7 @@ function _typeof(obj) {
 
 					break;
 
-				case "room.user_leave":
+				case 'room.user_leave':
 					if (
 						data.user &&
 						this.room &&
@@ -158,7 +153,7 @@ function _typeof(obj) {
 
 					break;
 
-				case "room.user_data":
+				case 'room.user_data':
 					if (data.user && this.room && this.room.users[data.user]) {
 						this.do_merge(this.room.users[data.user].data, data.data);
 						if (data.user === this.room.me && this.me)
@@ -167,7 +162,7 @@ function _typeof(obj) {
 
 					break;
 
-				case "room.data":
+				case 'room.data':
 					if (this.room && this.room.name === data.room) {
 						this.do_merge(this.room.data, data.data);
 					}
@@ -184,19 +179,19 @@ function _typeof(obj) {
 
 		_proto.emit_event = function emit_event(ev, data) {
 			if (!ev) return false;
-			if (ev === "room.msg" && data.msg) {
+			if (ev === 'room.msg' && data.msg) {
 				data.msg = this.strip_html(data.msg);
 				if (data.msg.trim() === '') return
 			}
 			if (!this.map_room(ev, data)) return false;
-			if (_typeof(this.events["cmd"]) === "object")
-				this.events["cmd"].forEach(function(cb) {
+			if (_typeof(this.events['cmd']) === 'object')
+				this.events['cmd'].forEach(function(cb) {
 					cb({
 						cmd: ev,
 						data: data
 					});
 				});
-			if (_typeof(this.events[ev]) === "object")
+			if (_typeof(this.events[ev]) === 'object')
 				this.events[ev].forEach(function(cb) {
 					cb(data);
 				});
@@ -230,7 +225,7 @@ function _typeof(obj) {
 		_proto.on = function on(cmd, call_back) {
 			this.last_on_set = Math.floor(Date.now() / 1000);
 			if (!cmd) return this;
-			if (typeof call_back !== "function") return this;
+			if (typeof call_back !== 'function') return this;
 
 			if (!this.events[cmd]) {
 				this.events[cmd] = [];
@@ -252,7 +247,7 @@ function _typeof(obj) {
 			this.ws.onopen = function() {
 				_this4.connected = true;
 
-				_this4.emit_event("connect", {
+				_this4.emit_event('connect', {
 					server: _this4.server
 				});
 			};
@@ -267,7 +262,7 @@ function _typeof(obj) {
 					}, 10000);
 				}
 
-				_this4.emit_event("disconnect", close_event);
+				_this4.emit_event('disconnect', close_event);
 			};
 
 			this.ws.onmessage = function(message) {
@@ -286,8 +281,8 @@ function _typeof(obj) {
 		};
 
 		_proto.send = function send(data) {
-			if (data.cmd === "connect") return this.connect(data.data);
-			if (data.cmd === "disconnect") return this.disconnect();
+			if (data.cmd === 'connect') return this.connect(data.data);
+			if (data.cmd === 'disconnect') return this.disconnect();
 			if (!this.connected) return this;
 			this.socket.send(JSON.stringify(data));
 			return this;
@@ -306,14 +301,14 @@ function _typeof(obj) {
 	var network = new u_socket();
 
 	if (!run_mode.main && run_mode.use_worker) {
-		addEventListener("message", function(e) {
+		addEventListener('message', function(e) {
 			var cmd_data = e.data;
 
 			switch (cmd_data.cmd) {
 				default: network[cmd_data.cmd](cmd_data.data);
 				break;
 
-				case "on":
+				case 'on':
 						network.on(cmd_data.data.cmd, function(data) {
 						cmd_data.data.data = data;
 						postMessage(cmd_data.data);
@@ -330,7 +325,7 @@ function _typeof(obj) {
 			var data = e.data;
 			data.cmd = data.cmd || false;
 			data.id = data.id || 0;
-			cb = network.events[data.cmd][data.id] || false; //console.log(data);
+			var cb = network.events[data.cmd][data.id] || false; //console.log(data);
 
 			if (cb) cb(data.data);
 		};
@@ -338,7 +333,7 @@ function _typeof(obj) {
 		network.connect = function(data) {
 			setTimeout(function() {
 				run_mode.worker.postMessage({
-					cmd: "connect",
+					cmd: 'connect',
 					data: data
 				});
 			}, 500);
@@ -347,7 +342,7 @@ function _typeof(obj) {
 
 		network.send = function(data) {
 			run_mode.worker.postMessage({
-				cmd: "send",
+				cmd: 'send',
 				data: data
 			});
 			return network;
@@ -355,14 +350,14 @@ function _typeof(obj) {
 
 		network.on = function(cmd, call_back) {
 			if (!cmd) return network;
-			if (typeof call_back !== "function") return network;
+			if (typeof call_back !== 'function') return network;
 
 			if (!network.events[cmd]) {
 				network.events[cmd] = [];
 			}
 
 			run_mode.worker.postMessage({
-				cmd: "on",
+				cmd: 'on',
 				data: {
 					cmd: cmd,
 					id: network.events[cmd].length
@@ -379,6 +374,6 @@ function _typeof(obj) {
 		};
 	}
 
-	if (typeof window !== "undefined") window.u_network = network;
+	if (typeof window !== 'undefined') window.u_network = network;
 	return network;
 });
