@@ -483,7 +483,7 @@
 
 				if (typeof txt === 'object') {
 					// noinspection HtmlDeprecatedTag
-					txt = '<br><xmp>' + JSON.stringify(txt, null, 2) + '</xmp>';
+					txt = '<br /><xmp>' + JSON.stringify(txt, null, 2) + '</xmp>';
 				}
 
 				var d = new Date();
@@ -495,7 +495,7 @@
 					('0' + d.getMinutes()).slice(-2),
 					':',
 					('0' + d.getSeconds()).slice(-2),
-					']&nbsp;</span>'
+					']</span>'
 				].join('');
 
 				var msg_class = typeof hide !== 'undefined' ? (hide > 0 ? 'net_msg_hide' : 'net_msg_hide_last') : 'net_msg';
@@ -887,6 +887,7 @@
 					var color = u !== me ? net.colors[3] : net.colors[1];
 					var glow = '';
 
+					// noinspection DuplicatedCode
 					if (typeof net.room_info !== 'undefined') {
 						// noinspection JSUnresolvedVariable
 						var room_user = net.room_info.users[u] || false;
@@ -897,6 +898,21 @@
 								// noinspection JSUnresolvedVariable
 								color = room_user.info.present.items[room_user.info.present.item_index].color;
 							}
+						}
+
+						// noinspection JSUnresolvedVariable
+						var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
+						var div = 50;
+						var curPoints = (XP <= 0 ? 1 : XP) / div;
+						var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
+						var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
+						var pointsRequired = pointsNextLevel - curPoints;
+						var timeRequired = '∞';
+
+						try {
+							timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
+						} catch (e) {
+							timeRequired = '∞';
 						}
 
 						if (typeof net.room_info.data !== 'undefined') {
@@ -913,7 +929,7 @@
 					}
 
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + u + '" data-title="' + u + '">' + users_obj[u] + '</div>';
+					users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + users_obj[u] + '</div>';
 				}
 
 				// noinspection JSUnresolvedVariable
@@ -991,6 +1007,22 @@
 						}
 					}
 
+					// noinspection JSUnresolvedVariable
+					var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
+					var div = 50;
+					var curPoints = (XP <= 0 ? 1 : XP) / div;
+					var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
+					var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
+					var pointsRequired = pointsNextLevel - curPoints;
+					// noinspection JSUnusedAssignment
+					var timeRequired = '∞';
+
+					try {
+						timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
+					} catch (e) {
+						timeRequired = '∞';
+					}
+
 					if (typeof net.room_info.data !== 'undefined') {
 						if (typeof net.room_info.data.admins !== 'undefined') {
 							if (Array.isArray(net.room_info.data.admins)) {
@@ -1005,7 +1037,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + data.data.info.user + '" data-title="' + data.data.info.user + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1083,16 +1115,22 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				var XP = (net.room_info.users[user] && net.room_info.users[user].info) ? net.room_info.users[user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[user].info.last_login_date)) / 1000) : 1;
+				var XP = net.room_info.users[data.user] && net.room_info.users[data.user].info ? net.room_info.users[data.user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[data.user].info.last_login_date)) / 1000) : 1;
 				var div = 50;
-				var curPoints = XP / div;
+				var curPoints = (XP <= 0 ? 1 : XP) / div;
 				var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
+				var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
+				var pointsRequired = pointsNextLevel - curPoints;
+				// noinspection JSUnusedAssignment
+				var timeRequired = '∞';
 
-				var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2); //Required XP
-				var pointsRequired = pointsNextLevel - curPoints; //Result
-				var timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8)
+				try {
+					timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
+				} catch (e) {
+					timeRequired = '∞';
+				}
 
-				net.log('<span title="User Level ' + curLevel + ', Next Level in ' + timeRequired + '" style="color:#395fa4;margin-left:-4px;">[' + net.romanize(curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + user + '">[' + nick + '] </span>' + (glow ? data.msg : net.clean(data.msg)));
+				net.log('<span title="User Level ' + curLevel + ', Next Level in ' + timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + (glow ? data.msg : net.clean(data.msg)));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1108,10 +1146,26 @@
 							net.room_info.users[data.user].info[n] = data.info[n];
 						}
 
-						// noinspection JSUnresolvedVariable
+						// noinspection JSUnresolvedVariable,DuplicatedCode
 						if (data.info.nick) {
+							// noinspection JSUnresolvedVariable
+							var XP = net.room_info.users[data.user] && net.room_info.users[data.user].info ? net.room_info.users[data.user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[data.user].info.last_login_date)) / 1000) : 1;
+							var div = 50;
+							var curPoints = (XP <= 0 ? 1 : XP) / div;
+							var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
+							var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
+							var pointsRequired = pointsNextLevel - curPoints;
+							// noinspection JSUnusedAssignment
+							var timeRequired = '∞';
+
+							try {
+								timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
+							} catch (e) {
+								timeRequired = '∞';
+							}
+
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-							$('#room_user_' + data.user).attr('data-title', data.user).data('title', data.user).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
+							$('#room_user_' + data.user).attr('data-title', 'Unique ID ' + data.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired).data('title', 'Unique ID ' + data.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
 						}
 
 						// noinspection JSUnresolvedVariable
