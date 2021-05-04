@@ -137,7 +137,7 @@
 			var $body = $('body');
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
-			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles-numbers-only', 'circles-bold-numbers-only', 'inverted-circles-numbers-only', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript-numbers-only', 'superscript-numbers-only', 'upsidedown-numbers-only'];
+			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles-numbers-only', 'circles-bold-numbers-only', 'inverted-circles-numbers-only', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript-numbers-only', 'superscript-numbers-only', 'upsidedown-numbers-only', 'uncategorized'];
 
 			var net = network.start({
 				servers: servers,
@@ -352,6 +352,10 @@
 				return str.replace(/[\u0009\u000a\u000c\u000d\u007f\u00a0\u00ad\u034f\u061c\u064b\u115f\u1160\u17b4\u17b5\u180e\u2000-\u200f\u202a-\u202f\u205f-\u206f\u20d0-\u20f0\u2800\u3000\u3164\ufe00-\ufe0f\ufeff\uffa0\ufff0-\ufff8]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/\ud834\udd73/g, '').replace(/\ud834\udd74/g, '').replace(/\ud834\udd75/g, '').replace(/\ud834\udd76/g, '').replace(/\ud834\udd77/g, '').replace(/\ud834\udd78/g, '').replace(/\ud834\udd79/g, '').replace(/\ud834\udd7a/g, '').replace(/&lrm;/gi, '').replace(/&rlm;/gi, '').replace(/&ZeroWidthSpace;/gi, '').replace(/&zwj;/gi, '').replace(/&zwnj;/gi, '').replace(/&nbsp;/gi, '');
 			};
 
+			net.remove_combining = function(str) {
+				return str.replace(/[\u0336\u0337]/g);
+			}
+
 			net.remove_numbers = function(str) {
 				return str.replace(/[0-9]/g, '').replace(/\ud83d\udd1f/g, '');
 			};
@@ -365,7 +369,7 @@
 			};
 
 			net.remove_profanity = function(str) {
-				str = net.remove_invisible(str);
+				str = net.remove_combining(net.remove_invisible(str));
 				str = str.replace(/  +/g, ' ').trim();
 
 				// noinspection JSUnresolvedVariable
