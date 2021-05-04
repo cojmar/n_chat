@@ -437,7 +437,11 @@
 					});
 				}
 
-				subject = net.remove_profanity(subject);
+				if (~net.client_room_name.text().indexOf('Emupedia')) {
+					subject = net.remove_profanity(subject);
+				} else {
+					subject = net.remove_invisible(subject);
+				}
 
 				return subject
 			};
@@ -458,7 +462,11 @@
 					});
 				}
 
-				subject = net.remove_profanity(subject);
+				if (~net.client_room_name.text().indexOf('Emupedia')) {
+					subject = net.remove_profanity(subject);
+				} else {
+					subject = net.remove_invisible(subject);
+				}
 
 				return subject;
 			};
