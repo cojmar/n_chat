@@ -174,10 +174,7 @@ function _typeof(obj) {
 		};
 
 		_proto.strip_html = function strip_html(str) {
-			console.log(str);
-			str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/(<([^>]+)>)/gi, '');
-			console.log(str);
-			return str;
+			return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/(<([^>]+)>)/gi, '');
 		};
 
 		_proto.emit_event = function emit_event(ev, data) {
