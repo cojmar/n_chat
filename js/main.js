@@ -200,7 +200,7 @@
 				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
 			}
 
-			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c'];
+			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -954,7 +954,12 @@
 				net.client_room_online.text(users_online);
 				// noinspection JSUnresolvedFunction
 				net.output_div.html('');
-				net.log('You are now chatting in ' + room + ' with ' + users_online + ' users', 1);
+				net.log('You are now talking in ' + room + ' with ' + users_online + ' users', 1);
+
+				if (room.indexOf('Emupedia')) {
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
+				}
+
 				// noinspection JSUnresolvedVariable
 				$('.ui-selectmenu-text').text(room + ' (' + users_online + ' users)');
 			});
