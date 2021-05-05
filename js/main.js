@@ -507,7 +507,7 @@
 					('0' + d.getMinutes()).slice(-2),
 					':',
 					('0' + d.getSeconds()).slice(-2),
-					']</span>'
+					']</span>' + (!~txt.indexOf('&nbsp;') ? '&nbsp;' : '')
 				].join('');
 
 				var msg_class = typeof hide !== 'undefined' ? (hide > 0 ? 'net_msg_hide' : 'net_msg_hide_last') : 'net_msg';
@@ -755,14 +755,14 @@
 						if (net.room_info) {
 							if (room === net.room_info.name) {
 								// noinspection JSUnfilteredForInLoop
-								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
+								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
 							} else {
 								// noinspection JSUnfilteredForInLoop
-								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
+								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
 							}
 						} else {
 							// noinspection JSUnfilteredForInLoop
-							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' users)</option>'
+							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
 						}
 					}
 				}
@@ -961,7 +961,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				$('.ui-selectmenu-text').text(room + ' (' + users_online + ' users)');
+				$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1005,7 +1005,7 @@
 					// noinspection JSUnresolvedVariable
 					net.client_room_online.text(Object.keys(net.room_info.users).length);
 					// noinspection JSUnresolvedVariable
-					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' users)');
+					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				}
 
 				var color = net.colors[3];
@@ -1240,7 +1240,7 @@
 						// noinspection JSUnresolvedFunction
 						net.client_rooms.selectmenu('refresh');
 					}
-					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' users)');
+					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				});
 			});
 
