@@ -1236,10 +1236,13 @@
 					// noinspection JSUnresolvedFunction
 					$('#client_rooms-button').css('display', 'block');
 					// noinspection JSUnresolvedVariable
+
 					if (typeof $.fn.selectmenu === 'function') {
 						// noinspection JSUnresolvedFunction
 						net.client_rooms.selectmenu('refresh');
 					}
+
+					// noinspection JSUnresolvedVariable
 					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				});
 			});
@@ -1351,7 +1354,7 @@
 			net.client_rooms = $('#client_rooms');
 			net.client_room_name = net.client_room.find('span.name');
 			net.client_room_online = net.client_room.find('span.online');
-			// noinspection JSUnresolvedFunction
+			// noinspection JSUnresolvedFunction,DuplicatedCode
 			net.text_input.off('keypress').on('keypress', function(e) {
 				// noinspection JSDeprecatedSymbols
 				switch (e.which) {
@@ -1372,10 +1375,24 @@
 				}
 			}).off('paste').on('paste', function(e) {
 				if (typeof e.originalEvent.clipboardData !== 'undefined') {
+					// noinspection DuplicatedCode
 					if (typeof e.originalEvent.clipboardData.getData === 'function') {
 						var paste = e.originalEvent.clipboardData.getData('text');
 
-						if (net.text_input.val().length + paste.length > 60) {
+						var is_admin = false;
+
+						if (typeof net.room_info.data !== 'undefined' && typeof net.room_info.me !== 'undefined') {
+							if (typeof net.room_info.data.admins !== 'undefined') {
+								if (Array.isArray(net.room_info.data.admins)) {
+									if (net.room_info.data.admins.indexOf(net.room_info.me) !== -1) {
+										// noinspection JSUnusedAssignment
+										is_admin = true;
+									}
+								}
+							}
+						}
+
+						if (!is_admin && (net.text_input.val().length + paste.length > 60)) {
 							e.preventDefault();
 							return false;
 						}
