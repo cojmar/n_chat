@@ -24,6 +24,7 @@
 			"depression": ["depression", "depressive"],
 			"balls": ["balls", "ballz", "bolls", "bals", "balz", "testicles", "testicle"],
 			"beaner": ["beaner"],
+			"bleeding": ["bleeding"],
 			"cunt": ["c.u.n.t", "cunnt", "cunt"],
 			"bomb": ["bomb"],
 			"gun": ["shotgun", " guns ", " gun ", "pistol", "sniper"],
@@ -35,6 +36,7 @@
 			"jackoff": ["jack.off", "jackoff"],
 			"sperm": ["sperm"],
 			"semen": ["semen"],
+			"suicide": ["suicide"],
 			"kidnap": ["kidnap"],
 			"killer": ["killer", "k!ller", "kller"],
 			"kill": ["k.i.l.l", "killl", "kill", "k!ll", " kil "],
@@ -123,10 +125,10 @@
 			"play": ["rape", "sex", "masturbate", "jackoff", "shagg"],
 			"slow thinker": ["retard", "imbecile"],
 			"anime": ["hentai"],
-			"laughter": ["cancer", "ligma", "aids"],
+			"laughter": ["cancer", "ligma", "aids", "suicide", "bleeding"],
 			"behind": [" ass ", "anal", "asshole", "anus"],
 			"🌼": ["卐", "☭", "💩"],
-			"👌": ["🖕", "╭∩╮", "╭ᑎ╮", "b=", "8=", "===D"]
+			"👌": ["🖕", "╭∩╮", "╭ᑎ╮", "b=", "8=", "&amp;=", "===D"]
 		}
 	}
 }
