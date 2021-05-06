@@ -558,11 +558,93 @@ hr {
 	}
 }
 
+@supports not (--css: variables) {
+	@-webkit-keyframes glow2 {
+		/*noinspection CssFloatPxLength*/
+		from {
+			-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+			filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+		}
+		/*noinspection CssFloatPxLength*/
+		to {
+			-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+			filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+		}
+	}
+
+	@-moz-keyframes glow2 {
+		/*noinspection CssFloatPxLength*/
+		from {
+			-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+			filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+		}
+		/*noinspection CssFloatPxLength*/
+		to {
+			-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+			filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+		}
+	}
+
+	@keyframes glow2 {
+		/*noinspection CssFloatPxLength*/
+		from {
+			-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+			filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+		}
+		/*noinspection CssFloatPxLength*/
+		to {
+			-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+			filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+		}
+	}
+}
+
+@supports (--css: variables) {
+	@-webkit-keyframes glow2 {
+		/*noinspection CssFloatPxLength*/
+		from {
+			-webkit-filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
+			filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
+		}
+		/*noinspection CssFloatPxLength*/
+		to {
+			-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+			filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+		}
+	}
+
+	@-moz-keyframes glow2 {
+		/*noinspection CssFloatPxLength*/
+		from {
+			-webkit-filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
+			filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
+		}
+		/*noinspection CssFloatPxLength*/
+		to {
+			-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+			filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+		}
+	}
+
+	@keyframes glow2 {
+		/*noinspection CssFloatPxLength*/
+		from {
+			-webkit-filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
+			filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
+		}
+		/*noinspection CssFloatPxLength*/
+		to {
+			-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2));
+			filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+		}
+	}
+}
+
 /*noinspection CssOverwrittenProperties*/
 .glow {
-	-webkit-animation: glow 1s ease-in-out infinite alternate;
-	-moz-animation: glow 1s ease-in-out infinite alternate;
-	animation: glow 1s ease-in-out infinite alternate;
+	-webkit-animation: glow2 1s ease-in-out infinite alternate;
+	-moz-animation: glow2 1s ease-in-out infinite alternate;
+	animation: glow2 1s ease-in-out infinite alternate;
 
 	/*text-shadow: 0 0 0 #1eff00;*/
 	/*text-shadow: 0 0 0 var(--glow-color-2);*/
