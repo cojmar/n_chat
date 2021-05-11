@@ -593,6 +593,7 @@
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types)))));
 
 						if ((net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 1) {
+							net.log('You have unwanted characters in your nickname or it is too short, correct the issue and try again', 1);
 							return false;
 						}
 					}
