@@ -444,7 +444,7 @@
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(subject);
 				} else {
-					subject = net.remove_invisible(subject);
+					subject = net.remove_combining(net.remove_invisible(subject));
 				}
 
 				return subject
@@ -469,7 +469,7 @@
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
 					subject = net.remove_profanity(subject);
 				} else {
-					subject = net.remove_invisible(subject);
+					subject = net.remove_combining(net.remove_invisible(subject));
 				}
 
 				return subject;
@@ -592,7 +592,7 @@
 					if (data.cmd === 'nick') {
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types)))));
 
-						if (net.remove_invisible(data.data.trim()) === '' || net.remove_invisible(data.data.trim()).length <= 1) {
+						if ((net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 1) {
 							return false;
 						}
 					}
@@ -605,7 +605,7 @@
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
-				if (net.remove_invisible(msg.trim()) === '' || net.remove_invisible(msg.trim()).length <= 0) {
+				if ((net.remove_combining(net.remove_invisible(msg))).trim() === '' || (net.remove_combining(net.remove_invisible(msg))).trim().length <= 0) {
 					if (net.text_input.val().length > 0) {
 						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 1);
 					}
