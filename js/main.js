@@ -1396,7 +1396,7 @@
 							add_buffer += '\n' + net.chat_buffer[i]
 						}
 						net.output_div.prepend(add_buffer)
-						net.output_div.get(0).scrollTop += stop * 2
+						net.output_div.get(0).scrollTop += stop - start
 
 					}
 				}
