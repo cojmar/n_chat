@@ -202,6 +202,7 @@
 
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 			net.chat_buffer = []
+			net.lock_scroll = true
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -497,10 +498,11 @@
 				var output = net.output_div.get(0);
 				var max_lines = Math.floor((net.output_div.height() * 7) / 100) * 2
 
-				net.output_div.height()
 
 
-				if (output.scrollTop + output.offsetHeight > output.scrollHeight - 200) {
+
+				//if (output.scrollTop + output.offsetHeight > output.scrollHeight - 200) {
+				if (net.lock_scroll) {
 					output.scrollTop = output.scrollHeight;
 					if (net.output_div.children().length > max_lines) {
 						for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
@@ -972,6 +974,7 @@
 				net.client_room_online.text(users_online);
 				// noinspection JSUnresolvedFunction
 				net.chat_buffer = []
+				net.lock_scroll = true
 				net.output_div.html('');
 
 
@@ -1370,7 +1373,16 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
-			net.output_div.on('scroll', function() {
+			net.output_div.on('scroll ', function(e) {
+
+				var output = net.output_div.get(0);
+
+
+
+
+
+				net.lock_scroll = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight;
+
 				if (net.output_div.get(0).scrollTop === 0) {
 					var stop = net.chat_buffer.length - net.output_div.children().length
 
@@ -1378,29 +1390,18 @@
 
 						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2)
 						if (start < 0) start = 0;
-						console.log(net.chat_buffer.slice(stop, start))
+
 						var add_buffer = ''
 						for (var i = start; i < stop; i++) {
 							add_buffer += '\n' + net.chat_buffer[i]
 						}
 						net.output_div.prepend(add_buffer)
-						net.output_div.get(0).scrollTop += start
+						net.output_div.get(0).scrollTop += stop * 2
 
 					}
 				}
 			})
 
-			/*
-						if (output.scrollTop + output.offsetHeight > output.scrollHeight - 20) {
-							output.scrollTop = output.scrollHeight;
-							if (net.output_div.children().length > max_lines) {
-								for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
-									net.output_div.children(i).get(0).remove()
-								}
-							}
-						}
-
-			*/
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
 			net.client_rooms = $('#client_rooms');
