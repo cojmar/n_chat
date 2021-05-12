@@ -201,6 +201,7 @@
 			}
 
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
+			net.chat_buffer = []
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -344,7 +345,7 @@
 
 			net.htmlentities = function(str) {
 				return str.replace(/[\u00A0-\u9999<>&]/g, function(i) {
-					return '&#'+i.charCodeAt(0)+';';
+					return '&#' + i.charCodeAt(0) + ';';
 				});
 			};
 
@@ -474,6 +475,40 @@
 
 				return subject;
 			};
+			net.render_chat = function(msg, hide) {
+				if (msg) {
+					net.chat_buffer.push(msg)
+					net.output_div.append(net.chat_buffer.slice(-1));
+
+
+
+					setTimeout(function() {
+						// noinspection JSUnresolvedFunction
+						$('.net_msg_hide').slideUp(200, function() {
+							$(this).remove();
+						});
+
+						// noinspection JSUnresolvedFunction
+						$('.net_msg_hide_last:not(:last-child)').slideUp(200, function() {
+							$(this).remove();
+						});
+					}, hide ? hide : 0);
+				}
+				var output = net.output_div.get(0);
+				var max_lines = Math.floor((net.output_div.height() * 7) / 100) * 2
+
+				net.output_div.height()
+
+
+				if (output.scrollTop + output.offsetHeight > output.scrollHeight - 20) {
+					output.scrollTop = output.scrollHeight;
+					if (net.output_div.children().length > max_lines) {
+						for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
+							net.output_div.children(i).get(0).remove()
+						}
+					}
+				}
+			}
 
 			net.log = function(txt, color, hide) {
 				if (typeof color === 'undefined') {
@@ -511,26 +546,8 @@
 				].join('');
 
 				var msg_class = typeof hide !== 'undefined' ? (hide > 0 ? 'net_msg_hide' : 'net_msg_hide_last') : 'net_msg';
+				net.render_chat('<div class="' + msg_class + '" style="' + color + '">' + time_stamp + txt + '</div>', hide)
 
-				net.output_div.append('<div class="' + msg_class + '" style="' + color + '">' + time_stamp + txt + '</div>');
-
-				setTimeout(function() {
-					// noinspection JSUnresolvedFunction
-					$('.net_msg_hide').slideUp(200, function() {
-						$(this).remove();
-					});
-
-					// noinspection JSUnresolvedFunction
-					$('.net_msg_hide_last:not(:last-child)').slideUp(200, function() {
-						$(this).remove();
-					});
-				}, hide ? hide : 0);
-
-				var output = net.output_div.get(0);
-
-				if (output.scrollTop + output.offsetHeight > output.scrollHeight - 200) {
-					output.scrollTop = output.scrollHeight;
-				}
 			};
 
 			net.send_input = function() {
@@ -954,7 +971,10 @@
 				// noinspection JSUnresolvedVariable
 				net.client_room_online.text(users_online);
 				// noinspection JSUnresolvedFunction
+				net.chat_buffer = []
 				net.output_div.html('');
+
+
 				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
 
 				if (room.indexOf('Emupedia')) {
@@ -1329,17 +1349,17 @@
 				net.text_input.get(0).focus();
 			});
 
-			var chat_ui =	'<div id="client_container" class="client_decoration">' +
-								'<div id="client_output" class="client_decoration client_left"></div>' +
-								'<div id="client_users" class="client_right">' +
-									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-									'<div id="client_room_users" class="client_decoration"></div>' +
-								'</div>' +
-								'<div id="client_color_popover"></div>' +
-								'<div id="client_input" class="client_decoration">' +
-									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-								'</div>' +
-							'</div>';
+			var chat_ui = '<div id="client_container" class="client_decoration">' +
+				'<div id="client_output" class="client_decoration client_left"></div>' +
+				'<div id="client_users" class="client_right">' +
+				'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+				'<div id="client_room_users" class="client_decoration"></div>' +
+				'</div>' +
+				'<div id="client_color_popover"></div>' +
+				'<div id="client_input" class="client_decoration">' +
+				'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+				'</div>' +
+				'</div>';
 
 			$body.append(chat_ui);
 
@@ -1350,6 +1370,37 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
+			net.output_div.on('scroll', function() {
+				if (net.output_div.get(0).scrollTop === 0) {
+					var stop = net.chat_buffer.length - net.output_div.children().length
+
+					if (stop > 0) {
+
+						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2)
+						if (start < 0) start = 0;
+						console.log(net.chat_buffer.slice(stop, start))
+						var add_buffer = ''
+						for (var i = start; i < stop; i++) {
+							add_buffer += '\n' + net.chat_buffer[i]
+						}
+						net.output_div.prepend(add_buffer)
+						net.output_div.get(0).scrollTop += start
+
+					}
+				}
+			})
+
+			/*
+						if (output.scrollTop + output.offsetHeight > output.scrollHeight - 20) {
+							output.scrollTop = output.scrollHeight;
+							if (net.output_div.children().length > max_lines) {
+								for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
+									net.output_div.children(i).get(0).remove()
+								}
+							}
+						}
+
+			*/
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
 			net.client_rooms = $('#client_rooms');
