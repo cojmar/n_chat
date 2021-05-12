@@ -500,7 +500,7 @@
 				net.output_div.height()
 
 
-				if (output.scrollTop + output.offsetHeight > output.scrollHeight - 20) {
+				if (output.scrollTop + output.offsetHeight > output.scrollHeight - 150) {
 					output.scrollTop = output.scrollHeight;
 					if (net.output_div.children().length > max_lines) {
 						for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
