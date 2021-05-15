@@ -854,25 +854,7 @@
 				}
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-			net.socket.on('room.info', function(data) {
-				// console.log('room.info');
-				// console.log(JSON.stringify(data, null, 2));
-				net.room_info = data;
-
-				if (typeof net.room_info.data !== 'undefined') {
-					if (typeof net.room_info.data.admins !== 'undefined') {
-						if (Array.isArray(net.room_info.data.admins)) {
-							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins)) || [];
-						} else {
-							net.admins = [];
-						}
-					} else {
-						net.admins = [];
-					}
-				} else {
-					net.admins = [];
-				}
+			net.render_users = function() {
 
 				// noinspection JSUnresolvedVariable
 				var users_online = Object.keys(net.room_info.users).length;
@@ -884,11 +866,11 @@
 				var users_list = '';
 
 				// noinspection JSUnresolvedVariable
-				for (var users in data.users) {
+				for (var users in net.room_info.users) {
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					var user = data.users[users].info.user;
+					var user = net.room_info.users[users].info.user;
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					var nick = data.users[users].info.nick;
+					var nick = net.room_info.users[users].info.nick;
 
 					if (net.is_default_nick(nick)) {
 						users_array_default.push([user, nick]);
@@ -963,12 +945,36 @@
 					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + users_obj[u] + '</div>';
 				}
-
 				// noinspection JSUnresolvedVariable
 				net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
 				// noinspection JSUnresolvedFunction
 				net.client_room_users.html(users_list);
 				// noinspection JSUnresolvedFunction
+
+			};
+
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			net.socket.on('room.info', function(data) {
+				// console.log('room.info');
+				// console.log(JSON.stringify(data, null, 2));
+				net.room_info = data;
+
+				if (typeof net.room_info.data !== 'undefined') {
+					if (typeof net.room_info.data.admins !== 'undefined') {
+						if (Array.isArray(net.room_info.data.admins)) {
+							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins)) || [];
+						} else {
+							net.admins = [];
+						}
+					} else {
+						net.admins = [];
+					}
+				} else {
+					net.admins = [];
+				}
+				net.render_users()
+
+
 				net.client_room_name.text(room);
 				// noinspection JSUnresolvedVariable
 				net.client_room_online.text(users_online);
@@ -987,6 +993,7 @@
 				// noinspection JSUnresolvedVariable
 				$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
 			});
+
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
@@ -1031,7 +1038,8 @@
 					// noinspection JSUnresolvedVariable
 					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				}
-
+				net.render_users()
+				return
 				var color = net.colors[3];
 				var glow = '';
 
@@ -1093,7 +1101,8 @@
 						delete net.room_info.users[data.user]
 					}
 				}
-
+				net.render_users()
+				return
 				var $el = $('#room_user_' + data.user);
 
 				setTimeout(function() {
