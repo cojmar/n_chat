@@ -500,32 +500,30 @@ hr {
 	}
 }
 
-@supports not (--css: variables) {
-	@-webkit-keyframes glow {
-		from {
-			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
-		}
-		to {
-			text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
-		}
+@-webkit-keyframes glow {
+	from {
+		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
 	}
-
-	@-moz-keyframes glow {
-		from {
-			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
-		}
-		to {
-			text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
-		}
+	to {
+		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
 	}
+}
 
-	@keyframes glow {
-		from {
-			text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
-		}
-		to {
-			text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
-		}
+@-moz-keyframes glow {
+	from {
+		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+	}
+	to {
+		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
+	}
+}
+
+@keyframes glow {
+	from {
+		text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #159904, 0 0 4px #159904, 0 0 5px #159904, 0 0 6px #159904, 0 0 7px #159904;
+	}
+	to {
+		text-shadow: 0 0 2px #fff, 0 0 3px #1eff00, 0 0 4px #1eff00, 0 0 5px #1eff00, 0 0 6px #1eff00, 0 0 7px #1eff00, 0 0 8px #1eff00;
 	}
 }
 
@@ -558,44 +556,42 @@ hr {
 	}
 }
 
-@supports not (--css: variables) {
-	@-webkit-keyframes glow2 {
-		/*noinspection CssFloatPxLength*/
-		from {
-			-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
-			filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
-		}
-		/*noinspection CssFloatPxLength*/
-		to {
-			-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
-			filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
-		}
+@-webkit-keyframes glow2 {
+	/*noinspection CssFloatPxLength*/
+	from {
+		-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+		filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 	}
-
-	@-moz-keyframes glow2 {
-		/*noinspection CssFloatPxLength*/
-		from {
-			-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
-			filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
-		}
-		/*noinspection CssFloatPxLength*/
-		to {
-			-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
-			filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
-		}
+	/*noinspection CssFloatPxLength*/
+	to {
+		-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+		filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
 	}
+}
 
-	@keyframes glow2 {
-		/*noinspection CssFloatPxLength*/
-		from {
-			-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
-			filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
-		}
-		/*noinspection CssFloatPxLength*/
-		to {
-			-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
-			filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
-		}
+@-moz-keyframes glow2 {
+	/*noinspection CssFloatPxLength*/
+	from {
+		-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+		filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+	}
+	/*noinspection CssFloatPxLength*/
+	to {
+		-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+		filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+	}
+}
+
+@keyframes glow2 {
+	/*noinspection CssFloatPxLength*/
+	from {
+		-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+		filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
+	}
+	/*noinspection CssFloatPxLength*/
+	to {
+		-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
+		filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
 	}
 }
 
@@ -646,17 +642,14 @@ hr {
 	-moz-animation: glow 1s ease-in-out infinite alternate;
 	animation: glow 1s ease-in-out infinite alternate;
 
-	text-shadow: 0 0 0 #1eff00;
-	text-shadow: 0 0 0 var(--glow-color-2);
+	text-shadow: 0 0 2px #1eff00;
+	text-shadow: 0 0 2px var(--glow-color-2);
 }
 
 .glow2 {
 	-webkit-animation: glow2 1s ease-in-out infinite alternate;
 	-moz-animation: glow2 1s ease-in-out infinite alternate;
 	animation: glow2 1s ease-in-out infinite alternate;
-
-	/*text-shadow: 0 0 0 #1eff00;*/
-	/*text-shadow: 0 0 0 var(--glow-color-2);*/
 }
 
 .emoji-picker {

@@ -902,7 +902,7 @@
 
 		// Microsoft EdgeHTML <= 18.18363 (64-bit) console table is broken
 		// noinspection DuplicatedCode
-		if ($sys.browser.isEdgeHTML) {
+		if ($sys.browser.isIE || $sys.browser.isEdgeHTML) {
 			for (var d in dump) {
 				// noinspection JSUnfilteredForInLoop
 				console.log(dump[d]);
