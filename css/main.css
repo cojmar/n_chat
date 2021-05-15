@@ -642,6 +642,15 @@ hr {
 
 /*noinspection CssOverwrittenProperties*/
 .glow {
+	-webkit-animation: glow 1s ease-in-out infinite alternate;
+	-moz-animation: glow 1s ease-in-out infinite alternate;
+	animation: glow 1s ease-in-out infinite alternate;
+
+	text-shadow: 0 0 0 #1eff00;
+	text-shadow: 0 0 0 var(--glow-color-2);
+}
+
+.glow2 {
 	-webkit-animation: glow2 1s ease-in-out infinite alternate;
 	-moz-animation: glow2 1s ease-in-out infinite alternate;
 	animation: glow2 1s ease-in-out infinite alternate;

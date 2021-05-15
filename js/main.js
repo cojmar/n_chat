@@ -478,10 +478,8 @@
 			};
 			net.render_chat = function(msg, hide) {
 				if (msg) {
-					net.chat_buffer.push(msg)
+					net.chat_buffer.push(msg);
 					net.output_div.append(net.chat_buffer.slice(-1));
-
-
 
 					setTimeout(function() {
 						// noinspection JSUnresolvedFunction
@@ -496,17 +494,14 @@
 					}, hide ? hide : 0);
 				}
 				var output = net.output_div.get(0);
-				var max_lines = Math.floor((net.output_div.height() * 7) / 100) * 2
-
-
-
+				var max_lines = Math.floor((net.output_div.height() * 7) / 100) * 2;
 
 				//if (output.scrollTop + output.offsetHeight > output.scrollHeight - 200) {
 				if (net.lock_scroll) {
 					output.scrollTop = output.scrollHeight;
 					if (net.output_div.children().length > max_lines) {
 						for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
-							net.output_div.children(i).get(0).remove()
+							$(net.output_div.children(i).get(0)).remove();
 						}
 					}
 				}
@@ -552,6 +547,7 @@
 
 			};
 
+			// noinspection DuplicatedCode
 			net.send_input = function() {
 				var is_admin = false;
 
@@ -936,7 +932,7 @@
 										if (Array.isArray(net.room_info.data.admins)) {
 											if (net.room_info.data.admins.length > 0) {
 												if (net.room_info.data.admins.indexOf(u) !== -1) {
-													glow = 'class="glow"';
+													glow = 'class="' + (!$sys.browser.isIE ? 'glow2' : 'glow') + '"';
 												}
 											}
 										}
@@ -979,13 +975,13 @@
 				} else {
 					net.admins = [];
 				}
-				net.render_users()
 
+				net.render_users();
 
-
-				net.chat_buffer = []
-				net.lock_scroll = true
+				net.chat_buffer = [];
+				net.lock_scroll = true;
 				net.output_div.html('');
+				// noinspection JSUnresolvedVariable
 				var users_online = Object.keys(net.room_info.users).length;
 				var room = net.room_info.name;
 				net.log('You are now talking in ' + net.room_info.name + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
@@ -1006,7 +1002,7 @@
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
-						$('#client_room_users > div').removeClass('glow');
+						$('#client_room_users > div').removeClass('glow glow2');
 
 						if (net.admins.length !== JSON.parse(JSON.stringify(net.room_info.data.admins)).length) {
 							net.admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
@@ -1017,7 +1013,7 @@
 										// noinspection JSUnfilteredForInLoop
 										if (typeof net.admins[a2] !== 'undefined') {
 											// noinspection JSUnfilteredForInLoop
-											$('#room_user_' + net.admins[a2]).css('color', '#4c4c4c').addClass('glow');
+											$('#room_user_' + net.admins[a2]).css('color', '#4c4c4c').addClass(!$sys.browser.isIE ? 'glow2' : 'glow');
 										}
 									}
 								}
@@ -1042,55 +1038,8 @@
 					// noinspection JSUnresolvedVariable
 					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				}
-				net.render_users()
-				return
-				var color = net.colors[3];
-				var glow = '';
 
-				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
-				if (typeof net.room_info !== 'undefined') {
-					// noinspection JSUnresolvedVariable
-					var room_user = net.room_info.users[data.user] || false;
-					// noinspection JSUnresolvedVariable,DuplicatedCode
-					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
-						// noinspection JSUnresolvedVariable
-						if (room_user.info.present.items[room_user.info.present.item_index].color) {
-							// noinspection JSUnresolvedVariable
-							color = room_user.info.present.items[room_user.info.present.item_index].color;
-						}
-					}
-
-					// noinspection JSUnresolvedVariable
-					var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
-					var div = 50;
-					var curPoints = (XP <= 0 ? 1 : XP) / div;
-					var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
-					var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
-					var pointsRequired = pointsNextLevel - curPoints;
-					// noinspection JSUnusedAssignment
-					var timeRequired = '∞';
-
-					try {
-						timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
-					} catch (e) {
-						timeRequired = '∞';
-					}
-
-					if (typeof net.room_info.data !== 'undefined') {
-						if (typeof net.room_info.data.admins !== 'undefined') {
-							if (Array.isArray(net.room_info.data.admins)) {
-								if (net.room_info.data.admins.length > 0) {
-									if (net.room_info.data.admins.indexOf(data.data.info.user) !== -1) {
-										glow = 'class="glow"'
-									}
-								}
-							}
-						}
-					}
-				}
-
-				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.render_users();
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1102,19 +1051,11 @@
 					// noinspection JSUnresolvedVariable
 					if (net.room_info.users[data.user]) {
 						// noinspection JSUnresolvedVariable
-						delete net.room_info.users[data.user]
+						delete net.room_info.users[data.user];
 					}
 				}
-				net.render_users()
-				return
-				var $el = $('#room_user_' + data.user);
 
-				setTimeout(function() {
-					// noinspection JSUnresolvedFunction,JSValidateTypes
-					$el.slideUp(200, function() {
-						$(this).remove();
-					});
-				}, 1000);
+				net.render_users();
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -1156,7 +1097,7 @@
 							if (Array.isArray(net.room_info.data.admins)) {
 								if (net.room_info.data.admins.length > 0) {
 									if (net.room_info.data.admins.indexOf(data.user) !== -1) {
-										glow = 'class="glow"';
+										glow = 'class="' + (!$sys.browser.isIE ? 'glow2' : 'glow') + '"';
 									}
 								}
 							}
@@ -1229,7 +1170,7 @@
 
 							if (present.color) {
 								// noinspection JSJQueryEfficiency
-								$('#room_user_' + data.user).css('color', $('#room_user_' + data.user).hasClass('glow') ? '#4c4c4c' : present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
+								$('#room_user_' + data.user).css('color', $('#room_user_' + data.user).hasClass('glow') || $('#room_user_' + data.user).hasClass('glow2') ? '#4c4c4c' : present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
 							}
 						}
 
@@ -1269,6 +1210,7 @@
 				});
 
 				net.rooms = objSorted;
+
 				net.render_room_select(function() {
 					// noinspection JSUnresolvedFunction
 					$('#client_rooms-button').css('display', 'block');
@@ -1287,7 +1229,6 @@
 			net.socket.on('present.info', function(data) {
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
-
 						var html = '';
 						// noinspection JSUnresolvedVariable
 						if (data.claimable) {
@@ -1300,6 +1241,7 @@
 
 						var i = 1;
 						var last_color = '#000000';
+
 						for (var item in data.items) {
 							// noinspection JSUnfilteredForInLoop
 							html += '<a href="javascript:;" class="color" style="color: ' + data.items[item].color + '; text-decoration: none;" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
@@ -1365,17 +1307,17 @@
 				net.text_input.get(0).focus();
 			});
 
-			var chat_ui = '<div id="client_container" class="client_decoration">' +
-				'<div id="client_output" class="client_decoration client_left"></div>' +
-				'<div id="client_users" class="client_right">' +
-				'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-				'<div id="client_room_users" class="client_decoration"></div>' +
-				'</div>' +
-				'<div id="client_color_popover"></div>' +
-				'<div id="client_input" class="client_decoration">' +
-				'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-				'</div>' +
-				'</div>';
+			var chat_ui =	'<div id="client_container" class="client_decoration">' +
+								'<div id="client_output" class="client_decoration client_left"></div>' +
+								'<div id="client_users" class="client_right">' +
+									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+									'<div id="client_room_users" class="client_decoration"></div>' +
+								'</div>' +
+								'<div id="client_color_popover"></div>' +
+								'<div id="client_input" class="client_decoration">' +
+									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+								'</div>' +
+							'</div>';
 
 			$body.append(chat_ui);
 
@@ -1386,31 +1328,28 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
-			net.output_div.on('scroll ', function(e) {
-
+			net.output_div.on('scroll ', function() {
 				var output = net.output_div.get(0);
-
-
-
-
-
 				net.lock_scroll = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight;
 
 				if (net.output_div.get(0).scrollTop === 0) {
-					var stop = net.chat_buffer.length - net.output_div.children().length
+					var stop = net.chat_buffer.length - net.output_div.children().length;
 
 					if (stop > 0) {
+						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2);
 
-						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2)
-						if (start < 0) start = 0;
-
-						var add_buffer = ''
-						for (var i = start; i < stop; i++) {
-							add_buffer += '\n' + net.chat_buffer[i]
+						if (start < 0) {
+							start = 0;
 						}
-						net.output_div.prepend(add_buffer)
-						net.output_div.get(0).scrollTop += stop - start
 
+						var add_buffer = '';
+
+						for (var i = start; i < stop; i++) {
+							add_buffer += '\n' + net.chat_buffer[i];
+						}
+
+						net.output_div.prepend(add_buffer);
+						net.output_div.get(0).scrollTop += stop - start;
 					}
 				}
 			})
