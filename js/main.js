@@ -951,6 +951,11 @@
 					// noinspection JSUnresolvedFunction
 					net.client_room_users.html(users_list);
 					// noinspection JSUnresolvedFunction
+					net.client_room_name.text(room);
+					// noinspection JSUnresolvedVariable
+					net.client_room_online.text(users_online);
+					// noinspection JSUnresolvedFunction
+
 				}, 500)
 			};
 
@@ -976,16 +981,13 @@
 				net.render_users()
 
 
-				net.client_room_name.text(room);
-				// noinspection JSUnresolvedVariable
-				net.client_room_online.text(users_online);
-				// noinspection JSUnresolvedFunction
+
 				net.chat_buffer = []
 				net.lock_scroll = true
 				net.output_div.html('');
-
-
-				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
+				var users_online = Object.keys(net.room_info.users).length;
+				var room = net.room_info.name;
+				net.log('You are now talking in ' + net.room_info.name + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
 
 				if (room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
