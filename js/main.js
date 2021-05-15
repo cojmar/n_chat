@@ -855,108 +855,109 @@
 			});
 
 			net.render_users = function() {
-				if (net.render_users_timeout) clearTimeout(net.render_users_timeout)
-				net.render_users_timeout = setTimeout(function() {
-					// noinspection JSUnresolvedVariable
-					var users_online = Object.keys(net.room_info.users).length;
-					// noinspection JSUnresolvedVariable
-					var me = net.room_info.me;
-					var room = net.room_info.name;
-					var users_array_default = [];
-					var users_array_nick = [];
-					var users_list = '';
 
-					// noinspection JSUnresolvedVariable
-					for (var users in net.room_info.users) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var user = net.room_info.users[users].info.user;
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var nick = net.room_info.users[users].info.nick;
+				if (!net.render_users_timeout)
+					net.render_users_timeout = setTimeout(function() {
+						// noinspection JSUnresolvedVariable
+						var users_online = Object.keys(net.room_info.users).length;
+						// noinspection JSUnresolvedVariable
+						var me = net.room_info.me;
+						var room = net.room_info.name;
+						var users_array_default = [];
+						var users_array_nick = [];
+						var users_list = '';
 
-						if (net.is_default_nick(nick)) {
-							users_array_default.push([user, nick]);
-						} else {
-							users_array_nick.push([user, nick]);
+						// noinspection JSUnresolvedVariable
+						for (var users in net.room_info.users) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var user = net.room_info.users[users].info.user;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var nick = net.room_info.users[users].info.nick;
+
+							if (net.is_default_nick(nick)) {
+								users_array_default.push([user, nick]);
+							} else {
+								users_array_nick.push([user, nick]);
+							}
 						}
-					}
 
-					users_array_nick.sort(function(a, b) {
-						return a[1].localeCompare(b[1]);
-					});
+						users_array_nick.sort(function(a, b) {
+							return a[1].localeCompare(b[1]);
+						});
 
-					users_array_default.sort();
+						users_array_default.sort();
 
-					var users_obj = {};
+						var users_obj = {};
 
-					users_array_nick.forEach(function(item) {
-						users_obj[item[0]] = net.clean_nicknames(item[1]);
-					});
+						users_array_nick.forEach(function(item) {
+							users_obj[item[0]] = net.clean_nicknames(item[1]);
+						});
 
-					users_array_default.forEach(function(item) {
-						users_obj[item[0]] = net.friendly_name(item[1]);
-					});
+						users_array_default.forEach(function(item) {
+							users_obj[item[0]] = net.friendly_name(item[1]);
+						});
 
-					// noinspection JSUnresolvedVariable
-					for (var u in users_obj) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var color = u !== me ? net.colors[3] : net.colors[1];
-						var glow = '';
+						// noinspection JSUnresolvedVariable
+						for (var u in users_obj) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var color = u !== me ? net.colors[3] : net.colors[1];
+							var glow = '';
 
-						// noinspection DuplicatedCode
-						if (typeof net.room_info !== 'undefined') {
-							// noinspection JSUnresolvedVariable
-							var room_user = net.room_info.users[u] || false;
-							// noinspection JSUnresolvedVariable,DuplicatedCode
-							if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
+							// noinspection DuplicatedCode
+							if (typeof net.room_info !== 'undefined') {
 								// noinspection JSUnresolvedVariable
-								if (room_user.info.present.items[room_user.info.present.item_index].color) {
+								var room_user = net.room_info.users[u] || false;
+								// noinspection JSUnresolvedVariable,DuplicatedCode
+								if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
 									// noinspection JSUnresolvedVariable
-									color = room_user.info.present.items[room_user.info.present.item_index].color;
+									if (room_user.info.present.items[room_user.info.present.item_index].color) {
+										// noinspection JSUnresolvedVariable
+										color = room_user.info.present.items[room_user.info.present.item_index].color;
+									}
 								}
-							}
 
-							// noinspection JSUnresolvedVariable
-							var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
-							var div = 50;
-							var curPoints = (XP <= 0 ? 1 : XP) / div;
-							var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
-							var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
-							var pointsRequired = pointsNextLevel - curPoints;
-							var timeRequired = '∞';
+								// noinspection JSUnresolvedVariable
+								var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
+								var div = 50;
+								var curPoints = (XP <= 0 ? 1 : XP) / div;
+								var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
+								var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
+								var pointsRequired = pointsNextLevel - curPoints;
+								var timeRequired = '∞';
 
-							try {
-								timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
-							} catch (e) {
-								timeRequired = '∞';
-							}
+								try {
+									timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
+								} catch (e) {
+									timeRequired = '∞';
+								}
 
-							if (typeof net.room_info.data !== 'undefined') {
-								if (typeof net.room_info.data.admins !== 'undefined') {
-									if (Array.isArray(net.room_info.data.admins)) {
-										if (net.room_info.data.admins.length > 0) {
-											if (net.room_info.data.admins.indexOf(u) !== -1) {
-												glow = 'class="glow"';
+								if (typeof net.room_info.data !== 'undefined') {
+									if (typeof net.room_info.data.admins !== 'undefined') {
+										if (Array.isArray(net.room_info.data.admins)) {
+											if (net.room_info.data.admins.length > 0) {
+												if (net.room_info.data.admins.indexOf(u) !== -1) {
+													glow = 'class="glow"';
+												}
 											}
 										}
 									}
 								}
 							}
+
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + users_obj[u] + '</div>';
 						}
-
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + users_obj[u] + '</div>';
-					}
-					// noinspection JSUnresolvedVariable
-					net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
-					// noinspection JSUnresolvedFunction
-					net.client_room_users.html(users_list);
-					// noinspection JSUnresolvedFunction
-					net.client_room_name.text(room);
-					// noinspection JSUnresolvedVariable
-					net.client_room_online.text(users_online);
-					// noinspection JSUnresolvedFunction
-
-				}, 500)
+						// noinspection JSUnresolvedVariable
+						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
+						// noinspection JSUnresolvedFunction
+						net.client_room_users.html(users_list);
+						// noinspection JSUnresolvedFunction
+						net.client_room_name.text(room);
+						// noinspection JSUnresolvedVariable
+						net.client_room_online.text(users_online);
+						// noinspection JSUnresolvedFunction
+						net.render_users_timeout = false
+					}, 1000)
 			};
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
