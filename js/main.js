@@ -990,11 +990,7 @@
 				if (room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
-
-				// noinspection JSUnresolvedVariable
-
 			});
-
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
@@ -1039,8 +1035,6 @@
 					// noinspection JSUnresolvedVariable
 					net.render_users();
 				}
-
-
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1054,9 +1048,9 @@
 						// noinspection JSUnresolvedVariable
 						delete net.room_info.users[data.user];
 					}
+
 					net.render_users();
 				}
-
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -1308,17 +1302,17 @@
 				net.text_input.get(0).focus();
 			});
 
-			var chat_ui = '<div id="client_container" class="client_decoration">' +
-				'<div id="client_output" class="client_decoration client_left"></div>' +
-				'<div id="client_users" class="client_right">' +
-				'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-				'<div id="client_room_users" class="client_decoration"></div>' +
-				'</div>' +
-				'<div id="client_color_popover"></div>' +
-				'<div id="client_input" class="client_decoration">' +
-				'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-				'</div>' +
-				'</div>';
+			var chat_ui =	'<div id="client_container" class="client_decoration">' +
+								'<div id="client_output" class="client_decoration client_left"></div>' +
+								'<div id="client_users" class="client_right">' +
+									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+									'<div id="client_room_users" class="client_decoration"></div>' +
+								'</div>' +
+								'<div id="client_color_popover"></div>' +
+								'<div id="client_input" class="client_decoration">' +
+									'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+								'</div>' +
+							'</div>';
 
 			$body.append(chat_ui);
 
