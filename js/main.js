@@ -954,6 +954,10 @@
 						// noinspection JSUnresolvedFunction
 						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
 						net.render_users_timeout = false
+						setTimeout(function() {
+							net.render_users()
+						}, 10000)
+
 					}, 1000)
 			};
 
