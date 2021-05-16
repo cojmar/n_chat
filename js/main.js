@@ -205,6 +205,22 @@
 			net.lock_scroll = true;
 			net.use_animated_emoticons = true;
 
+			net.is_admin = function() {
+				if (typeof net.room_info !== 'undefined') {
+					if (typeof net.room_info.data !== 'undefined' && typeof net.room_info.me !== 'undefined') {
+						if (typeof net.room_info.data.admins !== 'undefined') {
+							if (Array.isArray(net.room_info.data.admins)) {
+								if (~net.room_info.data.admins.indexOf(net.room_info.me)) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+
+				return false;
+			}
+
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
 
@@ -430,13 +446,18 @@
 
 			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
-				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
+				var subject = str;
 
-				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_spam(net.remove_duplicates(net.remove_numbers(subject)));
+				if (!net.is_admin()) {
+					// noinspection JSUnresolvedFunction
+					subject = net.remove_zalgo(net.normalize(str, normalize_types));
+
+					if (~net.client_room_name.text().indexOf('Emupedia')) {
+						subject = net.remove_spam(net.remove_duplicates(net.remove_numbers(subject)));
+					}
 				}
 
+				// noinspection DuplicatedCode
 				if (typeof emoji === 'undefined') {
 					if (net.use_animated_emoticons) {
 						subject = twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
@@ -451,10 +472,12 @@
 					}
 				}
 
-				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(subject);
-				} else {
-					subject = net.remove_combining(net.remove_invisible(subject));
+				if (!net.is_admin()) {
+					if (~net.client_room_name.text().indexOf('Emupedia')) {
+						subject = net.remove_profanity(subject);
+					} else {
+						subject = net.remove_combining(net.remove_invisible(subject));
+					}
 				}
 
 				return subject
@@ -462,13 +485,18 @@
 
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, emoji) {
-				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(str);
+				var subject = str;
 
-				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_spam(net.remove_duplicates(net.normalize(subject, normalize_types)));
+				if (!net.is_admin()) {
+					// noinspection JSUnresolvedFunction
+					subject = net.remove_zalgo(str);
+
+					if (~net.client_room_name.text().indexOf('Emupedia')) {
+						subject = net.remove_spam(net.remove_duplicates(net.normalize(subject, normalize_types)));
+					}
 				}
 
+				// noinspection DuplicatedCode
 				if (typeof emoji === 'undefined') {
 					if (net.use_animated_emoticons) {
 						subject = twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
@@ -483,10 +511,12 @@
 					}
 				}
 
-				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(subject);
-				} else {
-					subject = net.remove_combining(net.remove_invisible(subject));
+				if (!net.is_admin()) {
+					if (~net.client_room_name.text().indexOf('Emupedia')) {
+						subject = net.remove_profanity(subject);
+					} else {
+						subject = net.remove_combining(net.remove_invisible(subject));
+					}
 				}
 
 				return subject;
@@ -509,6 +539,7 @@
 						});
 					}, hide ? hide : 0);
 				}
+
 				var output = net.output_div.get(0);
 				var max_lines = Math.floor((net.output_div.height() * 7) / 100) * 2;
 
@@ -559,28 +590,16 @@
 				].join('');
 
 				var msg_class = typeof hide !== 'undefined' ? (hide > 0 ? 'net_msg_hide' : 'net_msg_hide_last') : 'net_msg';
-				net.render_chat('<div class="' + msg_class + '" style="' + color + '">' + time_stamp + txt + '</div>', hide)
 
+				net.render_chat('<div class="' + msg_class + '" style="' + color + '">' + time_stamp + txt + '</div>', hide);
 			};
 
 			// noinspection DuplicatedCode
 			net.send_input = function() {
-				var is_admin = false;
-
-				if (typeof net.room_info.data !== 'undefined' && typeof net.room_info.me !== 'undefined') {
-					if (typeof net.room_info.data.admins !== 'undefined') {
-						if (Array.isArray(net.room_info.data.admins)) {
-							if (net.room_info.data.admins.indexOf(net.room_info.me) !== -1) {
-								is_admin = true;
-							}
-						}
-					}
-				}
-
 				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
 
-				if (msg.length > 159 && !is_admin) {
+				if (msg.length > 159 && !net.is_admin()) {
 					msg = msg.substring(0, 159)
 				}
 
@@ -633,7 +652,7 @@
 					net.send_cmd(data.cmd, data.data);
 					net.text_input.val('');
 					return;
-				} else if (~net.client_room_name.text().indexOf('Emupedia') && !is_admin) {
+				} else if (~net.client_room_name.text().indexOf('Emupedia') && !net.is_admin()) {
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
@@ -649,7 +668,7 @@
 				var spam_time = net.last_send ? timestamp - net.last_send < 20 : false
 
 				// noinspection DuplicatedCode
-				if (net.last_msg && !is_admin && spam_time) {
+				if (net.last_msg && !net.is_admin() && spam_time) {
 					if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
@@ -657,7 +676,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (net.last_last_msg && !is_admin && spam_time) {
+				if (net.last_last_msg && !net.is_admin() && spam_time) {
 					if (net.last_last_msg === msg || ((~msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
@@ -665,7 +684,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (net.last_last_last_msg && !is_admin && spam_time) {
+				if (net.last_last_last_msg && !net.is_admin() && spam_time) {
 					if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
@@ -676,7 +695,7 @@
 					net.spam_cap = 1;
 				}
 
-				if (net.last_send && !is_admin) {
+				if (net.last_send && !net.is_admin()) {
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
@@ -920,7 +939,7 @@
 								// noinspection JSUnresolvedVariable
 								var room_user = net.room_info.users[u] || false;
 								// noinspection JSUnresolvedVariable,DuplicatedCode
-								if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
+								if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index]) {
 									// noinspection JSUnresolvedVariable
 									if (room_user.info.present.items[room_user.info.present.item_index].color) {
 										// noinspection JSUnresolvedVariable
@@ -947,7 +966,7 @@
 									if (typeof net.room_info.data.admins !== 'undefined') {
 										if (Array.isArray(net.room_info.data.admins)) {
 											if (net.room_info.data.admins.length > 0) {
-												if (net.room_info.data.admins.indexOf(u) !== -1) {
+												if (~net.room_info.data.admins.indexOf(u)) {
 													glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 												}
 											}
@@ -1099,7 +1118,7 @@
 					// noinspection JSUnresolvedVariable
 					var room_user = net.room_info.users[data.user] || false;
 					// noinspection JSUnresolvedVariable,DuplicatedCode
-					if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
+					if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index]) {
 						// noinspection JSUnresolvedVariable
 						if (room_user.info.present.items[room_user.info.present.item_index].color) {
 							// noinspection JSUnresolvedVariable
@@ -1111,7 +1130,7 @@
 						if (typeof net.room_info.data.admins !== 'undefined') {
 							if (Array.isArray(net.room_info.data.admins)) {
 								if (net.room_info.data.admins.length > 0) {
-									if (net.room_info.data.admins.indexOf(data.user) !== -1) {
+									if (~net.room_info.data.admins.indexOf(data.user)) {
 										glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 									}
 								}
@@ -1140,7 +1159,7 @@
 					timeRequired = '∞';
 				}
 
-				net.log('<span title="User Level ' + curLevel + ', Next Level in ' + timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + (glow ? data.msg : net.clean(data.msg)));
+				net.log('<span title="User Level ' + curLevel + ', Next Level in ' + timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1179,7 +1198,7 @@
 						}
 
 						// noinspection JSUnresolvedVariable
-						if (data.info.present && data.info.present.item_index !== -1) {
+						if (data.info.present && ~data.info.present.item_index) {
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 							var present = data.info.present.items[data.info.present.item_index]
 
@@ -1399,20 +1418,7 @@
 					if (typeof e.originalEvent.clipboardData.getData === 'function') {
 						var paste = e.originalEvent.clipboardData.getData('text');
 
-						var is_admin = false;
-
-						if (typeof net.room_info.data !== 'undefined' && typeof net.room_info.me !== 'undefined') {
-							if (typeof net.room_info.data.admins !== 'undefined') {
-								if (Array.isArray(net.room_info.data.admins)) {
-									if (net.room_info.data.admins.indexOf(net.room_info.me) !== -1) {
-										// noinspection JSUnusedAssignment
-										is_admin = true;
-									}
-								}
-							}
-						}
-
-						if (!is_admin && (net.text_input.val().length + paste.length > 60)) {
+						if (!net.is_admin() && (net.text_input.val().length + paste.length > 60)) {
 							e.preventDefault();
 							return false;
 						}
