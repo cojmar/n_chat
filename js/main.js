@@ -201,8 +201,9 @@
 			}
 
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
-			net.chat_buffer = []
-			net.lock_scroll = true
+			net.chat_buffer = [];
+			net.lock_scroll = true;
+			net.use_animated_emoticons = true;
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -216,7 +217,7 @@
 					b = parseInt(hex.substr(4, 2), 16);
 
 				return '#' + ((0 | (1 << 8) + r + (256 - r) * percent / 100).toString(16)).substr(1) + ((0 | (1 << 8) + g + (256 - g) * percent / 100).toString(16)).substr(1) + ((0 | (1 << 8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
-			}
+			};
 
 			net.random_integer = function(rand, min, max) {
 				return Math.floor(rand * (max - min + 1) + min)
@@ -224,11 +225,11 @@
 
 			net.random_pickone = function(rand, arr) {
 				return arr[net.random_integer(rand, 0, arr.length - 1)]
-			}
+			};
 
 			net.is_default_nick = function(nick) {
 				return !isNaN(parseInt(nick)) && nick.indexOf('-') === 10;
-			}
+			};
 
 			net.friendly_name = function(seed) {
 				var rand = seedrandom(seed);
@@ -244,7 +245,7 @@
 				return name.toLowerCase().split(' ').map(function(word) {
 					return word.charAt(0).toUpperCase() + word.slice(1);
 				}).join(' ');
-			}
+			};
 
 			net.str_replace = function(search, replace, subject, countObj) {
 				var i = 0;
@@ -356,7 +357,7 @@
 
 			net.remove_combining = function(str) {
 				return str.replace(/[\u0336\u0337]/g);
-			}
+			};
 
 			net.remove_numbers = function(str) {
 				return str.replace(/[0-9]/g, '').replace(/\ud83d\udd1f/g, '');
@@ -425,7 +426,7 @@
 				}
 
 				return str.replace(/  +/g, ' ').trim();
-			}
+			};
 
 			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
@@ -437,10 +438,17 @@
 				}
 
 				if (typeof emoji === 'undefined') {
-					subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
-						folder: 'svg',
-						ext: '.svg'
-					});
+					if (net.use_animated_emoticons) {
+						subject = twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+							folder: 'svg',
+							ext: '.svg'
+						});
+					} else {
+						subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+							folder: 'svg',
+							ext: '.svg'
+						});
+					}
 				}
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
@@ -462,10 +470,17 @@
 				}
 
 				if (typeof emoji === 'undefined') {
-					subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
-						folder: 'svg',
-						ext: '.svg'
-					});
+					if (net.use_animated_emoticons) {
+						subject = twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+							folder: 'svg',
+							ext: '.svg'
+						});
+					} else {
+						subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+							folder: 'svg',
+							ext: '.svg'
+						});
+					}
 				}
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
@@ -476,6 +491,7 @@
 
 				return subject;
 			};
+
 			net.render_chat = function(msg, hide) {
 				if (msg) {
 					net.chat_buffer.push(msg);
@@ -505,7 +521,7 @@
 						}
 					}
 				}
-			}
+			};
 
 			net.log = function(txt, color, hide) {
 				if (typeof color === 'undefined') {
@@ -760,7 +776,7 @@
 					timeout: ajax_retry_timeout,
 					statusCodes: [402, 403, 404, 405, 406, 407, 408, 410, 411, 412, 413, 414, 415, 416, 417, 501, 503, 504, 505]
 				});
-			}
+			};
 
 			net.render_room_select = function(cb) {
 				var html = '';
@@ -789,7 +805,7 @@
 				if (typeof cb === 'function') {
 					cb();
 				}
-			}
+			};
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,JSUnusedLocalSymbols
 			net.socket.on('connect', function(data) {
@@ -1186,6 +1202,7 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				var sortable = [];
+
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
 					if (data[room] > 0) {
@@ -1347,8 +1364,7 @@
 						net.output_div.get(0).scrollTop += stop - start;
 					}
 				}
-			})
-
+			});
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
 			net.client_rooms = $('#client_rooms');
@@ -1403,7 +1419,7 @@
 			// noinspection JSUnresolvedFunction
 			net.text_input_button.off('click').on('click', function() {
 				net.send_input();
-			})
+			});
 
 			picker.on('emoji', function(emoji) {
 				net.text_input.get(0).value += emoji;
