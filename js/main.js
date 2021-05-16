@@ -932,7 +932,7 @@
 										if (Array.isArray(net.room_info.data.admins)) {
 											if (net.room_info.data.admins.length > 0) {
 												if (net.room_info.data.admins.indexOf(u) !== -1) {
-													glow = 'class="' + (!$sys.browser.isIE ? 'glow2' : 'glow') + '"';
+													glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 												}
 											}
 										}
@@ -1014,7 +1014,7 @@
 										// noinspection JSUnfilteredForInLoop
 										if (typeof net.admins[a2] !== 'undefined') {
 											// noinspection JSUnfilteredForInLoop
-											$('#room_user_' + net.admins[a2]).css('color', '#4c4c4c').addClass(!$sys.browser.isIE ? 'glow2' : 'glow');
+											$('#room_user_' + net.admins[a2]).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
 										}
 									}
 								}
@@ -1098,7 +1098,7 @@
 							if (Array.isArray(net.room_info.data.admins)) {
 								if (net.room_info.data.admins.length > 0) {
 									if (net.room_info.data.admins.indexOf(data.user) !== -1) {
-										glow = 'class="' + (!$sys.browser.isIE ? 'glow2' : 'glow') + '"';
+										glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 									}
 								}
 							}
