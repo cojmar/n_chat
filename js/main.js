@@ -1358,9 +1358,9 @@
 					if (typeof data.items !== 'undefined') {
 						var html = [
 							//"<span style=\"font-size:20px;font-weight: 900;color:#000\">Settings</span><br><hr>",
-							"<input style=\"margin-left:-30px;\" id=\"use_colors\" type=\"checkbox\" " + ((net.use_colors) ? 'checked' : '') + "> Show colors<br>",
-							"<input style=\"margin-left:-5px;\" id=\"use_animated_emoticons\" type=\"checkbox\" " + ((net.use_animated_emoticons) ? 'checked' : '') + "> Animate emojis<br>",
-							"<input style=\"margin-left:-7px;\" id=\"refresh_users\" type=\"checkbox\" " + ((net.refresh_users) ? 'checked' : '') + "> Auto sort users<br>",
+							"<label><input style=\"margin-left:-30px;\" id=\"use_colors\" type=\"checkbox\" " + ((net.use_colors) ? 'checked' : '') + "> Show colors</label><br>",
+							"<label><input style=\"margin-left:-5px;\" id=\"use_animated_emoticons\" type=\"checkbox\" " + ((net.use_animated_emoticons) ? 'checked' : '') + "> Animate emojis</label><br>",
+							"<label><input style=\"margin-left:-7px;\" id=\"refresh_users\" type=\"checkbox\" " + ((net.refresh_users) ? 'checked' : '') + "> Auto sort users</label><br>",
 						].join('') + "<hr />";
 						// noinspection JSUnresolvedVariable
 						if (data.claimable) {
