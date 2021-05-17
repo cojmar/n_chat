@@ -662,10 +662,21 @@
 					}
 
 					if (data.cmd === 'emoji') {
-						net.use_animated_emoticons = !net.use_animated_emoticons
-						simplestorage.set('refresh_users', net.refresh_users);
+						net.use_animated_emoticons = !net.use_animated_emoticons;
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
-						data.cmd = 'room_info'
+						net.render_users(1)
+					}
+
+					if (data.cmd === 'colors') {
+						net.use_colors = !net.use_colors;
+						simplestorage.set('use_colors', net.use_colors);
+						net.render_users(1)
+					}
+
+					if (data.cmd === 'users') {
+						net.refresh_users = !net.refresh_users;
+						simplestorage.set('refresh_users', net.refresh_users);
+						net.render_users(1)
 					}
 
 					if (data.cmd === 'low') {
@@ -1342,12 +1353,17 @@
 			net.socket.on('present.info', function(data) {
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
-						var html = '';
+						var html = [
+							"<span style=\"font-size:20px;font-weight: 900;color:#000\">Settings</span><br><hr>",
+							"<input style=\"margin-left:-30px;\" id=\"use_colors\" type=\"checkbox\" " + ((net.use_colors) ? 'checked' : '') + "> Show colors<br>",
+							"<input style=\"margin-left:-5px;\" id=\"use_animated_emoticons\" type=\"checkbox\" " + ((net.use_animated_emoticons) ? 'checked' : '') + "> Animate emojis<br>",
+							"<input style=\"margin-left:-7px;\" id=\"refresh_users\" type=\"checkbox\" " + ((net.refresh_users) ? 'checked' : '') + "> Auto sort users<br>",
+						].join('') + "<hr />";
 						// noinspection JSUnresolvedVariable
 						if (data.claimable) {
 							// noinspection JSUnresolvedVariable
-							var label = (data.custom_color) ? '<input type="color" id="custom_color" /> Claim a CUSTOM color! ' : '🎁 Click here to claim a new color!';
-							html += '<a href="javascript:;" class="color-claim" style="color: orange; text-decoration: none;">' + label + ' 🎁</a><hr />';
+							var label = (data.custom_color) ? '<input type="color" id="custom_color" /> New color! ' : '🎁 Click here to claim a new color!';
+							html += '<a href="javascript:;" class="color-claim" style="color: orange; text-decoration: none;">' + label + '</a><hr />';
 						}
 
 						//html += '<a href="javascript:;" class="color" style="color: #4c4c4c; text-decoration: none;" data-index="0" data-color="#4c4c4c">Default Color</a>';
@@ -1357,13 +1373,30 @@
 
 						for (var item in data.items) {
 							// noinspection JSUnfilteredForInLoop
-							html += '<a href="javascript:;" class="color" style="color: ' + data.items[item].color + '; text-decoration: none;" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
+
+							html += '<a href="javascript:;" class="color" style="color: ' + ((i - 1) === data.item_index ? '#ffffff' : data.items[item].color) + '; text-decoration:none; ' + ((i - 1) === data.item_index ? 'background-color:' + data.items[item].color : '') + '" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
 							i++;
 							// noinspection JSUnfilteredForInLoop
 							last_color = data.items[item].color;
 						}
-
+						html += "<br clear=\"all\"/>"
 						net.color_popover.html(html);
+
+						$('#use_colors').off('change').on('change', function() {
+							net.use_colors = $(this).prop('checked')
+							simplestorage.set('use_colors', net.use_colors);
+							net.render_users(1)
+						})
+						$('#use_animated_emoticons').off('change').on('change', function() {
+							net.use_animated_emoticons = $(this).prop('checked')
+							simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
+							net.render_users(1)
+						})
+						$('#refresh_users').off('change').on('change', function() {
+							net.refresh_users = $(this).prop('checked')
+							simplestorage.set('refresh_users', net.refresh_users);
+							net.render_users(1)
+						})
 
 						// noinspection JSUnresolvedVariable
 						if (data.claimable && data.custom_color) {
@@ -1384,10 +1417,12 @@
 						net.color_popover.css('visibility', 'visible');
 						net.color_popover.addClass('show');
 					} else {
+						/*
 						net.color_popover.removeClass('show');
 						setTimeout(function() {
 							net.color_popover.css('visibility', 'hidden');
 						}, 200);
+						*/
 					}
 				}
 			});
@@ -1428,7 +1463,7 @@
 				'</div>' +
 				'<div id="client_color_popover"></div>' +
 				'<div id="client_input" class="client_decoration">' +
-				'<button id="client_emoticons">😀</button><button id="client_colors">🎨</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+				'<button id="client_emoticons">😀</button><button id="client_colors">⚙️</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
 				'</div>' +
 				'</div>';
 
