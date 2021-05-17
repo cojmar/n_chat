@@ -205,8 +205,10 @@
 			net.lock_scroll = true;
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
 			net.refresh_users = simplestorage.get('refresh_users');
+			net.use_colors = simplestorage.get('use_colors');
 			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true
+			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true
 
 			net.is_admin = function() {
 				if (typeof net.room_info !== 'undefined') {
@@ -669,26 +671,32 @@
 					if (data.cmd === 'low') {
 						net.refresh_users = false
 						net.use_animated_emoticons = false
+						net.use_colors = false
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
-						data.cmd = 'room_info'
+						simplestorage.set('use_colors', net.use_colors);
+						//data.cmd = 'room_info'
 					}
 
 					if (data.cmd === 'medium') {
 						net.refresh_users = true
 						net.use_animated_emoticons = false
+						net.use_colors = true
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
-						data.cmd = 'room_info'
+						simplestorage.set('use_colors', net.use_colors);
+						//data.cmd = 'room_info'
 					}
 
 
 					if (data.cmd === 'high') {
 						net.refresh_users = true
 						net.use_animated_emoticons = true
+						net.use_colors = true
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
-						data.cmd = 'room_info'
+						simplestorage.set('use_colors', net.use_colors);
+						//data.cmd = 'room_info'
 					}
 
 
@@ -1007,7 +1015,7 @@
 								// noinspection JSUnresolvedVariable,DuplicatedCode
 								if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index]) {
 									// noinspection JSUnresolvedVariable
-									if (room_user.info.present.items[room_user.info.present.item_index].color) {
+									if (room_user.info.present.items[room_user.info.present.item_index].color && net.use_colors) {
 										// noinspection JSUnresolvedVariable
 										color = room_user.info.present.items[room_user.info.present.item_index].color;
 									}
@@ -1132,7 +1140,7 @@
 				// noinspection JSUnresolvedVariable
 					var room_user = net.room_info.users[data.user] || false;
 				// noinspection JSUnresolvedVariable,DuplicatedCode
-				if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
+				if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index] && net.use_colors) {
 					// noinspection JSUnresolvedVariable
 					if (room_user.info.present.items[room_user.info.present.item_index].color) {
 						// noinspection JSUnresolvedVariable
@@ -1199,7 +1207,7 @@
 					// noinspection JSUnresolvedVariable
 					var room_user = net.room_info.users[data.user] || false;
 					// noinspection JSUnresolvedVariable,DuplicatedCode
-					if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index]) {
+					if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index] && net.use_colors) {
 						// noinspection JSUnresolvedVariable
 						if (room_user.info.present.items[room_user.info.present.item_index].color) {
 							// noinspection JSUnresolvedVariable
@@ -1271,7 +1279,7 @@
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 							var present = data.info.present.items[data.info.present.item_index]
 
-							if (present.color) {
+							if (present.color && net.use_colors) {
 								// noinspection JSJQueryEfficiency
 								$('#room_user_' + data.user).css('color', $('#room_user_' + data.user).hasClass('glow') || $('#room_user_' + data.user).hasClass('glow2') ? '#4c4c4c' : present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
 							}
