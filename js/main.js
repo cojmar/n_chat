@@ -203,8 +203,10 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 			net.chat_buffer = [];
 			net.lock_scroll = true;
-			net.use_animated_emoticons = true;
-			net.refresh_users = true;
+			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
+			net.refresh_users = simplestorage.get('refresh_users');
+			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true
+			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true
 
 			net.is_admin = function() {
 				if (typeof net.room_info !== 'undefined') {
@@ -659,18 +661,24 @@
 
 					if (data.cmd === 'emoji') {
 						net.use_animated_emoticons = !net.use_animated_emoticons
+						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						data.cmd = 'room_info'
 					}
 
 					if (data.cmd === 'low') {
 						net.refresh_users = false
 						net.use_animated_emoticons = false
+						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						data.cmd = 'room_info'
 					}
 
 					if (data.cmd === 'high') {
 						net.refresh_users = true
 						net.use_animated_emoticons = true
+						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						data.cmd = 'room_info'
 					}
 
