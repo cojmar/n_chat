@@ -1102,7 +1102,7 @@
 				if (room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
-				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! if u experience lag type /low command to lower settings or /high to restore them to max quality /medium for optimal', 4);
+				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! If u experience lag try uncheck settings from settings panel', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1354,7 +1354,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							"<span style=\"font-size:20px;font-weight: 900;color:#000\">Settings</span><br><hr>",
+							//"<span style=\"font-size:20px;font-weight: 900;color:#000\">Settings</span><br><hr>",
 							"<input style=\"margin-left:-30px;\" id=\"use_colors\" type=\"checkbox\" " + ((net.use_colors) ? 'checked' : '') + "> Show colors<br>",
 							"<input style=\"margin-left:-5px;\" id=\"use_animated_emoticons\" type=\"checkbox\" " + ((net.use_animated_emoticons) ? 'checked' : '') + "> Animate emojis<br>",
 							"<input style=\"margin-left:-7px;\" id=\"refresh_users\" type=\"checkbox\" " + ((net.refresh_users) ? 'checked' : '') + "> Auto sort users<br>",
