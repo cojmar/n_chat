@@ -204,6 +204,7 @@
 			net.chat_buffer = [];
 			net.lock_scroll = true;
 			net.use_animated_emoticons = false;
+			net.refresh_users = true;
 
 			net.is_admin = function() {
 				if (typeof net.room_info !== 'undefined') {
@@ -661,6 +662,14 @@
 						data.cmd = 'room_info'
 					}
 
+					if (data.cmd === 'low') {
+						net.refresh_users = false
+						net.use_animated_emoticons = false
+						data.cmd = 'room_info'
+					}
+
+
+
 					if (data.cmd === 'room_msg') {
 						return false;
 					}
@@ -918,7 +927,8 @@
 				}
 			});
 
-			net.render_users = function() {
+			net.render_users = function(timeout) {
+				if (!timeout) timeout = 1500
 				if (!net.room_info) return
 				if (!net.render_users_timeout)
 					net.render_users_timeout = setTimeout(function() {
@@ -1012,8 +1022,8 @@
 						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
 						net.render_users_timeout = false
 						if (net.re_render_users_timeout) clearTimeout(net.re_render_users_timeout)
-						net.re_render_users_timeout = setTimeout(function() { net.render_users() }, 9000)
-					}, 1000)
+						if (net.refresh_users) net.re_render_users_timeout = setTimeout(function() { net.render_users() }, 19000)
+					}, timeout)
 			};
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -1036,7 +1046,7 @@
 					net.admins = [];
 				}
 
-				net.render_users();
+				net.render_users(1);
 
 				net.chat_buffer = [];
 				net.lock_scroll = true;
@@ -1083,33 +1093,50 @@
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.user_join', function(data) {
-				// console.log('room.user_join');
-				// console.log(JSON.stringify(data, null, 2));
+				if (!net.room_info) return
+					// noinspection JSUnresolvedVariable
+				net.room_info.users[data.user] = data.data;
+				// noinspection JSUnresolvedVariable
+				net.client_room_online.text(Object.keys(net.room_info.users).length);
+				// noinspection JSUnresolvedVariable
 
-				if (net.room_info) {
+				var color = net.colors[3];
+				var glow = '';
+
+				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
+
+				// noinspection JSUnresolvedVariable
+				var room_user = net.room_info.users[data.user] || false;
+				// noinspection JSUnresolvedVariable,DuplicatedCode
+				if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
 					// noinspection JSUnresolvedVariable
-					net.room_info.users[data.user] = data.data;
-					// noinspection JSUnresolvedVariable
-					net.client_room_online.text(Object.keys(net.room_info.users).length);
-					// noinspection JSUnresolvedVariable
-					net.render_users();
+					if (room_user.info.present.items[room_user.info.present.item_index].color) {
+						// noinspection JSUnresolvedVariable
+						color = room_user.info.present.items[room_user.info.present.item_index].color;
+					}
 				}
+
+				var user_level = net.get_user_level(data.user)
+
+				// noinspection JSUnresolvedVariable
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+
+				if (net.refresh_users) net.render_users(6000);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.user_leave', function(data) {
-				// console.log('room.user_leave');
-				// console.log(JSON.stringify(data, null, 2));
+				if (!net.room_info) return
+				if (net.room_info.users[data.user]) delete net.room_info.users[data.user];
+				var $el = $('#room_user_' + data.user);
+				setTimeout(function() {
+					// noinspection JSUnresolvedFunction,JSValidateTypes
+					$el.slideUp(200, function() {
+						$(this).remove();
+						net.client_room_online.text(Object.keys(net.room_info.users).length);
+					});
+				}, 1000);
 
-				if (net.room_info) {
-					// noinspection JSUnresolvedVariable
-					if (net.room_info.users[data.user]) {
-						// noinspection JSUnresolvedVariable
-						delete net.room_info.users[data.user];
-					}
-
-					net.render_users();
-				}
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
