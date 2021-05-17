@@ -1102,7 +1102,7 @@
 				if (room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
-				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! If u experience lag try uncheck settings from settings panel', 4);
+				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! If u experience lag try uncheck settings from ⚙️ panel', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
