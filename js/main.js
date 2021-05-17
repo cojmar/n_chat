@@ -930,7 +930,7 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				// noinspection JSUnresolvedVariable
-				if (data.login && !simplestorage.get('uid')) {
+				if (data.login) {
 					simplestorage.set('uid', data.login);
 				}
 
@@ -1142,6 +1142,8 @@
 				net.room_info.users[data.user] = data.data;
 				// noinspection JSUnresolvedVariable
 				net.client_room_online.text(Object.keys(net.room_info.users).length);
+
+				$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				// noinspection JSUnresolvedVariable
 
 				var color = net.colors[3];
@@ -1188,6 +1190,7 @@
 					$el.slideUp(200, function() {
 						$(this).remove();
 						net.client_room_online.text(Object.keys(net.room_info.users).length);
+						$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 					});
 				}, 1000);
 
