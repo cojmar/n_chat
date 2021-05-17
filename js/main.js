@@ -680,19 +680,19 @@
 					if (data.cmd === 'emoji') {
 						net.use_animated_emoticons = !net.use_animated_emoticons;
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
-						net.render_users(1)
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'colors') {
 						net.use_colors = !net.use_colors;
 						simplestorage.set('use_colors', net.use_colors);
-						net.render_users(1)
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'users') {
 						net.refresh_users = !net.refresh_users;
 						simplestorage.set('refresh_users', net.refresh_users);
-						net.render_users(1)
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'low') {
@@ -702,7 +702,7 @@
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						net.render_users(1);
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'medium') {
@@ -712,7 +712,7 @@
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						net.render_users(1);
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'high') {
@@ -722,7 +722,7 @@
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						net.render_users(1);
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'room_msg') {
