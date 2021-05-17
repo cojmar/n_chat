@@ -345,6 +345,34 @@
 
 				return arr.join('');
 			};
+			net.get_user_level = function(user_id) {
+				let def_ret = {
+					curLevel: 0,
+					pointsRequired: 0,
+					timeRequired: timeRequired
+				}
+				if (!net.room_info) return def_ret
+				var room_user = net.room_info.users[user_id] || false;
+				if (!room_user) return def_ret
+				var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
+				var div = 50;
+				var curPoints = (XP <= 0 ? 1 : XP) / div;
+				var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
+				var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
+				var pointsRequired = pointsNextLevel - curPoints;
+				var timeRequired = '∞';
+
+				try {
+					timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
+				} catch (e) {
+					timeRequired = '∞';
+				}
+				return {
+					curLevel: curLevel,
+					pointsRequired: pointsRequired,
+					timeRequired: timeRequired
+				}
+			}
 
 			net.romanize = function(num) {
 				if (isNaN(num))
@@ -953,19 +981,8 @@
 								}
 
 								// noinspection JSUnresolvedVariable
-								var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
-								var div = 50;
-								var curPoints = (XP <= 0 ? 1 : XP) / div;
-								var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
-								var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
-								var pointsRequired = pointsNextLevel - curPoints;
-								var timeRequired = '∞';
+								var user_level = net.get_user_level(u)
 
-								try {
-									timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
-								} catch (e) {
-									timeRequired = '∞';
-								}
 
 								if (typeof net.room_info.data !== 'undefined') {
 									if (typeof net.room_info.data.admins !== 'undefined') {
@@ -981,7 +998,7 @@
 							}
 
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired + '">' + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
 						}
 						// noinspection JSUnresolvedVariable
 						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
@@ -1147,22 +1164,10 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				var XP = net.room_info.users[data.user] && net.room_info.users[data.user].info ? net.room_info.users[data.user].info.online_time + Math.floor((Date.now() - Date.parse(net.room_info.users[data.user].info.last_login_date)) / 1000) : 1;
-				var div = 50;
-				var curPoints = (XP <= 0 ? 1 : XP) / div;
-				var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
-				var pointsNextLevel = Math.pow((curLevel + 1) * 4, 2);
-				var pointsRequired = pointsNextLevel - curPoints;
-				// noinspection JSUnusedAssignment
-				var timeRequired = '∞';
+				var user_level = net.get_user_level(data.user)
 
-				try {
-					timeRequired = new Date((pointsRequired * div) * 1000).toISOString().substr(11, 8);
-				} catch (e) {
-					timeRequired = '∞';
-				}
 
-				net.log('<span title="User Level ' + curLevel + ', Next Level in ' + timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
