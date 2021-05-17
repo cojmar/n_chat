@@ -203,7 +203,7 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 			net.chat_buffer = [];
 			net.lock_scroll = true;
-			net.use_animated_emoticons = true;
+			net.use_animated_emoticons = false;
 
 			net.is_admin = function() {
 				if (typeof net.room_info !== 'undefined') {
@@ -626,6 +626,11 @@
 						}
 
 						data.data = json_data;
+					}
+
+					if (data.cmd === 'emoji') {
+						net.use_animated_emoticons = !net.use_animated_emoticons
+						data.cmd = 'room_info'
 					}
 
 					if (data.cmd === 'room_msg') {
