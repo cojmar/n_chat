@@ -11,6 +11,12 @@ hr {
 	border-width: 1px;
 }
 
+label {
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;
