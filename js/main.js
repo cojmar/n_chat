@@ -674,6 +674,15 @@
 						data.cmd = 'room_info'
 					}
 
+					if (data.cmd === 'medium') {
+						net.refresh_users = true
+						net.use_animated_emoticons = false
+						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
+						data.cmd = 'room_info'
+					}
+
+
 					if (data.cmd === 'high') {
 						net.refresh_users = true
 						net.use_animated_emoticons = true
@@ -1073,7 +1082,7 @@
 				if (room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
-				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! if u experience lag type /low command to lower settings or /high to restore them to max quality', 4);
+				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! if u experience lag type /low command to lower settings or /high to restore them to max quality /medium for optimal', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
