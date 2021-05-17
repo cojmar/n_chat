@@ -982,7 +982,7 @@
 				}
 			});
 
-			net.render_users = function(timeout) {
+			net.render_users = function(timeout, force) {
 				if (!timeout) {
 					timeout = 1500;
 				}
@@ -991,7 +991,7 @@
 					return;
 				}
 
-				if (!net.render_users_timeout) {
+				if (!net.render_users_timeout || force) {
 					net.render_users_timeout = setTimeout(function() {
 						// noinspection JSUnresolvedVariable
 						var users_online = Object.keys(net.room_info.users).length;
@@ -1425,19 +1425,19 @@
 						$('#use_colors').off('change').on('change', function() {
 							net.use_colors = $(this).prop('checked');
 							simplestorage.set('use_colors', net.use_colors);
-							net.render_users(1);
+							net.render_users(1, true);
 						});
 
 						$('#use_animated_emoticons').off('change').on('change', function() {
 							net.use_animated_emoticons = $(this).prop('checked');
 							simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
-							net.render_users(1);
+							net.render_users(1, true);
 						});
 
 						$('#refresh_users').off('change').on('change', function() {
 							net.refresh_users = $(this).prop('checked');
 							simplestorage.set('refresh_users', net.refresh_users);
-							net.render_users(1);
+							net.render_users(1, true);
 						});
 
 						// noinspection JSUnresolvedVariable
