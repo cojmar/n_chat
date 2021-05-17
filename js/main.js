@@ -675,7 +675,7 @@
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						//data.cmd = 'room_info'
+						net.render_users(1)
 					}
 
 					if (data.cmd === 'medium') {
@@ -685,7 +685,7 @@
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						//data.cmd = 'room_info'
+						net.render_users(1)
 					}
 
 
@@ -696,7 +696,8 @@
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						//data.cmd = 'room_info'
+						net.render_users(1)
+
 					}
 
 
