@@ -203,7 +203,7 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 			net.chat_buffer = [];
 			net.lock_scroll = true;
-			net.use_animated_emoticons = false;
+			net.use_animated_emoticons = true;
 			net.refresh_users = true;
 
 			net.is_admin = function() {
@@ -668,6 +668,12 @@
 						data.cmd = 'room_info'
 					}
 
+					if (data.cmd === 'high') {
+						net.refresh_users = true
+						net.use_animated_emoticons = true
+						data.cmd = 'room_info'
+					}
+
 
 
 					if (data.cmd === 'room_msg') {
@@ -1102,11 +1108,11 @@
 
 				var color = net.colors[3];
 				var glow = '';
-
+				if (!net.room_info)
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 
 				// noinspection JSUnresolvedVariable
-				var room_user = net.room_info.users[data.user] || false;
+					var room_user = net.room_info.users[data.user] || false;
 				// noinspection JSUnresolvedVariable,DuplicatedCode
 				if (room_user && room_user.info.present && room_user.info.present.item_index !== -1 && room_user.info.present.items[room_user.info.present.item_index]) {
 					// noinspection JSUnresolvedVariable
@@ -1115,7 +1121,17 @@
 						color = room_user.info.present.items[room_user.info.present.item_index].color;
 					}
 				}
-
+				if (typeof net.room_info.data !== 'undefined') {
+					if (typeof net.room_info.data.admins !== 'undefined') {
+						if (Array.isArray(net.room_info.data.admins)) {
+							if (net.room_info.data.admins.length > 0) {
+								if (net.room_info.data.admins.indexOf(data.data.info.user) !== -1) {
+									glow = 'class="glow"'
+								}
+							}
+						}
+					}
+				}
 				var user_level = net.get_user_level(data.user)
 
 				// noinspection JSUnresolvedVariable
