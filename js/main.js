@@ -535,7 +535,7 @@
 				}
 
 				if (is_admin) {
-					return subject + '[<i style="color: #666262;">' + str + '</i>]';
+					return '<span title="' + str + '">' + subject + '</span>';
 				}
 
 				return subject
@@ -579,7 +579,7 @@
 				}
 
 				if (is_admin) {
-					return subject + '[<i style="color: #666262;">' + str + '</i>]';
+					return '<span title="' + str + '">' + subject + '</span>';
 				}
 
 				return subject;
