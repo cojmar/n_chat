@@ -538,6 +538,10 @@
 					return '<span title="' + str + '">' + subject + '</span>';
 				}
 
+				if (subject.startsWith('*') && subject.endsWith('*')) {
+					return '<i style="color: #ff8cf7;">' + subject + '</i>';
+				}
+
 				return subject
 			};
 
@@ -576,10 +580,6 @@
 					} else {
 						subject = net.remove_combining(net.remove_invisible(subject));
 					}
-				}
-
-				if (is_admin) {
-					return '<span title="' + str + '">' + subject + '</span>';
 				}
 
 				return subject;
