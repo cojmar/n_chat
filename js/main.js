@@ -360,7 +360,9 @@
 				var def_ret = {
 					curLevel: 0,
 					pointsRequired: 0,
-					timeRequired: timeRequired
+					timeRequired: timeRequired,
+					pointsNextLevel: 0,
+					xp: 0,
 				};
 
 				if (!net.room_info) {
@@ -391,7 +393,9 @@
 				return {
 					curLevel: curLevel,
 					pointsRequired: pointsRequired,
-					timeRequired: timeRequired
+					timeRequired: timeRequired,
+					pointsNextLevel: pointsNextLevel,
+					xp: XP
 				}
 			};
 
@@ -1489,17 +1493,17 @@
 				net.text_input.get(0).focus();
 			});
 
-			var chat_ui =	'<div id="client_container" class="client_decoration">' +
-								'<div id="client_output" class="client_decoration client_left"></div>' +
-								'<div id="client_users" class="client_right">' +
-									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-									'<div id="client_room_users" class="client_decoration"></div>' +
-								'</div>' +
-								'<div id="client_color_popover"></div>' +
-								'<div id="client_input" class="client_decoration">' +
-									'<button id="client_emoticons">😀</button><button id="client_colors">⚙️</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-								'</div>' +
-							'</div>';
+			var chat_ui = '<div id="client_container" class="client_decoration">' +
+				'<div id="client_output" class="client_decoration client_left"></div>' +
+				'<div id="client_users" class="client_right">' +
+				'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+				'<div id="client_room_users" class="client_decoration"></div>' +
+				'</div>' +
+				'<div id="client_color_popover"></div>' +
+				'<div id="client_input" class="client_decoration">' +
+				'<button id="client_emoticons">😀</button><button id="client_colors">⚙️</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+				'</div>' +
+				'</div>';
 
 			$body.append(chat_ui);
 
