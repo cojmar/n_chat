@@ -500,8 +500,9 @@
 			// noinspection DuplicatedCode
 			net.clean = function(str, emoji) {
 				var subject = str;
+				var is_admin = net.is_admin();
 
-				if (!net.is_admin()) {
+				if (!is_admin) {
 					// noinspection JSUnresolvedFunction
 					subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
@@ -525,12 +526,16 @@
 					}
 				}
 
-				if (!net.is_admin()) {
+				if (!is_admin) {
 					if (~net.client_room_name.text().indexOf('Emupedia')) {
 						subject = net.remove_profanity(subject);
 					} else {
 						subject = net.remove_combining(net.remove_invisible(subject));
 					}
+				}
+
+				if (is_admin) {
+					return subject + '[<i style="color: #666262;">' + str + '</i>]';
 				}
 
 				return subject
@@ -539,8 +544,9 @@
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, emoji) {
 				var subject = str;
+				var is_admin = net.is_admin();
 
-				if (!net.is_admin()) {
+				if (!is_admin) {
 					// noinspection JSUnresolvedFunction
 					subject = net.remove_zalgo(str);
 
@@ -564,12 +570,16 @@
 					}
 				}
 
-				if (!net.is_admin()) {
+				if (!is_admin) {
 					if (~net.client_room_name.text().indexOf('Emupedia')) {
 						subject = net.remove_profanity(subject);
 					} else {
 						subject = net.remove_combining(net.remove_invisible(subject));
 					}
+				}
+
+				if (is_admin) {
+					return subject + '[<i style="color: #666262;">' + str + '</i>]';
 				}
 
 				return subject;
@@ -796,8 +806,9 @@
 			net.send_input = function() {
 				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
+				var is_admin = net.is_admin();
 
-				if (msg.length > 159 && !net.is_admin()) {
+				if (msg.length > 159 && !is_admin) {
 					msg = msg.substring(0, 159)
 				}
 
@@ -898,7 +909,7 @@
 					net.send_cmd(data.cmd, data.data);
 					net.text_input.val('');
 					return;
-				} else if (~net.client_room_name.text().indexOf('Emupedia') && !net.is_admin()) {
+				} else if (~net.client_room_name.text().indexOf('Emupedia') && !is_admin) {
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
@@ -914,7 +925,7 @@
 				var spam_time = net.last_send ? timestamp - net.last_send < 20 : false;
 
 				// noinspection DuplicatedCode
-				if (net.last_msg && !net.is_admin() && spam_time) {
+				if (net.last_msg && !is_admin && spam_time) {
 					if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
@@ -922,7 +933,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (net.last_last_msg && !net.is_admin() && spam_time) {
+				if (net.last_last_msg && !is_admin && spam_time) {
 					if (net.last_last_msg === msg || ((~msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
@@ -930,7 +941,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (net.last_last_last_msg && !net.is_admin() && spam_time) {
+				if (net.last_last_last_msg && !is_admin && spam_time) {
 					if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 1);
 						return false;
@@ -941,7 +952,7 @@
 					net.spam_cap = 1;
 				}
 
-				if (net.last_send && !net.is_admin()) {
+				if (net.last_send && !is_admin) {
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
