@@ -519,7 +519,9 @@
 				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
 				if (~net.client_room_name.text().indexOf('Emupedia') && !sent_by_admin) {
-					subject = net.remove_spam(net.remove_duplicates(net.remove_numbers(subject)));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
+				} else {
+					subject = net.remove_combining(net.remove_invisible(subject));
 				}
 
 				// noinspection DuplicatedCode
@@ -537,30 +539,26 @@
 					}
 				}
 
-				if (~net.client_room_name.text().indexOf('Emupedia') && !sent_by_admin) {
-					subject = net.remove_profanity(subject);
-				} else {
-					subject = net.remove_combining(net.remove_invisible(subject));
-				}
-
-				if (net.use_colors && (subject.startsWith('*') || subject.startsWith('-'))) {
-					subject = '<i style="color: #79667d;">' + subject + '</i>';
+				if ((subject.startsWith('*') || subject.startsWith('-'))) {
+					subject = '<i' + (net.use_colors ? ' style="color: #79667d;"' : '') + '>' + subject + '</i>';
 				}
 
 				if (i_am_admin) {
 					return '<span title="' + str.replace(/"/g, '&quot;') + '">' + subject + '</span>';
 				}
 
-				return subject
+				return subject;
 			};
 
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(str);
+				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
 				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_spam(net.remove_duplicates(net.normalize(subject, normalize_types)));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
+				} else {
+					subject = net.remove_combining(net.remove_invisible(subject));
 				}
 
 				// noinspection DuplicatedCode
@@ -576,12 +574,6 @@
 							ext: '.svg'
 						});
 					}
-				}
-
-				if (~net.client_room_name.text().indexOf('Emupedia')) {
-					subject = net.remove_profanity(subject);
-				} else {
-					subject = net.remove_combining(net.remove_invisible(subject));
 				}
 
 				return subject;
