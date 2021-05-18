@@ -1107,6 +1107,10 @@
 				}
 			});
 
+			net.socket.on('server.msg', function(data) {
+				net.log('<span>[SERVER]&nbsp;</span>' + data.msg, 4);
+			});
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.info', function(data) {
 				// console.log('room.info');
