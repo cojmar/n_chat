@@ -548,7 +548,7 @@
 				}
 
 				if (i_am_admin) {
-					return '<span title="' + str + '">' + subject + '</span>';
+					return '<span title="' + str.replace(/"/g, '&quot;') + '">' + subject + '</span>';
 				}
 
 				return subject
