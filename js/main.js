@@ -1144,11 +1144,11 @@
 				var users_online = Object.keys(net.room_info.users).length;
 				var room = net.room_info.name;
 				net.log('You are now talking in ' + net.room_info.name + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
+				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel', 1);
 
-				if (room.indexOf('Emupedia')) {
+				if (!~room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
-				net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! If you experience any lag you might try and uncheck some settings from the ⚙️ panel', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
