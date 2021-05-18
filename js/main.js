@@ -674,7 +674,7 @@
 
 						// noinspection JSCheckFunctionSignatures
 						users_array_nick.sort(function(a, b) {
-							//return a[1].localeCompare(b[1]); // sort by nickname
+							if (!net.refresh_users) return a[1].localeCompare(b[1]); // sort by nickname
 							return parseInt(b[2]) - parseInt(a[2]); // sort by xp
 						});
 
