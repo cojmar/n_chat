@@ -534,12 +534,12 @@
 					}
 				}
 
-				if (is_admin) {
-					return '<span title="' + str + '">' + subject + '</span>';
+				if (net.use_colors && (subject.startsWith('*') || subject.startsWith('-'))) {
+					subject = '<i style="color: #79667d;">' + subject + '</i>';
 				}
 
-				if ((subject.startsWith('*') || subject.startsWith('-'))) {
-					return '<i style="color: #79667d;">' + subject + '</i>';
+				if (is_admin) {
+					return '<span title="' + str + '">' + subject + '</span>';
 				}
 
 				return subject
