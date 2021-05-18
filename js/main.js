@@ -902,7 +902,7 @@
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types)))));
 
 						if ((net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 1) {
-							net.log('You have unwanted characters in your nickname or it is too short, correct the issue and try again', 1);
+							net.log('You have unwanted characters in your nickname or it is too short, correct the issue and try again', 4);
 							return false;
 						}
 					}
@@ -917,7 +917,7 @@
 
 				if ((net.remove_combining(net.remove_invisible(msg))).trim() === '' || (net.remove_combining(net.remove_invisible(msg))).trim().length <= 0) {
 					if (net.text_input.val().length > 0) {
-						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 1);
+						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 4);
 					}
 					return false;
 				}
@@ -929,7 +929,7 @@
 				// noinspection DuplicatedCode
 				if (net.last_msg && !is_admin && spam_time) {
 					if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
-						net.log('You can\'t repeat yourself, write something different', 1);
+						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
 					}
 				}
@@ -937,7 +937,7 @@
 				// noinspection DuplicatedCode
 				if (net.last_last_msg && !is_admin && spam_time) {
 					if (net.last_last_msg === msg || ((~msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(msg)) && msg.length >= 10)) {
-						net.log('You can\'t repeat yourself, write something different', 1);
+						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
 					}
 				}
@@ -945,7 +945,7 @@
 				// noinspection DuplicatedCode
 				if (net.last_last_last_msg && !is_admin && spam_time) {
 					if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
-						net.log('You can\'t repeat yourself, write something different', 1);
+						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
 					}
 				}
@@ -958,7 +958,7 @@
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
-						net.log('You are writing too fast, wait ' + net.spam_cap + ' second(s)', 1);
+						net.log('You are writing too fast, wait ' + net.spam_cap + ' second(s)', 4);
 						net.text_input.val('');
 						return false;
 					}
@@ -1066,7 +1066,7 @@
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
-				net.log('You were disconnected from the server, trying to reconnect...', 1);
+				net.log('You were disconnected from the server, trying to reconnect...', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
