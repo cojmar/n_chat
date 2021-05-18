@@ -538,7 +538,7 @@
 					return '<span title="' + str + '">' + subject + '</span>';
 				}
 
-				if (subject.startsWith('*') && subject.endsWith('*')) {
+				if ((subject.startsWith('*') || subject.startsWith('-')) && (subject.endsWith('*') || subject.endsWith('-'))) {
 					return '<i style="color: #ff8cf7;">' + subject + '</i>';
 				}
 
