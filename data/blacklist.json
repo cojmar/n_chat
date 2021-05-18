@@ -88,7 +88,6 @@
 			"boobs": ["boobs", "bobs", "boobie"],
 			"jew": ["jew", "j3w"],
 			"aids": ["aids"],
-			"ass": ["ass ", " ass ", "a\\$\\$", "@\\$\\$"],
 			"nazi": ["nazi", "nazy"],
 			"nazism": ["nazism"],
 			"communist": ["communist", "commy"],
@@ -129,7 +128,7 @@
 			"slow thinker": ["retard", "imbecile"],
 			"anime": ["hentai"],
 			"laughter": ["cancer", "ligma", "aids", "suicide", "bleeding"],
-			"behind": ["ass", "anal", "asshole", "anus"],
+			"behind": ["anal", "asshole", "anus"],
 			"🌼": ["卐"],
 			"👌": ["🖕"]
 		}
