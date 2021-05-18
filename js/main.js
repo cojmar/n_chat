@@ -1122,7 +1122,7 @@
 					net.admins = [];
 				}
 
-				net.render_users(1);
+				net.render_users(1, true);
 
 				net.chat_buffer = [];
 				net.lock_scroll = true;
