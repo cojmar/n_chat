@@ -362,7 +362,7 @@
 					pointsRequired: 0,
 					timeRequired: timeRequired,
 					pointsNextLevel: 0,
-					xp: 0,
+					xp: 0
 				};
 
 				if (!net.room_info) {
@@ -604,6 +604,151 @@
 							$(net.output_div.children(i).get(0)).remove();
 						}
 					}
+				}
+			};
+
+			net.render_room_select = function(cb) {
+				var html = '';
+
+				for (var room in net.rooms) {
+					// noinspection JSUnfilteredForInLoop
+					if (~room.indexOf('Emupedia')) {
+						if (net.room_info) {
+							if (room === net.room_info.name) {
+								// noinspection JSUnfilteredForInLoop
+								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
+							} else {
+								// noinspection JSUnfilteredForInLoop
+								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
+							}
+						} else {
+							// noinspection JSUnfilteredForInLoop
+							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
+						}
+					}
+				}
+
+				// noinspection JSUnresolvedFunction
+				net.client_rooms.html(html);
+
+				if (typeof cb === 'function') {
+					cb();
+				}
+			};
+
+			net.render_users = function(timeout, force) {
+				if (!timeout) {
+					timeout = 1500;
+				}
+
+				if (!net.room_info) {
+					return;
+				}
+
+				if (!net.render_users_timeout || force) {
+					net.render_users_timeout = setTimeout(function() {
+						// noinspection JSUnresolvedVariable
+						var users_online = Object.keys(net.room_info.users).length;
+						// noinspection JSUnresolvedVariable
+						var me = net.room_info.me;
+						var room = net.room_info.name;
+						var users_array_default = [];
+						var users_array_nick = [];
+						var users_list = '';
+
+						// noinspection JSUnresolvedVariable
+						for (var users in net.room_info.users) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var user = net.room_info.users[users].info.user;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var nick = net.room_info.users[users].info.nick;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var xp = net.get_user_level(user)['xp'] || 0;
+
+							if (net.is_default_nick(nick)) {
+								users_array_default.push([user, nick, xp]);
+							} else {
+								users_array_nick.push([user, nick, xp]);
+							}
+						}
+
+						// noinspection JSCheckFunctionSignatures
+						users_array_nick.sort(function(a, b) {
+							//return a[1].localeCompare(b[1]); // sort by nickname
+							return parseInt(b[2]) - parseInt(a[2]); // sort by xp
+						});
+
+						var users_obj = {};
+
+						users_array_nick.forEach(function(item) {
+							users_obj[item[0]] = net.clean_nicknames(item[1]);
+						});
+
+						users_array_default.forEach(function(item) {
+							users_obj[item[0]] = net.friendly_name(item[1]);
+						});
+
+						// noinspection JSUnresolvedVariable
+						for (var u in users_obj) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var color = u !== me ? net.colors[3] : net.colors[1];
+							var glow = '';
+
+							// noinspection DuplicatedCode
+							if (typeof net.room_info !== 'undefined') {
+								// noinspection JSUnresolvedVariable
+								var room_user = net.room_info.users[u] || false;
+								// noinspection JSUnresolvedVariable,DuplicatedCode
+								if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index]) {
+									// noinspection JSUnresolvedVariable
+									if (room_user.info.present.items[room_user.info.present.item_index].color && net.use_colors) {
+										// noinspection JSUnresolvedVariable
+										color = room_user.info.present.items[room_user.info.present.item_index].color;
+									}
+								}
+
+								// noinspection JSUnresolvedVariable
+								var user_level = net.get_user_level(u);
+
+								if (typeof net.room_info.data !== 'undefined') {
+									if (typeof net.room_info.data.admins !== 'undefined') {
+										if (Array.isArray(net.room_info.data.admins)) {
+											if (net.room_info.data.admins.length > 0) {
+												if (~net.room_info.data.admins.indexOf(u)) {
+													glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
+												}
+											}
+										}
+									}
+								}
+							}
+
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
+						}
+						// noinspection JSUnresolvedVariable
+						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
+						// noinspection JSUnresolvedFunction
+						net.client_room_users.html(users_list);
+						// noinspection JSUnresolvedFunction
+						net.client_room_name.text(room);
+						// noinspection JSUnresolvedVariable
+						net.client_room_online.text(users_online);
+						// noinspection JSUnresolvedFunction
+						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
+
+						net.render_users_timeout = false;
+
+						if (net.re_render_users_timeout) {
+							clearTimeout(net.re_render_users_timeout);
+						}
+
+						if (net.refresh_users) {
+							net.re_render_users_timeout = setTimeout(function() {
+								net.render_users();
+							}, 19000);
+						}
+					}, timeout)
 				}
 			};
 
@@ -898,35 +1043,6 @@
 				});
 			};
 
-			net.render_room_select = function(cb) {
-				var html = '';
-
-				for (var room in net.rooms) {
-					// noinspection JSUnfilteredForInLoop
-					if (~room.indexOf('Emupedia')) {
-						if (net.room_info) {
-							if (room === net.room_info.name) {
-								// noinspection JSUnfilteredForInLoop
-								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
-							} else {
-								// noinspection JSUnfilteredForInLoop
-								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
-							}
-						} else {
-							// noinspection JSUnfilteredForInLoop
-							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
-						}
-					}
-				}
-
-				// noinspection JSUnresolvedFunction
-				net.client_rooms.html(html);
-
-				if (typeof cb === 'function') {
-					cb();
-				}
-			};
-
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,JSUnusedLocalSymbols
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
@@ -985,120 +1101,6 @@
 					}
 				}
 			});
-
-			net.render_users = function(timeout, force) {
-				if (!timeout) {
-					timeout = 1500;
-				}
-
-				if (!net.room_info) {
-					return;
-				}
-
-				if (!net.render_users_timeout || force) {
-					net.render_users_timeout = setTimeout(function() {
-						// noinspection JSUnresolvedVariable
-						var users_online = Object.keys(net.room_info.users).length;
-						// noinspection JSUnresolvedVariable
-						var me = net.room_info.me;
-						var room = net.room_info.name;
-						var users_array_default = [];
-						var users_array_nick = [];
-						var users_list = '';
-
-						// noinspection JSUnresolvedVariable
-						for (var users in net.room_info.users) {
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var user = net.room_info.users[users].info.user;
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var nick = net.room_info.users[users].info.nick;
-
-							if (net.is_default_nick(nick)) {
-								users_array_default.push([user, nick]);
-							} else {
-								users_array_nick.push([user, nick]);
-							}
-						}
-
-						users_array_nick.sort(function(a, b) {
-							return a[1].localeCompare(b[1]);
-						});
-
-						users_array_default.sort();
-
-						var users_obj = {};
-
-						users_array_nick.forEach(function(item) {
-							users_obj[item[0]] = net.clean_nicknames(item[1]);
-						});
-
-						users_array_default.forEach(function(item) {
-							users_obj[item[0]] = net.friendly_name(item[1]);
-						});
-
-						// noinspection JSUnresolvedVariable
-						for (var u in users_obj) {
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var color = u !== me ? net.colors[3] : net.colors[1];
-							var glow = '';
-
-							// noinspection DuplicatedCode
-							if (typeof net.room_info !== 'undefined') {
-								// noinspection JSUnresolvedVariable
-								var room_user = net.room_info.users[u] || false;
-								// noinspection JSUnresolvedVariable,DuplicatedCode
-								if (room_user && room_user.info.present && ~room_user.info.present.item_index && room_user.info.present.items[room_user.info.present.item_index]) {
-									// noinspection JSUnresolvedVariable
-									if (room_user.info.present.items[room_user.info.present.item_index].color && net.use_colors) {
-										// noinspection JSUnresolvedVariable
-										color = room_user.info.present.items[room_user.info.present.item_index].color;
-									}
-								}
-
-								// noinspection JSUnresolvedVariable
-								var user_level = net.get_user_level(u);
-
-								if (typeof net.room_info.data !== 'undefined') {
-									if (typeof net.room_info.data.admins !== 'undefined') {
-										if (Array.isArray(net.room_info.data.admins)) {
-											if (net.room_info.data.admins.length > 0) {
-												if (~net.room_info.data.admins.indexOf(u)) {
-													glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
-												}
-											}
-										}
-									}
-								}
-							}
-
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
-						}
-						// noinspection JSUnresolvedVariable
-						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
-						// noinspection JSUnresolvedFunction
-						net.client_room_users.html(users_list);
-						// noinspection JSUnresolvedFunction
-						net.client_room_name.text(room);
-						// noinspection JSUnresolvedVariable
-						net.client_room_online.text(users_online);
-						// noinspection JSUnresolvedFunction
-						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
-
-						net.render_users_timeout = false;
-
-						if (net.re_render_users_timeout) {
-							clearTimeout(net.re_render_users_timeout);
-						}
-
-						if (net.refresh_users) {
-							net.re_render_users_timeout = setTimeout(function() {
-								net.render_users();
-							}, 19000);
-						}
-					}, timeout)
-				}
-			};
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.info', function(data) {
@@ -1493,17 +1495,17 @@
 				net.text_input.get(0).focus();
 			});
 
-			var chat_ui = '<div id="client_container" class="client_decoration">' +
-				'<div id="client_output" class="client_decoration client_left"></div>' +
-				'<div id="client_users" class="client_right">' +
-				'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-				'<div id="client_room_users" class="client_decoration"></div>' +
-				'</div>' +
-				'<div id="client_color_popover"></div>' +
-				'<div id="client_input" class="client_decoration">' +
-				'<button id="client_emoticons">😀</button><button id="client_colors">⚙️</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-				'</div>' +
-				'</div>';
+			var chat_ui =	'<div id="client_container" class="client_decoration">' +
+								'<div id="client_output" class="client_decoration client_left"></div>' +
+								'<div id="client_users" class="client_right">' +
+									'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
+									'<div id="client_room_users" class="client_decoration"></div>' +
+								'</div>' +
+								'<div id="client_color_popover"></div>' +
+								'<div id="client_input" class="client_decoration">' +
+									'<button id="client_emoticons">😀</button><button id="client_colors">⚙️</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
+								'</div>' +
+							'</div>';
 
 			$body.append(chat_ui);
 
