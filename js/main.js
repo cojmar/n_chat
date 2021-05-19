@@ -1123,8 +1123,9 @@
 			net.socket.on('room.info', function(data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
+				if (!net.def_topic) net.def_topic = $('#topic_output').html()
 				net.room_info = data;
-
+				$('#topic_output').html(net.room_info.data.topic || net.def_topic)
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
 						if (Array.isArray(net.room_info.data.admins)) {
@@ -1159,6 +1160,7 @@
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
+				if (net.room_info.data.topic) $('#topic_output').html(net.room_info.data.topic)
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
