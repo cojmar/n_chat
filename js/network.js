@@ -90,6 +90,7 @@
 				'room.user_info',
 				'room.user_join',
 				'room.user_leave',
+				'room.host',
 				'room.data',
 				'room.msg',
 				'rooms.list',
@@ -194,7 +195,7 @@
 					timeout: ajax_retry_timeout,
 					statusCodes: [402, 403, 404, 405, 406, 407, 408, 410, 411, 412, 413, 414, 415, 416, 417, 501, 503, 504, 505]
 				});
-			}
+			};
 
 			client.socket.on('connect', function() {
 				// noinspection DuplicatedCode
