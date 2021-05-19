@@ -890,23 +890,29 @@
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
 					}
+
 					if (data.cmd === 'topic' && data.data === '') {
 						data.data = net.def_topic;
 					}
 
+					if (data.cmd === 'server') {
+						data.cmd = 'send_cmd';
+						data.data = ["server.msg", net.room_info.name, { "msg": data.data }];
+					}
+
 					if (data.cmd === 'video') {
-						data.cmd = 'send_cmd'
-						data.data = ["server.msg", net.room_info.name, { "msg": "<video style='width:100%' autoplay src='" + data.data + "'></video>" }]
+						data.cmd = 'send_cmd';
+						data.data = ["server.msg", net.room_info.name, { "msg": "<video style='width:100%' autoplay src='" + data.data + "'></video>" }];
 					}
 
 					if (data.cmd === 'image') {
-						data.cmd = 'send_cmd'
-						data.data = ["server.msg", net.room_info.name, { "msg": "<img style='width:100%' src='" + data.data + "'>" }]
+						data.cmd = 'send_cmd';
+						data.data = ["server.msg", net.room_info.name, { "msg": "<img alt='' style='width:100%' src='" + data.data + "' />" }];
 					}
 
 					if (data.cmd === 'audio') {
-						data.cmd = 'send_cmd'
-						data.data = ["server.msg", net.room_info.name, { "msg": "<audio controls autoplay src='" + data.data + "'></audio>" }]
+						data.cmd = 'send_cmd';
+						data.data = ["server.msg", net.room_info.name, { "msg": "<audio controls autoplay src='" + data.data + "'></audio>" }];
 					}
 
 					if (data.cmd === 'room_msg') {
@@ -1143,10 +1149,6 @@
 				}
 			});
 
-			net.socket.on('server.msg', function(data) {
-				net.log('<span>[SERVER]&nbsp;</span>' + data.msg, 4);
-			});
-
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.info', function(data) {
 				// console.log('room.info');
@@ -1288,7 +1290,7 @@
 						if (Array.isArray(net.room_info.data.admins)) {
 							if (net.room_info.data.admins.length > 0) {
 								if (~net.room_info.data.admins.indexOf(data.data.info.user)) {
-									glow = 'class="glow"'
+									glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 								}
 							}
 						}
@@ -1558,6 +1560,12 @@
 						net.color_popover.addClass('show');
 					}
 				}
+			});
+
+			net.socket.on('server.msg', function(data) {
+				var glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
+				var style = 'color: ' + (glow ? '#4c4c4c' : net.colors[4]) + '; word-break: keep-all; --glow-color-1: ' + net.colors[4] + '; --glow-color-2: ' + net.increase_brightness(net.colors[4], 20);
+				net.log('<span ' + glow + ' style="' + style + '">[SERVER]&nbsp;' + data.msg + '</span>', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
