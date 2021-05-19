@@ -1111,6 +1111,12 @@
 							}
 						}
 					}
+
+					if (net.is_admin()) {
+						net.text_input.removeAttr('maxlength');
+					} else {
+						net.text_input.attr('maxlength', 160);
+					}
 				}
 			});
 
