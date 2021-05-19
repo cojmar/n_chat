@@ -1564,7 +1564,7 @@
 
 			net.socket.on('server.msg', function(data) {
 				var glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
-				var style = 'color: ' + (glow ? '#4c4c4c' : net.colors[4]) + '; word-break: keep-all; --glow-color-1: ' + net.colors[4] + '; --glow-color-2: ' + net.increase_brightness(net.colors[4], 20);
+				var style = 'color: ' + net.colors[4] + '; word-break: keep-all; --glow-color-1: ' + net.colors[4] + '; --glow-color-2: ' + net.increase_brightness(net.colors[4], 20);
 				net.log('<span ' + glow + ' style="' + style + '">[SERVER]&nbsp;' + data.msg + '</span>', 4);
 			});
 
