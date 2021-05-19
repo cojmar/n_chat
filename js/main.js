@@ -1141,7 +1141,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic');
+				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.');
 				net.client_topic.html(topic);
 
 				if (typeof net.room_info.data !== 'undefined') {
@@ -1167,7 +1167,6 @@
 				var users_online = Object.keys(net.room_info.users).length;
 				var room = net.room_info.name;
 				net.log('You are now talking in ' + net.room_info.name + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
-				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel', 1);
 
 				if (!room.startsWith('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! The chat is not beign actively monitored by moderators, you may experience swearing, bullying or harassing.', 4);
