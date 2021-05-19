@@ -1166,6 +1166,12 @@
 				if (!~room.indexOf('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
+
+				if (net.is_admin()) {
+					net.text_input.removeAttr('maxlength');
+				} else {
+					net.text_input.attr('maxlength', 160);
+				}
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
