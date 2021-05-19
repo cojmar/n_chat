@@ -897,22 +897,22 @@
 
 					if (data.cmd === 'server') {
 						data.cmd = 'send_cmd';
-						data.data = ["server.msg", net.room_info.name, { "msg": data.data }];
+						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, {'msg':  data.data.startsWith('*') ? data.data.substring(1) : data.data}];
 					}
 
 					if (data.cmd === 'video') {
 						data.cmd = 'send_cmd';
-						data.data = ["server.msg", net.room_info.name, { "msg": "<video style='width:100%' autoplay src='" + data.data + "'></video>" }];
+						data.data = ['server.msg', net.room_info.name, {'msg': '<video style="width: 100%;" autoplay="autoplay" src="' + data.data + '"></video>'}];
 					}
 
 					if (data.cmd === 'image') {
 						data.cmd = 'send_cmd';
-						data.data = ["server.msg", net.room_info.name, { "msg": "<img alt='' style='width:100%' src='" + data.data + "' />" }];
+						data.data = ['server.msg', net.room_info.name, {'msg': '<img alt="" style="width: 100%;" src="' + data.data + '"/>'}];
 					}
 
 					if (data.cmd === 'audio') {
 						data.cmd = 'send_cmd';
-						data.data = ["server.msg", net.room_info.name, { "msg": "<audio controls autoplay src='" + data.data + "'></audio>" }];
+						data.data = ['server.msg', net.room_info.name, {'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>'}];
 					}
 
 					if (data.cmd === 'room_msg') {
