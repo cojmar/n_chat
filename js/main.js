@@ -870,9 +870,7 @@
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
 					}
-					if (data.cmd === 'topic' && data.data === '') {
-						data.data = net.def_topic;
-					}
+
 					if (data.cmd === 'medium') {
 						net.refresh_users = true;
 						net.use_animated_emoticons = false;
@@ -891,6 +889,24 @@
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
+					}
+					if (data.cmd === 'topic' && data.data === '') {
+						data.data = net.def_topic;
+					}
+
+					if (data.cmd === 'video') {
+						data.cmd = 'send_cmd'
+						data.data = ["server.msg", net.room_info.name, { "msg": "<video style='width:100%' autoplay src='" + data.data + "'></video>" }]
+					}
+
+					if (data.cmd === 'image') {
+						data.cmd = 'send_cmd'
+						data.data = ["server.msg", net.room_info.name, { "msg": "<img style='width:100%' src='" + data.data + "'>" }]
+					}
+
+					if (data.cmd === 'audio') {
+						data.cmd = 'send_cmd'
+						data.data = ["server.msg", net.room_info.name, { "msg": "<audio controls autoplay src='" + data.data + "'></audio>" }]
 					}
 
 					if (data.cmd === 'room_msg') {
