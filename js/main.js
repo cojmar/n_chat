@@ -1126,11 +1126,11 @@
 				net.room_info = data;
 
 				if (!net.def_topic) {
-					net.def_topic = net.client_topic.text();
+					net.def_topic = net.client_topic.html();
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.client_topic.text(net.room_info.data.topic || net.def_topic);
+				net.client_topic.html(net.room_info.data.topic || net.def_topic);
 
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
@@ -1172,7 +1172,7 @@
 					// noinspection JSUnresolvedVariable
 					if (net.room_info.data.topic !== '') {
 						// noinspection JSUnresolvedVariable
-						net.client_topic.text(net.room_info.data.topic);
+						net.client_topic.html(net.room_info.data.topic);
 					}
 				}
 
