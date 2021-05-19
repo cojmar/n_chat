@@ -134,7 +134,6 @@
 				});
 			}
 
-			var $body = $('body');
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
 			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles-numbers-only', 'circles-bold-numbers-only', 'inverted-circles-numbers-only', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript-numbers-only', 'superscript-numbers-only', 'upsidedown-numbers-only', 'uncategorized'];
@@ -1123,9 +1122,16 @@
 			net.socket.on('room.info', function(data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
-				if (!net.def_topic) net.def_topic = $('#topic_output').html()
+
 				net.room_info = data;
-				$('#topic_output').html(net.room_info.data.topic || net.def_topic)
+
+				if (!net.def_topic) {
+					net.def_topic = net.client_topic.text();
+				}
+
+				// noinspection JSUnresolvedVariable
+				net.client_topic.text(net.room_info.data.topic || net.def_topic);
+
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
 						if (Array.isArray(net.room_info.data.admins)) {
@@ -1160,7 +1166,15 @@
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
-				if (net.room_info.data.topic) $('#topic_output').html(net.room_info.data.topic)
+
+				// noinspection JSUnresolvedVariable
+				if (typeof net.room_info.data.topic !== 'undefined') {
+					// noinspection JSUnresolvedVariable
+					if (net.room_info.data.topic !== '') {
+						// noinspection JSUnresolvedVariable
+						net.client_topic.text(net.room_info.data.topic);
+					}
+				}
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
 					if (Array.isArray(net.room_info.data.admins)) {
@@ -1518,21 +1532,6 @@
 				net.text_input.get(0).focus();
 			});
 
-			var chat_ui = '<div id="client_container" class="client_decoration">' +
-				'<div id="client_output" class="client_decoration client_left"></div>' +
-				'<div id="client_users" class="client_right">' +
-				'<div id="client_room" class="client_decoration ui-widget"><select id="client_rooms" class="client_rooms"></select><span class="name"></span> (<span class="online">0</span> users)</div>' +
-				'<div id="client_room_users" class="client_decoration"></div>' +
-				'</div>' +
-				'<div id="client_color_popover"></div>' +
-				'<div id="client_input" class="client_decoration">' +
-				'<button id="client_emoticons">😀</button><button id="client_colors">⚙️</button><input id="client_command" type="text" placeholder="To change nick, type /nick and your new nickname." autofocus="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="160" /><button id="client_command_send">Send</button>' +
-				'</div>' +
-				'</div>';
-
-			//$body.append(chat_ui);
-			$('#client_container').show();
-
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
 			net.color_button = $('#client_colors');
@@ -1565,11 +1564,16 @@
 					}
 				}
 			});
+
+			net.client_topic = $('#topic_output');
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
 			net.client_rooms = $('#client_rooms');
 			net.client_room_name = net.client_room.find('span.name');
 			net.client_room_online = net.client_room.find('span.online');
+
+			net.console.show();
+
 			// noinspection JSUnresolvedFunction,DuplicatedCode
 			net.text_input.off('keypress').on('keypress', function(e) {
 				// noinspection JSDeprecatedSymbols
