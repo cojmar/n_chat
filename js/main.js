@@ -721,6 +721,7 @@
 
 								// noinspection JSUnresolvedVariable
 								var user_level = net.get_user_level(u);
+								console.log(net.room_info.host)
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -733,6 +734,7 @@
 											}
 										}
 									}
+									if (net.room_info.host === u) glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 								}
 							}
 
@@ -1174,6 +1176,13 @@
 				}
 			});
 
+			net.socket.on('room.host', function(data) {
+				if (!net.room_info) return
+				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').removeClass('glow glow2');
+				net.room_info.host = data;
+				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
+			})
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
@@ -1209,6 +1218,8 @@
 						}
 					}
 				}
+
+				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
 
 				if (net.is_admin()) {
 					net.text_input.removeAttr('maxlength');
@@ -1343,6 +1354,7 @@
 							}
 						}
 					}
+					if (user === net.room_info.host) glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 				}
 
 				if (!is_admin && data.msg.length > 159) {
