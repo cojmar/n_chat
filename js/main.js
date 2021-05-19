@@ -897,7 +897,7 @@
 
 					if (data.cmd === 'server') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, {'msg':  data.data.startsWith('*') ? data.data.substring(1) : data.data}];
+						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, {'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data}];
 					}
 
 					if (data.cmd === 'video') {
@@ -1300,7 +1300,7 @@
 				var user_level = net.get_user_level(data.user);
 
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
 
 				if (net.refresh_users) {
 					net.render_users(6000);
