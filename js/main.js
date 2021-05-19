@@ -1210,6 +1210,12 @@
 					}
 				}
 
+				if (net.is_admin()) {
+					net.text_input.removeAttr('maxlength');
+				} else {
+					net.text_input.attr('maxlength', 160);
+				}
+
 				net.room_info.data = $.extend(net.room_info.data, data.data);
 			});
 
