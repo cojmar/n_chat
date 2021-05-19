@@ -17,7 +17,9 @@ label {
 	text-align: left;
 }
 
+
 /*noinspection DuplicatedCode*/
+
 #client_command {
 	height: 21px;
 	width: calc(100% - 50px - 20px - 19px);
@@ -71,7 +73,9 @@ label {
 	overflow: hidden;
 }
 
+
 /*noinspection CssUnknownProperty,DuplicatedCode*/
+
 #client_room_users {
 	margin: -4px;
 	height: calc(100% - 18px);
@@ -91,7 +95,9 @@ label {
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
+
 /*noinspection CssInvalidHtmlTagReference*/
+
 #client_room_users xmp {
 	display: inline-block;
 	margin: 0;
@@ -137,7 +143,9 @@ label {
 	width: calc(35% - 28px);
 }
 
+
 /*noinspection CssUnknownProperty,DuplicatedCode*/
+
 .client_left {
 	float: left;
 	width: 65%;
@@ -175,20 +183,6 @@ label {
 
 #topic_output {
 	display: inline-block;
-<<<<<<< HEAD
-=======
-	padding-left: 100%;
-	animation: client_topic 20s linear infinite
-}
-
-@keyframes client_topic {
-	0% {
-		transform: translate(0, 0);
-	}
-	100% {
-		transform: translate(-100%, 0);
-	}
->>>>>>> 42c74b7cca9e141c2455102f5deda81f2c0b08ce
 }
 
 #client_output {
@@ -196,7 +190,9 @@ label {
 	overflow-x: hidden;
 }
 
+
 /*noinspection CssInvalidHtmlTagReference*/
+
 #client_output .net_msg xmp {
 	display: inline-block;
 	margin: 0;
@@ -206,7 +202,9 @@ label {
 	font-size: 12px;
 }
 
+
 /*noinspection DuplicatedCode*/
+
 #client_output .emoji {
 	width: 14px;
 	height: 14px;
@@ -288,7 +286,9 @@ label {
 	text-decoration: none;
 }
 
+
 /*noinspection CssUnresolvedCustomProperty,CssOverwrittenProperties*/
+
 #client_console [data-title]:after {
 	display: none;
 	visibility: visible;
@@ -347,7 +347,9 @@ label {
 	color: #395fa4;
 }
 
+
 /*noinspection CssUnknownProperty,DuplicatedCode*/
+
 #client_rooms-menu {
 	background: #302f2f;
 	border: 1px solid #4c4c4c;
@@ -373,7 +375,9 @@ label {
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
+
 /*noinspection CssUnknownProperty,DuplicatedCode*/
+
 #client_color_popover {
 	opacity: 0;
 	visibility: hidden;
@@ -652,7 +656,9 @@ label {
 	}
 }
 
+
 /*noinspection CssOverwrittenProperties*/
+
 .glow {
 	-webkit-animation: glow 1s ease-in-out infinite alternate;
 	-moz-animation: glow 1s ease-in-out infinite alternate;
@@ -684,7 +690,9 @@ label {
 	border-color: #808080 !important;
 }
 
+
 /*noinspection CssUnknownProperty,DuplicatedCode*/
+
 .emoji-picker__emojis {
 	scrollbar-base-color: #222;
 	scrollbar-3dlight-color: #222;
