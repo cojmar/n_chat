@@ -1518,7 +1518,8 @@
 				'</div>' +
 				'</div>';
 
-			$body.append(chat_ui);
+			//$body.append(chat_ui);
+			$('#client_container').show();
 
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
