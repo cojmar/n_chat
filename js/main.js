@@ -656,6 +656,10 @@
 						// noinspection JSUnresolvedVariable
 						var me = net.room_info.me;
 						var room = net.room_info.name;
+
+						// noinspection JSUnresolvedFunction
+						net.client_room_name.text(room);
+
 						var users_array_default = [];
 						var users_array_nick = [];
 						var users_list = '';
@@ -678,8 +682,13 @@
 
 						// noinspection JSCheckFunctionSignatures
 						users_array_nick.sort(function(a, b) {
-							if (!net.refresh_users) return a[1].localeCompare(b[1]); // sort by nickname
-							return parseInt(b[2]) - parseInt(a[2]); // sort by xp
+							if (!net.refresh_users) {
+								// sort by nickname
+								return a[1].localeCompare(b[1]);
+							}
+
+							// sort by xp
+							return parseInt(b[2]) - parseInt(a[2]);
 						});
 
 						var users_obj = {};
@@ -714,6 +723,7 @@
 								// noinspection JSUnresolvedVariable
 								var user_level = net.get_user_level(u);
 
+								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
 									if (typeof net.room_info.data.admins !== 'undefined') {
 										if (Array.isArray(net.room_info.data.admins)) {
@@ -734,8 +744,6 @@
 						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
 						// noinspection JSUnresolvedFunction
 						net.client_room_users.html(users_list);
-						// noinspection JSUnresolvedFunction
-						net.client_room_name.text(room);
 						// noinspection JSUnresolvedVariable
 						net.client_room_online.text(users_online);
 						// noinspection JSUnresolvedFunction
@@ -1222,7 +1230,9 @@
 				// noinspection JSUnresolvedVariable
 				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all;  --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
 
-				if (net.refresh_users) net.render_users(6000);
+				if (net.refresh_users) {
+					net.render_users(6000);
+				}
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
