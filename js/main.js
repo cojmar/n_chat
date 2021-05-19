@@ -722,9 +722,9 @@
 								// noinspection JSUnresolvedVariable
 								var user_level = net.get_user_level(u);
 
-
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
+									// noinspection DuplicatedCode
 									if (typeof net.room_info.data.admins !== 'undefined') {
 										if (Array.isArray(net.room_info.data.admins)) {
 											if (net.room_info.data.admins.length > 0) {
@@ -734,7 +734,10 @@
 											}
 										}
 									}
-									if (net.room_info.host === u) glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
+
+									if (net.room_info.host === u) {
+										glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
+									}
 								}
 							}
 
@@ -1177,11 +1180,15 @@
 			});
 
 			net.socket.on('room.host', function(data) {
-				if (!net.room_info) return
-				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').removeClass('glow glow2');
+				if (!net.room_info) {
+					return;
+				}
+
+				var user = $('#room_user_' + net.room_info.host);
+				user.css('color', '#4c4c4c').removeClass('glow glow2');
 				net.room_info.host = data;
-				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
-			})
+				user.css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
+			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
