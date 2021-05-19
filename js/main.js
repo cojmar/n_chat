@@ -1141,7 +1141,13 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.client_topic.html(net.room_info.data.topic || (net.room_info.name.indexOf('Emupedia') === 0) ? net.def_topic : "⛈️ The person with glow can change this message by typing: /topic new message 🌥️");
+
+				var topic = net.room_info.data.topic || ''
+				if (topic === '') {
+					topic = (net.room_info.name.indexOf('Emupedia') === 0) ? net.def_topic : "⛈️ The person with glow can change this message by typing: /topic new message 🌥️"
+				}
+
+				net.client_topic.html(topic);
 
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
