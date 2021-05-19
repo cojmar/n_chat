@@ -1138,7 +1138,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				net.client_topic.html(net.room_info.data.topic || net.def_topic);
+				net.client_topic.html(net.room_info.data.topic || (net.room_info.name.indexOf('Emupedia') === 0) ? net.def_topic : "⛈️ The person with glow can change this message by typing: /topic new message 🌥️");
 
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
