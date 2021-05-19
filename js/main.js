@@ -1142,9 +1142,10 @@
 
 				// noinspection JSUnresolvedVariable
 
-				var topic = net.room_info.data.topic || ''
+				var topic = net.room_info.data.topic || '';
+
 				if (topic === '') {
-					topic = (net.room_info.name.indexOf('Emupedia') === 0) ? net.def_topic : "⛈️ The person with glow can change this message by typing: /topic new message 🌥️"
+					topic = (net.room_info.name.indexOf('Emupedia') === 0) ? net.def_topic : "⛈️ The person with glow can change this message by typing: /topic new message 🌥️";
 				}
 
 				net.client_topic.html(topic);
@@ -1357,6 +1358,7 @@
 
 					// noinspection DuplicatedCode
 					if (typeof net.room_info.data !== 'undefined') {
+						// noinspection DuplicatedCode
 						if (typeof net.room_info.data.admins !== 'undefined') {
 							if (Array.isArray(net.room_info.data.admins)) {
 								if (net.room_info.data.admins.length > 0) {
