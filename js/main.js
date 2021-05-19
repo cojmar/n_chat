@@ -721,7 +721,7 @@
 
 								// noinspection JSUnresolvedVariable
 								var user_level = net.get_user_level(u);
-								console.log(net.room_info.host)
+
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -1407,7 +1407,7 @@
 							// noinspection JSUnresolvedVariable,JSUnresolvedFunction
 							var present = data.info.present.items[data.info.present.item_index];
 
-							if (present.color && net.use_colors) {
+							if (present && present.color && net.use_colors) {
 								// noinspection JSJQueryEfficiency
 								$('#room_user_' + data.user).css('color', $('#room_user_' + data.user).hasClass('glow') || $('#room_user_' + data.user).hasClass('glow2') ? '#4c4c4c' : present.color).css('--glow-color-1', present.color).css('--glow-color-2', net.increase_brightness(present.color, 20));
 							}
