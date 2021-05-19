@@ -843,6 +843,10 @@
 						data.data = json_data;
 					}
 
+					if (data.cmd === 'j') {
+						data.cmd = 'join';
+					}
+
 					if (data.cmd === 'emoji') {
 						net.use_animated_emoticons = !net.use_animated_emoticons;
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
@@ -895,22 +899,28 @@
 						data.data = net.def_topic;
 					}
 
-					if (data.cmd === 'server') {
+					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
+						net.send_cmd('send_cmd', ['server.msg', 'server', {'msg': 'reloading...'}]);
+						data.cmd = 'eval';
+						data.data = 'window.location.reload()';
+					}
+
+					if (data.cmd === 'server' || data.cmd === 's') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, {'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data}];
 					}
 
-					if (data.cmd === 'video') {
+					if (data.cmd === 'video' || data.cmd === 'v') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', net.room_info.name, {'msg': '<video style="width: 100%;" autoplay="autoplay" src="' + data.data + '"></video>'}];
 					}
 
-					if (data.cmd === 'image') {
+					if (data.cmd === 'image' || data.cmd === 'i') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', net.room_info.name, {'msg': '<img alt="" style="width: 100%;" src="' + data.data + '"/>'}];
 					}
 
-					if (data.cmd === 'audio') {
+					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', net.room_info.name, {'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>'}];
 					}
@@ -1005,14 +1015,14 @@
 				net.text_input.val('');
 			};
 
-			net.client_cmd = function(argz) {
+			net.client_cmd = function(args) {
 				if (net.room_info) {
 					var muted = net.room_info.data.muted || [];
 
-					switch (argz.cmd) {
+					switch (args.cmd) {
 						case 'mute':
-							if (!~muted.indexOf(argz.data)) {
-								muted.push(argz.data);
+							if (!~muted.indexOf(args.data)) {
+								muted.push(args.data);
 							}
 
 							// noinspection JSUnresolvedFunction
@@ -1021,7 +1031,7 @@
 							net.send_cmd('set_room_data', { muted: muted });
 							return true;
 						case 'unmute':
-							var index = muted.indexOf(argz.data);
+							var index = muted.indexOf(args.data);
 
 							if (index > -1) {
 								muted.splice(index, 1);
