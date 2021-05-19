@@ -517,7 +517,7 @@
 				// noinspection JSUnresolvedFunction
 				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
-				if (~net.client_room_name.text().indexOf('Emupedia') && !sent_by_admin) {
+				if (net.client_room_name.text().startsWith('Emupedia') && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
@@ -554,7 +554,7 @@
 				// noinspection JSUnresolvedFunction
 				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
 
-				if (~net.client_room_name.text().indexOf('Emupedia')) {
+				if (net.client_room_name.text().startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
@@ -615,7 +615,7 @@
 
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
-					if (~room.indexOf('Emupedia')) {
+					if (room.startsWith('Emupedia')) {
 						if (net.room_info) {
 							if (room === net.room_info.name) {
 								// noinspection JSUnfilteredForInLoop
@@ -915,7 +915,7 @@
 					net.send_cmd(data.cmd, data.data);
 					net.text_input.val('');
 					return;
-				} else if (~net.client_room_name.text().indexOf('Emupedia') && !is_admin) {
+				} else if (net.client_room_name.text().startsWith('Emupedia') && !is_admin) {
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
@@ -1141,13 +1141,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-
-				var topic = net.room_info.data.topic || '';
-
-				if (topic === '') {
-					topic = (net.room_info.name.indexOf('Emupedia') === 0) ? net.def_topic : "⛈️ The person with glow can change this message by typing: /topic new message 🌥️";
-				}
-
+				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic');
 				net.client_topic.html(topic);
 
 				if (typeof net.room_info.data !== 'undefined') {
@@ -1175,7 +1169,7 @@
 				net.log('You are now talking in ' + net.room_info.name + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
 				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel', 1);
 
-				if (!~room.indexOf('Emupedia')) {
+				if (!room.startsWith('Emupedia')) {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! You may experience swearing, bullying or harassing.', 4);
 				}
 
