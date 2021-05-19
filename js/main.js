@@ -870,7 +870,9 @@
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
 					}
-
+					if (data.cmd === 'topic' && data.data === '') {
+						data.data = net.def_topic;
+					}
 					if (data.cmd === 'medium') {
 						net.refresh_users = true;
 						net.use_animated_emoticons = false;
