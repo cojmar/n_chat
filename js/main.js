@@ -1108,7 +1108,7 @@
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
-				net.log('Trying to reconnect...', 1);
+				net.log('Trying to reconnect...', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
