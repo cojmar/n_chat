@@ -1732,9 +1732,17 @@
 			});
 
 			$('.client_topic').off('mouseenter mouseleave').on('mouseenter', function() {
-				net.client_topic.attr('style', 'animation: client_topic 20s linear infinite; padding-left: 0;');
+				if (!net.use_animated_topic) {
+					net.client_topic.attr('style', 'animation: client_topic 20s linear infinite; padding-left: 0;');
+				} else {
+					net.client_topic.removeAttr('style');
+				}
 			}).on('mouseleave', function() {
-				net.client_topic.attr('style', 'animation: none; paddin-left: 0;');
+				if (!net.use_animated_topic) {
+					net.client_topic.attr('style', 'animation: none; paddin-left: 0;');
+				} else {
+					net.client_topic.removeAttr('style');
+				}
 			});
 
 			picker.on('emoji', function(emoji) {
