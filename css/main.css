@@ -161,7 +161,6 @@ label {
 
 .client_topic {
 	position: absolute;
-	z-index: 1;
 	width: 65%;
 	margin: 2px;
 	padding: 5px;
