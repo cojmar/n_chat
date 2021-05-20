@@ -853,6 +853,10 @@
 						data.cmd = 'join';
 					}
 
+					if (data.cmd === 't') {
+						data.cmd = 'topic';
+					}
+
 					if (data.cmd === 'emoji') {
 						net.use_animated_emoticons = !net.use_animated_emoticons;
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
@@ -909,7 +913,7 @@
 						net.render_users(1, true);
 					}
 
-					if ((data.cmd === 'topic' || data.cmd === 't') && data.data === '') {
+					if (data.cmd === 'topic' && data.data === '') {
 						data.data = net.def_topic;
 					}
 
