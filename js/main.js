@@ -213,6 +213,10 @@
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
 			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true;
 
+			if (!net.use_animated_topic && net.client_topic) {
+				net.client_topic.attr('style', 'animation: none; padding-left: 0');
+			}
+
 			net.is_admin = function(user) {
 				if (typeof user === 'undefined') {
 					if (typeof net.room_info !== 'undefined') {
