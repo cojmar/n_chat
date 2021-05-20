@@ -203,10 +203,12 @@
 			net.chat_buffer = [];
 			net.lock_scroll = true;
 
+			net.use_animated_topic = simplestorage.get('use_animated_topic');
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
 			net.refresh_users = simplestorage.get('refresh_users');
 			net.use_colors = simplestorage.get('use_colors');
 
+			if (!~[true, false].indexOf(net.use_animated_topic)) net.use_animated_topic = true;
 			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true;
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
 			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true;
@@ -867,29 +869,37 @@
 
 					if (data.cmd === 'low') {
 						net.refresh_users = false;
+						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = false;
 						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
 					}
 
+					// noinspection DuplicatedCode
 					if (data.cmd === 'medium') {
 						net.refresh_users = true;
+						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = true;
 						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
 					}
 
+					// noinspection DuplicatedCode
 					if (data.cmd === 'high') {
 						net.refresh_users = true;
+						net.use_animated_topic = true;
 						net.use_animated_emoticons = true;
 						net.use_colors = true;
 						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
 						net.render_users(1, true);
@@ -1509,6 +1519,7 @@
 					if (typeof data.items !== 'undefined') {
 						var html = [
 							'<label><input id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label>',
+							'<label><input id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
 							'<label><input id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
 							'<label><input id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>'
 						].join('') + '<hr />';
@@ -1537,6 +1548,17 @@
 							net.use_colors = $(this).prop('checked');
 							simplestorage.set('use_colors', net.use_colors);
 							net.render_users(1, true);
+						});
+
+						$('#use_animated_topic').off('change').on('change', function() {
+							net.use_animated_topic = $(this).prop('checked');
+							simplestorage.set('use_animated_topic', net.use_animated_topic);
+
+							if (net.use_animated_topic) {
+								net.client_topic.removeAttr('style');
+							} else {
+								net.client_topic.attr('style', 'animation: none; padding-left: 0');
+							}
 						});
 
 						$('#use_animated_emoticons').off('change').on('change', function() {
