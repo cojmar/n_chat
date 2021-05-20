@@ -213,10 +213,6 @@
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
 			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true;
 
-			if (!net.use_animated_topic && net.client_topic) {
-				net.client_topic.attr('style', 'animation: none; padding-left: 0');
-			}
-
 			net.is_admin = function(user) {
 				if (typeof user === 'undefined') {
 					if (typeof net.room_info !== 'undefined') {
@@ -1191,6 +1187,10 @@
 				// noinspection JSUnresolvedVariable
 				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.');
 				net.client_topic.html(topic);
+
+				if (!net.use_animated_topic && net.client_topic) {
+					net.client_topic.attr('style', 'animation: none; padding-left: 0');
+				}
 
 				if (typeof net.room_info.data !== 'undefined') {
 					if (typeof net.room_info.data.admins !== 'undefined') {
