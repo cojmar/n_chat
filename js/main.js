@@ -928,29 +928,29 @@
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
-						net.send_cmd('send_cmd', ['server.msg', 'server', {'msg': 'reloading...'}]);
+						net.send_cmd('send_cmd', ['server.msg', 'server', { 'msg': 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'window.location.reload()';
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, {'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data}];
+						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, { 'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data }];
 					}
 
 					if (data.cmd === 'video' || data.cmd === 'v') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, {'msg': '<video style="width: 100%;" autoplay="autoplay" src="' + data.data + '"></video>'}];
+						data.data = ['server.msg', net.room_info.name, { 'msg': '<video style="width: 100%;" autoplay="autoplay" src="' + data.data + '"></video>' }];
 					}
 
 					if (data.cmd === 'image' || data.cmd === 'i') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, {'msg': '<img alt="" style="width: 100%;" src="' + data.data + '"/>'}];
+						data.data = ['server.msg', net.room_info.name, { 'msg': '<img alt="" style="width: 100%;" src="' + data.data + '"/>' }];
 					}
 
 					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, {'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>'}];
+						data.data = ['server.msg', net.room_info.name, { 'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
 					}
 
 					if (data.cmd === 'room_msg') {
@@ -1541,10 +1541,13 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							'<label><input id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label>',
-							'<label><input id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
-							'<label><input id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
-							'<label><input id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>'
+							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
+							'<label><input class="settings_input" id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
+							'<label><input class="settings_input" id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>',
+							'<label><input class="settings_input" id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label><hr style="margin:0;"/>',
+							'<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Low</span>',
+							'<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Medium</span>',
+							'<span class="preset_settings" style="cursor:pointer;font-size:10px">High</span>'
 						].join('') + '<hr />';
 
 						// noinspection JSUnresolvedVariable
@@ -1566,6 +1569,18 @@
 						}
 
 						net.color_popover.html(html);
+
+						$('.preset_settings').on('mouseover', function() {
+							$(this).css('text-decoration', 'underline')
+						}).on('mouseout', function() {
+							$(this).css('text-decoration', 'none')
+						}).on('click', function() {
+							net.text_input.val('/' + $(this).html().toLowerCase());
+							net.send_input()
+							$('.settings_input').each(function() {
+								$(this).prop('checked', net[$(this).prop('id')])
+							})
+						})
 
 						$('#use_colors').off('change').on('change', function() {
 							net.use_colors = $(this).prop('checked');
