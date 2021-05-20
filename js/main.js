@@ -917,6 +917,12 @@
 						net.render_users(1, true);
 					}
 
+					if (net.use_animated_topic) {
+						net.client_topic.removeAttr('style');
+					} else {
+						net.client_topic.attr('style', 'animation: none; padding-left: 0;');
+					}
+
 					if (data.cmd === 'topic' && data.data === '') {
 						data.data = net.def_topic;
 					}
@@ -1198,7 +1204,7 @@
 				net.client_topic.html(topic);
 
 				if (!net.use_animated_topic && net.client_topic) {
-					net.client_topic.attr('style', 'animation: none; padding-left: 0');
+					net.client_topic.attr('style', 'animation: none; padding-left: 0;');
 				}
 
 				if (typeof net.room_info.data !== 'undefined') {
@@ -1574,7 +1580,7 @@
 							if (net.use_animated_topic) {
 								net.client_topic.removeAttr('style');
 							} else {
-								net.client_topic.attr('style', 'animation: none; padding-left: 0');
+								net.client_topic.attr('style', 'animation: none; padding-left: 0;');
 							}
 						});
 
@@ -1723,6 +1729,12 @@
 			// noinspection JSUnresolvedFunction
 			net.text_input_button.off('click').on('click', function() {
 				net.send_input();
+			});
+
+			$('.client_topic').off('mouseenter mouseleave').on('mouseenter', function() {
+				net.client_topic.attr('style', 'animation: client_topic 20s linear infinite; padding-left: 0;');
+			}).on('mouseleave', function() {
+				net.client_topic.attr('style', 'animation: none; paddin-left: 0;');
 			});
 
 			picker.on('emoji', function(emoji) {
