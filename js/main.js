@@ -895,7 +895,7 @@
 						net.render_users(1, true);
 					}
 
-					if (data.cmd === 'topic' && data.data === '') {
+					if ((data.cmd === 'topic' || data.cmd === 't') && data.data === '') {
 						data.data = net.def_topic;
 					}
 
