@@ -1108,13 +1108,13 @@
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
-				net.log('You are now connected to the server', 1);
+				net.log('Trying to reconnect...', 1);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function() {
 				// console.log('disconnect');
-				net.log('You were disconnected from the server, trying to reconnect...', 4);
+				net.log('You were disconnected from the server...', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
