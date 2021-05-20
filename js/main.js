@@ -444,7 +444,7 @@
 			};
 
 			net.remove_combining = function(str) {
-				return str.replace(/[\u0336\u0337\u0489\ufc5e\u065e]/g, '');
+				return str.replace(/[\u0336\u0337\u0489\u065e\u20d8\ufc5e]/g, '');
 			};
 
 			net.remove_numbers = function(str) {
