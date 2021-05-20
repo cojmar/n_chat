@@ -360,7 +360,11 @@
 								}
 							}
 						} else {
-							break;
+							// noinspection JSUnfilteredForInLoop
+							if (typeof normalize_data.mapping[normalize[j]][arr[i]] !== 'undefined') {
+								// noinspection JSUnfilteredForInLoop
+								arr[i] = normalize_data.mapping[normalize[j]][arr[i]];
+							}
 						}
 					}
 				}
@@ -958,7 +962,7 @@
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types)))));
 						data.data = data.data.replace(/[`.,'"]/g, '');
 
-						if ((net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 1) {
+						if (!/[a-z]/i.test(net.normalize(data.data)) || (net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 1) {
 							net.log('You have unwanted characters in your nickname or it is too short, correct the issue and try again.', 4);
 							return false;
 						}
