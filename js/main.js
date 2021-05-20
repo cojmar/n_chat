@@ -849,6 +849,10 @@
 						data.data = json_data;
 					}
 
+					if (data.cmd === 'name' || data.cmd === 'n') {
+						data.cmd = 'nick';
+					}
+
 					if (data.cmd === 'j') {
 						data.cmd = 'join';
 					}
