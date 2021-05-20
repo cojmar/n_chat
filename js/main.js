@@ -1571,16 +1571,17 @@
 						net.color_popover.html(html);
 
 						$('.preset_settings').on('mouseover', function() {
-							$(this).css('text-decoration', 'underline')
+							$(this).css('text-decoration', 'underline');
 						}).on('mouseout', function() {
-							$(this).css('text-decoration', 'none')
+							$(this).css('text-decoration', 'none');
 						}).on('click', function() {
 							net.text_input.val('/' + $(this).html().toLowerCase());
-							net.send_input()
+							net.send_input();
+
 							$('.settings_input').each(function() {
-								$(this).prop('checked', net[$(this).prop('id')])
-							})
-						})
+								$(this).prop('checked', net[$(this).prop('id')]);
+							});
+						});
 
 						$('#use_colors').off('change').on('change', function() {
 							net.use_colors = $(this).prop('checked');
