@@ -1739,7 +1739,7 @@
 				}
 			}).on('mouseleave', function() {
 				if (!net.use_animated_topic) {
-					net.client_topic.attr('style', 'animation: none; paddin-left: 0;');
+					net.client_topic.attr('style', 'animation: none; padding-left: 0;');
 				} else {
 					net.client_topic.removeAttr('style');
 				}
