@@ -611,22 +611,8 @@
 
 
 				if (net.lock_scroll) {
-
-					if (net.output_div.children().length > max_lines) {
-						if (net.output_div.children().length - max_lines < 5) {
-							for (var i = 0; i <= net.output_div.children().length - max_lines; i++) {
-								$(net.output_div.children(i).get(0)).remove();
-							}
-						} else {
-							var add_buffer = '';
-							for (var i = net.chat_buffer.length - max_lines; i < net.chat_buffer.length; i++) {
-								add_buffer += '\n' + net.chat_buffer[i];
-							}
-							net.output_div.html(add_buffer)
-						}
-					}
 					while (output.scrollHeight - net.output_div.height() > 100) {
-						$(net.output_div.children(i).get(0)).remove();
+						$(net.output_div.children().get(0)).remove();
 					}
 					output.scrollTop = output.scrollHeight;
 				}
