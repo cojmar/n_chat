@@ -1677,7 +1677,7 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
-			net.output_div.on('scroll ', function(e) {
+			net.output_div.on('scroll', function(e) {
 				var output = net.output_div.get(0);
 				if (!net.last_true_lock) net.last_true_lock = Date.now() / 1000;
 				var scroll_lock = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight
@@ -1708,7 +1708,7 @@
 						}
 
 						net.output_div.prepend(add_buffer);
-						net.output_div.get(0).scrollTop += (stop - start) * 2;
+						net.output_div.get(0).scrollTop += 50 //(stop - start) * 2;
 					}
 				}
 
