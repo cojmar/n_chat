@@ -589,31 +589,49 @@
 					net.chat_buffer.push(msg);
 					net.output_div.append(net.chat_buffer.slice(-1));
 
-					setTimeout(function() {
-						// noinspection JSUnresolvedFunction
-						$('.net_msg_hide').slideUp(200, function() {
-							$(this).remove();
-						});
+					if (!net.render_chat_msg_hide_timeout) {
 
-						// noinspection JSUnresolvedFunction
-						$('.net_msg_hide_last:not(:last-child)').slideUp(200, function() {
-							$(this).remove();
-						});
-					}, hide ? hide : 0);
+						net.render_chat_msg_hide_timeout = setTimeout(function() {
+							// noinspection JSUnresolvedFunction
+							$('.net_msg_hide').slideUp(200, function() {
+								$(this).remove();
+							});
+
+							// noinspection JSUnresolvedFunction
+							$('.net_msg_hide_last:not(:last-child)').slideUp(200, function() {
+								$(this).remove();
+							});
+							net.render_chat_msg_hide_timeout = false
+						}, hide ? hide : 0);
+					}
 				}
 
 				var output = net.output_div.get(0);
-				var max_lines = Math.floor((net.output_div.height() * 7) / 100) * 2;
+				var max_lines = Math.floor((net.output_div.height() * 7) / 100) + 3;
 
-				//if (output.scrollTop + output.offsetHeight > output.scrollHeight - 200) {
+
 				if (net.lock_scroll) {
-					output.scrollTop = output.scrollHeight;
+
 					if (net.output_div.children().length > max_lines) {
-						for (var i = 0; i < net.output_div.children().length - max_lines; i++) {
-							$(net.output_div.children(i).get(0)).remove();
+						if (net.output_div.children().length - max_lines < 5) {
+							for (var i = 0; i <= net.output_div.children().length - max_lines; i++) {
+								$(net.output_div.children(i).get(0)).remove();
+							}
+						} else {
+							var add_buffer = '';
+							for (var i = net.chat_buffer.length - max_lines; i < net.chat_buffer.length; i++) {
+								add_buffer += '\n' + net.chat_buffer[i];
+							}
+							net.output_div.html(add_buffer)
 						}
 					}
+					if (output.scrollHeight - net.output_div.height() > 100) {
+						net.output_div.html('')
+					}
+					output.scrollTop = output.scrollHeight;
 				}
+
+
 			};
 
 			net.render_room_select = function(cb) {
@@ -1663,7 +1681,9 @@
 
 			net.socket.on('chat.show', function() {
 				var output = net.output_div.get(0);
+				net.last_true_lock = Date.now() / 1000
 				output.scrollTop = output.scrollHeight;
+				net.lock_scroll = true;
 				net.text_input.get(0).focus();
 			});
 
@@ -1674,15 +1694,24 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
-			net.output_div.on('scroll ', function() {
+			net.output_div.on('scroll ', function(e) {
 				var output = net.output_div.get(0);
-				net.lock_scroll = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight;
+				if (!net.last_true_lock) net.last_true_lock = Date.now() / 1000;
+				var scroll_lock = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight
 
-				if (net.output_div.get(0).scrollTop === 0) {
+
+
+				if ((Date.now() / 1000) - net.last_true_lock > 0.05 && scroll_lock !== net.scroll_lock) {
+					net.lock_scroll = scroll_lock;
+					net.last_true_lock = Date.now() / 1000
+				}
+
+
+				if (net.output_div.get(0).scrollTop === 0 && !net.lock_scroll) {
 					var stop = net.chat_buffer.length - net.output_div.children().length;
 
 					if (stop > 0) {
-						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2);
+						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2) - 5;
 
 						if (start < 0) {
 							start = 0;
@@ -1698,6 +1727,7 @@
 						net.output_div.get(0).scrollTop += stop - start;
 					}
 				}
+
 			});
 
 			net.client_topic = $('#topic_output');
