@@ -625,8 +625,8 @@
 							net.output_div.html(add_buffer)
 						}
 					}
-					if (output.scrollHeight - net.output_div.height() > 500) {
-						net.output_div.html('')
+					while (output.scrollHeight - net.output_div.height() > 100) {
+						$(net.output_div.children(i).get(0)).remove();
 					}
 					output.scrollTop = output.scrollHeight;
 				}
