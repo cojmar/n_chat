@@ -608,7 +608,7 @@
 
 				var output = net.output_div.get(0);
 				if (net.lock_scroll) {
-					while (output.scrollHeight - net.output_div.height() > 100) {
+					while (output.scrollHeight - net.output_div.height() > 50) {
 						$(net.output_div.children().get(0)).remove();
 					}
 					output.scrollTop = output.scrollHeight;
