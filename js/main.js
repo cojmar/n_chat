@@ -607,9 +607,6 @@
 				}
 
 				var output = net.output_div.get(0);
-				var max_lines = Math.floor((net.output_div.height() * 7) / 100) + 3;
-
-
 				if (net.lock_scroll) {
 					while (output.scrollHeight - net.output_div.height() > 100) {
 						$(net.output_div.children().get(0)).remove();
