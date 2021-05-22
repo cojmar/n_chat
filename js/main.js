@@ -625,7 +625,7 @@
 							net.output_div.html(add_buffer)
 						}
 					}
-					if (output.scrollHeight - net.output_div.height() > 100) {
+					if (output.scrollHeight - net.output_div.height() > 1000) {
 						net.output_div.html('')
 					}
 					output.scrollTop = output.scrollHeight;
