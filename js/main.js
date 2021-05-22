@@ -625,7 +625,7 @@
 							net.output_div.html(add_buffer)
 						}
 					}
-					if (output.scrollHeight - net.output_div.height() > 1000) {
+					if (output.scrollHeight - net.output_div.height() > 500) {
 						net.output_div.html('')
 					}
 					output.scrollTop = output.scrollHeight;
@@ -1699,11 +1699,14 @@
 				if (!net.last_true_lock) net.last_true_lock = Date.now() / 1000;
 				var scroll_lock = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight
 
+				var old = net.lock_scroll
 
-
-				if ((Date.now() / 1000) - net.last_true_lock > 0.05 && scroll_lock !== net.scroll_lock) {
+				if ((Date.now() / 1000) - net.last_true_lock > 0.05 && scroll_lock != old) {
 					net.lock_scroll = scroll_lock;
 					net.last_true_lock = Date.now() / 1000
+					if (net.lock_scroll) {
+						net.render_chat()
+					}
 				}
 
 
