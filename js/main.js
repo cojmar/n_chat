@@ -1697,12 +1697,10 @@
 					var stop = net.chat_buffer.length - net.output_div.children().length;
 
 					if (stop > 0) {
-						var start = stop - (Math.floor((net.output_div.height() * 7) / 100) * 2) - 5;
-
+						var start = stop - 4
 						if (start < 0) {
 							start = 0;
 						}
-
 						var add_buffer = '';
 
 						for (var i = start; i < stop; i++) {
@@ -1710,7 +1708,7 @@
 						}
 
 						net.output_div.prepend(add_buffer);
-						net.output_div.get(0).scrollTop += stop - start;
+						net.output_div.get(0).scrollTop += (stop - start) * 2;
 					}
 				}
 
