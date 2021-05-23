@@ -201,6 +201,7 @@
 
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 			net.chat_buffer = [];
+			net.reverse_chat_buffer = [];
 			net.lock_scroll = true;
 
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
@@ -587,6 +588,7 @@
 			net.render_chat = function(msg, hide) {
 				if (msg) {
 					net.chat_buffer.push(msg);
+					net.reverse_chat_buffer.unshift(msg);
 					net.output_div.append(net.chat_buffer.slice(-1));
 
 					if (!net.render_chat_msg_hide_timeout) {
@@ -1225,6 +1227,7 @@
 				net.render_users(1, true);
 
 				net.chat_buffer = [];
+				net.reverse_chat_buffer = [];
 				net.lock_scroll = true;
 				net.output_div.html('');
 				// noinspection JSUnresolvedVariable
@@ -1391,6 +1394,50 @@
 				var is_admin = net.is_admin(user);
 				var nick = '';
 
+				var net_user = false
+				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined') {
+					net_user = net.room_info.users[user];
+				}
+
+				var last_msg = net.reverse_chat_buffer.find(function(e) { return ~e.indexOf('title="Unique ID ' + user + '"') })
+				if (last_msg) {
+					last_msg = {
+						time_stamp: last_msg.substr(last_msg.indexOf('[') + 1, 8),
+						msg: last_msg.substr(last_msg.indexOf(']&nbsp;</span>') + 14).replace('</div>', ''),
+						delay: 0
+					}
+					if (!is_admin) {
+						var d = new Date();
+						var time_stamp = [
+							('0' + d.getHours()).slice(-2),
+							':',
+							('0' + d.getMinutes()).slice(-2),
+							':',
+							('0' + d.getSeconds()).slice(-2)
+						].join('');
+						if (last_msg.time_stamp.substr(0, 6) === time_stamp.substr(0, 6)) {
+							var cur_sec = parseInt(time_stamp.substr(6))
+							var last_sec = parseInt(last_msg.time_stamp.substr(6))
+							last_msg.delay = cur_sec - last_sec
+							var spam_cap = 1
+
+							if (net_user) {
+								net_user.spam_cap = net_user.spam_cap || 1
+								spam_cap = net_user.spam_cap
+							}
+
+							if (last_msg.delay < spam_cap) {
+								if (net_user) net_user.spam_cap++;
+								return false
+							} else {
+								if (net_user) net_user.spam_cap = 1;
+							}
+						} else {
+							last_msg.delay = 60
+						}
+					}
+				}
+
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
 					// noinspection JSUnresolvedVariable
@@ -1431,6 +1478,12 @@
 
 				if (!is_admin && data.msg.length > 159) {
 					data.msg = data.msg.substring(0, 159);
+				}
+
+				if (!is_admin && last_msg && last_msg.delay < 20) {
+					if (last_msg.msg === data.msg || ((~data.msg.indexOf(last_msg.msg) || ~last_msg.msg.indexOf(data.msg)) && data.msg.length >= 10)) {
+						return false;
+					}
 				}
 
 				// noinspection JSUnresolvedVariable
