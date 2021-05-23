@@ -1752,7 +1752,6 @@
 			});
 
 			net.socket.on('chat.show', function() {
-				var output = net.output_div.get(0);
 				net.last_true_lock = (Date.now() / 1000) + 3;
 				net.lock_scroll = true;
 				net.render_chat();
