@@ -1827,18 +1827,13 @@
 					case 96:
 						e.preventDefault();
 
-						try {
-							if (typeof window.top !== 'undefined') {
-								if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
-									if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
-										window.top['NETWORK_CONNECTION']['hide']();
-									}
+						if (typeof window.top !== 'undefined') {
+							if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
+								if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
+									window.top['NETWORK_CONNECTION']['hide']();
 								}
 							}
-						} catch (error) {
-
 						}
-
 
 						break;
 				}
