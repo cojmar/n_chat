@@ -201,7 +201,7 @@
 
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
 			net.chat_buffer = [];
-			net.reverse_chat_buffer = [];
+			net.spam_buffer = [];
 			net.lock_scroll = true;
 
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
@@ -600,9 +600,9 @@
 			net.render_chat = function(msg, hide) {
 				if (msg) {
 					net.chat_buffer.push(msg);
-					net.reverse_chat_buffer.unshift(msg);
-					while (net.reverse_chat_buffer.length > 100) {
-						net.reverse_chat_buffer.length.pop();
+					net.spam_buffer.unshift(msg);
+					while (net.spam_buffer.length > 100) {
+						net.spam_buffer.length.pop();
 					}
 					net.output_div.append(net.chat_buffer.slice(-1));
 
@@ -1242,7 +1242,7 @@
 				net.render_users(1, true);
 
 				net.chat_buffer = [];
-				net.reverse_chat_buffer = [];
+				net.spam_buffer = [];
 				net.lock_scroll = true;
 				net.output_div.html('');
 				// noinspection JSUnresolvedVariable
@@ -1414,7 +1414,7 @@
 					net_user = net.room_info.users[user];
 				}
 
-				var last_msg = net.reverse_chat_buffer.find(function(e) { return ~e.indexOf('title="Unique ID ' + user + '"') })
+				var last_msg = net.spam_buffer.find(function(e) { return ~e.indexOf('title="Unique ID ' + user + '"') })
 				if (last_msg) {
 					last_msg = {
 						time_stamp: last_msg.substr(last_msg.indexOf('[') + 1, 8),
