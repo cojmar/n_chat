@@ -1754,7 +1754,7 @@
 			net.socket.on('chat.show', function() {
 				net.last_true_lock = (Date.now() / 1000) + 3;
 				net.lock_scroll = true;
-				net.render_chat();
+				setTimeout(function() { net.render_chat(); }, 3000)
 				net.text_input.get(0).focus();
 			});
 
