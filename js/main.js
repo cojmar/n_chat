@@ -608,7 +608,7 @@
 					net.chat_buffer.push(msg);
 					net.spam_buffer.unshift(msg);
 					while (net.spam_buffer.length > 100) {
-						net.spam_buffer.length.pop();
+						net.spam_buffer.pop();
 					}
 					net.output_div.append(net.chat_buffer.slice(-1));
 
