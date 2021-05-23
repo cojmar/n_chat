@@ -601,6 +601,9 @@
 				if (msg) {
 					net.chat_buffer.push(msg);
 					net.reverse_chat_buffer.unshift(msg);
+					while (net.reverse_chat_buffer.length > 100) {
+						net.reverse_chat_buffer.length.pop();
+					}
 					net.output_div.append(net.chat_buffer.slice(-1));
 
 					if (!net.render_chat_msg_hide_timeout) {
