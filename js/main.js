@@ -1753,7 +1753,7 @@
 
 			net.socket.on('chat.show', function() {
 				var output = net.output_div.get(0);
-				net.last_true_lock = (Date.now() / 1000) + 500;
+				net.last_true_lock = (Date.now() / 1000) + 5;
 				output.scrollTop = output.scrollHeight;
 				net.lock_scroll = true;
 				net.text_input.get(0).focus();
@@ -1785,7 +1785,6 @@
 						net.render_chat()
 					}
 				}
-				console.log(net.console.height())
 
 				if (net.output_div.get(0).scrollTop === 0 && !net.lock_scroll) {
 					var stop = net.chat_buffer.length - net.output_div.children().length;
