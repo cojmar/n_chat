@@ -246,7 +246,10 @@
 			if (window.top) {
 				try {
 					if (window.top.u_network) {
-						if (!window.top.u_network.frames) window.top.u_network.frames = []
+						if (!window.top.u_network.frames) {
+							window.top.u_network.frames = [];
+						}
+
 						if (!window.top.u_network.reload) {
 							window.top.u_network.reload = function() {
 								window.top.u_network.frames.map(function(win) {
@@ -256,11 +259,10 @@
 								})
 							}
 						}
+
 						window.top.u_network.frames.push(window)
 					}
-				} catch (error) {
-
-				}
+				} catch (error) {}
 			}
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -607,9 +609,11 @@
 				if (msg) {
 					net.chat_buffer.push(msg);
 					net.spam_buffer.unshift(msg);
+
 					while (net.spam_buffer.length > 100) {
 						net.spam_buffer.pop();
 					}
+
 					net.output_div.append(net.chat_buffer.slice(-1));
 
 					if (!net.render_chat_msg_hide_timeout) {
@@ -1415,20 +1419,26 @@
 				var is_admin = net.is_admin(user);
 				var nick = '';
 
-				var net_user = false
+				var net_user = false;
+
+				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined') {
+					// noinspection JSUnresolvedVariable
 					net_user = net.room_info.users[user];
 				}
 
-				var last_msg = net.spam_buffer.find(function(e) { return ~e.indexOf('title="Unique ID ' + user + '"') })
+				var last_msg = net.spam_buffer.find(function(e) { return ~e.indexOf('title="Unique ID ' + user + '"') });
+
 				if (last_msg) {
 					last_msg = {
 						time_stamp: last_msg.substr(last_msg.indexOf('[') + 1, 8),
 						msg: last_msg.substr(last_msg.indexOf(']&nbsp;</span>') + 14).replace('</div>', ''),
 						delay: 0
-					}
+					};
+
 					if (!is_admin) {
 						var d = new Date();
+
 						var time_stamp = [
 							('0' + d.getHours()).slice(-2),
 							':',
@@ -1436,22 +1446,27 @@
 							':',
 							('0' + d.getSeconds()).slice(-2)
 						].join('');
+
 						if (last_msg.time_stamp.substr(0, 6) === time_stamp.substr(0, 6)) {
-							var cur_sec = parseInt(time_stamp.substr(6))
-							var last_sec = parseInt(last_msg.time_stamp.substr(6))
-							last_msg.delay = cur_sec - last_sec
-							var spam_cap = 1
+							var cur_sec = parseInt(time_stamp.substr(6));
+							var last_sec = parseInt(last_msg.time_stamp.substr(6));
+							last_msg.delay = cur_sec - last_sec;
+							var spam_cap = 1;
 
 							if (net_user) {
-								net_user.spam_cap = net_user.spam_cap || 1
-								spam_cap = net_user.spam_cap
+								net_user.spam_cap = net_user.spam_cap || 1;
+								spam_cap = net_user.spam_cap;
 							}
 
 							if (last_msg.delay < spam_cap) {
-								if (net_user) net_user.spam_cap++;
-								return false
+								if (net_user) {
+									net_user.spam_cap++;
+								}
+								return false;
 							} else {
-								if (net_user) net_user.spam_cap = 1;
+								if (net_user) {
+									net_user.spam_cap = 1;
+								}
 							}
 						} else {
 							last_msg.delay = 60
@@ -1738,7 +1753,7 @@
 
 			net.socket.on('chat.show', function() {
 				var output = net.output_div.get(0);
-				net.last_true_lock = Date.now() / 1000
+				net.last_true_lock = Date.now() / 1000;
 				output.scrollTop = output.scrollHeight;
 				net.lock_scroll = true;
 				net.text_input.get(0).focus();
@@ -1751,30 +1766,36 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
-			net.output_div.on('scroll', function(e) {
+			net.output_div.on('scroll', function() {
 				var output = net.output_div.get(0);
-				if (!net.last_true_lock) net.last_true_lock = Date.now() / 1000;
-				var scroll_lock = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight
 
-				var old = net.lock_scroll
+				if (!net.last_true_lock) {
+					net.last_true_lock = Date.now() / 1000;
+				}
 
-				if ((Date.now() / 1000) - net.last_true_lock > 0.05 && scroll_lock != old) {
+				var scroll_lock = output.scrollTop + output.offsetHeight + 15 > output.scrollHeight;
+
+				var old = net.lock_scroll;
+
+				if ((Date.now() / 1000) - net.last_true_lock > 0.05 && scroll_lock !== old) {
 					net.lock_scroll = scroll_lock;
-					net.last_true_lock = Date.now() / 1000
+					net.last_true_lock = Date.now() / 1000;
+
 					if (net.lock_scroll) {
 						net.render_chat()
 					}
 				}
 
-
 				if (net.output_div.get(0).scrollTop === 0 && !net.lock_scroll) {
 					var stop = net.chat_buffer.length - net.output_div.children().length;
 
 					if (stop > 0) {
-						var start = stop - 4
+						var start = stop - 4;
+
 						if (start < 0) {
 							start = 0;
 						}
+
 						var add_buffer = '';
 
 						for (var i = start; i < stop; i++) {
@@ -1785,7 +1806,6 @@
 						net.output_div.get(0).scrollTop += 50
 					}
 				}
-
 			});
 
 			net.client_topic = $('#topic_output');
