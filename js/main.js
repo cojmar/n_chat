@@ -247,7 +247,7 @@
 				try {
 					if (window.top.u_network) {
 						if (!window.top.u_network.frames) window.top.u_network.frames = []
-						if (!window.top.u_network.refresh) {
+						if (!window.top.u_network.reload) {
 							window.top.u_network.reload = function() {
 								window.top.u_network.frames.map(function(win) {
 									if (win && win.location) {
