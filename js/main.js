@@ -1827,13 +1827,19 @@
 					case 96:
 						e.preventDefault();
 
-						if (typeof window.top !== 'undefined') {
-							if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
-								if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
-									window.top['NETWORK_CONNECTION']['hide']();
+						try {
+							if (typeof window.top !== 'undefined') {
+								if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
+									if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
+										window.top['NETWORK_CONNECTION']['hide']();
+									}
 								}
 							}
+						} catch (error) {
+
 						}
+
+
 						break;
 				}
 			}).off('paste').on('paste', function(e) {
