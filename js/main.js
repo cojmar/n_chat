@@ -1328,11 +1328,11 @@
 
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info.data.topic !== 'undefined') {
+					var topic = (net.room_info.data.topic !== '') ? net.room_info.data.topic : net.def_topic;
+
 					// noinspection JSUnresolvedVariable
-					if (net.room_info.data.topic !== '') {
-						// noinspection JSUnresolvedVariable
-						net.client_topic.html(net.room_info.data.topic);
-					}
+					net.client_topic.html(topic);
+
 				}
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
