@@ -1953,10 +1953,6 @@
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('join', ui.item.value);
 					},
-					select: function(e, ui) {
-						// noinspection JSUnresolvedFunction
-						net.send_cmd('join', ui.item.value);
-					},
 					open: function(e, ui) {
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('list', {});
