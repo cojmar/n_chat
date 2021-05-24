@@ -138,8 +138,6 @@
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
 			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'upsidedown-numbers-only', 'uncategorized', 'diacritics'];
 
-			console.log(normalize_types.splice(-1, 1));
-
 			var net = network.start({
 				servers: servers,
 				server: ~domains.indexOf(window.location.hostname) ? domains.indexOf(window.location.hostname) : 0,
@@ -634,34 +632,43 @@
 							$('.net_msg_hide_last:not(:last-child)').slideUp(200, function() {
 								$(this).remove();
 							});
-							net.render_chat_msg_hide_timeout = false
+
+							net.render_chat_msg_hide_timeout = false;
 						}, hide ? hide : 0);
 					}
 				}
 
 				var output = net.output_div.get(0);
+
 				if (net.lock_scroll) {
 					if (output.scrollHeight - net.output_div.height() < 11) {
-						var lines_per_window = Math.floor(net.output_div.height() / 14)
-						var lines_to_get = lines_per_window - net.output_div.children().length
+						var lines_per_window = Math.floor(net.output_div.height() / 14);
+						var lines_to_get = lines_per_window - net.output_div.children().length;
+
 						if (net.chat_buffer.length >= lines_per_window && lines_to_get > 0) {
-							var stop = net.chat_buffer.length - 1
-							var start = stop - lines_per_window - 5
-							if (start < 0) start = 0
-							var add_buffer = "";
-							for (var i = start; i <= stop; i++) {
-								add_buffer += net.chat_buffer[i]
+							var stop = net.chat_buffer.length - 1;
+							var start = stop - lines_per_window - 5;
+
+							if (start < 0) {
+								start = 0;
 							}
+
+							var add_buffer = '';
+
+							for (var i = start; i <= stop; i++) {
+								add_buffer += net.chat_buffer[i];
+							}
+
 							net.output_div.html(add_buffer);
 						}
 					}
+
 					while (output.scrollHeight - net.output_div.height() > 50) {
 						$(net.output_div.children().get(0)).remove();
 					}
+
 					output.scrollTop = output.scrollHeight;
 				}
-
-
 			};
 
 			net.render_room_select = function(cb) {
@@ -1774,11 +1781,7 @@
 					net.text_input.focus();
 				});
 			});
-			$(window).on('resize', function() {
-				setTimeout(function() {
-					net.render_chat();
-				}, 100);
-			})
+
 			net.socket.on('chat.show', function() {
 				net.last_true_lock = (Date.now() / 1000) + 3;
 				net.lock_scroll = true;
@@ -1964,10 +1967,17 @@
 			$(document).mouseup(function(e) {
 				if (!net.color_popover.is(e.target) && !net.color_button.is(e.target) && net.color_popover.has(e.target).length === 0) {
 					net.color_popover.removeClass('show');
+
 					setTimeout(function() {
 						net.color_popover.css('visibility', 'hidden');
 					}, 200);
 				}
+			});
+
+			$(window).on('resize', function() {
+				setTimeout(function() {
+					net.render_chat();
+				}, 100);
 			});
 		});
 	});
