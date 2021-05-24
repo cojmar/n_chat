@@ -697,7 +697,7 @@
 
 				if (!current_room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room  + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
+					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
 				}
 
 				if (typeof cb === 'function') {
@@ -954,7 +954,7 @@
 					// noinspection DuplicatedCode
 					if (data.cmd === 'medium') {
 						net.refresh_users = true;
-						net.use_animated_topic = true;
+						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = true;
 						simplestorage.set('refresh_users', net.refresh_users);
@@ -984,7 +984,7 @@
 					}
 
 					if (data.cmd === 'topic' && data.data === '') {
-						data.data = net.def_topic;
+						data.data = net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic;
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
@@ -1261,10 +1261,11 @@
 
 				if (!net.def_topic) {
 					net.def_topic = net.client_topic.html();
+					net.def_custom_topic = 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.';
 				}
 
 				// noinspection JSUnresolvedVariable
-				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.');
+				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
 				net.client_topic.html(topic);
 
 				if (!net.use_animated_topic && net.client_topic) {
@@ -1299,7 +1300,7 @@
 
 				if (!room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room  + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
+					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! The chat is not beign actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
 				}
 
@@ -1325,14 +1326,12 @@
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
-
+				net.room_info.data = $.extend(net.room_info.data, data.data);
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info.data.topic !== 'undefined') {
+					var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
 					// noinspection JSUnresolvedVariable
-					if (net.room_info.data.topic !== '') {
-						// noinspection JSUnresolvedVariable
-						net.client_topic.html(net.room_info.data.topic);
-					}
+					net.client_topic.html(topic);
 				}
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
@@ -1365,7 +1364,7 @@
 					net.text_input.attr('maxlength', 160);
 				}
 
-				net.room_info.data = $.extend(net.room_info.data, data.data);
+
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -1788,8 +1787,9 @@
 			});
 
 			net.socket.on('chat.show', function() {
-				net.last_true_lock = (Date.now() / 1000) + 1;
+				net.last_true_lock = (Date.now() / 1000);
 				net.lock_scroll = true;
+				net.output_div.html('');
 				net.text_input.get(0).focus();
 			});
 
