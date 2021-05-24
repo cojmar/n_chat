@@ -3,6 +3,7 @@
 	--animation-easing: ease-in-out;
 	--glow-color-1: #159904;
 	--glow-color-2: #1eff00;
+	--background: #302f2f;
 }
 
 hr {
@@ -50,14 +51,10 @@ label {
 	border: 1px #4c4c4c solid;
 }
 
-.client_decoration {
-	background-color: rgba(48, 47, 47, 0.85);
-	background-color: #302f2f;
-	border: 1px #4c4c4c solid;
-}
-
+/*noinspection CssOverwrittenProperties*/
 #client_container {
-	width: 100%;
+	display: none;
+	width: calc(100% - 2px);
 	height: calc(100% - 2px);
 	margin: 0;
 	padding: 0;
@@ -65,6 +62,9 @@ label {
 	color: #b4adad;
 	font-size: 12px;
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
+	border: 1px #4c4c4c solid;
+	background-color: #302f2f;
+	background-color: var(--background);
 }
 
 #client_users {
@@ -73,12 +73,11 @@ label {
 
 /*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_room_users {
-	margin: 4px -4px -4px;
-	height: calc(100% - 19px);
+	height: calc(100% - 25px);
 	padding: 2px;
-	border-top: none;
 	overflow-y: auto;
 	overflow-x: hidden;
+	border-top: 1px #4c4c4c solid;
 	scrollbar-base-color: #222;
 	scrollbar-3dlight-color: #222;
 	scrollbar-highlight-color: #222;
@@ -120,7 +119,6 @@ label {
 
 #client_room {
 	padding: 2px;
-	margin: -4px;
 	height: 16px;
 	font-weight: bold;
 	font-size: 13px;
@@ -132,44 +130,30 @@ label {
 
 .client_right {
 	float: left;
-	margin: 1px 0 0 0;
-	padding: 5px;
-	height: calc(100% - 46px);
-	width: calc(35% - 28px);
+	width: calc(35% - 11px);
+	height: calc(100% - 40px);
+	margin: 2px 0 2px 1px;
+	border: 1px #4c4c4c solid;
 }
 
-/*noinspection CssUnknownProperty,DuplicatedCode*/
 .client_left {
 	float: left;
 	width: 65%;
-	padding: 5px;
-	height: calc(100% - 71px);
-	overflow-y: auto;
-	margin: 23px 2px 2px;
-	scrollbar-base-color: #222;
-	scrollbar-3dlight-color: #222;
-	scrollbar-highlight-color: #222;
-	scrollbar-track-color: #3e3e42;
-	scrollbar-arrow-color: #111;
-	scrollbar-shadow-color: #222;
-	scrollbar-dark-shadow-color: #222;
-	scrollbar-width: thin;
-	scrollbar-face-color: rgba(0, 0, 0, 0.38);
-	scrollbar-track-color: rgba(34, 33, 33, 0.95);
-	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
+	height: calc(100% - 40px);
+	margin: 2px 1px 2px 2px;
+	border: 1px #4c4c4c solid;
 }
 
 .client_topic {
-	position: absolute;
-	width: 65%;
-	margin: 2px;
 	padding: 5px;
 	height: 10px;
 	color: #395fa4;
 	line-height: 10px;
 	overflow: hidden;
 	white-space: nowrap;
+	word-break: keep-all;
 	background-color: rgba(34, 33, 33, 0.418);
+	border-bottom: 1px #4c4c4c solid;
 	cursor: default;
 }
 
@@ -188,17 +172,32 @@ label {
 	}
 }
 
+/*noinspection CssUnknownProperty,DuplicatedCode*/
 #client_output {
-	position: relative;
+	height: calc(100% - 31px);
+	padding: 5px;
 	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-base-color: #222;
+	scrollbar-3dlight-color: #222;
+	scrollbar-highlight-color: #222;
+	scrollbar-track-color: #3e3e42;
+	scrollbar-arrow-color: #111;
+	scrollbar-shadow-color: #222;
+	scrollbar-dark-shadow-color: #222;
+	scrollbar-width: thin;
+	scrollbar-face-color: rgba(0, 0, 0, 0.38);
+	scrollbar-track-color: rgba(34, 33, 33, 0.95);
+	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
 
-/*noinspection CssInvalidHtmlTagReference*/
+/*noinspection CssInvalidHtmlTagReference,CssOverwrittenProperties*/
 #client_output .net_msg xmp {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
 	word-break: break-all;
+	word-break: break-word;
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 	font-size: 12px;
 }
@@ -224,11 +223,13 @@ label {
 	z-index: 2;
 }
 
+/*noinspection CssOverwrittenProperties*/
 #client_output div {
 	word-break: break-all;
+	word-break: break-word;
 }
 
-#client_output div>.emoticon:hover {
+#client_output div > .emoticon:hover {
 	position: absolute;
 	width: 80px;
 	height: 80px;
@@ -236,18 +237,18 @@ label {
 	margin-top: -25px;
 }
 
-#client_output span>.emoticon:before,
-#client_output div>.emoticon:before {
+#client_output span > .emoticon:before,
+#client_output div > .emoticon:before {
 	vertical-align: sub;
 	transform: scale(0.175);
 	transform-origin: left top;
 }
 
-#client_output div>.emoticon:hover:before {
+#client_output div > .emoticon:hover:before {
 	transform: scale(1);
 }
 
-#client_output div>.emoji:hover {
+#client_output div > .emoji:hover {
 	transform: scale(6);
 }
 
@@ -258,6 +259,7 @@ label {
 	padding: 5px;
 	margin: 0 2px 2px;
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
+	border: 1px #4c4c4c solid;
 }
 
 #client_emoticons,
