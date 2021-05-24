@@ -1975,9 +1975,7 @@
 			});
 
 			$(window).on('resize', function() {
-				setTimeout(function() {
-					net.render_chat();
-				}, 100);
+				net.render_chat();
 			});
 		});
 	});
