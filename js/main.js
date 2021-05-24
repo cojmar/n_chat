@@ -697,7 +697,7 @@
 
 				if (!current_room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room  + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
+					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
 				}
 
 				if (typeof cb === 'function') {
@@ -1299,7 +1299,7 @@
 
 				if (!room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room  + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
+					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! The chat is not beign actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
 				}
 
@@ -1788,8 +1788,9 @@
 			});
 
 			net.socket.on('chat.show', function() {
-				net.last_true_lock = (Date.now() / 1000) + 1;
+				net.last_true_lock = (Date.now() / 1000);
 				net.lock_scroll = true;
+				net.output_div.html('');
 				net.text_input.get(0).focus();
 			});
 
