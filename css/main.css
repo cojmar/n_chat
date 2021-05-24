@@ -197,7 +197,7 @@ label {
 	margin: 0;
 	padding: 0;
 	word-break: break-all;
-	word-break: break-word;
+	/*word-break: break-word;*/
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 	font-size: 12px;
 }
@@ -226,7 +226,7 @@ label {
 /*noinspection CssOverwrittenProperties*/
 #client_output div {
 	word-break: break-all;
-	word-break: break-word;
+	/*word-break: break-word;*/
 }
 
 #client_output div > .emoticon:hover {
