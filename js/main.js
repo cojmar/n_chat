@@ -545,14 +545,14 @@
 			net.clean = function(str, sent_by_admin, disable_emoji) {
 				var i_am_admin = net.is_admin();
 				var room_name = net.client_room_name.text();
+				var subject;
 
-				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str, room_name === 'Emupedia' ? normalize_types : normalize_types.splice(-1, 1)));
-
-				if (room_name.startsWith('Emupedia') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
+				if (room_name === 'Emupedia' && !sent_by_admin) {
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str),  normalize_types)))));
+				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.splice(-1, 1))))));
 				} else {
-					subject = net.remove_combining(net.remove_invisible(subject));
+					subject = net.remove_combining(net.remove_invisible(net.remove_zalgo(str)));
 				}
 
 				// noinspection DuplicatedCode
@@ -570,7 +570,7 @@
 					}
 				}
 
-				if ((subject.startsWith('*') || subject.startsWith('-'))) {
+				if ((subject.trim().startsWith('*') || subject.trim().startsWith('-'))) {
 					subject = '<i' + (net.use_colors ? ' style="color: #79667d;"' : '') + '>' + subject + '</i>';
 				}
 
@@ -584,7 +584,7 @@
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str, normalize_types.splice(-1, 1)));
+				var subject = net.normalize(net.remove_zalgo(str), normalize_types.splice(-1, 1));
 
 				if (net.client_room_name.text().startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
