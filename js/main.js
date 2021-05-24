@@ -984,7 +984,7 @@
 					}
 
 					if (data.cmd === 'topic' && data.data === '') {
-						data.data = net.def_topic;
+						data.data = net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic;
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
@@ -1261,10 +1261,11 @@
 
 				if (!net.def_topic) {
 					net.def_topic = net.client_topic.html();
+					net.def_custom_topic = 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.';
 				}
 
 				// noinspection JSUnresolvedVariable
-				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.');
+				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
 				net.client_topic.html(topic);
 
 				if (!net.use_animated_topic && net.client_topic) {
@@ -1325,14 +1326,12 @@
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
-
+				net.room_info.data = $.extend(net.room_info.data, data.data);
 				// noinspection JSUnresolvedVariable
-				if (typeof window.u_network !== 'undefined') {
-					var topic = (window.u_network.room.data.topic !== '') ? window.u_network.room.data.topic : net.def_topic;
-
+				if (typeof net.room_info.data.topic !== 'undefined') {
+					var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
 					// noinspection JSUnresolvedVariable
 					net.client_topic.html(topic);
-
 				}
 
 				if (typeof net.room_info.data.admins !== 'undefined') {
@@ -1365,7 +1364,7 @@
 					net.text_input.attr('maxlength', 160);
 				}
 
-				net.room_info.data = $.extend(net.room_info.data, data.data);
+
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
