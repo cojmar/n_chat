@@ -136,7 +136,9 @@
 
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
-			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'upsidedown-numbers-only', 'uncategorized'];
+			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'upsidedown-numbers-only', 'uncategorized', 'diacritics'];
+
+			console.log(normalize_types.splice(-1, 1));
 
 			var net = network.start({
 				servers: servers,
@@ -243,6 +245,7 @@
 
 				return false;
 			};
+
 			if (window.top) {
 				try {
 					if (window.top.u_network) {
@@ -254,16 +257,17 @@
 							window.top.u_network.reload = function() {
 								window.top.u_network.frames.map(function(win) {
 									if (win && win.location) {
-										win.location.reload()
+										win.location.reload();
 									}
 								})
 							}
 						}
 
-						window.top.u_network.frames.push(window)
+						window.top.u_network.frames.push(window);
 					}
 				} catch (error) {}
 			}
+
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
 
@@ -540,11 +544,12 @@
 			// noinspection DuplicatedCode
 			net.clean = function(str, sent_by_admin, disable_emoji) {
 				var i_am_admin = net.is_admin();
+				var room_name = net.client_room_name.text();
 
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
+				var subject = net.remove_zalgo(net.normalize(str, room_name === 'Emupedia' ? normalize_types : normalize_types.splice(-1, 1)));
 
-				if (net.client_room_name.text().startsWith('Emupedia') && !sent_by_admin) {
+				if (room_name.startsWith('Emupedia') && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(subject))));
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
@@ -579,7 +584,7 @@
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
 				// noinspection JSUnresolvedFunction
-				var subject = net.remove_zalgo(net.normalize(str, normalize_types));
+				var subject = net.remove_zalgo(net.normalize(str, normalize_types.splice(-1, 1)));
 
 				if (net.client_room_name.text().startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
@@ -979,6 +984,10 @@
 					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', net.room_info.name, { 'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
+					}
+
+					if (data.cmd === 'test') {
+						data.cmd = 'topic';
 					}
 
 					if (data.cmd === 'room_msg') {
@@ -1754,7 +1763,11 @@
 			net.socket.on('chat.show', function() {
 				net.last_true_lock = (Date.now() / 1000) + 3;
 				net.lock_scroll = true;
-				setTimeout(function() { net.render_chat(); }, 3000)
+
+				setTimeout(function() {
+					net.render_chat();
+				}, 3000);
+
 				net.text_input.get(0).focus();
 			});
 
@@ -1824,16 +1837,16 @@
 						net.send_input();
 						break;
 					case 96:
-						e.preventDefault();
-
-						if (typeof window.top !== 'undefined') {
-							if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
-								if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
-									window.top['NETWORK_CONNECTION']['hide']();
+						try {
+							if (typeof window.top !== 'undefined') {
+								if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
+									if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
+										window.top['NETWORK_CONNECTION']['hide']();
+										e.preventDefault();
+									}
 								}
 							}
-						}
-
+						} catch (e) {}
 						break;
 				}
 			}).off('paste').on('paste', function(e) {
