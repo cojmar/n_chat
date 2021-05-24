@@ -677,14 +677,10 @@
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
 					if (room.startsWith('Emupedia')) {
-						if (net.room_info) {
-							if (room === net.room_info.name) {
-								// noinspection JSUnfilteredForInLoop
-								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
-							} else {
-								// noinspection JSUnfilteredForInLoop
-								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
-							}
+						// noinspection JSUnfilteredForInLoop
+						if (room === net.room_info.name) {
+							// noinspection JSUnfilteredForInLoop
+							html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
 						} else {
 							// noinspection JSUnfilteredForInLoop
 							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
@@ -694,6 +690,15 @@
 
 				// noinspection JSUnresolvedFunction
 				net.client_rooms.html(html);
+
+				// noinspection JSUnresolvedVariable
+				var users_online = Object.keys(net.room_info.users).length;
+				var current_room = net.room_info.name;
+
+				if (!current_room.startsWith('Emupedia')) {
+					net.client_rooms.find('option:selected').removeAttr('selected');
+					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room  + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
+				}
 
 				if (typeof cb === 'function') {
 					cb();
@@ -1247,7 +1252,7 @@
 				}
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.info', function(data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
@@ -1289,9 +1294,12 @@
 				// noinspection JSUnresolvedVariable
 				var users_online = Object.keys(net.room_info.users).length;
 				var room = net.room_info.name;
-				net.log('You are now talking in ' + net.room_info.name + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
+
+				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
 
 				if (!room.startsWith('Emupedia')) {
+					net.client_rooms.find('option:selected').removeAttr('selected');
+					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room  + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! The chat is not beign actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
 				}
 
@@ -1652,9 +1660,6 @@
 						// noinspection JSUnresolvedFunction
 						net.client_rooms.selectmenu('refresh');
 					}
-
-					// noinspection JSUnresolvedVariable
-					$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
 				});
 			});
 
@@ -1783,7 +1788,7 @@
 			});
 
 			net.socket.on('chat.show', function() {
-				net.last_true_lock = (Date.now() / 1000) + 3;
+				net.last_true_lock = (Date.now() / 1000) + 1;
 				net.lock_scroll = true;
 				net.text_input.get(0).focus();
 			});
