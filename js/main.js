@@ -548,7 +548,7 @@
 				var subject;
 
 				if (room_name === 'Emupedia' && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str),  normalize_types)))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types)))));
 				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.splice(-1, 1))))));
 				} else {
@@ -641,6 +641,20 @@
 
 				var output = net.output_div.get(0);
 				if (net.lock_scroll) {
+					if (output.scrollHeight - net.output_div.height() < 11) {
+						var lines_per_window = Math.floor(net.output_div.height() / 14)
+						var lines_to_get = lines_per_window - net.output_div.children().length
+						if (net.chat_buffer.length >= lines_per_window && lines_to_get > 0) {
+							var stop = net.chat_buffer.length - 1
+							var start = stop - lines_per_window - 5
+							if (start < 0) start = 0
+							var add_buffer = "";
+							for (var i = start; i <= stop; i++) {
+								add_buffer += net.chat_buffer[i]
+							}
+							net.output_div.html(add_buffer);
+						}
+					}
 					while (output.scrollHeight - net.output_div.height() > 50) {
 						$(net.output_div.children().get(0)).remove();
 					}
@@ -1760,15 +1774,14 @@
 					net.text_input.focus();
 				});
 			});
-
+			$(window).on('resize', function() {
+				setTimeout(function() {
+					net.render_chat();
+				}, 100);
+			})
 			net.socket.on('chat.show', function() {
 				net.last_true_lock = (Date.now() / 1000) + 3;
 				net.lock_scroll = true;
-
-				setTimeout(function() {
-					net.render_chat();
-				}, 3000);
-
 				net.text_input.get(0).focus();
 			});
 
@@ -1800,7 +1813,7 @@
 				}
 
 				if (net.output_div.get(0).scrollTop === 0 && !net.lock_scroll) {
-					var stop = net.chat_buffer.length - net.output_div.children().length;
+					var stop = net.chat_buffer.length - net.output_div.children().length - 2;
 
 					if (stop > 0) {
 						var start = stop - 4;
