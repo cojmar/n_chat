@@ -583,10 +583,11 @@
 
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
+				var room_name = net.client_room_name.text();
 				// noinspection JSUnresolvedFunction
 				var subject = net.normalize(net.remove_zalgo(str), normalize_types.splice(-1, 1));
 
-				if (net.client_room_name.text().startsWith('Emupedia')) {
+				if (room_name.startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
