@@ -1327,8 +1327,8 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				// noinspection JSUnresolvedVariable
-				if (typeof window.top.u_network !== 'undefined') {
-					var topic = (window.top.u_network.room.data.topic !== '') ? window.top.u_network.room.data.topic : net.def_topic;
+				if (typeof window.u_network !== 'undefined') {
+					var topic = (window.u_network.room.data.topic !== '') ? window.u_network.room.data.topic : net.def_topic;
 
 					// noinspection JSUnresolvedVariable
 					net.client_topic.html(topic);
