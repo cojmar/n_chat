@@ -215,6 +215,28 @@
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
 			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true;
 
+			if (window.top) {
+				try {
+					if (window.top.u_network) {
+						if (!window.top.u_network.frames) {
+							window.top.u_network.frames = [];
+						}
+
+						if (!window.top.u_network.reload) {
+							window.top.u_network.reload = function() {
+								window.top.u_network.frames.map(function(win) {
+									if (win && win.location) {
+										win.location.reload();
+									}
+								})
+							}
+						}
+
+						window.top.u_network.frames.push(window);
+					}
+				} catch (error) {}
+			}
+
 			net.is_admin = function(user) {
 				if (typeof user === 'undefined') {
 					if (typeof net.room_info !== 'undefined') {
@@ -244,28 +266,6 @@
 
 				return false;
 			};
-
-			if (window.top) {
-				try {
-					if (window.top.u_network) {
-						if (!window.top.u_network.frames) {
-							window.top.u_network.frames = [];
-						}
-
-						if (!window.top.u_network.reload) {
-							window.top.u_network.reload = function() {
-								window.top.u_network.frames.map(function(win) {
-									if (win && win.location) {
-										win.location.reload();
-									}
-								})
-							}
-						}
-
-						window.top.u_network.frames.push(window);
-					}
-				} catch (error) {}
-			}
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -997,7 +997,7 @@
 					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
 						net.send_cmd('send_cmd', ['server.msg', 'server', { 'msg': 'reloading...' }]);
 						data.cmd = 'eval';
-						data.data = 'if (window.u_network && window.u_network.reload) window.u_network.reload();else window.location.reload()';
+						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
 					}
 
 					if (data.cmd === 'rename' || data.cmd === 'ren') {
