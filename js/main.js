@@ -1329,6 +1329,7 @@
 				net.room_info.data = $.extend(net.room_info.data, data.data);
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info.data.topic !== 'undefined') {
+					// noinspection JSUnresolvedVariable
 					var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
 					// noinspection JSUnresolvedVariable
 					net.client_topic.html(topic);
@@ -1363,8 +1364,6 @@
 				} else {
 					net.text_input.attr('maxlength', 160);
 				}
-
-
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -1456,6 +1455,7 @@
 				var user = data.user;
 				var is_admin = net.is_admin(user);
 				var nick = '';
+				var nickname = '';
 
 				var net_user = false;
 
@@ -1516,6 +1516,8 @@
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
 					// noinspection JSUnresolvedVariable
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
+					// noinspection JSUnresolvedVariable
+					nickname = is_admin ? 'Nickname ' + net.room_info.users[user].info.nick + ' ' : '';
 				}
 
 				var color = net.colors[3];
@@ -1563,7 +1565,7 @@
 				// noinspection JSUnresolvedVariable
 				var user_level = net.get_user_level(user);
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="' + nickname + 'Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
