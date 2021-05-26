@@ -994,6 +994,13 @@
 						data.data = 'if (window.u_network && window.u_network.reload) window.u_network.reload();else window.location.reload()';
 					}
 
+					if (data.cmd === 'rename' || data.cmd === 'ren') {
+						data.data = data.data.split(' ');
+						var to = data.data.shift();
+						data.data = data.data.join(' ');
+						net.send_cmd('send_cmd', ['eval', to, {data: "window.u_network.send_cmd('nick', '" + data.data + "')"}]);
+					}
+
 					if (data.cmd === 'server' || data.cmd === 's') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, { 'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data }];
