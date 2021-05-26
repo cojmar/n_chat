@@ -203,6 +203,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.lock_scroll = true;
+			net.max_message_length = 160;
 
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
@@ -880,8 +881,8 @@
 				var msg = net.text_input.val();
 				var is_admin = net.is_admin();
 
-				if (msg.length > 159 && !is_admin) {
-					msg = msg.substring(0, 159)
+				if (msg.length >= net.max_message_length && !is_admin) {
+					msg = msg.substring(0, net.max_message_length - 1)
 				}
 
 				if (msg.charAt(0) === '/') {
@@ -1247,7 +1248,7 @@
 					if (net.is_admin()) {
 						net.text_input.removeAttr('maxlength');
 					} else {
-						net.text_input.attr('maxlength', 160);
+						net.text_input.attr('maxlength', net.max_message_length);
 					}
 				}
 			});
@@ -1307,7 +1308,7 @@
 				if (net.is_admin()) {
 					net.text_input.removeAttr('maxlength');
 				} else {
-					net.text_input.attr('maxlength', 160);
+					net.text_input.attr('maxlength', net.max_message_length);
 				}
 			});
 
@@ -1362,7 +1363,7 @@
 				if (net.is_admin()) {
 					net.text_input.removeAttr('maxlength');
 				} else {
-					net.text_input.attr('maxlength', 160);
+					net.text_input.attr('maxlength', net.max_message_length);
 				}
 			});
 
@@ -1552,8 +1553,8 @@
 					if (user === net.room_info.host) glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 				}
 
-				if (!is_admin && data.msg.length > 159) {
-					data.msg = data.msg.substring(0, 159);
+				if (!is_admin && data.msg.length >= net.max_message_length) {
+					data.msg = data.msg.substring(0, net.max_message_length - 1);
 				}
 
 				if (!is_admin && last_msg && last_msg.delay < 20) {
