@@ -542,7 +542,7 @@
 
 			// noinspection DuplicatedCode
 			net.clean = function(str, sent_by_admin, disable_emoji) {
-				var i_am_admin = net.is_admin();
+				var me_is_admin = net.is_admin();
 				var room_name = net.room_info.name || '';
 				var subject;
 
@@ -573,7 +573,7 @@
 					subject = '<i' + (net.use_colors ? ' style="color: #79667d;"' : '') + '>' + subject + '</i>';
 				}
 
-				if (i_am_admin) {
+				if (me_is_admin) {
 					return '<span title="' + str.replace(/"/g, '&quot;') + '">' + subject + '</span>';
 				}
 
@@ -721,6 +721,7 @@
 						var users_online = Object.keys(net.room_info.users).length;
 						// noinspection JSUnresolvedVariable
 						var me = net.room_info.me;
+						var me_is_admin = net.is_admin();
 						var room = net.room_info.name;
 
 						// noinspection JSUnresolvedFunction
@@ -758,13 +759,16 @@
 						});
 
 						var users_obj = {};
+						var nick_obj = {};
 
 						users_array_nick.forEach(function(item) {
 							users_obj[item[0]] = net.clean_nicknames(item[1]);
+							nick_obj[item[0]] = item[1];
 						});
 
 						users_array_default.forEach(function(item) {
 							users_obj[item[0]] = net.friendly_name(item[1]);
+							nick_obj[item[0]] = item[1];
 						});
 
 						// noinspection JSUnresolvedVariable
@@ -788,6 +792,7 @@
 
 								// noinspection JSUnresolvedVariable
 								var user_level = net.get_user_level(u);
+								var nickname = me_is_admin ? 'Nickname ' + nick_obj[u] + '\n' : '';
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -809,8 +814,9 @@
 							}
 
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + u + '" title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + u + '" title="' + nickname + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + nickname + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
 						}
+
 						// noinspection JSUnresolvedVariable
 						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
 						// noinspection JSUnresolvedFunction
@@ -1462,6 +1468,7 @@
 
 				var user = data.user;
 				var is_admin = net.is_admin(user);
+				var me_is_admin = net.is_admin();
 				var nick = '';
 				var nickname = '';
 
@@ -1525,7 +1532,7 @@
 					// noinspection JSUnresolvedVariable
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
 					// noinspection JSUnresolvedVariable
-					nickname = net.is_admin() ? 'Nickname ' + net.room_info.users[user].info.nick + ' ' : '';
+					nickname = me_is_admin ? 'Nickname ' + net.room_info.users[user].info.nick + '\n' : '';
 				}
 
 				var color = net.colors[3];
@@ -1573,7 +1580,7 @@
 				// noinspection JSUnresolvedVariable
 				var user_level = net.get_user_level(user);
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + user + '" title="' + nickname + 'Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + user + '" title="' + nickname + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
