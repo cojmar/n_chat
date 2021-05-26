@@ -1525,7 +1525,7 @@
 					// noinspection JSUnresolvedVariable
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
 					// noinspection JSUnresolvedVariable
-					nickname = is_admin ? 'Nickname ' + net.room_info.users[user].info.nick + ' ' : '';
+					nickname = net.is_admin() ? 'Nickname ' + net.room_info.users[user].info.nick + ' ' : '';
 				}
 
 				var color = net.colors[3];
