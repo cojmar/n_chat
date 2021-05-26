@@ -18,6 +18,7 @@
 			"bitch": ["b.i.t.c.h", "bi.t.ches", "bit.c.h", "bit.ch", "bi.tch", "biatch", "bitch", "bhitch", "b1tch", "bltch", "b!tch", "b!txh", "beach", "bicth", "b\\*\\*tch", "b\\*\\*itch", "b\\*tch", "b\\*itch", "bxtch", "bich", "bish"],
 			"hooker": ["hooker", "hoe"],
 			"asshole": ["asshole", "a\\$\\$hole", "azzhole", "asseater", "asslicker", "asshat", "assman"],
+			"ass": [" ass ", " a\\$\\$ ", " a\\.ss "],
 			"dickhead": ["dickhead"],
 			"deaththreats": ["deaththreats", "death threats"],
 			"prostitute": ["prostitute", "prostitution"],
@@ -134,7 +135,7 @@
 			"slow thinker": ["retard", "imbecile"],
 			"anime": ["hentai"],
 			"laughter": ["cancer", "ligma", "aids", "suicide", "bleeding"],
-			"behind": ["anal", "asshole", "anus"],
+			"behind": ["anal", "asshole", "anus", "ass"],
 			"🌼": ["卐"],
 			"👌": ["🖕"]
 		}
