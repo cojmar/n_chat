@@ -76,7 +76,7 @@
 			"spick": ["spick", "sp1ck"],
 			"vagina": ["vagina"],
 			"cancer": ["cancer", "can.cer", " c.a.n.c.e.r", " c.a.n.c.e.r ", "c.a.n.c.e.r "],
-			"rape": ["r\\.\\.aping", "r\\.aping", "raping", "raaaape", "raaape", "raape", "r.a.p.e", "ra.p.e", "rape", "r\\*pe", "r\\.\\.ape", "r@pe", "rpe"],
+			"rape": ["r\\.\\.aping", "r\\.aping", "raping", " raaaape", " raaape", " raape", " r.a.p.e", " ra.p.e", " rape", " r\\*pe", " r\\.\\.ape", " r@pe", " rpe"],
 			"shooter": ["shooter"],
 			" rapist": [" r.a.p.i.s.t", " rapist"],
 			"assassin": ["assassin", "asassin", "assasin", " asasin ", "assassination", "assasination", "asassination", " asasination "],
