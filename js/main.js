@@ -547,7 +547,7 @@
 				var subject;
 
 				if (room_name === 'Emupedia' && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types)))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))));
 				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))));
 				} else {
