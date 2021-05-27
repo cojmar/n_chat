@@ -476,7 +476,7 @@
 			};
 
 			net.remove_duplicates = function(str) {
-				return str.replace(/(.)\1{4,}/gi, '$1');
+				return str.replace(/(.)\1{2,}/gi, '$1');
 			};
 
 			net.remove_zalgo = function(str) {
