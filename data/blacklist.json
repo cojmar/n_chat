@@ -48,7 +48,7 @@
 			"kidnapper": ["kidnapper"],
 			"kidnap": ["kidnap"],
 			"killer": ["killer", "k!ller", "kller"],
-			"kill": ["k.i.l.l", "killl", "kill", "k!ll", " kil ", "ki\\|\\|in", "ki\\|\\|ing"],
+			"kill": ["k.i.l.l", "killl", "kill", "k!ll", "ki\\.ll", "ki\\.\\.ll", " kil ", "ki\\|\\|in", "ki\\|\\|ing"],
 			"dickpic": ["dick pic", "dickpic", "dik pic", "dikpic", "d.pic"],
 			"dick": ["d.i.c.k", "d.i.ck", "d.ick", "di.ck", "dic.k", "dick", "dlck", "d!ck", "d\\.\\.ick", "d\\*ck", "d1ck", " dic", "dic ", " dik", "dik ", " ick", " pp ", "pp ", "schlong"],
 			"cock": ["c.o.c.k", "c.o.ck", "c.ock", "co.ck", "coc\\.\\.k", "cock", "co clk", "co k", "cok ", "coc "],
