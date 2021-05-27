@@ -33,6 +33,7 @@
 			"bomb": ["bomb"],
 			"wtf": ["wtf", "w.tf ", "t.f ", "tf "],
 			"idk ": ["idfk "],
+			"tf ": ["t.f "],
 			"asf ": ["asf ", "as.f "],
 			"hang yourself": ["hang yourself"],
 			"gun": ["shotgun", " guns ", " gun ", "pistol", "sniper"],
@@ -111,7 +112,7 @@
 	},
 	"replace": {
 		"en": {
-			"": ["phonenumber", "email", "website", "spam"],
+			"": ["phonenumber", "email", "website", "spam", "tf "],
 			"capitalism": ["nazism", "communism"],
 			"hug": ["strangle", "kill", "murder"],
 			"hugger": ["shooter", "terrorist", "assassin", "killer", "murderer"],
