@@ -112,7 +112,6 @@
 	},
 	"replace": {
 		"en": {
-			"": ["phonenumber", "email", "website", "spam", "tf "],
 			"capitalism": ["nazism", "communism"],
 			"hug": ["strangle", "kill", "murder"],
 			"hugger": ["shooter", "terrorist", "assassin", "killer", "murderer"],
@@ -149,7 +148,8 @@
 			"laughter": ["cancer", "ligma", " aids ", "suicide", "bleeding"],
 			"behind": ["anal", "asshole", "anus", " ass "],
 			"🌼": ["卐"],
-			"👌": ["🖕"]
+			"👌": ["🖕"],
+			"": ["phonenumber", "email", "website", "spam", "tf "]
 		}
 	}
 }
