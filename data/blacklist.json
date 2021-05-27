@@ -33,7 +33,7 @@
 			"bomb": ["bomb"],
 			"wtf": ["wtf", " w.tf ", " w.tf", "w.tf ", " wt.f", " wt.f", "wt.f "],
 			"idfk ": [" idfk ", " idfk", "idfk "],
-			"tf ": [" t.f ", " t.f", "t.f ", " tf ", " tf", "tf "],
+			"thef": [" t.f ", " t.f", "t.f ", " tf ", " tf", "tf "],
 			"asf ": [" as.f ", " as.f", "as.f ", " asf ", " asf", "asf "],
 			"hang yourself": ["hang yourself"],
 			"gun": ["shotgun", " guns ", " gun ", "pistol", "sniper"],
@@ -150,7 +150,7 @@
 			"behind": ["anal", "asshole", "anus", " ass "],
 			"🌼": ["卐"],
 			"👌": ["🖕"],
-			"": ["phonenumber", "email", "website", "spam", "tf "]
+			"": ["phonenumber", "email", "website", "spam", "thef"]
 		}
 	}
 }
