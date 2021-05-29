@@ -47,6 +47,14 @@
 				'//emuos.net/beta/emuos/assets/js/libraries/buzz-1.2.1.min',
 				'//emuos.org/beta/emuos/assets/js/libraries/buzz-1.2.1.min'
 		],
+		'bson': [
+			'libraries/bson-4.4.0',
+			'/beta/emuos/assets/js/libraries/bson-4.4.0',
+			'//emupedia.net/beta/emuos/assets/js/libraries/bson-4.4.0',
+			'//emupedia.org/beta/emuos/assets/js/libraries/bson-4.4.0',
+			'//emuos.net/beta/emuos/assets/js/libraries/bson-4.4.0',
+			'//emuos.org/beta/emuos/assets/js/libraries/bson-4.4.0'
+		],
 		'clippy': [
 				'libraries/clippy-0.0.3',
 				'/beta/emuos/assets/js/libraries/clippy-0.0.3',

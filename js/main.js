@@ -59,6 +59,9 @@
 		waitSeconds: 300,
 		paths: $sys.lib,
 		shim: {
+			bson: {
+				exports: 'BSON'
+			},
 			chat: {
 				deps: ['jquery', 'simplestorage', 'fingerprint', 'network']
 			},
@@ -90,13 +93,15 @@
 			popper: {
 				exports: 'Popper'
 			},
+			socket: {
+				deps: ['bson']
+			},
 			twemoji: {
 				exports: 'twemoji'
 			}
 		},
 		map: {
 			'*': {
-
 				json: 'requirejs-json',
 				noext: 'requirejs-noext',
 				text: 'requirejs-text'

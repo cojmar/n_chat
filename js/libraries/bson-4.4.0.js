@@ -1,5 +1,8 @@
-var BSON = (function (exports) {
-	'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.BSON = {}));
+}(this, (function (exports) { 'use strict';
 
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -8875,7 +8878,7 @@ var BSON = (function (exports) {
 	    calculateObjectSize: calculateObjectSize,
 	    deserializeStream: deserializeStream
 	};
-	exports.default = BSON;
+	exports.default = BSON; window.BSON = BSON;
 	//# sourceMappingURL=bson.js.map
 	});
 
@@ -8997,7 +9000,5 @@ var BSON = (function (exports) {
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 
-	return exports;
-
-}({}));
-//# sourceMappingURL=bson.bundle.js.map
+})));
+//# sourceMappingURL=bson-4.4.0.js.map
