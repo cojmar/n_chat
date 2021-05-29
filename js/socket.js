@@ -2,6 +2,7 @@
 
 function _typeof(obj) {
 	'@babel/helpers - typeof';
+
 	if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
 		_typeof = function _typeof(obj) {
 			return typeof obj;
@@ -11,6 +12,7 @@ function _typeof(obj) {
 			return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
 		};
 	}
+
 	return _typeof(obj);
 }
 
@@ -40,7 +42,8 @@ function _typeof(obj) {
 		run_mode.main = true;
 	} //console.log(JSON.stringify(run_mode))
 
-	var u_socket = /*#__PURE__*/ (function() {
+
+	var u_socket = /*#__PURE__*/ function() {
 		function u_socket() {
 			var _arguments = arguments,
 				_this = this;
@@ -85,10 +88,7 @@ function _typeof(obj) {
 					data1[n] = data2[n];
 					if (!ret) ret = true;
 				} else {
-					if (
-						_typeof(data1[n]) === 'object' &&
-						_typeof(data2[n]) === 'object'
-					) {
+					if (_typeof(data1[n]) === 'object' && _typeof(data2[n]) === 'object') {
 						var ret2 = this.do_merge(data1[n], data2[n]);
 						if (!ret) ret = ret2;
 					} else {
@@ -129,12 +129,7 @@ function _typeof(obj) {
 					break;
 
 				case 'room.user_join':
-					if (
-						data.user &&
-						this.room &&
-						data.room &&
-						this.room.room === data.room
-					) {
+					if (data.user && this.room && data.room && this.room.room === data.room) {
 						if (data.user === this.room.me) return false;
 						this.room.users[data.user] = data.data;
 					}
@@ -142,12 +137,7 @@ function _typeof(obj) {
 					break;
 
 				case 'room.user_leave':
-					if (
-						data.user &&
-						this.room &&
-						data.room &&
-						this.room.room === data.room
-					) {
+					if (data.user && this.room && data.room && this.room.room === data.room) {
 						if (this.room.users[data.user]) delete this.room.users[data.user];
 					}
 
@@ -156,8 +146,7 @@ function _typeof(obj) {
 				case 'room.user_data':
 					if (data.user && this.room && this.room.users[data.user]) {
 						this.do_merge(this.room.users[data.user].data, data.data);
-						if (data.user === this.room.me && this.me)
-							this.do_merge(this.me.data, data.data);
+						if (data.user === this.room.me && this.me) this.do_merge(this.me.data, data.data);
 					}
 
 					break;
@@ -179,22 +168,22 @@ function _typeof(obj) {
 
 		_proto.emit_event = function emit_event(ev, data) {
 			if (!ev) return false;
+
 			if (ev === 'room.msg' && data.msg) {
 				data.msg = this.strip_html(data.msg);
-				if (data.msg.trim() === '') return
+				if (data.msg.trim() === '') return;
 			}
+
 			if (!this.map_room(ev, data)) return false;
-			if (_typeof(this.events['cmd']) === 'object')
-				this.events['cmd'].forEach(function(cb) {
-					cb({
-						cmd: ev,
-						data: data
-					});
+			if (_typeof(this.events['cmd']) === 'object') this.events['cmd'].forEach(function(cb) {
+				cb({
+					cmd: ev,
+					data: data
 				});
-			if (_typeof(this.events[ev]) === 'object')
-				this.events[ev].forEach(function(cb) {
-					cb(data);
-				});
+			});
+			if (_typeof(this.events[ev]) === 'object') this.events[ev].forEach(function(cb) {
+				cb(data);
+			});
 		};
 
 		_proto.connect = function connect() {
@@ -296,7 +285,7 @@ function _typeof(obj) {
 		};
 
 		return u_socket;
-	})();
+	}();
 
 	var network = new u_socket();
 
@@ -316,6 +305,7 @@ function _typeof(obj) {
 					break;
 			} //postMessage(cmd_data);
 			//console.log(JSON.stringify( cmd_data));
+
 		});
 		return true;
 	}
