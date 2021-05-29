@@ -1,4 +1,18 @@
-"use strict";
+'use strict';
+
+function _typeof(obj) {
+	'@babel/helpers - typeof';
+	if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
+		_typeof = function _typeof(obj) {
+			return typeof obj;
+		};
+	} else {
+		_typeof = function _typeof(obj) {
+			return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
+		};
+	}
+	return _typeof(obj);
+}
 
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -12,22 +26,21 @@
 		worker: false
 	};
 
-	if (typeof Worker2 !== "undefined") {
+	if (typeof Worker2 !== 'undefined') {
 		run_mode.use_worker = true;
 
 		try {
-			run_mode.main = typeof window !== 'undefined' ? true : false;
+			run_mode.main = typeof window !== 'undefined';
 		} catch (error) {
 			run_mode.main = false;
 		}
 
-		run_mode.worker = run_mode.main ? new Worker("app/u_socket.js") : false;
+		run_mode.worker = run_mode.main ? new Worker('app/u_socket.js') : false;
 	} else {
 		run_mode.main = true;
 	} //console.log(JSON.stringify(run_mode))
 
-
-	var u_socket = /*#__PURE__*/ function() {
+	var u_socket = /*#__PURE__*/ (function() {
 		function u_socket() {
 			var _arguments = arguments,
 				_this = this;
@@ -51,7 +64,7 @@
 				}
 			};
 			this.events = {};
-			this.server = "ws://" + this.getBaseUrl() + ":3000";
+			this.server = 'ws://' + this.getBaseUrl() + ':3000';
 			this.connected = false;
 			this.last_on_set = Math.floor(Date.now() / 1000);
 			this.keep_alive();
@@ -133,7 +146,9 @@
 				case 'room.user_data':
 					if (data.user && this.room && this.room.users[data.user]) {
 						this.do_merge(this.room.users[data.user].data, data.data);
-						if (data.user === this.room.me && this.me) this.do_merge(this.me.data, data.data);
+						if (data.user === this.room.me && this.me) {
+							this.do_merge(this.me.data, data.data);
+						}
 					}
 
 					break;
@@ -155,22 +170,22 @@
 
 		_proto.emit_event = function emit_event(ev, data) {
 			if (!ev) return false;
-
 			if (ev === 'room.msg' && data.msg) {
 				data.msg = this.strip_html(data.msg);
-				if (data.msg.trim() === '') return false;
+				if (data.msg.trim() === '') return
 			}
-
 			if (!this.map_room(ev, data)) return false;
-			if (typeof this.events['cmd'] === 'object') this.events['cmd'].forEach(function(cb) {
-				cb({
-					cmd: ev,
-					data: data
+			if (_typeof(this.events['cmd']) === 'object')
+				this.events['cmd'].forEach(function(cb) {
+					cb({
+						cmd: ev,
+						data: data
+					});
 				});
-			});
-			if (typeof this.events[ev] === 'object') this.events[ev].forEach(function(cb) {
-				cb(data);
-			});
+			if (_typeof(this.events[ev]) === 'object')
+				this.events[ev].forEach(function(cb) {
+					cb(data);
+				});
 		};
 
 		_proto.connect = function connect() {
@@ -273,7 +288,7 @@
 		};
 
 		return u_socket;
-	}();
+	})();
 
 	var network = new u_socket();
 
@@ -283,17 +298,16 @@
 
 			switch (cmd_data.cmd) {
 				default: network[cmd_data.cmd](cmd_data.data);
-				break;
+					break;
 
 				case 'on':
-						network.on(cmd_data.data.cmd, function(data) {
+					network.on(cmd_data.data.cmd, function(data) {
 						cmd_data.data.data = data;
 						postMessage(cmd_data.data);
 					});
 					break;
 			} //postMessage(cmd_data);
 			//console.log(JSON.stringify( cmd_data));
-
 		});
 		return true;
 	}
@@ -303,7 +317,7 @@
 			var data = e.data;
 			data.cmd = data.cmd || false;
 			data.id = data.id || 0;
-			cb = network.events[data.cmd][data.id] || false; //console.log(data);
+			var cb = network.events[data.cmd][data.id] || false; //console.log(data);
 
 			if (cb) cb(data.data);
 		};
