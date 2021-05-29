@@ -203,6 +203,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.lock_scroll = true;
+			net.max_message_length = 160;
 
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
@@ -213,6 +214,28 @@
 			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true;
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
 			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true;
+
+			if (window.top) {
+				try {
+					if (window.top.u_network) {
+						if (!window.top.u_network.frames) {
+							window.top.u_network.frames = [];
+						}
+
+						if (!window.top.u_network.reload) {
+							window.top.u_network.reload = function() {
+								window.top.u_network.frames.map(function(win) {
+									if (win && win.location) {
+										win.location.reload();
+									}
+								})
+							}
+						}
+
+						window.top.u_network.frames.push(window);
+					}
+				} catch (error) {}
+			}
 
 			net.is_admin = function(user) {
 				if (typeof user === 'undefined') {
@@ -243,28 +266,6 @@
 
 				return false;
 			};
-
-			if (window.top) {
-				try {
-					if (window.top.u_network) {
-						if (!window.top.u_network.frames) {
-							window.top.u_network.frames = [];
-						}
-
-						if (!window.top.u_network.reload) {
-							window.top.u_network.reload = function() {
-								window.top.u_network.frames.map(function(win) {
-									if (win && win.location) {
-										win.location.reload();
-									}
-								})
-							}
-						}
-
-						window.top.u_network.frames.push(window);
-					}
-				} catch (error) {}
-			}
 
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
@@ -463,11 +464,11 @@
 			};
 
 			net.remove_invisible = function(str) {
-				return str.replace(/[\u0009\u000a\u000c\u000d\u007f\u00a0\u00ad\u034f\u061c\u064b\u115f\u1160\u17b4\u17b5\u180e\u2000-\u200f\u202a-\u202f\u205f-\u206f\u20d0-\u20f0\u2800\u3000\u3164\ufe00-\ufe0f\ufeff\uffa0\ufff0-\ufff8]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/\ud834\udd73/g, '').replace(/\ud834\udd74/g, '').replace(/\ud834\udd75/g, '').replace(/\ud834\udd76/g, '').replace(/\ud834\udd77/g, '').replace(/\ud834\udd78/g, '').replace(/\ud834\udd79/g, '').replace(/\ud834\udd7a/g, '').replace(/&lrm;/gi, '').replace(/&rlm;/gi, '').replace(/&ZeroWidthSpace;/gi, '').replace(/&zwj;/gi, '').replace(/&zwnj;/gi, '').replace(/&nbsp;/gi, '');
+				return str.replace(/[\u0009\u000a\u000c\u000d\u007f\u00a0\u00ad\u034f\u061c\u064b\u115f\u1160\u17b4\u17b5\u180e\u2000-\u200f\u202a-\u202f\u205f-\u206f\u20d0-\u20f0\u2800\u3000\u3164\ufe00-\ufe0f\ufeff\uffa0\ufff0-\ufff8\ufffd]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/\ud834\udd73/g, '').replace(/\ud834\udd74/g, '').replace(/\ud834\udd75/g, '').replace(/\ud834\udd76/g, '').replace(/\ud834\udd77/g, '').replace(/\ud834\udd78/g, '').replace(/\ud834\udd79/g, '').replace(/\ud834\udd7a/g, '').replace(/&lrm;/gi, '').replace(/&rlm;/gi, '').replace(/&ZeroWidthSpace;/gi, '').replace(/&zwj;/gi, '').replace(/&zwnj;/gi, '').replace(/&nbsp;/gi, '');
 			};
 
 			net.remove_combining = function(str) {
-				return str.replace(/[\u0336\u0337\u0489\u065e\u20d8\ufc5e]/g, '');
+				return str.replace(/[\u0336\u0337\u0489\u064d\u0650\u065e\u20d8\ufc5e]/g, '');
 			};
 
 			net.remove_numbers = function(str) {
@@ -475,7 +476,7 @@
 			};
 
 			net.remove_duplicates = function(str) {
-				return str.replace(/(.)\1{4,}/gi, '$1');
+				return str.replace(/(.)\1{2,}/gi, '$1');
 			};
 
 			net.remove_zalgo = function(str) {
@@ -541,14 +542,14 @@
 
 			// noinspection DuplicatedCode
 			net.clean = function(str, sent_by_admin, disable_emoji) {
-				var i_am_admin = net.is_admin();
-				var room_name = net.client_room_name.text();
+				var me_is_admin = net.is_admin();
+				var room_name = net.room_info.name || '';
 				var subject;
 
 				if (room_name === 'Emupedia' && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types)))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))));
 				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.splice(-1, 1))))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))));
 				} else {
 					subject = net.remove_combining(net.remove_invisible(net.remove_zalgo(str)));
 				}
@@ -572,7 +573,7 @@
 					subject = '<i' + (net.use_colors ? ' style="color: #79667d;"' : '') + '>' + subject + '</i>';
 				}
 
-				if (i_am_admin) {
+				if (me_is_admin) {
 					return '<span title="' + str.replace(/"/g, '&quot;') + '">' + subject + '</span>';
 				}
 
@@ -581,9 +582,9 @@
 
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
-				var room_name = net.client_room_name.text();
+				var room_name = net.room_info.name || '';
 				// noinspection JSUnresolvedFunction
-				var subject = net.normalize(net.remove_zalgo(str), normalize_types.splice(-1, 1));
+				var subject = net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1));
 
 				if (room_name.startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
@@ -720,6 +721,7 @@
 						var users_online = Object.keys(net.room_info.users).length;
 						// noinspection JSUnresolvedVariable
 						var me = net.room_info.me;
+						var me_is_admin = net.is_admin();
 						var room = net.room_info.name;
 
 						// noinspection JSUnresolvedFunction
@@ -757,13 +759,16 @@
 						});
 
 						var users_obj = {};
+						var nick_obj = {};
 
 						users_array_nick.forEach(function(item) {
 							users_obj[item[0]] = net.clean_nicknames(item[1]);
+							nick_obj[item[0]] = item[1];
 						});
 
 						users_array_default.forEach(function(item) {
 							users_obj[item[0]] = net.friendly_name(item[1]);
+							nick_obj[item[0]] = item[1];
 						});
 
 						// noinspection JSUnresolvedVariable
@@ -787,6 +792,7 @@
 
 								// noinspection JSUnresolvedVariable
 								var user_level = net.get_user_level(u);
+								var nickname = me_is_admin ? 'Nickname ' + nick_obj[u] + '\n' : '';
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -808,8 +814,9 @@
 							}
 
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + u + '" title="' + nickname + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + nickname + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
 						}
+
 						// noinspection JSUnresolvedVariable
 						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
 						// noinspection JSUnresolvedFunction
@@ -880,8 +887,8 @@
 				var msg = net.text_input.val();
 				var is_admin = net.is_admin();
 
-				if (msg.length > 159 && !is_admin) {
-					msg = msg.substring(0, 159)
+				if (msg.length >= net.max_message_length && !is_admin) {
+					msg = msg.substring(0, net.max_message_length - 1)
 				}
 
 				if (msg.charAt(0) === '/') {
@@ -990,7 +997,14 @@
 					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
 						net.send_cmd('send_cmd', ['server.msg', 'server', { 'msg': 'reloading...' }]);
 						data.cmd = 'eval';
-						data.data = 'if (window.u_network && window.u_network.reload) window.u_network.reload();else window.location.reload()';
+						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
+					}
+
+					if (data.cmd === 'rename' || data.cmd === 'ren') {
+						data.data = data.data.split(' ');
+						var to = data.data.shift();
+						data.data = data.data.join(' ');
+						net.send_cmd('send_cmd', ['eval', to, {data: "window.u_network.send_cmd('nick', '" + data.data + "')"}]);
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
@@ -1029,10 +1043,10 @@
 
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
-						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types)))));
+						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))))));
 						data.data = data.data.replace(/[`.,'"]/g, '');
 
-						if ((net.client_room_name.text() === 'Emupedia' && !/[a-z]/i.test(net.normalize(data.data))) || (net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 2) {
+						if ((net.room_info.name === 'Emupedia' && !/[a-z]/i.test(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1)))) || (net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 2) {
 							net.log('You have unwanted characters in your nickname or it is too short, correct the issue and try again.', 4);
 							return false;
 						}
@@ -1042,7 +1056,7 @@
 					net.send_cmd(data.cmd, data.data);
 					net.text_input.val('');
 					return;
-				} else if (net.client_room_name.text().startsWith('Emupedia') && !is_admin) {
+				} else if (net.room_info.name.startsWith('Emupedia') && !is_admin) {
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
@@ -1247,7 +1261,7 @@
 					if (net.is_admin()) {
 						net.text_input.removeAttr('maxlength');
 					} else {
-						net.text_input.attr('maxlength', 160);
+						net.text_input.attr('maxlength', net.max_message_length);
 					}
 				}
 			});
@@ -1301,13 +1315,13 @@
 				if (!room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private rooms! The chat is not beign actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not beign actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
 				}
 
 				if (net.is_admin()) {
 					net.text_input.removeAttr('maxlength');
 				} else {
-					net.text_input.attr('maxlength', 160);
+					net.text_input.attr('maxlength', net.max_message_length);
 				}
 			});
 
@@ -1329,6 +1343,7 @@
 				net.room_info.data = $.extend(net.room_info.data, data.data);
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info.data.topic !== 'undefined') {
+					// noinspection JSUnresolvedVariable
 					var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
 					// noinspection JSUnresolvedVariable
 					net.client_topic.html(topic);
@@ -1361,10 +1376,8 @@
 				if (net.is_admin()) {
 					net.text_input.removeAttr('maxlength');
 				} else {
-					net.text_input.attr('maxlength', 160);
+					net.text_input.attr('maxlength', net.max_message_length);
 				}
-
-
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -1455,7 +1468,9 @@
 
 				var user = data.user;
 				var is_admin = net.is_admin(user);
+				var me_is_admin = net.is_admin();
 				var nick = '';
+				var nickname = '';
 
 				var net_user = false;
 
@@ -1516,6 +1531,8 @@
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
 					// noinspection JSUnresolvedVariable
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
+					// noinspection JSUnresolvedVariable
+					nickname = me_is_admin ? 'Nickname ' + net.room_info.users[user].info.nick + '\n' : '';
 				}
 
 				var color = net.colors[3];
@@ -1550,8 +1567,8 @@
 					if (user === net.room_info.host) glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 				}
 
-				if (!is_admin && data.msg.length > 159) {
-					data.msg = data.msg.substring(0, 159);
+				if (!is_admin && data.msg.length >= net.max_message_length) {
+					data.msg = data.msg.substring(0, net.max_message_length - 1);
 				}
 
 				if (!is_admin && last_msg && last_msg.delay < 20) {
@@ -1563,7 +1580,7 @@
 				// noinspection JSUnresolvedVariable
 				var user_level = net.get_user_level(user);
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + user + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + user + '" title="' + nickname + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
