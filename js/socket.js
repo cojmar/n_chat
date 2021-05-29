@@ -240,7 +240,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 				var no_ws = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 				this.ws = new WebSocket(this.server);
-				this.ws.binaryType = "arraybuffer";
+				if (typeof BSON !== 'undefined') this.ws.binaryType = "arraybuffer";
 
 				this.ws.onopen = function() {
 					_this4.connected = true;
@@ -276,24 +276,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 				};
 
 				return this;
-			}
-		}, {
-			key: "ab2str",
-			value: function ab2str(buf) {
-				return String.fromCharCode.apply(null, new Uint16Array(buf));
-			}
-		}, {
-			key: "str2ab",
-			value: function str2ab(str) {
-				var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-
-				var bufView = new Uint16Array(buf);
-
-				for (var i = 0, strLen = str.length; i < strLen; i++) {
-					bufView[i] = str.charCodeAt(i);
-				}
-
-				return buf;
 			}
 		}, {
 			key: "send",
