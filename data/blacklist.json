@@ -4,13 +4,14 @@
 	},
 	"mapping": {
 		"en": {
-			"email": ["email", "gmail", "yahoo", "@gmail.com", "@yahoo.com"],
-			"website": ["minnit\\.chat", "minnit.chat", "gmail\\.com", "yahoo\\.com", "xnxx\\.com", "redtube", "red.tube", "redtube\\.com", "p.o.r.n.h.u.b", "porn.hub", "pornhub", "pronhub", "meet\\.google\\.com", "pornhub\\.com", "thothub\\.com", "fifamatchcreator\\.com", "googleads\\.g\\.doubleclick\\.net", "freegiftcards\\.co", "bc\\.vc", "ow\\.ly", "bit\\.ly", "shorturl\\.at", "send\\.digital", "sites\\.social", "great\\.social", "latest\\.digital", "pages\\.news", "pages\\.today", "visit\\.news", "b\\.link", "urlzs\\.com", "tinyurl\\.com", "tiny\\.cc", "tapwith\\.us", "t\\.co", "goo\\.gl", "rblx\\.gg", "discord\\.gg", "gg\\.gg", "iplogger\\.org", "2no\\.co", "joinmy\\.site", "iplogger\\.com", "iplogger\\.ru", "yip\\.su", "iplogger\\.co", "iplogger\\.info", "ipgrabber\\.ru", "ipgraber\\.ru", "iplis\\.ru", "02ip\\.ru", "ezstat\\.ru", "wow\\.link", "grabify\\.link", "bmwforum\\.co", "leancoding\\.co", "spottyfly\\.com", "stopify\\.co", "yoütu\\.be", "discörd\\.com", "minecräft\\.com", "freegiftcards\\.co", "disçordapp\\.com", "fortnight\\.space", "fortnitechat\\.site", "joinmy\\.site", "curiouscat\\.club", "catsnthings\\.fun", "yourtube\\.site", "youtubeshort\\.watch", "catsnthing\\.com", "youtubeshort\\.pro", "amishdatacenter\\.com", "poweredbydialup\\.org", "amishprincess\\.com", "packetlivesmatter\\.club", "packetlivesmatter\\.online", "canadianlumberjacks\\.club", "canadianlumberjacks\\.online", "poweredbydialup\\.club", "poweredbydialup\\.online", "poweredbysecurity\\.org", "poweredbysecurity\\.online"],
-			"phone": ["two", " t.w.o ", "three", " t.h.r.e.e ", "four", " f.o.u.r ", "five", "f!ve", " f.i.v.e ", "six ", "s!x", " s.i.x ", " seven ", "seven ", " s.e.v.e.n ", "eight ", "eight-", " e.i.g.h.t ", " nine ", "nine ", "nine-", "n!ne", " n.i.n.e ", " ten ", " t.e.n ", "eleven", " e.l.e.v.e.n ", "elleven", " twelve", "twelve", " t.w.e.l.v.e ", " thirteen", "thirteen", " t.h.i.r.t.e.e.n "],
+			"emailshidden": ["email", "gmail", "yahoo", "@gmail.com", "@yahoo.com"],
+			"websitesbanned": ["minnit\\.chat", "minnit.chat", "gmail\\.com", "yahoo\\.com", "xnxx\\.com", "redtube", "red.tube", "redtube\\.com", "p.o.r.n.h.u.b", "porn.hub", "pornhub", "pronhub", "meet\\.google\\.com", "pornhub\\.com", "thothub\\.com", "fifamatchcreator\\.com", "googleads\\.g\\.doubleclick\\.net", "freegiftcards\\.co", "bc\\.vc", "ow\\.ly", "bit\\.ly", "shorturl\\.at", "send\\.digital", "sites\\.social", "great\\.social", "latest\\.digital", "pages\\.news", "pages\\.today", "visit\\.news", "b\\.link", "urlzs\\.com", "tinyurl\\.com", "tiny\\.cc", "tapwith\\.us", "t\\.co", "goo\\.gl", "rblx\\.gg", "discord\\.gg", "gg\\.gg", "iplogger\\.org", "2no\\.co", "joinmy\\.site", "iplogger\\.com", "iplogger\\.ru", "yip\\.su", "iplogger\\.co", "iplogger\\.info", "ipgrabber\\.ru", "ipgraber\\.ru", "iplis\\.ru", "02ip\\.ru", "ezstat\\.ru", "wow\\.link", "grabify\\.link", "bmwforum\\.co", "leancoding\\.co", "spottyfly\\.com", "stopify\\.co", "yoütu\\.be", "discörd\\.com", "minecräft\\.com", "freegiftcards\\.co", "disçordapp\\.com", "fortnight\\.space", "fortnitechat\\.site", "joinmy\\.site", "curiouscat\\.club", "catsnthings\\.fun", "yourtube\\.site", "youtubeshort\\.watch", "catsnthing\\.com", "youtubeshort\\.pro", "amishdatacenter\\.com", "poweredbydialup\\.org", "amishprincess\\.com", "packetlivesmatter\\.club", "packetlivesmatter\\.online", "canadianlumberjacks\\.club", "canadianlumberjacks\\.online", "poweredbydialup\\.club", "poweredbydialup\\.online", "poweredbysecurity\\.org", "poweredbysecurity\\.online"],
+			"phonenumbers": ["two", " t.w.o ", "three", " t.h.r.e.e ", "four", " f.o.u.r ", "five", "f!ve", " f.i.v.e ", "six ", "s!x", " s.i.x ", " seven ", "seven ", " s.e.v.e.n ", "eight ", "eight-", " e.i.g.h.t ", " nine ", "nine ", "nine-", "n!ne", " n.i.n.e ", " ten ", " t.e.n ", "eleven", " e.l.e.v.e.n ", "elleven", " twelve", "twelve", " t.w.e.l.v.e ", " thirteen", "thirteen", " t.h.i.r.t.e.e.n "],
+			"fuckboy": ["fuckboy", "fuckboi", "fakboy", "fakboi", "fak boy", "fak boi", "faq boy", "faq boi", "fkboy", "fkboi"],
 			"motherefr": ["mother fucker", "motherfucker", "motherfxcker", "mudda fucker", "madafacker", "mofo ", "mfs ", " mf "],
 			"fucker": ["fucker", "fuk#rs", " f.u.c.k.e.r ", "f\\.\\.u\\.\\.c\\.\\.k\\.\\.e\\.\\.r", "f\\.u\\.c\\.k\\.e\\.r", "fuckers", "faqing", "faqed", "faqin", "fvgcking", "fxvckers", "fxckers", "fuckerz", "fucked", "f\\*\\*\\*\\*ed", "fuxked", "fxcked"],
 			"fuck": ["fu...cking", "fu..cking", "fu..king", "fu.king", "f..ckin", "f.ckin", "f cki ng", "f u xcking", "faq ing", "faq king", "fuxxing", "fuxkin-", "fuxkin\\*", "fukin", "p h u c k i n g", "phucking", "phu.cking", "fuxdking", "f\\*cking", "f\\*\\*ckin", "fu\\*\\*ing", "fu\\.ing", "fucking", "f..king", "fuxkin", "fuuuuck", "fuuuck", "fuuck", "f\\*uu\\*.{1,4}cc\\*kk", "f\\.\\.\\.\\.uck", "f\\.\\.\\.uck", "f\\.\\.uck", "f\\.uck", "f.uc.k", "fu#k", "fu.k", "f.u.c.k", "f\\. u\\. c\\. k\\.", "f\\.u\\.c\\.k\\.", "f\\.u\\.c\\.k", "fu..ck", "f.uck", "f\\.uck" ,"f...uck", "f..uck", "fucks", "f\\*cks", "fhuck", "fu.c.k", "f\\.u\\.\\.\\.\\.c\\.\\.\\.\\.k", "f\\.\\.ck", "fu\\.\\.ck", "f\\.\\.c\\.\\.\\.ck", "f\\*uu\\*.cc\\*k", "f.ck ", "f.ck-", "fu.ck", "fuc.k", "f u c k", "fu\\*k", "f \\* c k", "fuck", "fu\\.ck", "fv\\.ck", "f-ck", "f'ck", "f,ck", "f;ck", "fvck", "fxck", "fuxk", "f.u.ck", "fker", "fking", "fa.wk", "fawk", "fuc", "fuk", "f\\*ks", "f//k", "fuxx", "fux", "fvk", "fvc", "f\\*k", "f\\.k", "fck", "fkn", "fak\\*", "fak ", "fu-", "fu ", " f u", "fuq ", "faq u", " fk ", " fk it ", " f off ", "fuck off", "faq off", "piss off", "ffs"],
-			"dick": ["d.i.c.k", "d.i.ck", "di.c.k", "di.c..k", "d.ck", "d..ick", "d.ick", " di...ck ", "di..c.k", " di..ck ", "di.ck", "diick", "dic.k", "dick", "dixk", "dlck", "d!ck", "di\\.\\.\\.ck", "di\\.\\.ck", "d\\.\\.\\.ick", "d\\.\\.ck", "d\\.\\.ick", "d\\*ck", "d\\*i\\*\\*ck", "d\\*\\*ks", "d\\*\\*k", "d1ck", "djck", "d'ck", "d! k", "dck", " dic", "dic ", " dik", "dik ", " ick", " pp ", " pp", "p p ", "p-p ", "pp ", "p\\.p", "peepee", "schlong"],
+			"dick": ["d.i.c.k", "d.i.ck", "di.c.k", "di.c..k", "d\\.ck", "d..ick", "d.ick", " di...ck ", "di..c.k", " di..ck ", "di.ck", "diick", "dic.k", "dick", "dixk", "dlck", "d!ck", "di\\.\\.\\.ck", "di\\.\\.ck", "d\\.\\.\\.ick", "d\\.\\.ck", "d\\.\\.ick", "d\\*ck", "d\\*i\\*\\*ck", "d\\*\\*ks", "d\\*\\*k", "d1ck", "djck", "d'ck", "d! k", "dck", " dic", "dic ", " dik", "dik ", " ick", " pp ", " pp", "p p ", "p-p ", "pp ", "p\\.p", "peepee", "schlong"],
 			"cock": ["cocksucker", "c.o.c.k", "c.o.ck", "c.ock", "co.ck", "c\\*ck", "c\\*ock", "c\\.\\.oc\\.\\.\\.k", "coc\\.\\.k", " cack ", "cock", "co.ck\\*", "c \\.o \\. c \\. k", "co clk", "co k", "cok ", "coc "],
 			"dipshit": ["dipshit"],
 			"bullshit": ["bullshit", "bull shit", "bullcrap", "bull crap"],
@@ -52,9 +53,8 @@
 			"beaner": ["beaner"],
 			"bleeding": ["bleeding"],
 			"bomb": ["bomb"],
-			"wtf": ["wat.daf.ak", "wut the fuck", "what the fuck", "w the f", "wut the f", "what the f", "watdafak", "w t f", "w\\. t\\. f\\.", " w.tf ", " w.tf", "w.tf ", " wt.f", " wt.f", "wt.f ", "w\\.t\\.f", "w\\.\\.tf", "w\\.tf", "wt\\.\\.f"," wt\\.f", "w-t-f", "wtfff", "wtff", "wwtf", "wwtff", "wt ff", "wtf"],
+			"wtf": ["wat.daf.ak", "wut the fuck", "what the fuck", "w the f", "wut the f", "what the f", "watdafak", "dafak", "dafuq", "w t f", "w\\. t\\. f\\.", " w.tf ", " w.tf", "w.tf ", " wt.f", " wt.f", "wt.f ", "w\\.t\\.f", "w\\.\\.tf", "w\\.tf", "wt\\.\\.f"," wt\\.f", "w-t-f", "wtfff", "wtff", "wwtf", "wwtff", "wt ff", "wtf"],
 			"idfk ": [" idfk ", " idfk", "idfk "],
-			"thef": ["dafak", "dafuq"],
 			"asfaq": [" as.f ", " as.f", "as.f ", "a s f", " asf ", " asf", "\\*asf ", "-asf ", "asf ", " asf-"],
 			" gun ": ["shotgun", " guns ", " gun ", "gu\\.n", "pistol", "sniper"],
 			"terrorist": ["terrorist"],
@@ -83,7 +83,6 @@
 			"pedo": ["p e do ph il e", "pedophile", "pedophil", "pedo bear", "pedobear", "pe\\.\\.do", "p\\.e\\.do", "pedo", "little boy", "little girl"],
 			"imbecile": ["imbecile"],
 			"incest": ["incest"],
-			"fuckboy": ["fuckboy", "fuckboi", "fakboy", "fakboi", "fak boy", "fak boi", "faq boy", "faq boi", "fkboy", "fkboi"],
 			"retard": ["r.e.t.a.r.d", "r...etarded", "re.tard", "retarded", "retard"],
 			"gangbang": ["gang.bang", "gangbang"],
 			"adolf hitler": ["adolf hitler", "adolf hilter", "adolf hit\\|er"],
@@ -147,7 +146,7 @@
 			"hebrew": ["jew"],
 			"teacher": ["boomer", "daddy", "mommy"],
 			"stuff": ["shit", "crap ", "incest"],
-			"stop": ["g t f o", "gtfo", "s t f u", "stf u", "st fu", "stfu", "st\\.fu", "s t h u", "sthu"],
+			"stop": ["g t f o", "gtfo", "s\\. t\\. f\\. u", "s t f u", "stf u", "st fu", "stfu", "st\\.fu", "s t h u", "sthu"],
 			"black": ["nigger"],
 			"latino": ["spick", "beaner"],
 			"friend": ["pedo", " rapist", "kidnapper", "fuckboy", "shithead", "dipshit"],
@@ -176,7 +175,7 @@
 			"behind": ["anal", "asshole", "anus", "ass "],
 			"🌼": ["卐"],
 			"👌": ["🖕"],
-			"": ["phone", "address", "email", "website", "spam", "thef"]
+			"": ["phonenumbers", "address", "emailshidden", "websitesbanned", "spam"]
 		}
 	}
 }
