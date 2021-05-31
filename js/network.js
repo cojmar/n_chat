@@ -114,6 +114,8 @@
 				if (e.originalEvent.data.cmd === 'iframe_rdy') {
 					self.iframe_rdy = true;
 
+					self.net.send_cmd('iframe_url', window.top.location.href);
+
 					for (var data in self.buffer) {
 						// noinspection JSUnfilteredForInLoop
 						self.cmd.apply(self, self.buffer[data]);

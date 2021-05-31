@@ -1317,7 +1317,11 @@
 
 				// noinspection JSUnresolvedFunction
 				net.send_cmd('list', {});
-				net.send_cmd('set_data', {url: window.top.location.href, country: simplestorage.get('country')});
+				net.send_cmd('set_data', {url: window.location.href, country: simplestorage.get('country')});
+			});
+
+			net.socket.on('iframe_url', function(data) {
+				net.send_cmd('set_data', {url: data});
 			});
 
 			net.socket.on('su', function(data) {
