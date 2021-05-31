@@ -11,7 +11,7 @@
 		this.events = {};
 		this.net = net;
 		this.buffer = [];
-		this.buffer.push(['iframe_url', window.location.hostname]);
+		this.buffer.push(['iframe_url', window.location.href]);
 		this.iframe_id = null;
 		this.iframe_rdy = false;
 
