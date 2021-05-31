@@ -1302,7 +1302,7 @@
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('auth.info', function(data) {
-				console.log('auth.info');
+				// console.log('auth.info');
 				// console.log(JSON.stringify(data, null, 2));
 
 				// noinspection JSUnresolvedVariable
