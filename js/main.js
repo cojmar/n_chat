@@ -517,6 +517,8 @@
 
 				if (typeof language === 'undefined') {
 					language = 'en'
+				} else if (language === null || language === '') {
+					language = 'en'
 				}
 
 				if (language === 'en') {
