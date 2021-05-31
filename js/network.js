@@ -199,6 +199,8 @@
 				});
 			};
 
+			var country = '';
+
 			client.socket.on('connect', function() {
 				// noinspection DuplicatedCode
 				client.relay('https://cloudflare.net/cdn-cgi/trace').done(function(data) {
@@ -211,6 +213,8 @@
 						trace[keyValue[0]] = decodeURIComponent(keyValue[1] || '');
 
 						if (keyValue[0] === 'loc') {
+							simplestorage.set('country', trace['loc']);
+
 							switch (trace['loc']) {
 								case 'AG':
 								case 'AI':
@@ -264,16 +268,16 @@
 								case 'WG':
 								case 'WS':
 								case 'XX':
-									simplestorage.deleteKey('country');
+									country = '';
 									break;
 								default:
-									simplestorage.set('country', trace['loc']);
+									country = '-' + trace['loc'];
 									break;
 							}
 						}
 					});
 				}).always(function() {
-					client.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + (simplestorage.get('country') ? '-' + simplestorage.get('country') : '')});
+					client.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + country});
 					client.badge = 0;
 				});
 			});
