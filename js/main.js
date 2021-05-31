@@ -557,7 +557,7 @@
 
 						for (var p3 in profanity3sorted) {
 							// noinspection JSUnfilteredForInLoop
-							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p3].split('.').join(' ').split('\\$').join('$').trim()) {
 								str = profanity3;
 
 								// noinspection JSUnresolvedVariable
@@ -1633,7 +1633,9 @@
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
 					// noinspection JSUnresolvedVariable
 					nickname = me_is_admin ? 'Nickname ' + net.room_info.users[user].info.nick + '\n' : '';
+					// noinspection JSUnresolvedVariable
 					origin_url = me_is_admin ? 'URL ' + (net.room_info.users[user].data.url || '?') + '\n' : '';
+					// noinspection JSUnresolvedVariable
 					origin_country = me_is_admin ? 'Country ' + (net.room_info.users[user].data.country || '?') + '\n' : '';
 				}
 
