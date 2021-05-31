@@ -204,7 +204,7 @@
 				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
 			}
 
-			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532'];
+			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.lock_scroll = true;
@@ -473,7 +473,7 @@
 			};
 
 			net.remove_combining = function(str) {
-				return str.replace(/[\u0336\u0337\u0489\u064d\u0650\u065c\u065e\u20d8\ufc5e]/g, '');
+				return str.replace(/[\u0336\u0337\u0489\u064d\u0650\u065c\u065e\u20d8\ufc5e]/g, '').replace(/\u064d\u0650/g, '');
 			};
 
 			net.remove_numbers = function(str) {
@@ -574,8 +574,8 @@
 					}
 				}
 
-				if ((subject.trim().startsWith('*') || subject.trim().startsWith('-'))) {
-					subject = '<i' + (net.use_colors ? ' style="color: #79667d;"' : '') + '>' + subject + '</i>';
+				if (subject.trim().startsWith('*') || subject.trim().startsWith('-')) {
+					subject = '<i' + (net.use_colors ? ' style="color: ' + net.colors[5] + ';"' : '') + '>' + subject + '</i>';
 				}
 
 				if (me_is_admin) {
