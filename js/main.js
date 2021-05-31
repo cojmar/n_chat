@@ -517,7 +517,7 @@
 
 				if (typeof language === 'undefined') {
 					language = 'en'
-				} else if (language === null || language === '') {
+				} else if (language === null || language === '' || language === 'emupedia') {
 					language = 'en'
 				}
 
