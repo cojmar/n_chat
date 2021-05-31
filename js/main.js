@@ -130,6 +130,7 @@
 		'optional!ga',
 		'libraries/spectrum'
 	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, emoticons, twemoji, seedrandom, simplestorage, EmojiButton, network, ajaxretry, Popper, ga, spectrum) {
+		// noinspection DuplicatedCode
 		$(function() {
 			if (typeof ga === 'function') {
 				ga('send', {
@@ -164,6 +165,7 @@
 			var normalize = Object.keys(normalize_data.mapping);
 
 			var search_regex = {};
+			var search_regex_tr = {};
 			var replace_regex = {};
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
@@ -202,6 +204,27 @@
 				}
 				// noinspection JSUnfilteredForInLoop
 				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
+			}
+
+			// noinspection JSUnresolvedVariable,DuplicatedCode
+			for (var profanity3 in blacklist_data.mapping.tr) {
+				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+				var regex3 = blacklist_data.mapping.tr[profanity3][0] + '|';
+				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+				var profanity3sorted = blacklist_data.mapping.tr[profanity3].sort(function(a, b) {
+					return b.length - a.length
+				});
+				// noinspection JSUnfilteredForInLoop
+				for (var p3 in profanity3sorted) {
+					// noinspection JSUnfilteredForInLoop
+					regex3 += ' ' + profanity3sorted[p3] + '|';
+					// noinspection JSUnfilteredForInLoop
+					regex3 += ' ' + profanity3sorted[p3] + ' |';
+					// noinspection JSUnfilteredForInLoop
+					regex3 += profanity3sorted[p3] + ' |';
+				}
+				// noinspection JSUnfilteredForInLoop
+				search_regex_tr[profanity3] = new RegExp(regex3.slice(0, -1), 'gi');
 			}
 
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
@@ -488,7 +511,7 @@
 				return str.replace(/[\u0300-\u036F\u0483-\u0486]/g, '').replace(/[\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '');
 			};
 
-			net.remove_profanity = function(str) {
+			net.remove_profanity = function(str, language) {
 				str = net.remove_combining(net.remove_invisible(str));
 				str = str.replace(/  +/g, ' ').trim();
 
@@ -518,12 +541,54 @@
 					}
 				}
 
+				if (typeof language === 'undefined') {
+					language = 'en'
+				}
+
+				if (language !== 'en') {
+					// noinspection JSUnresolvedVariable
+					for (var profanity3 in blacklist_data.mapping['language']) {
+						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+						var profanity3sorted = blacklist_data.mapping['language'][profanity3].sort(function(a, b) {
+							return b.length - a.length
+						});
+
+						for (var p3 in profanity3sorted) {
+							// noinspection JSUnfilteredForInLoop
+							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+								str = profanity3;
+
+								// noinspection JSUnresolvedVariable
+								for (var profanity4 in blacklist_data.replace['language']) {
+									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+									for (var p4 in blacklist_data.replace['language'][profanity4]) {
+										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+										if (str.toLowerCase() === blacklist_data.replace['language'][profanity4][p4]) {
+											return str = '`' + profanity4 + '`';
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
 				for (var r1 in search_regex) {
 					str = str.replace(search_regex[r1], ' ' + r1 + ' ');
 				}
 
 				for (var r2 in replace_regex) {
 					str = str.replace(replace_regex[r2], ' `' + r2 + '` ');
+				}
+
+				if (language === 'tr') {
+					for (var r3 in search_regex_tr) {
+						str = str.replace(search_regex_tr[r3], ' ' + r3 + ' ');
+					}
+
+					for (var r4 in replace_regex) {
+						str = str.replace(replace_regex[r4], ' `' + r4 + '` ');
+					}
 				}
 
 				return str.replace(/  +/g, ' ').trim();
@@ -549,12 +614,13 @@
 			net.clean = function(str, sent_by_admin, disable_emoji) {
 				var me_is_admin = net.is_admin();
 				var room_name = net.room_info.name || '';
+				var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
 				var subject;
 
 				if (room_name === 'Emupedia' && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), language);
 				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))), language);
 				} else {
 					subject = net.remove_combining(net.remove_invisible(net.remove_zalgo(str)));
 				}
@@ -588,11 +654,12 @@
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
 				var room_name = net.room_info.name || '';
+				var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
 				// noinspection JSUnresolvedFunction
 				var subject = net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1));
 
 				if (room_name.startsWith('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)));
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), language);
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
 				}
