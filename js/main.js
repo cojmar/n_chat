@@ -515,37 +515,37 @@
 				str = net.remove_combining(net.remove_invisible(str));
 				str = str.replace(/  +/g, ' ').trim();
 
-				// noinspection JSUnresolvedVariable
-				for (var profanity1 in blacklist_data.mapping.en) {
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
-						return b.length - a.length
-					});
+				if (typeof language === 'undefined') {
+					language = 'en'
+				}
 
-					for (var p1 in profanity1sorted) {
-						// noinspection JSUnfilteredForInLoop
-						if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
-							str = profanity1;
+				if (language === 'en') {
+					// noinspection JSUnresolvedVariable
+					for (var profanity1 in blacklist_data.mapping.en) {
+						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+						var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
+							return b.length - a.length
+						});
 
-							// noinspection JSUnresolvedVariable
-							for (var profanity2 in blacklist_data.replace.en) {
-								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-								for (var p2 in blacklist_data.replace.en[profanity2]) {
+						for (var p1 in profanity1sorted) {
+							// noinspection JSUnfilteredForInLoop
+							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+								str = profanity1;
+
+								// noinspection JSUnresolvedVariable
+								for (var profanity2 in blacklist_data.replace.en) {
 									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-									if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
-										return str = '`' + profanity2 + '`';
+									for (var p2 in blacklist_data.replace.en[profanity2]) {
+										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+										if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
+											return str = '`' + profanity2 + '`';
+										}
 									}
 								}
 							}
 						}
 					}
-				}
-
-				if (typeof language === 'undefined') {
-					language = 'en'
-				}
-
-				if (language !== 'en') {
+				} else {
 					// noinspection JSUnresolvedVariable
 					for (var profanity3 in blacklist_data.mapping['language']) {
 						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
@@ -573,15 +573,15 @@
 					}
 				}
 
-				for (var r1 in search_regex) {
-					str = str.replace(search_regex[r1], ' ' + r1 + ' ');
-				}
+				if (language === 'en') {
+					for (var r1 in search_regex) {
+						str = str.replace(search_regex[r1], ' ' + r1 + ' ');
+					}
 
-				for (var r2 in replace_regex) {
-					str = str.replace(replace_regex[r2], ' `' + r2 + '` ');
-				}
-
-				if (language === 'tr') {
+					for (var r2 in replace_regex) {
+						str = str.replace(replace_regex[r2], ' `' + r2 + '` ');
+					}
+				} else if (language === 'tr') {
 					for (var r3 in search_regex_tr) {
 						str = str.replace(search_regex_tr[r3], ' ' + r3 + ' ');
 					}
