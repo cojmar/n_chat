@@ -1321,6 +1321,7 @@
 			});
 
 			net.socket.on('iframe_url', function(data) {
+				console.log(data);
 				net.send_cmd('set_data', {url: data});
 			});
 
