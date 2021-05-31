@@ -11,6 +11,7 @@
 		this.events = {};
 		this.net = net;
 		this.buffer = [];
+		this.buffer.push(['iframe_url', window.location.hostname]);
 		this.iframe_id = null;
 		this.iframe_rdy = false;
 
@@ -113,8 +114,6 @@
 			$(window).off('message').on('message', function(e) {
 				if (e.originalEvent.data.cmd === 'iframe_rdy') {
 					self.iframe_rdy = true;
-
-					self.net.send_cmd('iframe_url', window.top.location.href);
 
 					for (var data in self.buffer) {
 						// noinspection JSUnfilteredForInLoop
