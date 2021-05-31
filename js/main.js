@@ -1319,14 +1319,14 @@
 				net.send_cmd('list', {});
 
 				if (window.top === window) {
-					net.send_cmd('set_data', {url: window.location.hostname, country: simplestorage.get('country')});
+					net.send_cmd('set_data', {url: window.location.href, country: simplestorage.get('country')});
 				}
 			});
 
-			net.socket.on('iframe_url', function(data) {
+			net.socket.on('iframe_ready', function(data) {
 				// console.log('iframe_url');
 				// console.log(JSON.stringify(data, null, 2));
-				net.send_cmd('set_data', {url: data, country: simplestorage.get('country')});
+				net.send_cmd('set_data', {url: data.url, country: data.country});
 			});
 
 			net.socket.on('su', function(data) {

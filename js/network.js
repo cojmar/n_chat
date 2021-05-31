@@ -11,7 +11,7 @@
 		this.events = {};
 		this.net = net;
 		this.buffer = [];
-		this.buffer.push(['iframe_url', window.location.href]);
+		this.buffer.push(['iframe_ready', {uid: simplestorage.get('uid') ? simplestorage.get('uid') : '', url: window.location.href, country: simplestorage.get('country')}]);
 		this.iframe_id = null;
 		this.iframe_rdy = false;
 
