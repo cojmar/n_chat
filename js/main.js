@@ -1319,15 +1319,15 @@
 				net.send_cmd('list', {});
 
 				if (window.top === window) {
-					console.log('no_iframe');
-					console.log(JSON.stringify({url: window.location.href, country: simplestorage.get('country')}, null, 2));
+					// console.log('no_iframe');
+					// console.log(JSON.stringify({url: window.location.href, country: simplestorage.get('country')}, null, 2));
 					net.send_cmd('set_data', {url: window.location.href, country: simplestorage.get('country')});
 				}
 			});
 
 			net.socket.on('iframe_ready', function(data) {
-				console.log('iframe_ready');
-				console.log(JSON.stringify(data, null, 2));
+				// console.log('iframe_ready');
+				// console.log(JSON.stringify(data, null, 2));
 				net.send_cmd('set_data', {url: data.url, country: data.country});
 			});
 
