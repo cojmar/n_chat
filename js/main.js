@@ -1870,6 +1870,7 @@
 				var user = data.user;
 				var is_admin = net.is_admin(user);
 				var me_is_admin = net.is_admin();
+				var cc = '';
 				var nick = '';
 				var nickname = '';
 				var origin_url = '';
@@ -1932,6 +1933,17 @@
 
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
+					if (me_is_admin) {
+						// noinspection JSUnresolvedVariable
+						cc = net.room_info.users[user].data.country ? net.country_code_emoji(net.room_info.users[user].data.country) : '';
+						cc = twemoji.parse(net.str_replace(search, replace, cc), {}, emoticons_data.emoticons.mapping, {
+							folder: 'svg',
+							ext: '.svg'
+						});
+						// noinspection JSUnresolvedVariable
+						cc = cc !== '' ? '<span title="' + net.country_codes[net.room_info.users[user].data.country] + '" style="color: ' + net.colors[1] + ';">[' + cc + ']</span>' : '';
+					}
+
 					// noinspection JSUnresolvedVariable
 					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
 					// noinspection JSUnresolvedVariable
@@ -1987,7 +1999,7 @@
 				// noinspection JSUnresolvedVariable
 				var user_level = net.get_user_level(user);
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span><span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + user + '" title="' + nickname + origin_url + origin_country + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + cc + '<span ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" uid="' + user + '" title="' + nickname + origin_url + origin_country + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
