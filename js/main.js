@@ -877,7 +877,7 @@
 
 				for (var event in net.events) {
 					// noinspection JSUnfilteredForInLoop
-					if (~str.indexOf(net.events[event])) {
+					if (~str.toLowerCase().indexOf(net.events[event])) {
 						// noinspection JSUnfilteredForInLoop
 						net.render_event(net.events[event]);
 						break;
