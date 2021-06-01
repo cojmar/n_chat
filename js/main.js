@@ -518,6 +518,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.lock_scroll = true;
+			net.show_flags = false;
 			net.max_message_length = 160;
 
 			net.use_events = simplestorage.get('use_events');
@@ -1974,7 +1975,7 @@
 
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
-					if (me_is_admin) {
+					if (me_is_admin && net.show_flags) {
 						// noinspection JSUnresolvedVariable
 						cc = net.room_info.users[user].data.country ? net.country_code_emoji(net.room_info.users[user].data.country) : '';
 						cc = twemoji.parse(net.str_replace(search, replace, cc), {}, emoticons_data.emoticons.mapping, {
