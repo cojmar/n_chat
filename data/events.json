@@ -1,0 +1,32 @@
+{
+	"en": {
+		"amogus": ["amogus", "among us"],
+		"cat": ["cat ", "nyan "],
+		"cry": ["cry ", "crying "],
+		"dance": ["dance", "dancing"],
+		"dog": ["dog", "dogo ", "doge "],
+		"hypno": ["hypno"],
+		"matrix": ["matrix"],
+		"megalol": ["megalol"],
+		"pats": ["pats"],
+		"pogchamp": ["pogchamp", "pog "],
+		"rage": ["rage "],
+		"sad": ["sad "],
+		"tired": ["tired "]
+	},
+	"tr": {
+		"amogus": ["amogus "],
+		"cat": ["kedi ", "nyan "],
+		"cry": ["agla ", "ağla ", "ağlamak ", "aglamak "],
+		"dance": ["dans "],
+		"dog": ["kopek ", "köpek ", "dogo ", "doge "],
+		"hypno": ["hypno"],
+		"matrix": ["matrix"],
+		"megalol": ["megalol"],
+		"pats": ["patlar "],
+		"pogchamp": ["pogchamp", "pog "],
+		"rage": ["öfke ", "ofke "],
+		"sad": ["üzgün", "uzgun "],
+		"tired": ["yorgun "]
+	}
+}
