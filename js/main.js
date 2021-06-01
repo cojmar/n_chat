@@ -481,7 +481,7 @@
 				'XX': 'Unknown Country'
 			};
 
-			net.events = ['amogus', 'dance'];
+			net.events = ['amogus', 'dance', 'matrix'];
 			net.event_timeout = null;
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
