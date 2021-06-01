@@ -34,6 +34,7 @@ label {
 
 #event div {
 	margin: auto;
+	max-width: 800px;
 	height: 100%;
 	white-space: nowrap;
 }
