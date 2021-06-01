@@ -481,6 +481,8 @@
 				'XX': 'Unknown Country'
 			};
 
+			net.events = ['dance'];
+			net.event_timeout = null;
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
@@ -873,6 +875,15 @@
 				var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
 				var subject;
 
+				for (var event in net.events) {
+					// noinspection JSUnfilteredForInLoop
+					if (~str.indexOf(net.events[event])) {
+						// noinspection JSUnfilteredForInLoop
+						net.render_event(net.events[event]);
+						break;
+					}
+				}
+
 				if ((room_name === 'Emupedia' || room_name === 'Emupedia-TR') && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), language);
 				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
@@ -1032,6 +1043,15 @@
 				if (typeof cb === 'function') {
 					cb();
 				}
+			};
+
+			net.render_event = function(type) {
+				// noinspection HtmlUnknownTarget
+				net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span><img src="images/events/' + type + '.gif" alt="" /></div>');
+				clearTimeout(net.event_timeout);
+				net.event_timeout = setTimeout(function() {
+					net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+				}, 5000);
 			};
 
 			net.render_users = function(timeout, force) {
@@ -2217,6 +2237,7 @@
 				}
 			});
 
+			net.event = $('#event');
 			net.client_topic = $('#topic_output');
 			net.client_room_users = $('#client_room_users');
 			net.client_room = $('#client_room');
@@ -2225,6 +2246,7 @@
 			net.client_room_online = net.client_room.find('span.online');
 
 			net.console.show();
+			net.event.show();
 
 			// noinspection JSUnresolvedFunction,DuplicatedCode
 			net.text_input.off('keypress').on('keypress', function(e) {

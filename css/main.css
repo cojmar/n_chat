@@ -18,6 +18,37 @@ label {
 	text-align: left;
 }
 
+/*noinspection CssOverwrittenProperties*/
+#event {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-color: #302f2f;
+	background-color: var(--background);
+	text-align: center;
+	pointer-events: none;
+	cursor: pointer;
+}
+
+#event div {
+	margin: auto;
+	height: 100%;
+	white-space: nowrap;
+}
+
+#event span {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#event img {
+	width: 50%;
+	vertical-align: middle;
+}
+
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;
@@ -63,8 +94,7 @@ label {
 	font-size: 12px;
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 	border: 1px #4c4c4c solid;
-	background-color: #302f2f;
-	background-color: var(--background);
+	background-color: rgba(48, 47, 47, 0.7);
 }
 
 #client_users {
