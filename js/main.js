@@ -481,7 +481,7 @@
 				'XX': 'Unknown Country'
 			};
 
-			net.events = ['amogus', 'cat', 'dance', 'matrix', 'megalol', 'pats', 'pog', 'rage', 'tired'];
+			net.events = ['amogus', 'cat', 'dance', 'matrix', 'megalol', 'pats', 'pogchamp', 'rage', 'tired'];
 			net.event_timeout = null;
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
@@ -877,7 +877,7 @@
 
 				for (var event in net.events) {
 					// noinspection JSUnfilteredForInLoop
-					if (~str.indexOf(net.events[event] + ' ')) {
+					if (~str.indexOf(net.events[event])) {
 						// noinspection JSUnfilteredForInLoop
 						net.render_event(net.events[event]);
 						break;
