@@ -1,6 +1,6 @@
 {
 	"en": {
-		"amogus": ["amogus", "among us"],
+		"amogus": ["amogus", "among us", "sus sus", "imposter"],
 		"cat": ["cat ", "nyan "],
 		"cry": ["cry ", "crying "],
 		"dance": ["dance", "dancing"],
@@ -15,7 +15,7 @@
 		"tired": ["tired "]
 	},
 	"tr": {
-		"amogus": ["amogus "],
+		"amogus": ["amogus ", "sus sus", "imposter"],
 		"cat": ["kedi ", "nyan "],
 		"cry": ["agla ", "ağla ", "ağlamak ", "aglamak "],
 		"dance": ["dans "],
