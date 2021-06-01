@@ -161,7 +161,6 @@
 
 			var search = Object.keys(emoticons_data.mapping);
 			var replace = Object.values(emoticons_data.mapping);
-			// noinspection JSUnusedLocalSymbols
 			var normalize = Object.keys(normalize_data.mapping);
 
 			var search_regex = {};
@@ -481,7 +480,39 @@
 				'XX': 'Unknown Country'
 			};
 
-			net.events = ['amogus', 'cat', 'cry', 'dance', 'dog', 'hypno', 'matrix', 'megalol', 'pats', 'pogchamp', 'rage', 'sad', 'tired'];
+			net.events = {
+				en: {
+					amogus: ['amogus', 'among us'],
+					cat: ['cat ', 'nyan '],
+					cry: ['cry ', 'crying '],
+					dance: ['dance', 'dancing'],
+					dog: ['dog', 'dogo ', 'doge '],
+					hypno: ['hypno'],
+					matrix: ['matrix'],
+					megalol: ['megalol'],
+					pats: ['pats'],
+					pogchamp: ['pogchamp', 'pog '],
+					rage: ['rage '],
+					sad: ['sad '],
+					tired: ['tired ']
+				},
+				tr: {
+					amogus: ['amogus '],
+					cat: ['kedi ', 'nyan '],
+					cry: ['agla ', 'ağla ', 'ağlamak ', 'aglamak '],
+					dance: ['dans '],
+					dog: ['kopek ', 'dogo ', 'doge '],
+					hypno: ['hypno'],
+					matrix: ['matrix'],
+					megalol: ['megalol'],
+					pats: ['patlar '],
+					pogchamp: ['pogchamp', 'pog '],
+					rage: ['öfke ', 'ofke '],
+					sad: ['üzgün', 'uzgun '],
+					tired: ['yorgun ']
+				}
+			};
+
 			net.event_timeout = null;
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
@@ -892,16 +923,20 @@
 			net.clean = function(str, sent_by_admin, disable_emoji) {
 				var me_is_admin = net.is_admin();
 				var room_name = net.room_info.name || '';
-				var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
+				var language = room_name.startsWith('Emupedia-') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
+				var event_language = language !== 'en' && language !== 'tr' ? 'en' : language;
 				var subject;
 
 				if (net.use_events) {
-					for (var event in net.events) {
-						// noinspection JSUnfilteredForInLoop
-						if (~str.toLowerCase().indexOf(net.events[event])) {
+					var events = Object.keys(net.events[event_language]);
+					for (var event in events) {
+						var words = net.events[event_language][events[event]];
+						for (var word in words) {
 							// noinspection JSUnfilteredForInLoop
-							net.render_event(net.events[event]);
-							break;
+							if (~str.toLowerCase().indexOf(words[word])) {
+								net.render_event(events[event]);
+								break;
+							}
 						}
 					}
 				}
