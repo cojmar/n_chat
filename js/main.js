@@ -489,11 +489,13 @@
 			net.lock_scroll = true;
 			net.max_message_length = 160;
 
+			net.use_events = simplestorage.get('use_events');
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
 			net.refresh_users = simplestorage.get('refresh_users');
 			net.use_colors = simplestorage.get('use_colors');
 
+			if (!~[true, false].indexOf(net.use_events)) net.use_events = true;
 			if (!~[true, false].indexOf(net.use_animated_topic)) net.use_animated_topic = true;
 			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true;
 			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
@@ -747,6 +749,24 @@
 				});
 			};
 
+			net.country_code_emoji = function(cc) {
+				if (/^[a-z]{2}$/i.test(cc)) {
+					var code_points = cc.toUpperCase().split('');
+
+					var result = code_points.map(function(c) {
+						return c.codePointAt() + 127397;
+					});
+
+					result = result.map(function(c) {
+						return String.fromCodePoint(c);
+					});
+
+					return result.join('');
+				}
+
+				return cc;
+			};
+
 			net.remove_invisible = function(str) {
 				return str.replace(/[\u0009\u000a\u000c\u000d\u007f\u00a0\u00ad\u034f\u061c\u064b\u115f\u1160\u17b4\u17b5\u180e\u2000-\u200f\u202a-\u202f\u205f-\u206f\u20d0-\u20f0\u2800\u3000\u3164\ufe00-\ufe0f\ufeff\uffa0\ufff0-\ufff8\ufffd]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/\ud834\udd73/g, '').replace(/\ud834\udd74/g, '').replace(/\ud834\udd75/g, '').replace(/\ud834\udd76/g, '').replace(/\ud834\udd77/g, '').replace(/\ud834\udd78/g, '').replace(/\ud834\udd79/g, '').replace(/\ud834\udd7a/g, '').replace(/&lrm;/gi, '').replace(/&rlm;/gi, '').replace(/&ZeroWidthSpace;/gi, '').replace(/&zwj;/gi, '').replace(/&zwnj;/gi, '').replace(/&nbsp;/gi, '');
 			};
@@ -875,12 +895,14 @@
 				var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
 				var subject;
 
-				for (var event in net.events) {
-					// noinspection JSUnfilteredForInLoop
-					if (~str.toLowerCase().indexOf(net.events[event])) {
+				if (net.use_events) {
+					for (var event in net.events) {
 						// noinspection JSUnfilteredForInLoop
-						net.render_event(net.events[event]);
-						break;
+						if (~str.toLowerCase().indexOf(net.events[event])) {
+							// noinspection JSUnfilteredForInLoop
+							net.render_event(net.events[event]);
+							break;
+						}
 					}
 				}
 
@@ -1090,7 +1112,7 @@
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 							var url = net.room_info.users[users].data.url || '?';
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var country = net.country_codes[net.room_info.users[users].data.country] || '?';
+							var country = net.room_info.users[users].data.country ? net.room_info.users[users].data.country + ' ' + net.country_codes[net.room_info.users[users].data.country] : '?';
 
 							if (net.is_default_nick(nick)) {
 								users_array_default.push([user, nick, xp, url, country]);
@@ -1306,12 +1328,15 @@
 						net.render_users(1, true);
 					}
 
+					// noinspection DuplicatedCode
 					if (data.cmd === 'low') {
 						net.refresh_users = false;
+						net.use_events = false;
 						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = false;
 						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_events', net.use_events);
 						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
@@ -1321,10 +1346,12 @@
 					// noinspection DuplicatedCode
 					if (data.cmd === 'medium') {
 						net.refresh_users = true;
+						net.use_events = true;
 						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = true;
 						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_events', net.use_events);
 						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
@@ -1334,10 +1361,12 @@
 					// noinspection DuplicatedCode
 					if (data.cmd === 'high') {
 						net.refresh_users = true;
+						net.use_events = true;
 						net.use_animated_topic = true;
 						net.use_animated_emoticons = true;
 						net.use_colors = true;
 						simplestorage.set('refresh_users', net.refresh_users);
+						simplestorage.set('use_events', net.use_events);
 						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
@@ -1910,7 +1939,7 @@
 					// noinspection JSUnresolvedVariable
 					origin_url = me_is_admin ? 'URL ' + (net.room_info.users[user].data.url || '?') + '\n' : '';
 					// noinspection JSUnresolvedVariable
-					origin_country = me_is_admin ? 'Country ' + (net.country_codes[net.room_info.users[user].data.country] || '?') + '\n' : '';
+					origin_country = me_is_admin ? 'Country ' + (net.room_info.users[user].data.country ? (net.room_info.users[user].data.country + ' ' + net.country_codes[net.room_info.users[user].data.country]) : '?') + '\n' : '';
 				}
 
 				var color = net.colors[3];
@@ -2061,6 +2090,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
+							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
 							'<label><input class="settings_input" id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
 							'<label><input class="settings_input" id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>',
@@ -2107,6 +2137,11 @@
 							net.use_colors = $(this).prop('checked');
 							simplestorage.set('use_colors', net.use_colors);
 							net.render_users(1, true);
+						});
+
+						$('#use_events').off('change').on('change', function() {
+							net.use_events = $(this).prop('checked');
+							simplestorage.set('use_events', net.use_events);
 						});
 
 						$('#use_animated_topic').off('change').on('change', function() {
