@@ -501,7 +501,7 @@
 					cat: ['kedi ', 'nyan '],
 					cry: ['agla ', 'ağla ', 'ağlamak ', 'aglamak '],
 					dance: ['dans '],
-					dog: ['kopek ', 'dogo ', 'doge '],
+					dog: ['kopek ', 'köpek ', 'dogo ', 'doge '],
 					hypno: ['hypno'],
 					matrix: ['matrix'],
 					megalol: ['megalol'],
@@ -941,10 +941,12 @@
 					}
 				}
 
-				if ((room_name === 'Emupedia' || room_name === 'Emupedia-TR') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), language);
-				} else if (room_name.startsWith('Emupedia') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))), 'en');
+				if ((room_name === 'Emupedia') && !sent_by_admin) {
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
+				} else if (room_name.startsWith('Emupedia-TR') && !sent_by_admin) {
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))), language);
+				} else if (room_name.startsWith('Emupedia-') && !sent_by_admin) {
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(str)))), 'en');
 				} else {
 					subject = net.remove_combining(net.remove_invisible(net.remove_zalgo(str)));
 				}
@@ -1480,7 +1482,11 @@
 					net.send_cmd(data.cmd, data.data);
 					net.text_input.val('');
 					return;
-				} else if (net.room_info.name.startsWith('Emupedia') && !is_admin) {
+				} else if (net.room_info.name === 'Emupedia' && !is_admin) {
+					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
+				} else if (net.room_info.name.startsWith('Emupedia-TR') && !is_admin) {
+					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types.slice(0, normalize_types.length - 1))))));
+				} else if (net.room_info.name.startsWith('Emupedia-') && !is_admin) {
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
