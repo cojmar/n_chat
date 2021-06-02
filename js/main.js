@@ -2162,6 +2162,13 @@
 
 			$(document).on('click', '.client_nickname', function(e) {
 				if (e.shiftKey) {
+					if (typeof navigator.clipboard !== 'undefined') {
+						if (typeof navigator.clipboard.writeText === 'function') {
+							// noinspection JSIgnoredPromiseFromCall
+							navigator.clipboard.writeText($(this).data('uid'));
+						}
+					}
+
 					if (!net.is_admin()) {
 						if (net.text_input.val().length + $(this).data('uid').length < net.max_paste_length) {
 							net.text_input.get(0).value += $(this).data('uid');
@@ -2170,8 +2177,15 @@
 						net.text_input.get(0).value += $(this).data('uid');
 					}
 				} else {
+					if (typeof navigator.clipboard !== 'undefined') {
+						if (typeof navigator.clipboard.writeText === 'function') {
+							// noinspection JSIgnoredPromiseFromCall
+							navigator.clipboard.writeText($(this).data('nickname'));
+						}
+					}
+
 					if (!net.is_admin()) {
-						if (net.text_input.val().length + $(this).data('uid').length < net.max_paste_length) {
+						if (net.text_input.val().length + $(this).data('nickname').length < net.max_paste_length) {
 							net.text_input.get(0).value += $(this).data('nickname');
 						}
 					} else {
