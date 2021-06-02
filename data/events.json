@@ -1,11 +1,11 @@
 {
 	"en": {
-		"amogus": ["amogus", "among us", "sus sus", "imposter"],
+		"amogus": ["amogus", "among us", "among sus", "sus sus", "imposter"],
 		"cat": ["cat ", "meow", "nyan "],
 		"cry": ["cry ", "crying "],
 		"dance": ["dance", "dancing"],
 		"dog": ["dog", "dogo ", "doge "],
-		"haha": ["haha", "hehe"],
+		"haha": ["haha", "hehe", "lmao"],
 		"hugs": ["hugs"],
 		"huh": ["huh "],
 		"hypno": ["hypno"],
@@ -23,7 +23,7 @@
 		"zzz": ["zzz", "sleepy"]
 	},
 	"tr": {
-		"amogus": ["amogus ", "sus sus", "imposter"],
+		"amogus": ["amogus", "among us", "among sus", "sus sus", "imposter"],
 		"cat": ["kedi ", "nyan "],
 		"cry": ["agla ", "ağla ", "ağlamak ", "aglamak "],
 		"dance": ["dans "],
