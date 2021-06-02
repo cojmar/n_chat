@@ -697,12 +697,12 @@
 			// noinspection DuplicatedCode
 			net.clean_nicknames = function(str, disable_emoji) {
 				var room_name = net.room_info.name || '';
-				var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
+				//var language = room_name.startsWith('Emupedia') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
 				// noinspection JSUnresolvedFunction
 				var subject = net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1));
 
 				if (room_name.startsWith('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), language);
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), 'en');
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
 				}
@@ -1172,10 +1172,6 @@
 					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.msg', net.room_info.name, { 'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
-					}
-
-					if (data.cmd === 'test') {
-						data.cmd = 'topic';
 					}
 
 					if (data.cmd === 'room_msg') {
