@@ -5,14 +5,20 @@
 		"cry": ["cry ", "crying "],
 		"dance": ["dance", "dancing"],
 		"dog": ["dog", "dogo ", "doge "],
+		"haha": ["haha", "hehe"],
+		"hugs": ["hugs"],
+		"huh": ["huh "],
 		"hypno": ["hypno"],
+		"kisses": ["kisses"],
 		"matrix": ["matrix"],
 		"megalol": ["omegalul", "megalol"],
 		"pats": ["pats"],
 		"pogchamp": ["pogchamp", "pog "],
 		"rage": [" rage", "rages"],
 		"sad": ["sad "],
-		"tired": ["tired "]
+		"smile": ["smile"],
+		"tired": ["tired "],
+		"zzz": ["zzz", "sleepy"]
 	},
 	"tr": {
 		"amogus": ["amogus ", "sus sus", "imposter"],
