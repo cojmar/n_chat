@@ -235,6 +235,7 @@
 			net.lock_scroll = true;
 			net.show_flags = false;
 			net.max_message_length = 160;
+			net.max_paste_length = 60;
 
 			net.use_events = simplestorage.get('use_events');
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
@@ -2090,7 +2091,7 @@
 					if (typeof e.originalEvent.clipboardData.getData === 'function') {
 						var paste = e.originalEvent.clipboardData.getData('text');
 
-						if (!net.is_admin() && (net.text_input.val().length + paste.length > 60)) {
+						if (!net.is_admin() && (net.text_input.val().length + paste.length > net.max_paste_length)) {
 							e.preventDefault();
 							return false;
 						}
@@ -2165,9 +2166,21 @@
 
 			$(document).on('click', '.client_nickname', function(e) {
 				if (e.shiftKey) {
-					net.text_input.get(0).value += $(this).data('uid');
+					if (!net.is_admin()) {
+						if (net.text_input.val().length + $(this).data('uid').length < net.max_paste_length) {
+							net.text_input.get(0).value += $(this).data('uid');
+						}
+					} else {
+						net.text_input.get(0).value += $(this).data('uid');
+					}
 				} else {
-					net.text_input.get(0).value += $(this).data('nickname');
+					if (!net.is_admin()) {
+						if (net.text_input.val().length + $(this).data('uid').length < net.max_paste_length) {
+							net.text_input.get(0).value += $(this).data('nickname');
+						}
+					} else {
+						net.text_input.get(0).value += $(this).data('nickname');
+					}
 				}
 			});
 
