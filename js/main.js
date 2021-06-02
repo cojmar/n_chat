@@ -1218,9 +1218,11 @@
 				// noinspection JSUnresolvedVariable
 				var spam_time = net.last_send ? timestamp - net.last_send < 20 : false;
 
+				var clean_msg = net.remove_combining(net.remove_invisible(msg)).trim();
+
 				// noinspection DuplicatedCode
 				if (net.last_msg && !is_admin && spam_time) {
-					if (net.last_msg === msg || ((~msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(msg)) && msg.length >= 10)) {
+					if (net.last_msg === clean_msg || ((~clean_msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(clean_msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
 					}
@@ -1228,7 +1230,7 @@
 
 				// noinspection DuplicatedCode
 				if (net.last_last_msg && !is_admin && spam_time) {
-					if (net.last_last_msg === msg || ((~msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(msg)) && msg.length >= 10)) {
+					if (net.last_last_msg === clean_msg || ((~clean_msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(clean_msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
 					}
@@ -1236,7 +1238,7 @@
 
 				// noinspection DuplicatedCode
 				if (net.last_last_last_msg && !is_admin && spam_time) {
-					if (net.last_last_last_msg === msg || ((~msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(msg)) && msg.length >= 10)) {
+					if (net.last_last_last_msg === clean_msg || ((~clean_msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(clean_msg)) && msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
 					}
@@ -1262,7 +1264,7 @@
 				net.send_cmd('room_msg', msg);
 				net.last_last_last_msg = net.last_last_msg;
 				net.last_last_msg = net.last_msg;
-				net.last_msg = msg;
+				net.last_msg = clean_msg;
 				net.spam_cap = 1;
 
 				// noinspection JSUnresolvedFunction
