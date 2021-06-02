@@ -728,3 +728,7 @@ label {
 	scrollbar-track-color: rgba(34, 33, 33, 0.95);
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
 }
+
+.client_nickname {
+	cursor: pointer;
+}
