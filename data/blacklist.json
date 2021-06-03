@@ -66,7 +66,7 @@
 			"beaner": ["beaner"],
 			"bleeding": ["bleeding", "bleding", "bled "],
 			"blood": ["b.l.o.o.d", "b l o o d", "blo od", "bl oo d", "blo.od", "blo od", "bl\\*\\*d", "blood"],
-			"bomb": ["b o mmb", "bo.mb", "bomb"],
+			"bomb": ["b o mmb", "bo.mbs", "bo.mb", "bomb"],
 			"omfg": ["o m fg", "omfg"],
 			"lmfao": ["lmfao", "lmfso"],
 			"wtf": ["wat.daf.ak", "wut the fuck", "what the fuck", "w the f", "wut the f", "what the f", "watdafak", "dafak", "da fuq", "dafuq", "w.t.f", "w t f", "w\\. t\\. f\\.", " w.tf ", " w.tf", "w.tf ", " wt.f", " wt.f", "wt.f ", "w\\.t\\.f", "w\\.\\.tf", "wt\\.\\.f", "w\\.tf", " wt\\.f", "w-t-f", "wtfff", "wtff", "wwtf", "wwtff", "wt ff", "wtf\\*", "wtf-", "wtf"],
