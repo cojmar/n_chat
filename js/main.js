@@ -1187,10 +1187,10 @@
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))))));
-						data.data = data.data.replace(/[`.,'"]/g, '');
+						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
 
-						if (!/[a-z]/i.test(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))) || (net.remove_combining(net.remove_invisible(data.data))).trim() === '' || (net.remove_combining(net.remove_invisible(data.data))).trim().length <= 2) {
-							net.log('You have unwanted characters in your nickname or it is too short, correct the issue and try again.', 4);
+						if (!/[a-z]/i.test(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))) || net.remove_combining(net.remove_invisible(data.data)).trim() === '' || net.remove_combining(net.remove_invisible(data.data)).trim().length <= 2) {
+							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short, correct the issue and try again.', 4);
 							return false;
 						}
 					}
