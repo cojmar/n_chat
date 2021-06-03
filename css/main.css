@@ -58,7 +58,7 @@ label {
 	border: 1px #808080 solid;
 	border-radius: 0;
 	outline: none;
-	background-color: rgba(43, 42, 42, 0.85);
+	background: rgba(34, 33, 33, 0.418);
 	color: #b4adad;
 	vertical-align: top;
 }
@@ -73,7 +73,7 @@ label {
 	border: 1px #808080 solid;
 	border-radius: 0;
 	border-left: none;
-	background-color: rgba(48, 47, 47, 0.85);
+	background: rgba(34, 33, 33, 0.418);
 	padding: 0;
 	vertical-align: top;
 }
@@ -155,6 +155,7 @@ label {
 	font-size: 13px;
 	line-height: 16px;
 	text-align: center;
+	background: rgba(34, 33, 33, 0.418);
 	color: #395fa4;
 	overflow: hidden;
 }
@@ -302,7 +303,7 @@ label {
 	color: #808080;
 	border: 1px #808080 solid;
 	border-radius: 0;
-	background-color: rgba(48, 47, 47, 0.85);
+	background: rgba(34, 33, 33, 0.418);
 	padding: 0;
 	overflow: hidden;
 	vertical-align: top;
@@ -367,7 +368,7 @@ label {
 	border: none;
 	outline: none;
 	border-radius: 0;
-	background: transparent;
+	background: rgba(34, 33, 33, 0.418);
 	font-weight: bold;
 	font-size: 13px;
 	line-height: 18px;
