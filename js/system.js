@@ -245,6 +245,7 @@
 		}
 	})();
 	$sys.feature.URL_BLOB								= $sys.feature.URL_PARSER && 'revokeObjectURL' in URL && 'createObjectURL' in URL;
+	// noinspection JSVoidFunctionReturnValueUsed
 	$sys.feature.DATA_URL								= (function() {
 		function testlimit() {
 			// noinspection JSCheckFunctionSignatures
@@ -328,6 +329,7 @@
 	// noinspection JSUnresolvedVariable
 	$sys.feature.PERFORMANCE							= !!global.performance ? true : !!global.webkitPerformance || !!global.mozPerformance || !!global.msPerformance || !!global.oPerformance;
 	$sys.feature.TIMERS									= $sys.feature.ANIMATION_FRAME && $sys.feature.PERFORMANCE;
+	$sys.feature.CLIPBOARD								= !!global.navigator.clipboard;
 	$sys.feature.CUSTOM_ELEMENTS_V0						= 'registerElement' in global.document;
 	$sys.feature.CUSTOM_ELEMENTS_V1						= 'customElements' in global;
 	$sys.feature.CUSTOM_ELEMENTS						= $sys.feature.CUSTOM_ELEMENTS_V0 || $sys.feature.CUSTOM_ELEMENTS_V1;
@@ -812,6 +814,9 @@
 			Feature: 'TIMERS',
 			Value: $sys.feature.TIMERS ? 'TRUE' : 'FALSE'
 		} , {
+			Feature: 'CLIPBOARD',
+			Value: $sys.feature.CLIPBOARD ? 'TRUE' : 'FALSE'
+		} , {
 			Feature: 'WEBCOMPONENTS',
 			Value: $sys.feature.WEBCOMPONENTS ? 'TRUE' : 'FALSE'
 		} , {
@@ -900,31 +905,14 @@
 			Value: $sys.feature.BATTERY ? 'TRUE' : 'FALSE'
 		}];
 
-		// Microsoft EdgeHTML <= 18.18363 (64-bit) console table is broken
+		// Microsoft Internet Explorer <= 11.900.18362.0 and Microsoft EdgeHTML <= 18.18363 (64-bit) console table is broken
 		// noinspection DuplicatedCode
 		if ($sys.browser.isIE || $sys.browser.isEdgeHTML) {
 			for (var d in dump) {
 				// noinspection JSUnfilteredForInLoop
 				console.log(dump[d]);
 			}
-
-			/*var chunks = function(array, size) {
-				var results = [];
-
-				while (array.length) {
-					results.push(array.splice(0, size));
-				}
-
-				return results;
-			};
-
-			dump = chunks(dump, 50);
-
-			for (var d in dump) {
-				// noinspection JSUnfilteredForInLoop
-				console.table(dump[d]);
-			}*/
-		} else {
+		} else if (typeof console.table === 'function') {
 			console.table(dump);
 		}
 	};
@@ -988,7 +976,7 @@
 				default:
 					el = global.document.createElement('script');
 					el.type = typeof type === 'string' ? type : 'text/javascript';
-					el.src = 'js/' + url + '.js';
+					el.src = 'assets/js/' + url + '.js';
 					el.async = false;
 					break;
 			}
@@ -1122,6 +1110,7 @@
 
 		xhr.onreadystatechange = function(e) {
 			if (xhr.readyState === 4) { // The request is complete
+				// noinspection JSUnresolvedVariable
 				if (xhr.status === 200 || // Response OK
 					xhr.status === 304 || // Not Modified
 					xhr.status === 308 || // Permanent Redirect
