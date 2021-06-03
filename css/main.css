@@ -368,7 +368,7 @@ label {
 	border: none;
 	outline: none;
 	border-radius: 0;
-	background: rgba(34, 33, 33, 0.418);
+	background: transparent;
 	font-weight: bold;
 	font-size: 13px;
 	line-height: 18px;
