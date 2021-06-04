@@ -118,7 +118,7 @@
 			"cancer": ["cancer", "can.cer", "c an c e.r", " c.a.n.c.e.r", " c.a.n.c.e.r ", "c.a.n.c.e.r "],
 			"shooter": ["shooter"],
 			" rapist": [" r.a.p.i.s.t", "r a p i s t", "r apis t", "r ap i s t", "r ap i st", "r a p is t", "r a p is t", "r ap is t", "r ap ist", "ra\\.pi\\.st", "rap\\.ist", " rapist"],
-			" rape": ["r\\.\\.aping", "r\\.aping", "rap\\.ing", "raping", "r\\.\\. ap ed", "r a p ed", "raped", "rapd", "rape\\.d", " raaaape", " raaape", " raape", " r.a.p.e", " ra.p.e", " rapes", "rxpe", " rape", " r\\*pe", " r\\.\\.ape", " r@pe", " rpe"],
+			" rape": ["r\\.\\.aping", "r\\.aping", "rap\\.ing", " raping", "r\\.\\. ap ed", "r a p ed", " raped", "rapd", "rape\\.d", " raaaape", " raaape", " raape", " r.a.p.e", " ra.p.e", " rapes", "rxpe", " rape", " r\\*pe", " r\\.\\.ape", " r@pe", " rpe"],
 			"molester": ["molester"],
 			"murder": [" m\\.\\.ur\\.\\.d\\.\\.\\.er ", "m\\.\\.\\.urder", "m.rd.er", " m.u.r.d.e.r ", "mur.der", "\\*murder", "-murder", "murder\\*", "murder-", "muder", "murder", "m.urder"],
 			"murderer": ["murderer"],
