@@ -515,8 +515,12 @@
 				return cc;
 			};
 
-			net.remove_invisible = function(str) {
-				return str.replace(/[\u0009\u000a\u000c\u000d\u007f\u00a0\u00ad\u034f\u061c\u064b\u115f\u1160\u17b4\u17b5\u180e\u2000-\u200f\u202a-\u202f\u205f-\u206f\u20d0-\u20f0\u2800\u3000\u3164\ufe00-\ufe0f\ufeff\uffa0\ufff0-\ufff8\ufffd]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/\ud834\udd73/g, '').replace(/\ud834\udd74/g, '').replace(/\ud834\udd75/g, '').replace(/\ud834\udd76/g, '').replace(/\ud834\udd77/g, '').replace(/\ud834\udd78/g, '').replace(/\ud834\udd79/g, '').replace(/\ud834\udd7a/g, '').replace(/&lrm;/gi, '').replace(/&rlm;/gi, '').replace(/&ZeroWidthSpace;/gi, '').replace(/&zwj;/gi, '').replace(/&zwnj;/gi, '').replace(/&nbsp;/gi, '');
+			net.remove_invisible_before = function(str) {
+				return str.replace(/[\u0009\u000a\u000c\u000d\u007f\u00a0\u00ad\u034f\u061c\u064b\u115f\u1160\u17b4\u17b5\u180e\u2000-\u200c\u200e\u200f\u202a-\u202f\u205f-\u206f\u20d0-\u20f0\u2800\u3000\u3164\ufe00-\ufe0e\ufeff\uffa0\ufff0-\ufff8\ufffd]/g, '').replace(/\udb40\udc20/g, '').replace(/\udb40\udc21/g, '').replace(/\udb40\udc22/g, '').replace(/\udb40\udc23/g, '').replace(/\udb40\udc24/g, '').replace(/\udb40\udc25/g, '').replace(/\udb40\udc26/g, '').replace(/\udb40\udc27/g, '').replace(/\udb40\udc28/g, '').replace(/\udb40\udc29/g, '').replace(/\udb40\udc2a/g, '').replace(/\udb40\udc2c/g, '').replace(/\udb40\udc2d/g, '').replace(/\udb40\udc2e/g, '').replace(/\udb40\udc2f/g, '').replace(/\udb40\udc30/g, '').replace(/\udb40\udc31/g, '').replace(/\udb40\udc32/g, '').replace(/\udb40\udc33/g, '').replace(/\udb40\udc34/g, '').replace(/\udb40\udc35/g, '').replace(/\udb40\udc36/g, '').replace(/\udb40\udc37/g, '').replace(/\udb40\udc38/g, '').replace(/\udb40\udc39/g, '').replace(/\udb40\udc3a/g, '').replace(/\udb40\udc3b/g, '').replace(/\udb40\udc3c/g, '').replace(/\udb40\udc3d/g, '').replace(/\udb40\udc3e/g, '').replace(/\udb40\udc3f/g, '').replace(/\udb40\udc40/g, '').replace(/\udb40\udc41/g, '').replace(/\udb40\udc42/g, '').replace(/\udb40\udc43/g, '').replace(/\udb40\udc44/g, '').replace(/\udb40\udc45/g, '').replace(/\udb40\udc46/g, '').replace(/\udb40\udc47/g, '').replace(/\udb40\udc48/g, '').replace(/\udb40\udc49/g, '').replace(/\udb40\udc4a/g, '').replace(/\udb40\udc4b/g, '').replace(/\udb40\udc4c/g, '').replace(/\udb40\udc4d/g, '').replace(/\udb40\udc4e/g, '').replace(/\udb40\udc4f/g, '').replace(/\udb40\udc50/g, '').replace(/\udb40\udc51/g, '').replace(/\udb40\udc52/g, '').replace(/\udb40\udc53/g, '').replace(/\udb40\udc54/g, '').replace(/\udb40\udc55/g, '').replace(/\udb40\udc56/g, '').replace(/\udb40\udc57/g, '').replace(/\udb40\udc58/g, '').replace(/\udb40\udc59/g, '').replace(/\udb40\udc5a/g, '').replace(/\udb40\udc5c/g, '').replace(/\udb40\udc5d/g, '').replace(/\udb40\udc5e/g, '').replace(/\udb40\udc5f/g, '').replace(/\udb40\udc60/g, '').replace(/\udb40\udc61/g, '').replace(/\udb40\udc62/g, '').replace(/\udb40\udc63/g, '').replace(/\udb40\udc64/g, '').replace(/\udb40\udc65/g, '').replace(/\udb40\udc66/g, '').replace(/\udb40\udc67/g, '').replace(/\udb40\udc68/g, '').replace(/\udb40\udc69/g, '').replace(/\udb40\udc6a/g, '').replace(/\udb40\udc6b/g, '').replace(/\udb40\udc6c/g, '').replace(/\udb40\udc6d/g, '').replace(/\udb40\udc6e/g, '').replace(/\udb40\udc6f/g, '').replace(/\udb40\udc70/g, '').replace(/\udb40\udc71/g, '').replace(/\udb40\udc72/g, '').replace(/\udb40\udc73/g, '').replace(/\udb40\udc74/g, '').replace(/\udb40\udc75/g, '').replace(/\udb40\udc76/g, '').replace(/\udb40\udc77/g, '').replace(/\udb40\udc78/g, '').replace(/\udb40\udc79/g, '').replace(/\udb40\udc7a/g, '').replace(/\udb40\udc7b/g, '').replace(/\udb40\udc7d/g, '').replace(/\udb40\udc7e/g, '').replace(/\udb40\udc7f/g, '').replace(/\ud834\udd73/g, '').replace(/\ud834\udd74/g, '').replace(/\ud834\udd75/g, '').replace(/\ud834\udd76/g, '').replace(/\ud834\udd77/g, '').replace(/\ud834\udd78/g, '').replace(/\ud834\udd79/g, '').replace(/\ud834\udd7a/g, '').replace(/&lrm;/gi, '').replace(/&rlm;/gi, '').replace(/&ZeroWidthSpace;/gi, '').replace(/&zwj;/gi, '').replace(/&zwnj;/gi, '').replace(/&nbsp;/gi, '');
+			};
+
+			net.remove_invisible_after = function(str) {
+				return str.replace(/[\u200d\ufe0f]/g, '');
 			};
 
 			net.remove_combining = function(str) {
@@ -537,7 +541,7 @@
 
 			// noinspection DuplicatedCode
 			net.has_profanity = function(str, language) {
-				str = net.remove_combining(net.remove_invisible(str));
+				str = net.remove_combining(net.remove_invisible_before(str));
 				str = str.replace(/  +/g, ' ').trim();
 
 				if (typeof language === 'undefined') {
@@ -619,7 +623,7 @@
 
 			// noinspection DuplicatedCode
 			net.remove_profanity = function(str, language) {
-				str = net.remove_combining(net.remove_invisible(str));
+				str = net.remove_combining(net.remove_invisible_before(str));
 				str = str.replace(/  +/g, ' ').trim();
 
 				if (typeof language === 'undefined') {
@@ -759,7 +763,7 @@
 						subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible(net.remove_zalgo(str)));
+					subject = net.remove_combining(net.remove_invisible_before(net.remove_zalgo(str)));
 				}
 
 				// noinspection DuplicatedCode
@@ -776,6 +780,8 @@
 						});
 					}
 				}
+
+				subject = net.remove_invisible_after(subject);
 
 				if (subject.trim().startsWith('*') || subject.trim().startsWith('-')) {
 					subject = '<i' + (net.use_colors ? ' style="color: ' + net.colors[5] + ';"' : '') + '>' + subject + '</i>';
@@ -801,7 +807,7 @@
 						subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), 'en');
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible(subject));
+					subject = net.remove_combining(net.remove_invisible_before(subject));
 				}
 
 				// noinspection DuplicatedCode
@@ -818,6 +824,8 @@
 						});
 					}
 				}
+
+				subject = net.remove_invisible_after(subject);
 
 				return subject;
 			};
@@ -1296,7 +1304,7 @@
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))))));
 						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
 
-						if (!/[a-z]/i.test(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))) || net.remove_combining(net.remove_invisible(data.data)).trim() === '' || net.remove_combining(net.remove_invisible(data.data)).trim().length <= 2) {
+						if (!/[a-z]/i.test(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))) || net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.data))).trim() === '' || net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.data))).trim().length <= 2) {
 							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short, correct the issue and try again.', 4);
 							return false;
 						}
@@ -1314,7 +1322,7 @@
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				}
 
-				if ((net.remove_combining(net.remove_invisible(msg))).trim() === '' || (net.remove_combining(net.remove_invisible(msg))).trim().length <= 0) {
+				if ((net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(msg)))).trim() === '' || (net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(msg)))).trim().length <= 0) {
 					if (net.text_input.val().length > 0) {
 						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 4);
 					}
@@ -1325,7 +1333,7 @@
 				// noinspection JSUnresolvedVariable
 				var spam_time = net.last_send ? timestamp - net.last_send < 20 : false;
 
-				var clean_msg = net.remove_combining(net.remove_invisible(msg)).trim();
+				var clean_msg = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(msg))).trim();
 
 				// noinspection DuplicatedCode
 				if (net.last_msg && !is_admin && spam_time) {
