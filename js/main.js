@@ -742,7 +742,7 @@
 					}
 				}
 
-				var subject_clean = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str.replace(/[-*?!.,:;()'"|\\/]/g, '').replace(/&lt;/g, '').replace(/&gt;/g, '')))))) ;
+				var subject_clean = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str.replace(/[-*?!.,:;()'"`|\\/]/g, '').replace(/&lt;/g, '').replace(/&gt;/g, '')))))) ;
 
 				if ((room_name === 'Emupedia') && !sent_by_admin) {
 					if (net.has_profanity(subject_clean, 'en')) {
