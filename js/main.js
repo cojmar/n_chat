@@ -161,13 +161,13 @@
 				rows: 5
 			});
 
-			var search = Object.keys(emoticons_data.mapping);
-			var replace = Object.values(emoticons_data.mapping);
+			var emoticons_search = Object.keys(emoticons_data.mapping);
+			var emoticons_replace = Object.values(emoticons_data.mapping);
 			var normalize = Object.keys(normalize_data.mapping);
 
-			var search_regex = {};
-			var search_regex_tr = {};
-			var replace_regex = {};
+			var blacklist_search_regex = {};
+			var blacklist_search_regex_tr = {};
+			var blacklist_replace_regex = {};
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
 			for (var profanity1 in blacklist_data.mapping.en) {
@@ -175,7 +175,7 @@
 				var regex1 = blacklist_data.mapping.en[profanity1][0] + '|';
 				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 				var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
-					return b.length - a.length
+					return b.length - a.length;
 				});
 				// noinspection JSUnfilteredForInLoop
 				for (var p1 in profanity1sorted) {
@@ -187,7 +187,7 @@
 					regex1 += profanity1sorted[p1] + ' |';
 				}
 				// noinspection JSUnfilteredForInLoop
-				search_regex[profanity1] = new RegExp(regex1.slice(0, -1), 'gi');
+				blacklist_search_regex[profanity1] = new RegExp(regex1.slice(0, -1), 'gi');
 			}
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
@@ -204,7 +204,7 @@
 					regex2 += blacklist_data.replace.en[profanity2][p2] + ' |';
 				}
 				// noinspection JSUnfilteredForInLoop
-				replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
+				blacklist_replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
 			}
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
@@ -213,7 +213,7 @@
 				var regex3 = blacklist_data.mapping.tr[profanity3][0] + '|';
 				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 				var profanity3sorted = blacklist_data.mapping.tr[profanity3].sort(function(a, b) {
-					return b.length - a.length
+					return b.length - a.length;
 				});
 				// noinspection JSUnfilteredForInLoop
 				for (var p3 in profanity3sorted) {
@@ -225,7 +225,7 @@
 					regex3 += profanity3sorted[p3] + ' |';
 				}
 				// noinspection JSUnfilteredForInLoop
-				search_regex_tr[profanity3] = new RegExp(regex3.slice(0, -1), 'gi');
+				blacklist_search_regex_tr[profanity3] = new RegExp(regex3.slice(0, -1), 'gi');
 			}
 
 			net.event_timeout = null;
@@ -600,20 +600,20 @@
 				}
 
 				if (language === 'en') {
-					for (var r1 in search_regex) {
-						str = str.replace(search_regex[r1], ' ' + r1 + ' ');
+					for (var r1 in blacklist_search_regex) {
+						str = str.replace(blacklist_search_regex[r1], ' ' + r1 + ' ');
 					}
 
-					for (var r2 in replace_regex) {
-						str = str.replace(replace_regex[r2], ' `' + r2 + '` ');
+					for (var r2 in blacklist_replace_regex) {
+						str = str.replace(blacklist_replace_regex[r2], ' `' + r2 + '` ');
 					}
 				} else if (language === 'tr') {
-					for (var r3 in search_regex_tr) {
-						str = str.replace(search_regex_tr[r3], ' ' + r3 + ' ');
+					for (var r3 in blacklist_search_regex_tr) {
+						str = str.replace(blacklist_search_regex_tr[r3], ' ' + r3 + ' ');
 					}
 
-					for (var r4 in replace_regex) {
-						str = str.replace(replace_regex[r4], ' `' + r4 + '` ');
+					for (var r4 in blacklist_replace_regex) {
+						str = str.replace(blacklist_replace_regex[r4], ' `' + r4 + '` ');
 					}
 				}
 
@@ -671,12 +671,12 @@
 				// noinspection DuplicatedCode
 				if (typeof disable_emoji === 'undefined') {
 					if (net.use_animated_emoticons) {
-						subject = twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+						subject = twemoji.parse(emoticons.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping), {
 							folder: 'svg',
 							ext: '.svg'
 						});
 					} else {
-						subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+						subject = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping, {
 							folder: 'svg',
 							ext: '.svg'
 						});
@@ -710,12 +710,12 @@
 				// noinspection DuplicatedCode
 				if (typeof disable_emoji === 'undefined') {
 					if (net.use_animated_emoticons) {
-						subject = twemoji.parse(emoticons.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping), {
+						subject = twemoji.parse(emoticons.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping), {
 							folder: 'svg',
 							ext: '.svg'
 						});
 					} else {
-						subject = twemoji.parse(net.str_replace(search, replace, subject), {}, emoticons_data.emoticons.mapping, {
+						subject = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping, {
 							folder: 'svg',
 							ext: '.svg'
 						});
@@ -1698,7 +1698,7 @@
 					if (me_is_admin && net.show_flags) {
 						// noinspection JSUnresolvedVariable
 						cc = net.room_info.users[user].data.country ? net.country_code_emoji(net.room_info.users[user].data.country) : '';
-						cc = twemoji.parse(net.str_replace(search, replace, cc), {}, emoticons_data.emoticons.mapping, {
+						cc = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, cc), {}, emoticons_data.emoticons.mapping, {
 							folder: 'svg',
 							ext: '.svg'
 						});
