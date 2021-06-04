@@ -645,9 +645,10 @@
 				var subject;
 
 				if (net.use_events) {
-					var eventss = Object.keys(events[event_language]);
+					var eventss = Object.keys(events.mapping[event_language]);
+
 					for (var event in eventss) {
-						var words = events[event_language][eventss[event]];
+						var words = events.mapping[event_language][eventss[event]];
 						for (var word in words) {
 							// noinspection JSUnfilteredForInLoop
 							if (~str.toLowerCase().indexOf(words[word])) {
