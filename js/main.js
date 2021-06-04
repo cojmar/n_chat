@@ -2173,9 +2173,11 @@
 					if (!net.is_admin()) {
 						if (net.text_input.val().length + $(this).data('uid').length < net.max_paste_length) {
 							net.text_input.get(0).value += $(this).data('uid');
+							net.text_input.focus();
 						}
 					} else {
 						net.text_input.get(0).value += $(this).data('uid');
+						net.text_input.focus();
 					}
 				} else {
 					if ($sys.feature.CLIPBOARD) {
@@ -2186,9 +2188,11 @@
 					if (!net.is_admin()) {
 						if (net.text_input.val().length + $(this).data('nickname').length < net.max_paste_length) {
 							net.text_input.get(0).value += $(this).data('nickname');
+							net.text_input.focus();
 						}
 					} else {
 						net.text_input.get(0).value += $(this).data('nickname');
+						net.text_input.focus();
 					}
 				}
 			});
