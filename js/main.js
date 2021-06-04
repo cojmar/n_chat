@@ -1130,7 +1130,12 @@
 				}
 
 				if (msg.trim().length <= 1 && !is_admin) {
-					net.log('Your message is too short', 4);
+					net.log('Your message is too short.', 4);
+					return false;
+				}
+
+				if (msg.trim().length >= 50 && !~msg.indexOf(' ') && !is_admin) {
+					net.log('Your message doesn\'t has any spaces.', 4);
 					return false;
 				}
 
