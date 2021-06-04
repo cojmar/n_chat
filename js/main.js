@@ -1029,7 +1029,12 @@
 				var is_admin = net.is_admin();
 
 				if (msg.length >= net.max_message_length && !is_admin) {
-					msg = msg.substring(0, net.max_message_length - 1)
+					msg = msg.substring(0, net.max_message_length - 1);
+				}
+
+				if (msg.trim().length <= 1 && !is_admin) {
+					net.log('Your message is too short', 4);
+					return false;
 				}
 
 				if (msg.charAt(0) === '/') {
