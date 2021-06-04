@@ -535,6 +535,89 @@
 				return str.replace(/[\u0300-\u036F\u0483-\u0486]/g, '').replace(/[\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '');
 			};
 
+			// noinspection DuplicatedCode
+			net.has_profanity = function(str, language) {
+				str = net.remove_combining(net.remove_invisible(str));
+				str = str.replace(/  +/g, ' ').trim();
+
+				if (typeof language === 'undefined') {
+					language = 'en'
+				} else if (language === null || language === '' || language === 'emupedia') {
+					language = 'en'
+				}
+
+				if (language === 'en') {
+					// noinspection JSUnresolvedVariable
+					for (var profanity1 in blacklist_data.mapping.en) {
+						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+						var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
+							return b.length - a.length
+						});
+
+						for (var p1 in profanity1sorted) {
+							// noinspection JSUnfilteredForInLoop
+							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+								str = profanity1;
+
+								// noinspection JSUnresolvedVariable
+								for (var profanity2 in blacklist_data.replace.en) {
+									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+									for (var p2 in blacklist_data.replace.en[profanity2]) {
+										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+										if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
+											return true;
+										}
+									}
+								}
+							}
+						}
+					}
+				} else {
+					// noinspection JSUnresolvedVariable
+					for (var profanity3 in blacklist_data.mapping['language']) {
+						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+						var profanity3sorted = blacklist_data.mapping['language'][profanity3].sort(function(a, b) {
+							return b.length - a.length
+						});
+
+						for (var p3 in profanity3sorted) {
+							// noinspection JSUnfilteredForInLoop
+							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p3].split('.').join(' ').split('\\$').join('$').trim()) {
+								str = profanity3;
+
+								// noinspection JSUnresolvedVariable
+								for (var profanity4 in blacklist_data.replace['language']) {
+									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+									for (var p4 in blacklist_data.replace['language'][profanity4]) {
+										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+										if (str.toLowerCase() === blacklist_data.replace['language'][profanity4][p4]) {
+											return true;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if (language === 'en') {
+					for (var r1 in blacklist_search_regex) {
+						if (str.match(blacklist_search_regex[r1])) {
+							return true;
+						}
+					}
+				} else if (language === 'tr') {
+					for (var r3 in blacklist_search_regex_tr) {
+						if (str.match(blacklist_search_regex_tr[r3])) {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			};
+
+			// noinspection DuplicatedCode
 			net.remove_profanity = function(str, language) {
 				str = net.remove_combining(net.remove_invisible(str));
 				str = str.replace(/  +/g, ' ').trim();
@@ -659,12 +742,22 @@
 					}
 				}
 
+				var subject_clean = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str.replace(/[-*?!.,:;'"|\\/]/g, '').replace(/&lt;/g, '').replace(/&gt;/g, '')))))) ;
+
 				if ((room_name === 'Emupedia') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
+					if (net.has_profanity(subject_clean, 'en')) {
+						subject = net.remove_profanity(subject_clean, 'en');
+					} else {
+						subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
+					}
 				} else if (room_name.startsWith('Emupedia-TR') && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))), language);
 				} else if (room_name.startsWith('Emupedia-') && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(str)))), 'en');
+					if (net.has_profanity(subject_clean, 'en')) {
+						subject = net.remove_profanity(subject_clean, 'en');
+					} else {
+						subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
+					}
 				} else {
 					subject = net.remove_combining(net.remove_invisible(net.remove_zalgo(str)));
 				}
@@ -703,7 +796,11 @@
 				var subject = net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1));
 
 				if (room_name.startsWith('Emupedia')) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), 'en');
+					if (net.has_profanity(net.normalize(subject), 'en')) {
+						subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.normalize(subject))), 'en');
+					} else {
+						subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), 'en');
+					}
 				} else {
 					subject = net.remove_combining(net.remove_invisible(subject));
 				}
