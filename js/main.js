@@ -1057,7 +1057,7 @@
 						data.data = json_data;
 					}
 
-					if (data.cmd === 'name' || data.cmd === 'n') {
+					if (data.cmd === 'nickname' || data.cmd === 'name' || data.cmd === 'n') {
 						data.cmd = 'nick';
 					}
 
