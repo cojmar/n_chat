@@ -1141,7 +1141,7 @@
 					return false;
 				}
 
-				if (msg.trim().length >= 50 && !~msg.trim().indexOf(' ') && !is_admin) {
+				if (msg.trim().length >= 25 && !~msg.trim().indexOf(' ') && !is_admin) {
 					net.log('Your message doesn\'t has any spaces.', 4);
 					return false;
 				}
