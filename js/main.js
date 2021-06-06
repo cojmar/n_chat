@@ -1742,6 +1742,7 @@
 					return false;
 				}
 
+				var timestamp = Math.floor(Date.now() / 1000);
 				var user = data.user;
 				var is_admin = net.is_admin(user);
 				var me_is_admin = net.is_admin();
@@ -1753,60 +1754,48 @@
 				var origin_country = '';
 				var class_styles = '';
 
-				var net_user = false;
 
-				// noinspection JSUnresolvedVariable
-				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined') {
-					// noinspection JSUnresolvedVariable
-					net_user = net.room_info.users[user];
+
+				if (!net.user_spam_buffer){
+					net.user_spam_buffer ={}
 				}
 
-				var last_msg = net.spam_buffer.find(function(e) { return ~e.indexOf('title="Unique ID ' + user + '"') });
-
-				if (last_msg) {
-					last_msg = {
-						time_stamp: last_msg.substr(last_msg.indexOf('[') + 1, 8),
-						msg: last_msg.substr(last_msg.indexOf(']&nbsp;</span>') + 14).replace('</div>', ''),
-						delay: 0
-					};
-
-					if (!is_admin) {
-						var d = new Date();
-
-						var time_stamp = [
-							('0' + d.getHours()).slice(-2),
-							':',
-							('0' + d.getMinutes()).slice(-2),
-							':',
-							('0' + d.getSeconds()).slice(-2)
-						].join('');
-
-						if (last_msg.time_stamp.substr(0, 6) === time_stamp.substr(0, 6)) {
-							var cur_sec = parseInt(time_stamp.substr(6));
-							var last_sec = parseInt(last_msg.time_stamp.substr(6));
-							last_msg.delay = cur_sec - last_sec;
-							var spam_cap = 1;
-
-							if (net_user) {
-								net_user.spam_cap = net_user.spam_cap || 1;
-								spam_cap = net_user.spam_cap;
-							}
-
-							if (last_msg.delay < spam_cap) {
-								if (net_user) {
-									net_user.spam_cap++;
-								}
-								return false;
-							} else {
-								if (net_user) {
-									net_user.spam_cap = 1;
-								}
-							}
-						} else {
-							last_msg.delay = 60
-						}
+				if (!net.user_spam_buffer[user]){
+					net.user_spam_buffer[user] = {
+						last_msg:null,
+						last_last_msg:null,
+						last_last_msg:null,
+						spam_cap:0,
+						last_send:0
 					}
 				}
+				var spam_time = net.user_spam_buffer[user].last_send ? timestamp - net.user_spam_buffer[user].last_send < 20 : false;
+				var clean_msg = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.msg))).trim();
+
+				if (net.user_spam_buffer[user].last_last_last_msg && !is_admin && spam_time) {
+					if (net.user_spam_buffer[user].last_last_last_msg === clean_msg || ((~clean_msg.indexOf(net.user_spam_buffer[user].last_last_last_msg) || ~net.user_spam_buffer[user].last_last_last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
+						return false;
+					}
+				}
+
+				if (!net.user_spam_buffer[user].spam_cap || net.user_spam_buffer[user].spam_cap < 0) {
+					net.user_spam_buffer[user].spam_cap = 1;
+				}
+
+				if (net.user_spam_buffer[user].last_send && !is_admin) {
+					if (timestamp - net.user_spam_buffer[user].last_send < net.user_spam_buffer[user].spam_cap) {
+						net.user_spam_buffer[user].last_send = timestamp;
+						net.user_spam_buffer[user].spam_cap++;
+						return false;
+					}
+				}
+
+				net.user_spam_buffer[user].last_send = timestamp;
+
+				net.user_spam_buffer[user].last_last_last_msg = net.user_spam_buffer[user].last_last_msg;
+				net.user_spam_buffer[user].last_last_msg = net.user_spam_buffer[user].last_msg;
+				net.user_spam_buffer[user].last_msg = clean_msg;
+				net.user_spam_buffer[user].spam_cap = 1;
 
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info !== 'undefined' && typeof net.room_info.users[user] !== 'undefined' && typeof net.room_info.users[user].info !== 'undefined' && typeof net.room_info.users[user].info.nick !== 'undefined') {
@@ -1871,11 +1860,6 @@
 					data.msg = data.msg.substring(0, net.max_message_length - 1);
 				}
 
-				if (!is_admin && last_msg && last_msg.delay < 20) {
-					if (last_msg.msg === data.msg || ((~data.msg.indexOf(last_msg.msg) || ~last_msg.msg.indexOf(data.msg)) && data.msg.length >= 10)) {
-						return false;
-					}
-				}
 
 				// noinspection JSUnresolvedVariable
 				var user_level = net.get_user_level(user);
