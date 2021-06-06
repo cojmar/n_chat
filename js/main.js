@@ -1035,7 +1035,7 @@
 								var nickname = nick_obj[u];
 								var origin_nickname = me_is_admin ? 'Nickname ' + nickname + '\n' : '';
 								var origin_url =  me_is_admin ? 'URL ' + url_obj[u] + '\n' : '';
-								var origin_country =  me_is_admin ? 'Country ' + country_obj[u] + '\n' : '';
+								var origin_country =  me_is_admin && net.room_info.users[u].info.location ? JSON.stringify(net.room_info.users[u].info.location).replaceAll('{','').replaceAll('}','').replaceAll('"','').replaceAll(',',', ').replaceAll(':',': ') + '\n' : '';
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -1818,7 +1818,7 @@
 					// noinspection JSUnresolvedVariable
 					origin_url = me_is_admin ? 'URL ' + (net.room_info.users[user].data.url || '?') + '\n' : '';
 					// noinspection JSUnresolvedVariable
-					origin_country = me_is_admin ? 'Country ' + (net.room_info.users[user].data.country ? (net.room_info.users[user].data.country + ' ' + country_codes[net.room_info.users[user].data.country]) : '?') + '\n' : '';
+					origin_country = me_is_admin ?   (net.room_info.users[user].info.location ? JSON.stringify(net.room_info.users[user].info.location).replaceAll('{','').replaceAll('}','').replaceAll('"','').replaceAll(',',', ').replaceAll(':',': ') : '?') + '\n' : '';
 				}
 
 				var color = net.colors[3];
