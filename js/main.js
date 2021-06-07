@@ -2091,7 +2091,7 @@
 					res += '<b>Timezone</b> ' + data[keys[key]][0]['location']['timezone'] + ' ';
 				}
 
-				net.log('<span style="color: ' + net.colors[4] + '; word-break: keep-all;">[WHOIS]&nbsp;' + res + '</span>', 4);
+				net.log('<span style="color: ' + net.colors[4] + ';">[WHOIS]&nbsp;' + res + '</span>', 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -2113,7 +2113,7 @@
 					msg += '<a class="do_cmd" style="cursor: pointer; color: ' + net.colors[2] + ';">/' + data[n] + '</a>&nbsp;';
 				}
 
-				net.log(msg);
+				net.log('<span style="color: ' + net.colors[4] + ';">[COMMANDS]&nbsp;' + msg + '</span>', 4);
 			});
 
 			net.socket.on('chat.show', function() {
