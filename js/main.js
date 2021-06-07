@@ -232,6 +232,7 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
+			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data','set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
 			net.max_message_length = 160;
@@ -1175,6 +1176,10 @@
 						data.cmd = 'nick';
 					}
 
+					if (data.cmd === 'w') {
+						data.cmd = 'who';
+					}
+
 					if (data.cmd === 'j') {
 						data.cmd = 'join';
 					}
@@ -1289,7 +1294,9 @@
 						data.data = ['server.msg', net.room_info.name, { 'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
 					}
 
-					if (data.cmd === 'room_msg') {
+					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
+						net.log('Invalid command', 4);
+						net.text_input.val('');
 						return false;
 					}
 
@@ -1754,8 +1761,6 @@
 				var origin_country = '';
 				var class_styles = '';
 
-
-
 				if (!net.user_spam_buffer) {
 					net.user_spam_buffer = {}
 				}
@@ -2070,26 +2075,45 @@
 				net.log('<span ' + glow + ' style="' + style + '">[SERVER]&nbsp;' + data.msg + '</span>', 4);
 			});
 
+			// noinspection DuplicatedCode
+			net.socket.on('server.who', function(data) {
+				// console.log('server.who');
+				// console.log(JSON.stringify(data, null, 2));
+
+				var keys = Object.keys(data);
+				var res = '';
+
+				for (var key in keys) {
+					res += '<b>Nickname</b> ' + data[keys[key]][0]['info']['nick'] + ' ';
+					res += '<b>Country</b> ' + data[keys[key]][0]['location']['country'] + ' ';
+					res += '<b>Region</b> ' + data[keys[key]][0]['location']['region'] + ' ';
+					res += '<b>City</b> ' + data[keys[key]][0]['location']['city'] + ' ';
+					res += '<b>Timezone</b> ' + data[keys[key]][0]['location']['timezone'] + ' ';
+				}
+
+				net.log('<span style="color: ' + net.colors[4] + '; word-break: keep-all;">[WHOIS]&nbsp;' + res + '</span>', 4);
+			});
+
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('server.help', function(data) {
 				// console.log('server.help');
 				// console.log(JSON.stringify(data, null, 2));
 
+				var is_admin = net.is_admin();
+
 				var msg = '';
 
 				for (var n in data) {
 					// noinspection JSUnfilteredForInLoop
-					msg += '<a class="do_cmd" style="cursor: pointer; color: ' + net.colors[2] + ';">/' + data[n] + ' </a> ';
+					if (!is_admin && ~net.disabled_commands.indexOf(data[n])) {
+						continue;
+					}
+
+					// noinspection JSUnfilteredForInLoop
+					msg += '<a class="do_cmd" style="cursor: pointer; color: ' + net.colors[2] + ';">/' + data[n] + '</a>&nbsp;';
 				}
 
 				net.log(msg);
-
-				// noinspection JSUnresolvedFunction
-				$('.do_cmd').off('click').on('click', function() {
-					// noinspection JSUnresolvedFunction
-					net.text_input.val($(this).html());
-					net.text_input.focus();
-				});
 			});
 
 			net.socket.on('chat.show', function() {
@@ -2267,11 +2291,11 @@
 
 					if (!net.is_admin()) {
 						if (net.text_input.val().length + $(this).data('uid').length < net.max_paste_length) {
-							net.text_input.get(0).value += $(this).data('uid');
+							net.text_input.get(0).value += $(this).data('uid') + ' ';
 							net.text_input.focus();
 						}
 					} else {
-						net.text_input.get(0).value += $(this).data('uid');
+						net.text_input.get(0).value += $(this).data('uid') + ' ';
 						net.text_input.focus();
 					}
 				} else {
@@ -2282,14 +2306,20 @@
 
 					if (!net.is_admin()) {
 						if (net.text_input.val().length + $(this).data('nickname').length < net.max_paste_length) {
-							net.text_input.get(0).value += $(this).data('nickname');
+							net.text_input.get(0).value += $(this).data('nickname') + ' ';
 							net.text_input.focus();
 						}
 					} else {
-						net.text_input.get(0).value += $(this).data('nickname');
+						net.text_input.get(0).value += $(this).data('nickname') + ' ';
 						net.text_input.focus();
 					}
 				}
+			});
+
+			$(document).on('click', '.do_cmd', function() {
+				// noinspection JSUnresolvedFunction
+				net.text_input.get(0).value += $(this).text() + ' ';
+				net.text_input.focus();
 			});
 
 			// noinspection JSUnresolvedVariable

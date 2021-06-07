@@ -97,6 +97,7 @@
 				'rooms.list',
 				'server.help',
 				'server.msg',
+				'server.who',
 				'iframe_ready',
 				'su',
 				'chat.show',
