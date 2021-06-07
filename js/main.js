@@ -1762,9 +1762,6 @@
 
 				if (!net.user_spam_buffer[user]) {
 					net.user_spam_buffer[user] = {
-						last_msg: null,
-						last_last_msg: null,
-						last_last_msg: null,
 						spam_cap: 0,
 						last_send: 0
 					}
