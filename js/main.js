@@ -1034,8 +1034,8 @@
 								var user_level = net.get_user_level(u);
 								var nickname = nick_obj[u];
 								var origin_nickname = me_is_admin ? 'Nickname ' + nickname + '\n' : '';
-								var origin_url =  me_is_admin ? 'URL ' + url_obj[u] + '\n' : '';
-								var origin_country =  me_is_admin && net.room_info.users[u].info.location ? JSON.stringify(net.room_info.users[u].info.location).replaceAll('{','').replaceAll('}','').replaceAll('"','').replaceAll(',',', ').replaceAll(':',': ') + '\n' : '';
+								var origin_url = me_is_admin ? 'URL ' + url_obj[u] + '\n' : '';
+								var origin_country = me_is_admin && net.room_info.users[u].info.country ? 'Country ' + net.room_info.users[u].info.country + '\n' : '';
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -1266,7 +1266,7 @@
 						data.data = data.data.split(' ');
 						var to = data.data.shift();
 						data.data = data.data.join(' ');
-						net.send_cmd('send_cmd', ['eval', to, {data: "window.u_network.send_cmd('nick', '" + data.data + "')"}]);
+						net.send_cmd('send_cmd', ['eval', to, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
@@ -1499,14 +1499,14 @@
 				if (window.top === window) {
 					// console.log('no_iframe');
 					// console.log(JSON.stringify({url: window.location.href, country: simplestorage.get('country')}, null, 2));
-					net.send_cmd('set_data', {url: window.location.href, country: simplestorage.get('country')});
+					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
 				}
 			});
 
 			net.socket.on('iframe_ready', function(data) {
 				// console.log('iframe_ready');
 				// console.log(JSON.stringify(data, null, 2));
-				net.send_cmd('set_data', {url: data.url, country: data.country});
+				net.send_cmd('set_data', { url: data.url, country: data.country });
 			});
 
 			net.socket.on('su', function(data) {
@@ -1756,17 +1756,17 @@
 
 
 
-				if (!net.user_spam_buffer){
-					net.user_spam_buffer ={}
+				if (!net.user_spam_buffer) {
+					net.user_spam_buffer = {}
 				}
 
-				if (!net.user_spam_buffer[user]){
+				if (!net.user_spam_buffer[user]) {
 					net.user_spam_buffer[user] = {
-						last_msg:null,
-						last_last_msg:null,
-						last_last_msg:null,
-						spam_cap:0,
-						last_send:0
+						last_msg: null,
+						last_last_msg: null,
+						last_last_msg: null,
+						spam_cap: 0,
+						last_send: 0
 					}
 				}
 				var spam_time = net.user_spam_buffer[user].last_send ? timestamp - net.user_spam_buffer[user].last_send < 20 : false;
@@ -1818,7 +1818,7 @@
 					// noinspection JSUnresolvedVariable
 					origin_url = me_is_admin ? 'URL ' + (net.room_info.users[user].data.url || '?') + '\n' : '';
 					// noinspection JSUnresolvedVariable
-					origin_country = me_is_admin ?   (net.room_info.users[user].info.location ? JSON.stringify(net.room_info.users[user].info.location).replaceAll('{','').replaceAll('}','').replaceAll('"','').replaceAll(',',', ').replaceAll(':',': ') : '?') + '\n' : '';
+					origin_country = me_is_admin ? (net.room_info.users[user].info.country ? 'Country ' + net.room_info.users[user].info.country : '?') + '\n' : '';
 				}
 
 				var color = net.colors[3];
