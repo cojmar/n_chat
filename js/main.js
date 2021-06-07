@@ -1318,9 +1318,9 @@
 					}
 
 					// noinspection JSUnresolvedFunction
-					net.send_cmd(data.cmd, data.data);
+					net.send_cmd(data.cmd, data.data.trim());
 					net.text_input.val('');
-					return;
+					return true;
 				} else if (net.room_info.name === 'Emupedia' && !is_admin) {
 					msg = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(msg, normalize_types)))));
 				} else if (net.room_info.name.startsWith('Emupedia-TR') && !is_admin) {
