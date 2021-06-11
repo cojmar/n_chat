@@ -1288,12 +1288,12 @@
 
 					if (data.cmd === 'video' || data.cmd === 'v') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, { 'msg': '<video style="height: 30%;" autoplay="autoplay" src="' + data.data + '"></video>' }];
+						data.data = ['server.msg', net.room_info.name, { 'msg': '<video style="height: 200px;" autoplay="autoplay" src="' + data.data + '"></video>' }];
 					}
 
 					if (data.cmd === 'image' || data.cmd === 'i') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, { 'msg': '<img alt="" style="height: 30%;" src="' + data.data + '"/>' }];
+						data.data = ['server.msg', net.room_info.name, { 'msg': '<img alt="" style="height: 200px;" src="' + data.data + '"/>' }];
 					}
 
 					if (data.cmd === 'audio' || data.cmd === 'a') {
