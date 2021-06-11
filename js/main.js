@@ -1325,7 +1325,7 @@
 					}
 
 					// noinspection JSUnresolvedFunction
-					net.send_cmd(data.cmd, data.data.trim());
+					net.send_cmd(data.cmd, typeof data.data === 'string' ? data.data.trim() : data.data);
 					net.text_input.val('');
 					return true;
 				} else if (net.room_info.name === 'Emupedia' && !is_admin) {
