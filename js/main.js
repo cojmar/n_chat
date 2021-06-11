@@ -1291,11 +1291,6 @@
 						data.data = ['server.event', net.room_info.name, { 'msg': '' }];
 					}
 
-					if (data.cmd === 'video' || data.cmd === 'v') {
-						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { 'msg': '<video autoplay="autoplay" src="' + data.data + '"></video>' }];
-					}
-
 					if (data.cmd === 'image' || data.cmd === 'i') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.event', net.room_info.name, { 'msg': '<img alt="" src="' + data.data + '"/>' }];
@@ -1304,6 +1299,11 @@
 					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
 						data.data = ['server.event', net.room_info.name, { 'msg': '<audio controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
+					}
+
+					if (data.cmd === 'video' || data.cmd === 'v') {
+						data.cmd = 'send_cmd';
+						data.data = ['server.event', net.room_info.name, { 'msg': '<video autoplay="autoplay" src="' + data.data + '"></video>' }];
 					}
 
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
@@ -2097,9 +2097,14 @@
 					if (data.msg !== '') {
 						// noinspection HtmlUnknownTarget
 						net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span>' + data.msg + '</div>');
-						net.event.find('audio, video').first().get(0).onended = function()  {
-							net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
-						};
+
+						var el = net.event.find('audio, video').first().get(0);
+
+						if (typeof el !== 'undefined') {
+							el.onended = function()  {
+								net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+							};
+						}
 					} else {
 						net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
 					}
