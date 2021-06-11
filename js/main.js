@@ -2093,12 +2093,14 @@
 				// console.log('server.event');
 				// console.log(JSON.stringify(data, null, 2));
 
+				var el;
+
 				if (typeof data.msg === 'string') {
 					if (data.msg !== '') {
 						// noinspection HtmlUnknownTarget
 						net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span>' + data.msg + '</div>');
 
-						var el = net.event.find('audio, video').first().get(0);
+						el = net.event.find('audio, video').first().get(0);
 
 						if (typeof el !== 'undefined') {
 							el.onended = function()  {
@@ -2106,6 +2108,14 @@
 							};
 						}
 					} else {
+						el = net.event.find('audio, video').first().get(0);
+
+						if (typeof el !== 'undefined') {
+							if (typeof el.pause === 'function') {
+								el.pause();
+							}
+						}
+
 						net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
 					}
 				}
