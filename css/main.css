@@ -50,6 +50,16 @@ label {
 	vertical-align: middle;
 }
 
+#event audio {
+	width: 50%;
+	vertical-align: middle;
+}
+
+#event video {
+	width: 50%;
+	vertical-align: middle;
+}
+
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;

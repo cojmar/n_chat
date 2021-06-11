@@ -97,6 +97,7 @@
 				'rooms.list',
 				'server.help',
 				'server.msg',
+				'server.event',
 				'server.who',
 				'iframe_ready',
 				'su',

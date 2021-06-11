@@ -1286,19 +1286,24 @@
 						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, { 'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data }];
 					}
 
+					if (data.cmd === 'clear' || data.cmd === 'c') {
+						data.cmd = 'send_cmd';
+						data.data = ['server.event', net.room_info.name, { 'msg': '' }];
+					}
+
 					if (data.cmd === 'video' || data.cmd === 'v') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, { 'msg': '<video style="height: 200px;" autoplay="autoplay" src="' + data.data + '"></video>' }];
+						data.data = ['server.event', net.room_info.name, { 'msg': '<video autoplay="autoplay" src="' + data.data + '"></video>' }];
 					}
 
 					if (data.cmd === 'image' || data.cmd === 'i') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, { 'msg': '<img alt="" style="height: 200px;" src="' + data.data + '"/>' }];
+						data.data = ['server.event', net.room_info.name, { 'msg': '<img alt="" src="' + data.data + '"/>' }];
 					}
 
 					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', net.room_info.name, { 'msg': '<audio style="width: 100%;" controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
+						data.data = ['server.event', net.room_info.name, { 'msg': '<audio controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
 					}
 
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
@@ -2077,9 +2082,28 @@
 			});
 
 			net.socket.on('server.msg', function(data) {
+				// console.log('server.msg');
+				// console.log(JSON.stringify(data, null, 2));
 				var glow = 'class="' + (!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow') + '"';
 				var style = 'color: ' + net.colors[4] + '; word-break: keep-all; --glow-color-1: ' + net.colors[4] + '; --glow-color-2: ' + net.increase_brightness(net.colors[4], 20);
 				net.log('<span ' + glow + ' style="' + style + '">[SERVER]&nbsp;' + data.msg + '</span>', 4);
+			});
+
+			net.socket.on('server.event', function(data) {
+				// console.log('server.event');
+				// console.log(JSON.stringify(data, null, 2));
+
+				if (typeof data.msg === 'string') {
+					if (data.msg !== '') {
+						// noinspection HtmlUnknownTarget
+						net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span>' + data.msg + '</div>');
+						net.event.find('audio, video').first().get(0).onended = function()  {
+							net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+						};
+					} else {
+						net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+					}
+				}
 			});
 
 			// noinspection DuplicatedCode
