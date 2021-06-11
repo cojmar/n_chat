@@ -764,6 +764,8 @@
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
 					subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|\\]/g, '');
 
+					console.log(subject_clean);
+
 					if (net.has_profanity(subject_clean, 'en')) {
 						subject = net.remove_profanity(subject_clean, 'en');
 					}
