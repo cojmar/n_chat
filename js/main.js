@@ -762,7 +762,7 @@
 
 				if (room_name.startsWith('Emupedia') && room_name !== 'Emupedia-TR' && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
-					subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|\\]/g, '');
+					subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|/\\]/g, '');
 
 					if (net.has_profanity(subject_clean, 'en')) {
 						subject = net.remove_profanity(subject_clean, 'en');
@@ -809,7 +809,7 @@
 
 				if (room_name.startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), 'en');
-					subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|\\]/g, '');
+					subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|/\\]/g, '');
 
 					if (net.has_profanity(subject_clean, 'en')) {
 						subject = net.remove_profanity(subject_clean, 'en');
