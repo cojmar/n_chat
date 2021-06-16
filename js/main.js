@@ -798,7 +798,7 @@
 					subject = '<i' + (net.use_colors ? ' style="color: ' + net.colors[5] + ';"' : '') + '>' + subject + '</i>';
 				}
 
-				if (me_is_admin) {
+				if (me_is_admin && net.use_blacklist) {
 					return '<span title="' + str.replace(/"/g, '&quot;') + '">' + subject + '</span>';
 				}
 
