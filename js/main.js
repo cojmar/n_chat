@@ -238,12 +238,14 @@
 			net.max_message_length = 160;
 			net.max_paste_length = 60;
 
+			net.use_blacklist = simplestorage.get('use_blacklist');
 			net.use_events = simplestorage.get('use_events');
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
 			net.refresh_users = simplestorage.get('refresh_users');
 			net.use_colors = simplestorage.get('use_colors');
 
+			if (!~[true, false].indexOf(net.use_blacklist)) net.use_blacklist = true;
 			if (!~[true, false].indexOf(net.use_events)) net.use_events = true;
 			if (!~[true, false].indexOf(net.use_animated_topic)) net.use_animated_topic = true;
 			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true;
@@ -627,81 +629,83 @@
 				str = net.remove_combining(net.remove_invisible_before(str));
 				str = str.replace(/  +/g, ' ').trim();
 
-				if (typeof language === 'undefined') {
-					language = 'en'
-				} else if (language === null || language === '' || language === 'emupedia') {
-					language = 'en'
-				}
+				if (net.use_blacklist) {
+					if (typeof language === 'undefined') {
+						language = 'en'
+					} else if (language === null || language === '' || language === 'emupedia') {
+						language = 'en'
+					}
 
-				if (language === 'en') {
-					// noinspection JSUnresolvedVariable
-					for (var profanity1 in blacklist_data.mapping.en) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
-							return b.length - a.length
-						});
+					if (language === 'en') {
+						// noinspection JSUnresolvedVariable
+						for (var profanity1 in blacklist_data.mapping.en) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
+								return b.length - a.length
+							});
 
-						for (var p1 in profanity1sorted) {
-							// noinspection JSUnfilteredForInLoop
-							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
-								str = profanity1;
+							for (var p1 in profanity1sorted) {
+								// noinspection JSUnfilteredForInLoop
+								if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+									str = profanity1;
 
-								// noinspection JSUnresolvedVariable
-								for (var profanity2 in blacklist_data.replace.en) {
-									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-									for (var p2 in blacklist_data.replace.en[profanity2]) {
+									// noinspection JSUnresolvedVariable
+									for (var profanity2 in blacklist_data.replace.en) {
 										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-										if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
-											return str = '`' + profanity2 + '`';
+										for (var p2 in blacklist_data.replace.en[profanity2]) {
+											// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+											if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
+												return str = '`' + profanity2 + '`';
+											}
+										}
+									}
+								}
+							}
+						}
+					} else {
+						// noinspection JSUnresolvedVariable
+						for (var profanity3 in blacklist_data.mapping['language']) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var profanity3sorted = blacklist_data.mapping['language'][profanity3].sort(function(a, b) {
+								return b.length - a.length
+							});
+
+							for (var p3 in profanity3sorted) {
+								// noinspection JSUnfilteredForInLoop
+								if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p3].split('.').join(' ').split('\\$').join('$').trim()) {
+									str = profanity3;
+
+									// noinspection JSUnresolvedVariable
+									for (var profanity4 in blacklist_data.replace['language']) {
+										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+										for (var p4 in blacklist_data.replace['language'][profanity4]) {
+											// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+											if (str.toLowerCase() === blacklist_data.replace['language'][profanity4][p4]) {
+												return str = '`' + profanity4 + '`';
+											}
 										}
 									}
 								}
 							}
 						}
 					}
-				} else {
-					// noinspection JSUnresolvedVariable
-					for (var profanity3 in blacklist_data.mapping['language']) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var profanity3sorted = blacklist_data.mapping['language'][profanity3].sort(function(a, b) {
-							return b.length - a.length
-						});
 
-						for (var p3 in profanity3sorted) {
-							// noinspection JSUnfilteredForInLoop
-							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p3].split('.').join(' ').split('\\$').join('$').trim()) {
-								str = profanity3;
-
-								// noinspection JSUnresolvedVariable
-								for (var profanity4 in blacklist_data.replace['language']) {
-									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-									for (var p4 in blacklist_data.replace['language'][profanity4]) {
-										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-										if (str.toLowerCase() === blacklist_data.replace['language'][profanity4][p4]) {
-											return str = '`' + profanity4 + '`';
-										}
-									}
-								}
-							}
+					if (language === 'en') {
+						for (var r1 in blacklist_search_regex) {
+							str = str.replace(blacklist_search_regex[r1], ' ' + r1 + ' ');
 						}
-					}
-				}
 
-				if (language === 'en') {
-					for (var r1 in blacklist_search_regex) {
-						str = str.replace(blacklist_search_regex[r1], ' ' + r1 + ' ');
-					}
+						for (var r2 in blacklist_replace_regex) {
+							str = str.replace(blacklist_replace_regex[r2], ' `' + r2 + '` ');
+						}
+					} else if (language === 'tr') {
+						for (var r3 in blacklist_search_regex_tr) {
+							str = str.replace(blacklist_search_regex_tr[r3], ' ' + r3 + ' ');
+						}
 
-					for (var r2 in blacklist_replace_regex) {
-						str = str.replace(blacklist_replace_regex[r2], ' `' + r2 + '` ');
-					}
-				} else if (language === 'tr') {
-					for (var r3 in blacklist_search_regex_tr) {
-						str = str.replace(blacklist_search_regex_tr[r3], ' ' + r3 + ' ');
-					}
-
-					for (var r4 in blacklist_replace_regex) {
-						str = str.replace(blacklist_replace_regex[r4], ' `' + r4 + '` ');
+						for (var r4 in blacklist_replace_regex) {
+							str = str.replace(blacklist_replace_regex[r4], ' `' + r4 + '` ');
+						}
 					}
 				}
 
@@ -1983,6 +1987,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
+							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
 							'<label><input class="settings_input" id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
@@ -2030,6 +2035,11 @@
 							net.use_colors = $(this).prop('checked');
 							simplestorage.set('use_colors', net.use_colors);
 							net.render_users(1, true);
+						});
+
+						$('#use_blacklist').off('change').on('change', function() {
+							net.use_blacklist = $(this).prop('checked');
+							simplestorage.set('use_blacklist', net.use_blacklist);
 						});
 
 						$('#use_events').off('change').on('change', function() {
