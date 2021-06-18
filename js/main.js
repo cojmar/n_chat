@@ -547,6 +547,10 @@
 				str = net.remove_combining(net.remove_invisible_before(str));
 				str = str.replace(/  +/g, ' ').trim();
 
+				if (!net.use_blacklist) {
+					return false;
+				}
+
 				if (typeof language === 'undefined') {
 					language = 'en'
 				} else if (language === null || language === '' || language === 'emupedia') {
@@ -764,6 +768,7 @@
 					}
 				}
 
+				// noinspection DuplicatedCode
 				if (room_name.startsWith('Emupedia') && room_name !== 'Emupedia-TR' && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
 
@@ -816,6 +821,7 @@
 				var subject = net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1));
 				var subject_clean;
 
+				// noinspection DuplicatedCode
 				if (room_name.startsWith('Emupedia')) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(subject)), 'en');
 
