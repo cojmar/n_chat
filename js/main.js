@@ -1251,7 +1251,7 @@
 					// noinspection DuplicatedCode
 					if (data.cmd === 'medium') {
 						net.refresh_users = true;
-						net.use_events = true;
+						net.use_events = false;
 						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = true;
