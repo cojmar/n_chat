@@ -1289,7 +1289,7 @@
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
-						net.send_cmd('send_cmd', ['server.msg', 'server', { 'msg': 'reloading...' }]);
+						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
 					}
@@ -1303,27 +1303,27 @@
 
 					if (data.cmd === 'server' || data.cmd === 's') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, { 'msg': data.data.startsWith('*') ? data.data.substring(1) : data.data }];
+						data.data = ['server.msg', data.data.startsWith('*') ? 'server' : net.room_info.name, { msg: data.data.startsWith('*') ? data.data.substring(1) : data.data }];
 					}
 
 					if (data.cmd === 'clear' || data.cmd === 'c') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { 'msg': '' }];
+						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: '' }];
 					}
 
 					if (data.cmd === 'image' || data.cmd === 'i') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { 'msg': '<img alt="" src="' + data.data + '"/>' }];
+						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: '<img alt="" src="' + data.data + '"/>' }];
 					}
 
 					if (data.cmd === 'audio' || data.cmd === 'a') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { 'msg': '<audio controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
+						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: '<audio controls="controls" autoplay="autoplay" src="' + data.data + '"></audio>' }];
 					}
 
 					if (data.cmd === 'video' || data.cmd === 'v') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { 'msg': '<video autoplay="autoplay" src="' + data.data + '"></video>' }];
+						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: '<video autoplay="autoplay" src="' + data.data + '"></video>' }];
 					}
 
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
