@@ -1203,7 +1203,7 @@
 						data.cmd = 'nick';
 					}
 
-					if (data.cmd === 'w') {
+					if (data.cmd === 'w' || data.cmd === 'whois') {
 						data.cmd = 'who';
 					}
 
