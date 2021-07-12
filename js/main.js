@@ -5,6 +5,7 @@
 				  '╚═╝╩ ╩╚═╝╚═╝╩ ╩╩ ╩ ╩ ');*/
 
 	window.GoogleAnalyticsObject = '__ga__';
+
 	window.__ga__ = function() {
 		for (var i = 0; i < arguments.length; i++) {
 			var arg = arguments[i];
@@ -15,9 +16,11 @@
 			}
 		}
 	};
+
 	window.__ga__.q = [
 		['create', 'UA-47896346-6', 'auto']
 	];
+
 	window.__ga__.l = Date.now();
 
 	// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols,DuplicatedCode
@@ -167,6 +170,7 @@
 
 			var blacklist_search_regex = {};
 			var blacklist_search_regex_tr = {};
+			var blacklist_search_regex_pt = {};
 			var blacklist_replace_regex = {};
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
@@ -226,6 +230,27 @@
 				}
 				// noinspection JSUnfilteredForInLoop
 				blacklist_search_regex_tr[profanity3] = new RegExp(regex3.slice(0, -1), 'gi');
+			}
+
+			// noinspection JSUnresolvedVariable,DuplicatedCode
+			for (var profanity4 in blacklist_data.mapping.pt) {
+				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+				var regex4 = blacklist_data.mapping.pt[profanity4][0] + '|';
+				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+				var profanity4sorted = blacklist_data.mapping.pt[profanity4].sort(function(a, b) {
+					return b.length - a.length;
+				});
+				// noinspection JSUnfilteredForInLoop
+				for (var p4 in profanity4sorted) {
+					// noinspection JSUnfilteredForInLoop
+					regex4 += ' ' + profanity4sorted[p4] + '|';
+					// noinspection JSUnfilteredForInLoop
+					regex4 += ' ' + profanity4sorted[p4] + ' |';
+					// noinspection JSUnfilteredForInLoop
+					regex4 += profanity4sorted[p4] + ' |';
+				}
+				// noinspection JSUnfilteredForInLoop
+				blacklist_search_regex_pt[profanity4] = new RegExp(regex4.slice(0, -1), 'gi');
 			}
 
 			net.event_timeout = null;
@@ -544,6 +569,20 @@
 
 			// noinspection DuplicatedCode
 			net.has_profanity = function(str, language) {
+				var room_name = net.room_info.name || '';
+
+				if (typeof language === 'undefined') {
+					language = room_name.startsWith('Emupedia-') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
+				}
+
+				if (language === null || language === '' || language === 'emupedia') {
+					language = 'en';
+				} else if (language === 'br') {
+					language = 'pt';
+				} else if (language !== 'en' && language !== 'tr' && language !== 'br'  && language !== 'pt') {
+					language = 'en';
+				}
+
 				str = net.remove_combining(net.remove_invisible_before(str));
 				str = str.replace(/  +/g, ' ').trim();
 
@@ -551,59 +590,25 @@
 					return false;
 				}
 
-				if (typeof language === 'undefined') {
-					language = 'en'
-				} else if (language === null || language === '' || language === 'emupedia') {
-					language = 'en'
-				}
+				// noinspection JSUnresolvedVariable
+				for (var profanity1 in blacklist_data.mapping[language]) {
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var profanity1sorted = blacklist_data.mapping[language][profanity1].sort(function(a, b) {
+						return b.length - a.length
+					});
 
-				if (language === 'en') {
-					// noinspection JSUnresolvedVariable
-					for (var profanity1 in blacklist_data.mapping.en) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
-							return b.length - a.length
-						});
+					for (var p1 in profanity1sorted) {
+						// noinspection JSUnfilteredForInLoop
+						if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+							str = profanity1;
 
-						for (var p1 in profanity1sorted) {
-							// noinspection JSUnfilteredForInLoop
-							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
-								str = profanity1;
-
-								// noinspection JSUnresolvedVariable
-								for (var profanity2 in blacklist_data.replace.en) {
+							// noinspection JSUnresolvedVariable
+							for (var profanity2 in blacklist_data.replace[language]) {
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								for (var p2 in blacklist_data.replace[language][profanity2]) {
 									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-									for (var p2 in blacklist_data.replace.en[profanity2]) {
-										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-										if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
-											return true;
-										}
-									}
-								}
-							}
-						}
-					}
-				} else {
-					// noinspection JSUnresolvedVariable
-					for (var profanity3 in blacklist_data.mapping['language']) {
-						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-						var profanity3sorted = blacklist_data.mapping['language'][profanity3].sort(function(a, b) {
-							return b.length - a.length
-						});
-
-						for (var p3 in profanity3sorted) {
-							// noinspection JSUnfilteredForInLoop
-							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p3].split('.').join(' ').split('\\$').join('$').trim()) {
-								str = profanity3;
-
-								// noinspection JSUnresolvedVariable
-								for (var profanity4 in blacklist_data.replace['language']) {
-									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-									for (var p4 in blacklist_data.replace['language'][profanity4]) {
-										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-										if (str.toLowerCase() === blacklist_data.replace['language'][profanity4][p4]) {
-											return true;
-										}
+									if (str.toLowerCase() === blacklist_data.replace[languge][profanity2][p2]) {
+										return true;
 									}
 								}
 							}
@@ -618,8 +623,14 @@
 						}
 					}
 				} else if (language === 'tr') {
-					for (var r3 in blacklist_search_regex_tr) {
-						if (str.match(blacklist_search_regex_tr[r3])) {
+					for (var r2 in blacklist_search_regex_tr) {
+						if (str.match(blacklist_search_regex_tr[r2])) {
+							return true;
+						}
+					}
+				} else if (language === 'pt') {
+					for (var r3 in blacklist_search_regex_pt) {
+						if (str.match(blacklist_search_regex_pt[r3])) {
 							return true;
 						}
 					}
@@ -630,63 +641,43 @@
 
 			// noinspection DuplicatedCode
 			net.remove_profanity = function(str, language) {
+				var room_name = net.room_info.name || '';
+
+				if (typeof language === 'undefined') {
+					language = room_name.startsWith('Emupedia-') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
+				}
+
+				if (language === null || language === '' || language === 'emupedia') {
+					language = 'en';
+				} else if (language === 'br') {
+					language = 'pt';
+				} else if (language !== 'en' && language !== 'tr' && language !== 'br'  && language !== 'pt') {
+					language = 'en';
+				}
+
 				str = net.remove_combining(net.remove_invisible_before(str));
 				str = str.replace(/  +/g, ' ').trim();
 
 				if (net.use_blacklist) {
-					if (typeof language === 'undefined') {
-						language = 'en'
-					} else if (language === null || language === '' || language === 'emupedia') {
-						language = 'en'
-					}
+					// noinspection JSUnresolvedVariable
+					for (var profanity1 in blacklist_data.mapping[language]) {
+						// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+						var profanity1sorted = blacklist_data.mapping[language][profanity1].sort(function(a, b) {
+							return b.length - a.length
+						});
 
-					if (language === 'en') {
-						// noinspection JSUnresolvedVariable
-						for (var profanity1 in blacklist_data.mapping.en) {
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
-								return b.length - a.length
-							});
+						for (var p1 in profanity1sorted) {
+							// noinspection JSUnfilteredForInLoop
+							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+								str = profanity1;
 
-							for (var p1 in profanity1sorted) {
-								// noinspection JSUnfilteredForInLoop
-								if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
-									str = profanity1;
-
-									// noinspection JSUnresolvedVariable
-									for (var profanity2 in blacklist_data.replace.en) {
+								// noinspection JSUnresolvedVariable
+								for (var profanity2 in blacklist_data.replace[language]) {
+									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+									for (var p2 in blacklist_data.replace[language][profanity2]) {
 										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-										for (var p2 in blacklist_data.replace.en[profanity2]) {
-											// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-											if (str.toLowerCase() === blacklist_data.replace.en[profanity2][p2]) {
-												return str = '`' + profanity2 + '`';
-											}
-										}
-									}
-								}
-							}
-						}
-					} else {
-						// noinspection JSUnresolvedVariable
-						for (var profanity3 in blacklist_data.mapping['language']) {
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var profanity3sorted = blacklist_data.mapping['language'][profanity3].sort(function(a, b) {
-								return b.length - a.length
-							});
-
-							for (var p3 in profanity3sorted) {
-								// noinspection JSUnfilteredForInLoop
-								if (str.toLowerCase().split('?').join('').split('!').join('') === profanity3sorted[p3].split('.').join(' ').split('\\$').join('$').trim()) {
-									str = profanity3;
-
-									// noinspection JSUnresolvedVariable
-									for (var profanity4 in blacklist_data.replace['language']) {
-										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-										for (var p4 in blacklist_data.replace['language'][profanity4]) {
-											// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-											if (str.toLowerCase() === blacklist_data.replace['language'][profanity4][p4]) {
-												return str = '`' + profanity4 + '`';
-											}
+										if (str.toLowerCase() === blacklist_data.replace[language][profanity2][p2]) {
+											return str = '`' + profanity2 + '`';
 										}
 									}
 								}
@@ -710,23 +701,46 @@
 						for (var r4 in blacklist_replace_regex) {
 							str = str.replace(blacklist_replace_regex[r4], ' `' + r4 + '` ');
 						}
+					}  else if (language === 'pt') {
+						for (var r5 in blacklist_search_regex_pt) {
+							str = str.replace(blacklist_search_regex_pt[r5], ' ' + r5 + ' ');
+						}
+
+						for (var r6 in blacklist_replace_regex) {
+							str = str.replace(blacklist_replace_regex[r6], ' `' + r6 + '` ');
+						}
 					}
 				}
 
 				return str.replace(/  +/g, ' ').trim();
 			};
 
-			net.remove_spam = function(str) {
-				// noinspection JSUnresolvedVariable
-				for (var website in blacklist_data.mapping.en.website) {
-					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
-					str = str.replace(new RegExp(blacklist_data.mapping.en.website[website], 'gi'), '');
+			// noinspection DuplicatedCode
+			net.remove_spam = function(str, language) {
+				var room_name = net.room_info.name || '';
+
+				if (typeof language === 'undefined') {
+					language = room_name.startsWith('Emupedia-') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
+				}
+
+				if (language === null || language === '' || language === 'emupedia') {
+					language = 'en';
+				} else if (language === 'br') {
+					language = 'pt';
+				} else if (language !== 'en' && language !== 'tr' && language !== 'br'  && language !== 'pt') {
+					language = 'en';
 				}
 
 				// noinspection JSUnresolvedVariable
-				for (var spam in blacklist_data.mapping.en.spam) {
+				for (var website in blacklist_data.mapping.en.website) {
 					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
-					str = str.replace(new RegExp(blacklist_data.mapping.en.spam[spam], 'gi'), '');
+					str = str.replace(new RegExp(blacklist_data.mapping.en.website[website], 'gi'), '``');
+				}
+
+				// noinspection JSUnresolvedVariable
+				for (var spam1 in blacklist_data.mapping[language].spam) {
+					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
+					str = str.replace(new RegExp(blacklist_data.mapping[language].spam[spam1], 'gi'), '``');
 				}
 
 				return str.replace(/  +/g, ' ').trim();
@@ -769,7 +783,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (room_name.startsWith('Emupedia') && room_name !== 'Emupedia-TR' && !sent_by_admin) {
+				if (room_name.startsWith('Emupedia') && room_name !== 'Emupedia-TR' && room_name !== 'Emupedia-BR' && !sent_by_admin) {
 					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str))))), 'en');
 
 					if (net.use_blacklist) {
@@ -781,8 +795,8 @@
 					if (net.has_profanity(subject_clean, 'en')) {
 						subject = net.remove_profanity(subject_clean, 'en');
 					}
-				} else if (room_name === 'Emupedia-TR' && !sent_by_admin) {
-					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))), language);
+				} else if ((room_name === 'Emupedia-TR' || room_name === 'Emupedia-BR') && !sent_by_admin) {
+					subject = net.remove_profanity(net.remove_spam(net.remove_duplicates(net.remove_numbers(net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1))))));
 				} else {
 					subject = net.remove_combining(net.remove_invisible_before(net.remove_zalgo(str)));
 				}
