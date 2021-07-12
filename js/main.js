@@ -270,12 +270,35 @@
 			net.refresh_users = simplestorage.get('refresh_users');
 			net.use_colors = simplestorage.get('use_colors');
 
-			if (!~[true, false].indexOf(net.use_blacklist)) net.use_blacklist = true;
-			if (!~[true, false].indexOf(net.use_events)) net.use_events = true;
-			if (!~[true, false].indexOf(net.use_animated_topic)) net.use_animated_topic = true;
-			if (!~[true, false].indexOf(net.use_animated_emoticons)) net.use_animated_emoticons = true;
-			if (!~[true, false].indexOf(net.refresh_users)) net.refresh_users = true;
-			if (!~[true, false].indexOf(net.use_colors)) net.use_colors = true;
+			if (typeof net.use_blacklist === 'undefined') {
+				simplestorage.set('use_blacklist', true);
+				net.use_blacklist = true;
+			}
+
+			if (typeof net.use_events === 'undefined') {
+				simplestorage.set('use_events', true);
+				net.use_events = true;
+			}
+
+			if (typeof net.use_animated_topic === 'undefined') {
+				simplestorage.set('use_animated_topic', true);
+				net.use_animated_topic = true;
+			}
+
+			if (typeof net.use_animated_emoticons === 'undefined') {
+				simplestorage.set('use_animated_emoticons', true);
+				net.use_animated_emoticons = true;
+			}
+
+			if (typeof net.refresh_users === 'undefined') {
+				simplestorage.set('refresh_users', true);
+				net.refresh_users = true;
+			}
+
+			if (typeof net.use_colors === 'undefined') {
+				simplestorage.set('use_colors', true);
+				net.use_colors = true;
+			}
 
 			if (window.top) {
 				try {
@@ -579,7 +602,7 @@
 					language = 'en';
 				} else if (language === 'br') {
 					language = 'pt';
-				} else if (language !== 'en' && language !== 'tr' && language !== 'br'  && language !== 'pt') {
+				} else if (language !== 'en' && language !== 'tr' && language !== 'br' && language !== 'pt') {
 					language = 'en';
 				}
 
@@ -651,7 +674,7 @@
 					language = 'en';
 				} else if (language === 'br') {
 					language = 'pt';
-				} else if (language !== 'en' && language !== 'tr' && language !== 'br'  && language !== 'pt') {
+				} else if (language !== 'en' && language !== 'tr' && language !== 'br' && language !== 'pt') {
 					language = 'en';
 				}
 
@@ -669,7 +692,8 @@
 						for (var p1 in profanity1sorted) {
 							// noinspection JSUnfilteredForInLoop
 							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
-								str = profanity1;
+								// noinspection JSUnfilteredForInLoop
+								str = language === 'en' ? profanity1 : '``';
 
 								// noinspection JSUnresolvedVariable
 								for (var profanity2 in blacklist_data.replace[language]) {
@@ -677,7 +701,8 @@
 									for (var p2 in blacklist_data.replace[language][profanity2]) {
 										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 										if (str.toLowerCase() === blacklist_data.replace[language][profanity2][p2]) {
-											return str = '`' + profanity2 + '`';
+											// noinspection JSUnfilteredForInLoop
+											return str = '`' + (language === 'en' ? profanity2 : '') + '`';
 										}
 									}
 								}
@@ -692,22 +717,6 @@
 
 						for (var r2 in blacklist_replace_regex) {
 							str = str.replace(blacklist_replace_regex[r2], ' `' + r2 + '` ');
-						}
-					} else if (language === 'tr') {
-						for (var r3 in blacklist_search_regex_tr) {
-							str = str.replace(blacklist_search_regex_tr[r3], ' ' + r3 + ' ');
-						}
-
-						for (var r4 in blacklist_replace_regex) {
-							str = str.replace(blacklist_replace_regex[r4], ' `' + r4 + '` ');
-						}
-					}  else if (language === 'pt') {
-						for (var r5 in blacklist_search_regex_pt) {
-							str = str.replace(blacklist_search_regex_pt[r5], ' ' + r5 + ' ');
-						}
-
-						for (var r6 in blacklist_replace_regex) {
-							str = str.replace(blacklist_replace_regex[r6], ' `' + r6 + '` ');
 						}
 					}
 				}
@@ -727,7 +736,7 @@
 					language = 'en';
 				} else if (language === 'br') {
 					language = 'pt';
-				} else if (language !== 'en' && language !== 'tr' && language !== 'br'  && language !== 'pt') {
+				} else if (language !== 'en' && language !== 'tr' && language !== 'br' && language !== 'pt') {
 					language = 'en';
 				}
 
@@ -2141,7 +2150,7 @@
 						el = net.event.find('audio, video').first().get(0);
 
 						if (typeof el !== 'undefined') {
-							el.onended = function()  {
+							el.onended = function() {
 								net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
 							};
 						}
