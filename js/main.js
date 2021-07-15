@@ -630,7 +630,7 @@
 								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 								for (var p2 in blacklist_data.replace[language][profanity2]) {
 									// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-									if (str.toLowerCase() === blacklist_data.replace[languge][profanity2][p2]) {
+									if (str.toLowerCase() === blacklist_data.replace[language][profanity2][p2]) {
 										return true;
 									}
 								}
