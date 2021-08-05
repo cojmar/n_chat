@@ -67,7 +67,7 @@ function _typeof(obj) {
 			this.server = 'ws://' + this.getBaseUrl() + ':3000';
 			this.connected = false;
 			this.last_on_set = Math.floor(Date.now() / 1000);
-			this.keep_alive();
+			//this.keep_alive();
 		}
 
 		var _proto = u_socket.prototype;
