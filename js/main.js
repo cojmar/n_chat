@@ -805,7 +805,7 @@
 						subject = net.remove_profanity(subject_clean);
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible_before(net.remove_zalgo(str)));
+					subject = net.remove_combining(net.remove_invisible_before(net.remove_spam(net.remove_duplicates(net.remove_zalgo(str)))));
 				}
 
 				// noinspection DuplicatedCode
@@ -856,7 +856,7 @@
 						subject = net.remove_profanity(subject_clean, 'en');
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible_before(subject));
+					subject = net.remove_combining(net.remove_invisible_before(net.remove_spam(net.remove_duplicates(subject))));
 				}
 
 				// noinspection DuplicatedCode
@@ -1362,10 +1362,15 @@
 					// noinspection JSUnresolvedFunction
 					if (data.cmd === 'nick') {
 						data.data = net.remove_spam(net.remove_duplicates(net.remove_numbers(net.remove_zalgo(net.normalize(data.data, normalize_types.slice(0, normalize_types.length - 1))))));
+
+						if (~data.data.indexOf(' ')) {
+							data.data = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.data))).trim();
+						}
+
 						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
 
-						if (!/[a-z]/i.test(net.normalize(data.data)) || net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.data))).trim() === '' || net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.data))).trim().length <= 2) {
-							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short, correct the issue and try again.', 4);
+						if (!/[a-z]/i.test(net.normalize(data.data)) || data.data.trim() === '' || data.data.length <= 2 || data.data.length > 20) {
+							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short or too long, correct the issue and try again.', 4);
 							return false;
 						}
 					}
