@@ -805,7 +805,7 @@
 						subject = net.remove_profanity(subject_clean);
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible_before(net.remove_zalgo(str)));
+					subject = net.remove_combining(net.remove_invisible_before(str));
 				}
 
 				// noinspection DuplicatedCode
@@ -856,7 +856,7 @@
 						subject = net.remove_profanity(subject_clean, 'en');
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible_before(net.remove_duplicates(net.remove_spam(subject))));
+					subject = net.remove_combining(net.remove_invisible_before(subject));
 				}
 
 				// noinspection DuplicatedCode
