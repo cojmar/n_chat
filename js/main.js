@@ -805,7 +805,7 @@
 						subject = net.remove_profanity(subject_clean);
 					}
 				} else {
-					subject = net.remove_combining(net.remove_invisible_before(net.remove_duplicates(net.remove_spam(net.remove_zalgo(str)))));
+					subject = net.remove_combining(net.remove_invisible_before(net.remove_zalgo(str)));
 				}
 
 				// noinspection DuplicatedCode
