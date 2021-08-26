@@ -1321,7 +1321,7 @@
 						data.data = net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic;
 					}
 
-					if (data.cmd === 'refresh' || data.cmd === 'reload' || data.cmd === 'r') {
+					if (data.cmd === 'refresh' || data.cmd === 'reload') {
 						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
