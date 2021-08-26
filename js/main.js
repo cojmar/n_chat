@@ -741,9 +741,15 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				for (var website in blacklist_data.mapping.en.website) {
+				for (var email in blacklist_data.mapping.en.emailshidden) {
 					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
-					str = str.replace(new RegExp(blacklist_data.mapping.en.website[website], 'gi'), '``');
+					str = str.replace(new RegExp(blacklist_data.mapping.en.emailshidden[email], 'gi'), '``');
+				}
+
+				// noinspection JSUnresolvedVariable
+				for (var website in blacklist_data.mapping.en.websitesbanned) {
+					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
+					str = str.replace(new RegExp(blacklist_data.mapping.en.websitesbanned[website], 'gi'), '``');
 				}
 
 				// noinspection JSUnresolvedVariable
