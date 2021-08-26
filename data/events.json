@@ -57,9 +57,9 @@
 			"rage": ["🤬", "öfke ", "ofke "],
 			"simp": ["s i m p", "simmp", "simpp", " simp", "simp ", "sinp"],
 			"smile": ["gülümsemek", "gulumsemek", "gülüş", "gulus", "tebessüm", "tebessum"],
-			"thanks": ["teşekkür", "tesekkur", "teşekkürler", "tesekkyrler"],
-			"sad": ["üzgün", "uzgun "],
-			"tired": ["yorgun "],
+			"thanks": ["teşekkür", "tesekkur", "teşekkürler", "tesekkurler"],
+			"sad": ["üzgün", "uzgun"],
+			"tired": ["yorgun"],
 			"what": ["neyi"],
 			"zzz": ["zzz", "z z z", "uykulu"]
 		}
