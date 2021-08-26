@@ -651,9 +651,23 @@
 							return true;
 						}
 					}
+
+					// noinspection JSUnresolvedVariable
+					for (var swear1 in blacklist_data.mapping[language].swear) {
+						if (~str.indexOf(swear2)) {
+							return true;
+						}
+					}
 				} else if (language === 'pt') {
 					for (var r3 in blacklist_search_regex_pt) {
 						if (str.match(blacklist_search_regex_pt[r3])) {
+							return true;
+						}
+					}
+
+					// noinspection JSUnresolvedVariable
+					for (var swear2 in blacklist_data.mapping[language].swear) {
+						if (~str.indexOf(swear2)) {
 							return true;
 						}
 					}
@@ -718,6 +732,12 @@
 						for (var r2 in blacklist_replace_regex) {
 							str = str.replace(blacklist_replace_regex[r2], ' `' + r2 + '` ');
 						}
+					} else {
+						// noinspection JSUnresolvedVariable
+						for (var swear in blacklist_data.mapping[language].swear) {
+							// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
+							str = str.replace(new RegExp(blacklist_data.mapping[language].swear[swear], 'gi'), '``');
+						}
 					}
 				}
 
@@ -725,21 +745,7 @@
 			};
 
 			// noinspection DuplicatedCode
-			net.remove_spam = function(str, language) {
-				var room_name = net.room_info.name || '';
-
-				if (typeof language === 'undefined') {
-					language = room_name.startsWith('Emupedia-') ? net.room_info.name.replace('Emupedia-', '').toLowerCase() : 'en';
-				}
-
-				if (language === null || language === '' || language === 'emupedia') {
-					language = 'en';
-				} else if (language === 'br') {
-					language = 'pt';
-				} else if (language !== 'en' && language !== 'tr' && language !== 'br' && language !== 'pt') {
-					language = 'en';
-				}
-
+			net.remove_spam = function(str) {
 				// noinspection JSUnresolvedVariable
 				for (var email in blacklist_data.mapping.en.emailshidden) {
 					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
@@ -753,9 +759,9 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				for (var spam1 in blacklist_data.mapping[language].spam) {
+				for (var spam in blacklist_data.mapping.en.spam) {
 					// noinspection JSUnresolvedVariable,JSUnfilteredForInLoop
-					str = str.replace(new RegExp(blacklist_data.mapping[language].spam[spam1], 'gi'), '``');
+					str = str.replace(new RegExp(blacklist_data.mapping.en.spam[spam], 'gi'), '``');
 				}
 
 				return str.replace(/  +/g, ' ').trim();
