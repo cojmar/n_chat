@@ -1327,7 +1327,7 @@
 						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
 					}
 
-					if (data.cmd === 'rename' || data.cmd === 'ren') {
+					if (data.cmd === 'rename' || data.cmd === 'ren' || data.cmd === 'r') {
 						data.data = data.data.split(' ');
 						var to = data.data.shift();
 						data.data = data.data.join(' ');
