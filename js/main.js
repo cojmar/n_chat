@@ -1,6 +1,6 @@
 // noinspection ThisExpressionReferencesGlobalObjectJS,JSUnusedLocalSymbols,DuplicatedCode
 (function(global) {
-	global.console.log('%c                              \n' +
+	console.log('%c                              \n' +
 						'                              \n' +
 						'     ╔═╗╔╦╗╦ ╦╔═╗╦ ╦╔═╗╔╦╗    \n' +
 						'     ╠═ ║║║║ ║║  ╠═╣╠═╣ ║     \n' +
