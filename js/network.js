@@ -124,6 +124,15 @@
 					}
 
 					self.buffer = [];
+				} else if (e.originalEvent.data.cmd === 'chat.hide') {
+					console.log('chat.hide2');
+					var $body = $('body');
+					var $chat = $body.find('iframe[id="Chat"]');
+
+					if ($chat.is(':hidden') && $body.find('[data-title="EmuChat"]').length === 0) {
+						// noinspection JSValidateTypes
+						$chat.parent().slideUp(300);
+					}
 				} else {
 					self.net.send_cmd(e.originalEvent.data.cmd, e.originalEvent.data.data);
 				}
@@ -202,17 +211,6 @@
 			};
 
 			var country = '';
-
-			client.socket.on('chat.hide', function() {
-				console.log('chat.hide');
-				var $body = $('body');
-				var $chat = $body.find('iframe[id="Chat"]');
-
-				if ($chat.is(':hidden') && $body.find('[data-title="EmuChat"]').length === 0) {
-					// noinspection JSValidateTypes
-					$chat.parent().slideUp(300);
-				}
-			});
 
 			client.socket.on('connect', function() {
 				// noinspection DuplicatedCode
