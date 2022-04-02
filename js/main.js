@@ -2220,10 +2220,7 @@
 			net.socket.on('chat.show', function() {
 				net.last_true_lock = (Date.now() / 1000);
 				net.lock_scroll = true;
-				setTimeout(function() {
-					console.log('focus');
-					net.text_input.get(0).focus();
-				}, 10)
+				net.text_input.get(0).focus();
 			});
 
 			net.console = $('#client_container');

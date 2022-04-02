@@ -126,7 +126,24 @@
 
 					self.buffer = [];
 				} else if (e.originalEvent.data.cmd === 'chat.toggle') {
-					$('body').find('iframe[id="Chat"]').parent().slideToggle(300);
+					var $chat = $('body').find('iframe[id="Chat"]').parent();
+
+					// noinspection JSValidateTypes
+					$chat.slideToggle(300, function () {
+						if ($chat.is(':hidden')) {
+							if (typeof window.u_network !== 'undefined') {
+								if (typeof window.u_network.emit_event === 'function') {
+									window.u_network.emit_event('chat.hide', {});
+								}
+							}
+						} else {
+							if (typeof window.u_network !== 'undefined') {
+								if (typeof window.u_network.emit_event === 'function') {
+									window.u_network.emit_event('chat.show', {});
+								}
+							}
+						}
+					});
 				} else {
 					self.net.send_cmd(e.originalEvent.data.cmd, e.originalEvent.data.data);
 				}
