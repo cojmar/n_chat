@@ -2292,12 +2292,10 @@
 						net.send_input();
 						break;
 					case 96:
-						try {
-							if (window.top !== window) {
-								window.parent.postMessage({cmd: 'chat.toggle'}, '*');
-								e.preventDefault();
-							}
-						} catch (error) { console.error(error) }
+						if (window.top !== window) {
+							window.parent.postMessage({cmd: 'chat.toggle'}, '*');
+							e.preventDefault();
+						}
 						break;
 				}
 			}).off('paste').on('paste', function(e) {
@@ -2446,6 +2444,17 @@
 
 			$(window).on('resize', function() {
 				net.render_chat();
+			}).on('keydown', function (e) {
+				console.log('keydown');
+				// noinspection JSRedundantSwitchStatement
+				switch (e.keyCode) {
+					case 192:
+						if (window.top !== window) {
+							window.parent.postMessage({cmd: 'chat.toggle'}, '*');
+							e.preventDefault();
+						}
+						return false;
+				}
 			});
 		});
 	});
