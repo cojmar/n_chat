@@ -125,11 +125,14 @@
 
 					self.buffer = [];
 				} else if (e.originalEvent.data.cmd === 'chat.hide') {
-					console.log('chat.hide2');
+					console.log('chat.hide1');
+
 					var $body = $('body');
 					var $chat = $body.find('iframe[id="Chat"]');
 
-					if ($chat.is(':hidden')) {
+					console.log($chat);
+
+					if (!$chat.is(':hidden')) {
 						// noinspection JSValidateTypes
 						$chat.parent().slideUp(300);
 					}
