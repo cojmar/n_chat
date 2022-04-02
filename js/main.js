@@ -332,7 +332,7 @@
 
 						window.top.u_network.frames.push(window);
 					}
-				} catch (error) {}
+				} catch (error) { console.error(error) }
 			}
 
 			net.is_admin = function(user) {
@@ -2323,7 +2323,7 @@
 									}
 								}
 							}
-						} catch (e) {}
+						} catch (error) { console.error(error) }
 						break;
 				}
 			}).off('paste').on('paste', function(e) {
