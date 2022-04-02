@@ -103,6 +103,7 @@
 				'su',
 				'chat.show',
 				'chat.hide',
+				'chat.toggle',
 				'present',
 				'present.info'
 			];
@@ -124,17 +125,15 @@
 					}
 
 					self.buffer = [];
-				} else if (e.originalEvent.data.cmd === 'chat.hide') {
-					console.log('chat.hide1');
-
+				} else if (e.originalEvent.data.cmd === 'chat.toggle') {
 					var $body = $('body');
 					var $chat = $body.find('iframe[id="Chat"]');
+					var $parent = $chat.parent();
 
-					console.log($chat);
-
-					if (!$chat.is(':hidden')) {
-						// noinspection JSValidateTypes
-						$chat.parent().slideUp(300);
+					if ($chat.is(':hidden')) {
+						$parent().slideDown(300);
+					} else {
+						$parent().slideUp(300);
 					}
 				} else {
 					self.net.send_cmd(e.originalEvent.data.cmd, e.originalEvent.data.data);
