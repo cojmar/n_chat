@@ -2294,7 +2294,7 @@
 					case 96:
 						try {
 							if (window.top !== window) {
-								window.parent.postMessage({cmd: 'chat.hide'}, '*');
+								window.parent.postMessage({cmd: 'chat.toggle'}, '*');
 								e.preventDefault();
 							}
 						} catch (error) { console.error(error) }
