@@ -1,6 +1,6 @@
 // noinspection ThisExpressionReferencesGlobalObjectJS,JSUnusedLocalSymbols,DuplicatedCode
 (function(global) {
-	if (window.top.location.host === window.location.host) {
+	if (window.top.location === window.location) {
 		console.log('%c                              \n' +
 			'                              \n' +
 			'     ╔═╗╔╦╗╦ ╦╔═╗╦ ╦╔═╗╔╦╗    \n' +
