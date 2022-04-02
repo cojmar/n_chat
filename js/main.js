@@ -2338,7 +2338,7 @@
 						}
 					}
 				}
-			});
+			}).get(0).focus();
 
 			// noinspection JSUnresolvedFunction
 			net.text_input_button.off('click').on('click', function() {
