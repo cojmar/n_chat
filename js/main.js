@@ -2290,12 +2290,6 @@
 					case 13:
 						net.send_input();
 						break;
-					case 96:
-						if (window.top !== window) {
-							window.parent.postMessage({cmd: 'chat.toggle'}, '*');
-							e.preventDefault();
-						}
-						break;
 				}
 			}).off('paste').on('paste', function(e) {
 				if (typeof e.originalEvent.clipboardData !== 'undefined') {
@@ -2448,10 +2442,12 @@
 				switch (e.keyCode) {
 					case 192:
 						if (window.top !== window) {
+							console.log('test');
 							window.parent.postMessage({cmd: 'chat.toggle'}, '*');
 							e.preventDefault();
+							return false;
 						}
-						return false;
+
 				}
 			});
 		});
