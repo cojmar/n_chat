@@ -2445,7 +2445,6 @@
 			$(window).on('resize', function() {
 				net.render_chat();
 			}).on('keydown', function (e) {
-				console.log('keydown');
 				// noinspection JSRedundantSwitchStatement
 				switch (e.keyCode) {
 					case 192:
