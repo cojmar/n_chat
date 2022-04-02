@@ -203,6 +203,17 @@
 
 			var country = '';
 
+			client.socket.on('chat.hide', function() {
+				console.log('chat.hide');
+				var $body = $('body');
+				var $chat = $body.find('iframe[id="Chat"]');
+
+				if ($chat.is(':hidden') && $body.find('[data-title="EmuChat"]').length === 0) {
+					// noinspection JSValidateTypes
+					$chat.parent().slideUp(300);
+				}
+			});
+
 			client.socket.on('connect', function() {
 				// noinspection DuplicatedCode
 				client.relay('https://cloudflare.net/cdn-cgi/trace').done(function(data) {
