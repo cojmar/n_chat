@@ -126,15 +126,7 @@
 
 					self.buffer = [];
 				} else if (e.originalEvent.data.cmd === 'chat.toggle') {
-					var $body = $('body');
-					var $chat = $body.find('iframe[id="Chat"]');
-					var $parent = $chat.parent();
-
-					if ($chat.is(':hidden')) {
-						$parent().slideDown(300);
-					} else {
-						$parent().slideUp(300);
-					}
+					$('body').find('iframe[id="Chat"]').parent().slideToggle(300);
 				} else {
 					self.net.send_cmd(e.originalEvent.data.cmd, e.originalEvent.data.data);
 				}
