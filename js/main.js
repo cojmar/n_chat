@@ -2242,7 +2242,7 @@
 			net.socket.on('chat.show', function() {
 				net.last_true_lock = (Date.now() / 1000);
 				net.lock_scroll = true;
-				net.output_div.html('');
+				//net.output_div.html('');
 				net.text_input.get(0).focus();
 			});
 
@@ -2315,13 +2315,9 @@
 						break;
 					case 96:
 						try {
-							if (typeof window.top !== 'undefined') {
-								if (typeof window.top['NETWORK_CONNECTION'] !== 'undefined') {
-									if (typeof window.top['NETWORK_CONNECTION']['hide'] === 'function') {
-										window.top['NETWORK_CONNECTION']['hide']();
-										e.preventDefault();
-									}
-								}
+							if (window.top.location !== window.location) {
+								window.parent.postMessage({cmd: 'chat.hide'}, '*');
+								e.preventDefault();
 							}
 						} catch (error) { console.error(error) }
 						break;
