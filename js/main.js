@@ -2442,7 +2442,6 @@
 				switch (e.keyCode) {
 					case 192:
 						if (window.top !== window) {
-							console.log('test');
 							window.parent.postMessage({cmd: 'chat.toggle'}, '*');
 							e.preventDefault();
 							return false;
