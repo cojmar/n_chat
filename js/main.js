@@ -1,6 +1,6 @@
 // noinspection ThisExpressionReferencesGlobalObjectJS,JSUnusedLocalSymbols,DuplicatedCode
 (function(global) {
-	if (window.top.location === window.location) {
+	if (window.top === window) {
 		console.log('%c                              \n' +
 			'                              \n' +
 			'     ╔═╗╔╦╗╦ ╦╔═╗╦ ╦╔═╗╔╦╗    \n' +
@@ -311,28 +311,6 @@
 			if (typeof net.use_colors === 'undefined') {
 				simplestorage.set('use_colors', true);
 				net.use_colors = true;
-			}
-
-			if (window.top) {
-				try {
-					if (window.top.u_network) {
-						if (!window.top.u_network.frames) {
-							window.top.u_network.frames = [];
-						}
-
-						if (!window.top.u_network.reload) {
-							window.top.u_network.reload = function() {
-								window.top.u_network.frames.map(function(win) {
-									if (win && win.location) {
-										win.location.reload();
-									}
-								})
-							}
-						}
-
-						window.top.u_network.frames.push(window);
-					}
-				} catch (error) { console.error(error) }
 			}
 
 			net.is_admin = function(user) {
@@ -2315,7 +2293,7 @@
 						break;
 					case 96:
 						try {
-							if (window.top.location !== window.location) {
+							if (window.top !== window) {
 								window.parent.postMessage({cmd: 'chat.hide'}, '*');
 								e.preventDefault();
 							}
