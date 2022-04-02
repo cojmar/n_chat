@@ -129,7 +129,7 @@
 					var $body = $('body');
 					var $chat = $body.find('iframe[id="Chat"]');
 
-					if ($chat.is(':hidden') && $body.find('[data-title="EmuChat"]').length === 0) {
+					if ($chat.is(':hidden')) {
 						// noinspection JSValidateTypes
 						$chat.parent().slideUp(300);
 					}
