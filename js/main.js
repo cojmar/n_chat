@@ -2139,6 +2139,9 @@
 					if (!net.color_popover.hasClass('show')) {
 						net.color_popover.css('visibility', 'visible');
 						net.color_popover.addClass('show');
+					} else {
+						net.color_popover.removeClass('show');
+						net.color_popover.hide();
 					}
 				}
 			});
