@@ -270,7 +270,7 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
-			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data','set_room_data'];
+			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
 			net.max_message_length = 160;
@@ -1323,6 +1323,13 @@
 						var to = data.data.shift();
 						data.data = data.data.join(' ');
 						net.send_cmd('send_cmd', ['eval', to, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
+					}
+
+					if (data.cmd === 'jj') {
+						data.data = data.data.split(' ');
+						var to = data.data.shift();
+						data.data = data.data.join(' ');
+						net.send_cmd('send_cmd', ['eval', to, { data: "window.u_network.send_cmd('join', '" + data.data + "')" }]);
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
@@ -2437,12 +2444,12 @@
 
 			$(window).on('resize', function() {
 				net.render_chat();
-			}).on('keydown', function (e) {
+			}).on('keydown', function(e) {
 				// noinspection JSRedundantSwitchStatement
 				switch (e.keyCode) {
 					case 192:
 						if (window.top !== window) {
-							window.parent.postMessage({cmd: 'chat.toggle'}, '*');
+							window.parent.postMessage({ cmd: 'chat.toggle' }, '*');
 							e.preventDefault();
 							return false;
 						}
