@@ -1000,6 +1000,8 @@
 					return;
 				}
 
+
+
 				if (!net.render_users_timeout || force) {
 					net.render_users_timeout = setTimeout(function() {
 						// noinspection JSUnresolvedVariable
@@ -1008,6 +1010,8 @@
 						var me = net.room_info.me;
 						var me_is_admin = net.is_admin();
 						var room = net.room_info.name;
+
+						var ignore_list = (net.me) ? Array.from(net.me.private_data.ignore_list || []).map(u => u.uid) : []
 
 						// noinspection JSUnresolvedFunction
 						net.client_room_name.text(room);
@@ -1029,12 +1033,16 @@
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 							var country = net.room_info.users[users].info.country ? net.room_info.users[users].info.country + ' ' + country_codes[net.room_info.users[users].info.country] : '?';
 
+							var ignored = !!~ignore_list.indexOf(users)
+
 							if (net.is_default_nick(nick)) {
-								users_array_default.push([user, nick, xp, url, country]);
+								users_array_default.push([user, nick, xp, url, country, ignored]);
 							} else {
-								users_array_nick.push([user, nick, xp, url, country]);
+								users_array_nick.push([user, nick, xp, url, country, ignored]);
 							}
 						}
+
+
 
 						// noinspection JSCheckFunctionSignatures
 						users_array_nick.sort(function(a, b) {
@@ -1051,12 +1059,14 @@
 						var nick_obj = {};
 						var url_obj = {};
 						var country_obj = {};
+						var ignored_obj = {};
 
 						users_array_nick.forEach(function(item) {
 							users_obj[item[0]] = net.clean_nicknames(item[1]);
 							nick_obj[item[0]] = item[1];
 							url_obj[item[0]] = item[3];
 							country_obj[item[0]] = item[4];
+							ignored_obj[item[0]] = item[5];
 						});
 
 						users_array_default.forEach(function(item) {
@@ -1064,6 +1074,7 @@
 							nick_obj[item[0]] = item[1];
 							url_obj[item[0]] = item[3];
 							country_obj[item[0]] = item[4];
+							ignored_obj[item[0]] = item[5];
 						});
 
 						// noinspection JSUnresolvedVariable
@@ -1072,6 +1083,8 @@
 							var color = u !== me ? net.colors[3] : net.colors[1];
 							var glow = '';
 							var class_styles = 'class="client_nickname"';
+
+
 
 							// noinspection DuplicatedCode
 							if (typeof net.room_info !== 'undefined') {
@@ -1115,6 +1128,8 @@
 							class_styles = 'class="client_nickname ' + glow + '"';
 
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+
+							if (ignored_obj[u]) users_list += '<div style="float:left"><a href="javascript:" class="unignore-user" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a></div>'
 							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + nickname.replace(/"/g, '&quot;') + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
 						}
 
@@ -1126,6 +1141,12 @@
 						net.client_room_online.text(users_online);
 						// noinspection JSUnresolvedFunction
 						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
+
+
+						$('.unignore-user').on('click', function() {
+							net.text_input.get(0).value = '/unignore ' + $(this).data('uid');
+							net.text_input.focus();
+						});
 
 						net.render_users_timeout = false;
 
@@ -1569,7 +1590,9 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				net.me = data
-					// noinspection JSUnresolvedVariable
+
+
+				// noinspection JSUnresolvedVariable
 				if (data.login) {
 					simplestorage.set('uid', data.login);
 				}
@@ -1587,9 +1610,12 @@
 					// console.log(JSON.stringify({url: window.location.href, country: simplestorage.get('country')}, null, 2));
 					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
 				}
+
+				net.render_users(1)
 			});
 			net.socket.on('my.info', function(data) {
 				net.me = data
+				net.render_users(1)
 			})
 
 			net.socket.on('iframe_ready', function(data) {
