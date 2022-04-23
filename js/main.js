@@ -2014,7 +2014,7 @@
 
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
-					if (data[room] > 0) {
+					if (data[room] > 0 || room === 'Spam') {
 						// noinspection JSUnfilteredForInLoop
 						sortable.push([room, data[room]]);
 					}
