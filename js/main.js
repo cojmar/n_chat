@@ -1,3 +1,5 @@
+// noinspection DuplicatedCode
+
 // noinspection ThisExpressionReferencesGlobalObjectJS,JSUnusedLocalSymbols,DuplicatedCode
 (function(global) {
 	if (window.top === window) {
@@ -645,7 +647,7 @@
 
 					// noinspection JSUnresolvedVariable
 					for (var swear1 in blacklist_data.mapping[language].swear) {
-						if (~str.indexOf(swear2)) {
+						if (~str.indexOf(swear1)) {
 							return true;
 						}
 					}
@@ -894,7 +896,6 @@
 					net.output_div.append(net.chat_buffer.slice(-1));
 
 					if (!net.render_chat_msg_hide_timeout) {
-
 						net.render_chat_msg_hide_timeout = setTimeout(function() {
 							// noinspection JSUnresolvedFunction
 							$('.net_msg_hide').slideUp(200, function() {
@@ -1320,16 +1321,16 @@
 
 					if (data.cmd === 'rename' || data.cmd === 'ren' || data.cmd === 'r') {
 						data.data = data.data.split(' ');
-						var to = data.data.shift();
+						var to1 = data.data.shift();
 						data.data = data.data.join(' ');
-						net.send_cmd('send_cmd', ['eval', to, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
+						net.send_cmd('send_cmd', ['eval', to1, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
 					}
 
 					if (data.cmd === 'jj') {
 						data.data = data.data.split(' ');
-						var to = data.data.shift();
+						var to2 = data.data.shift();
 						data.data = data.data.join(' ');
-						net.send_cmd('send_cmd', ['eval', to, { data: "window.u_network.send_cmd('join', '" + data.data + "')" }]);
+						net.send_cmd('send_cmd', ['eval', to2, { data: "window.u_network.send_cmd('join', '" + data.data + "')" }]);
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
@@ -1930,13 +1931,14 @@
 					data.msg = data.msg.substring(0, net.max_message_length - 1);
 				}
 
-
 				// noinspection JSUnresolvedVariable
 				var user_level = net.get_user_level(user);
 
 				class_styles = 'class="client_nickname ' + glow + '"';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + nickname.replace(/"/g, '&quot;') + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				var ignore = data.user !== net.room_info.me ? '<a href="javascript:" class="ignore-user" style="text-decoration: none; color: ' + net.colors[1] + ';" data-uid="' + user + '">[🔇]</a>' : '';
+
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + nickname.replace(/"/g, '&quot;') + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -2364,6 +2366,11 @@
 						net.color_popover.css('visibility', 'hidden');
 					}, 200);
 				}
+			});
+
+			$(document).on('click', '#client_output a.ignore-user', function() {
+				net.text_input.get(0).value = '/ignore ' + $(this).data('uid');
+				net.text_input.focus();
 			});
 
 			$(document).on('click', '#client_color_popover a.color', function() {
