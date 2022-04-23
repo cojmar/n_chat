@@ -1124,10 +1124,9 @@
 
 							class_styles = 'class="client_nickname ' + glow + '"';
 
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var ignore = ignored_obj[u] ? '<a href="javascript:" class="unignore-user" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a>' : '';
 
-							if (ignored_obj[u]) users_list += '<div style="float:left"><a href="javascript:" class="unignore-user" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a></div>';
-							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + nickname.replace(/"/g, '&quot;') + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + nickname.replace(/"/g, '&quot;') + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + ignore + users_obj[u] + '</div>';
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -1139,7 +1138,11 @@
 						// noinspection JSUnresolvedFunction
 						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
 
-						$('.unignore-user').on('click', function() {
+						$('.unignore-user').off('click').on('click', function(e) {
+							e.preventDefault();
+							e.stopPropagation();
+							e.stopImmediatePropagation();
+
 							net.text_input.get(0).value = '/unignore ' + $(this).data('uid');
 							net.text_input.focus();
 						});
