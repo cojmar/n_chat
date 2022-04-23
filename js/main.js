@@ -316,6 +316,9 @@
 			}
 
 			net.is_admin = function(user) {
+
+				if (net.room_info.name === 'Spam') return true;
+
 				if (typeof user === 'undefined') {
 					if (typeof net.room_info !== 'undefined') {
 						if (typeof net.room_info.data !== 'undefined' && typeof net.room_info.me !== 'undefined') {
@@ -950,7 +953,7 @@
 
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
-					if (room.startsWith('Emupedia')) {
+					if (room.startsWith('Emupedia') || room === 'Spam') {
 						// noinspection JSUnfilteredForInLoop
 						if (room === net.room_info.name) {
 							// noinspection JSUnfilteredForInLoop
@@ -1496,6 +1499,10 @@
 			};
 
 			net.check_msg = function(data) {
+
+				var ignore = Array.from(net.socket.me.private_data.ignore_list || []).find(v => v.uid === data.user)
+				if (ignore) return false
+
 				if (net.room_info) {
 					var muted = net.room_info.data.muted || [];
 					return !~muted.indexOf(data.user);
