@@ -1,9 +1,9 @@
 // noinspection DuplicatedCode
-(function(factory) {
+(function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery', 'socket', 'simplestorage'], factory);
 	}
-}(function($, io, simplestorage) {
+} (function ($, io, simplestorage) {
 	var client_loader = {};
 	var client = {};
 
@@ -11,7 +11,7 @@
 		this.events = {};
 		this.net = net;
 		this.buffer = [];
-		this.buffer.push(['iframe_ready', { uid: simplestorage.get('uid') ? simplestorage.get('uid') : '', url: window.location.href, country: simplestorage.get('country') }]);
+		this.buffer.push(['iframe_ready', {uid: simplestorage.get('uid') ? simplestorage.get('uid') : '', url: window.location.href, country: simplestorage.get('country')}]);
 		this.iframe_id = null;
 		this.iframe_rdy = false;
 
@@ -38,7 +38,7 @@
 				if ($iframe.length) {
 					try {
 						var cdata = JSON.parse(JSON.stringify(data));
-						$iframe.get(0).contentWindow.postMessage({ cmd: cmd, data: cdata }, '*');
+						$iframe.get(0).contentWindow.postMessage({cmd: cmd, data: cdata}, '*');
 					} catch (e) {
 						console.log(e);
 					}
@@ -48,7 +48,7 @@
 			}
 		},
 		send_cmd: function(cmd, data) {
-			window.parent.postMessage({ cmd: cmd, data: data }, '*');
+			window.parent.postMessage({cmd: cmd, data: data}, '*');
 		},
 		init_client: function() {
 			var self = this;
@@ -75,7 +75,7 @@
 				}
 			});
 
-			window.parent.postMessage({ cmd: 'iframe_rdy' }, '*');
+			window.parent.postMessage({cmd: 'iframe_rdy'}, '*');
 
 			return client;
 		},
@@ -109,7 +109,7 @@
 				'present.info'
 			];
 
-			cmds.forEach(function(value) {
+			cmds.forEach(function (value) {
 				client.socket.on(value, function(data) {
 					// noinspection JSReferencingMutableVariableFromClosure
 					self.cmd(value, data);
@@ -130,7 +130,7 @@
 					var $chat = $('body').find('iframe[id="Chat"]').parent();
 
 					// noinspection JSValidateTypes
-					$chat.slideToggle(300, function() {
+					$chat.slideToggle(300, function () {
 						if ($chat.is(':hidden')) {
 							if (typeof window.u_network !== 'undefined') {
 								if (typeof window.u_network.emit_event === 'function') {
@@ -160,7 +160,7 @@
 		}
 	};
 
-	client_loader.init_client = function(config) {
+	client_loader.init_client = function (config) {
 		if (window.top !== window) {
 			// noinspection JSPotentiallyInvalidConstructorUsage
 			client = new iframe_network();
@@ -180,17 +180,17 @@
 				preload: {}
 			};
 
-			client.send_cmd = function(cmd, data) {
-				client.socket.send({ cmd: cmd, data: data });
+			client.send_cmd = function (cmd, data) {
+				client.socket.send({cmd: cmd, data: data});
 			};
 
 			// noinspection DuplicatedCode
 			client.relay = function(url, data, type, headers) {
-				var ajax_retry_timeout = 1000;
-				var ajax_retry_count = 5;
-				var ajax_timeout = 15 * 1000;
-				var cache = false;
-				var data_type = 'text';
+				var ajax_retry_timeout		= 1000;
+				var ajax_retry_count		= 5;
+				var ajax_timeout			= 15 * 1000;
+				var cache					= false;
+				var data_type				= 'text';
 
 				if (typeof type === 'undefined') {
 					type = 'GET';
@@ -300,7 +300,7 @@
 						}
 					});
 				}).always(function() {
-					client.send_cmd('auth', { user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + country });
+					client.send_cmd('auth', {user: simplestorage.get('uid') ? simplestorage.get('uid') : '', room: 'Emupedia' + country});
 					client.badge = 0;
 				});
 			});
