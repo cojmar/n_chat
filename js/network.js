@@ -112,6 +112,7 @@
 			cmds.forEach(function(value) {
 				client.socket.on(value, function(data) {
 					// noinspection JSReferencingMutableVariableFromClosure
+					console.log(value)
 					self.cmd(value, data);
 				});
 			});
