@@ -1500,8 +1500,10 @@
 
 			net.check_msg = function(data) {
 
-				var ignore = Array.from(net.socket.me.private_data.ignore_list || []).find(v => v.uid === data.user)
-				if (ignore) return false
+				if (net.socket.me) {
+					var ignore = Array.from(net.socket.me.private_data.ignore_list || []).find(v => v.uid === data.user)
+					if (ignore) return false
+				}
 
 				if (net.room_info) {
 					var muted = net.room_info.data.muted || [];
