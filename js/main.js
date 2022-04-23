@@ -1611,11 +1611,11 @@
 					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
 				}
 
-				net.render_users(1)
+				net.render_users(1, true)
 			});
 			net.socket.on('my.info', function(data) {
 				net.me = data
-				net.render_users(1)
+				net.render_users(1, true)
 			})
 
 			net.socket.on('iframe_ready', function(data) {
