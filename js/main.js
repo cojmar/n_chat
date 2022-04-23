@@ -1499,11 +1499,11 @@
 			};
 
 			net.check_msg = function(data) {
-
-				if (net.socket.me) {
-					var ignore = Array.from(net.socket.me.private_data.ignore_list || []).find(v => v.uid === data.user)
+				if (net.me) {
+					var ignore = Array.from(net.me.private_data.ignore_list || []).find(v => v.uid === data.user)
 					if (ignore) return false
 				}
+
 
 				if (net.room_info) {
 					var muted = net.room_info.data.muted || [];
@@ -1568,7 +1568,8 @@
 				// console.log('auth.info');
 				// console.log(JSON.stringify(data, null, 2));
 
-				// noinspection JSUnresolvedVariable
+				net.me = data
+					// noinspection JSUnresolvedVariable
 				if (data.login) {
 					simplestorage.set('uid', data.login);
 				}
@@ -1587,6 +1588,9 @@
 					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
 				}
 			});
+			net.socket.on('my.info', function(data) {
+				net.me = data
+			})
 
 			net.socket.on('iframe_ready', function(data) {
 				// console.log('iframe_ready');
