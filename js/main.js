@@ -2271,7 +2271,7 @@
 						continue;
 					}
 
-					if (~net.hidden_commands.indexOf(data[n])) {
+					if (!is_admin && ~net.hidden_commands.indexOf(data[n])) {
 						continue;
 					}
 
