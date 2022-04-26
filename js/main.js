@@ -272,6 +272,7 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
+			net.client_commands = ['recover_code'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
@@ -2255,6 +2256,9 @@
 			net.socket.on('server.help', function(data) {
 				// console.log('server.help');
 				// console.log(JSON.stringify(data, null, 2));
+
+				data.push.apply(data, net.client_commands);
+				data.sort();
 
 				var is_admin = net.is_admin();
 
