@@ -1352,7 +1352,7 @@
 					}
 
 					if (data.cmd === 'recover_code') {
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code. Please don\'t share you recovery code with anyone.', 4);
+						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
 						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> Please don\'t share you recovery code with anyone.', 4);
 						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
 					}
