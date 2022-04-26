@@ -273,6 +273,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.client_commands = ['recover_code'];
+			net.hidden_commands = ['su'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
@@ -2267,6 +2268,10 @@
 				for (var n in data) {
 					// noinspection JSUnfilteredForInLoop
 					if (!is_admin && ~net.disabled_commands.indexOf(data[n])) {
+						continue;
+					}
+
+					if (~net.hidden_commands.indexOf(data[n])) {
 						continue;
 					}
 
