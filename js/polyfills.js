@@ -393,8 +393,8 @@ if (typeof Array.isArray === 'undefined') {
 }
 
 if (!Array.prototype.find) {
+	console.log('Array.find polyfill loaded!');
 	Array.prototype.find = function (callback) {
-		console.log('Array.find polyfill loaded!');
 		if (this === null) {
 			throw new TypeError('Array.prototype.find called on null or undefined');
 		} else if (typeof callback !== 'function') {

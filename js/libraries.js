@@ -4,6 +4,8 @@
 		global['$sys'] = {};
 	}
 
+	var location = ~window.location.hostname.indexOf('emupedia.net') ? 'emupedia.net' : (~window.location.hostname.indexOf('emupedia.org') ? 'emupedia.org' : (~window.location.hostname.indexOf('emuos.net') ? 'emuos.net' : (~window.location.hostname.indexOf('emuos.org') ? 'emuos.org' : 'emupedia.net')))
+
 	// region Libraries
 
 	global['$sys']['lib'] = {
@@ -735,14 +737,6 @@
 				'//emuos.net/beta/emuos/assets/js/lang-en',
 				'//emuos.org/beta/emuos/assets/js/lang-en'
 		],
-		'network': [
-				'network',
-				'/beta/emuos/assets/js/network',
-				'//emupedia.net/beta/emuos/assets/js/network',
-				'//emupedia.org/beta/emuos/assets/js/network',
-				'//emuos.net/beta/emuos/assets/js/network',
-				'//emuos.org/beta/emuos/assets/js/network'
-		],
 		'taskbar': [
 				'taskbar',
 				'/beta/emuos/assets/js/taskbar',
@@ -759,16 +753,10 @@
 				'//emuos.net/beta/emuos/assets/js/window',
 				'//emuos.org/beta/emuos/assets/js/window'
 		],
-		'socket': [
-				'socket',
-				'/beta/emuos/assets/js/socket',
-				'//emupedia.net/beta/emuos/assets/js/socket',
-				'//emupedia.org/beta/emuos/assets/js/socket',
-				'//emuos.net/beta/emuos/assets/js/socket',
-				'//emuos.org/beta/emuos/assets/js/socket'
-		],
 		'ga': '//www.google-analytics.com/analytics'
-};
+	};
+	global['$sys']['lib']['socket'] = ['//ws.' + location + '/server/app/u_socket_es5'];
+	global['$sys']['lib']['network'] = ['//ws.' + location + '/server/app/network_iframe'];
 
 	// endregion
 }(this));

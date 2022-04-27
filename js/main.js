@@ -1352,8 +1352,8 @@
 					}
 
 					if (data.cmd === 'recover_code') {
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> Please don\'t share your recovery code with anyone.', 4);
+						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
+						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> Please don\'t share your recovery code with anyone.', 4);
 						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
 					}
 
@@ -1716,7 +1716,7 @@
 				if (!room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/13.0.1/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
 				}
 
 				if (net.is_admin()) {
