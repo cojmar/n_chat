@@ -318,7 +318,6 @@
 			}
 
 			net.is_admin = function(user) {
-
 				if (net.room_info.name === 'Spam') return true;
 
 				if (typeof user === 'undefined') {
@@ -342,6 +341,28 @@
 										return true;
 									}
 								}
+							}
+						}
+					}
+				}
+
+				return false;
+			};
+
+			net.is_room_admin = function(user) {
+				if (typeof user === 'undefined') {
+					if (typeof net.room_info !== 'undefined') {
+						if (typeof net.room_info.host !== 'undefined') {
+							if (~net.room_info.host.indexOf(net.room_info.me)) {
+								return true;
+							}
+						}
+					}
+				} else {
+					if (typeof net.room_info !== 'undefined') {
+						if (typeof net.room_info.host !== 'undefined') {
+							if (~net.room_info.host.indexOf(user)) {
+								return true;
 							}
 						}
 					}
@@ -1722,12 +1743,25 @@
 				var users_online = Object.keys(net.room_info.users).length;
 				var room = net.room_info.name;
 
-				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
-
 				if (!room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
+				}
+
+				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
+				net.log('Type /help to see a list of available commands.', 1);
+				net.log('To change your nickname type /nick and your new nickname.', 1);
+				net.log('To join a channel type /join and the channel name.', 1);
+				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel.', 1);
+
+				if (room.startsWith('Emupedia')) {
+					net.log('Swearing is discouraged on public channels.', 1);
+				}
+
+				if (net.is_room_admin()) {
+					net.log('If your nickname glows, you are the current owner of the room.', 1);
+					net.log('You can change this topic by typing /topic and the new room topic.', 1);
 				}
 
 				if (net.is_admin()) {
