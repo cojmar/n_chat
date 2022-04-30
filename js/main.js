@@ -162,7 +162,7 @@
 
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
-			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'upsidedown-numbers-only', 'mathematical-numbers-only', 'uncategorized', 'diacritics'];
+			var normalize_types = ['wide', 'bold-serif-numbers-only', 'bold-sans-numbers-only', 'cursive-numbers-only', 'double-stroke-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'monospace-numbers-only', 'uncategorized', 'diacritics'];
 
 			var net = network.start({
 				servers: servers,
@@ -1339,6 +1339,7 @@
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload') {
+						// noinspection JSUnresolvedFunction
 						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
@@ -1348,6 +1349,7 @@
 						data.data = data.data.split(' ');
 						var to1 = data.data.shift();
 						data.data = data.data.join(' ');
+						// noinspection JSUnresolvedFunction
 						net.send_cmd('send_cmd', ['eval', to1, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
 					}
 
@@ -1361,6 +1363,7 @@
 						data.data = data.data.split(' ');
 						var to2 = data.data.shift();
 						data.data = data.data.join(' ');
+						// noinspection JSUnresolvedFunction
 						net.send_cmd('send_cmd', ['eval', to2, { data: "window.u_network.send_cmd('join', '" + data.data + "')" }]);
 					}
 
@@ -1617,6 +1620,7 @@
 				if (window.top === window) {
 					// console.log('no_iframe');
 					// console.log(JSON.stringify({url: window.location.href, country: simplestorage.get('country')}, null, 2));
+					// noinspection JSUnresolvedFunction
 					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
 				}
 
@@ -1631,6 +1635,7 @@
 			net.socket.on('iframe_ready', function(data) {
 				// console.log('iframe_ready');
 				// console.log(JSON.stringify(data, null, 2));
+				// noinspection JSUnresolvedFunction
 				net.send_cmd('set_data', { url: data.url, country: data.country });
 			});
 
@@ -1646,14 +1651,20 @@
 									} else {
 										net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
 									}
+									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: 1 });
+									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: net.room_info.data.admins });
 								} else {
+									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: 1 });
+									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: [net.room_info.me] });
 								}
 							} else {
+								// noinspection JSUnresolvedFunction
 								net.send_cmd('set_room_data', { admins: 1 });
+								// noinspection JSUnresolvedFunction
 								net.send_cmd('set_room_data', { admins: [net.room_info.me] });
 							}
 						}
@@ -2181,6 +2192,7 @@
 								allowEmpty: true,
 								color: last_color
 							}).on('change', function(e, color) {
+								// noinspection JSUnresolvedFunction
 								net.send_cmd('present', color.toHexString());
 							});
 						}
@@ -2416,6 +2428,7 @@
 
 			net.color_button.off('click').on('click', function() {
 				if (!net.color_popover.hasClass('show')) {
+					// noinspection JSUnresolvedFunction
 					net.send_cmd('present', '');
 				} else {
 					net.color_popover.removeClass('show');
@@ -2431,12 +2444,14 @@
 			});
 
 			$(document).on('click', '#client_color_popover a.color', function() {
+				// noinspection JSUnresolvedFunction
 				net.send_cmd('present', $(this).data('index'));
 			});
 
 			$(document).on('click', '#client_color_popover a.color-claim', function() {
 				if ($('#client_color_popover a.color-claim').html().indexOf('CUSTOM') === -1) {
 					net.color_popover.removeClass('show');
+					// noinspection JSUnresolvedFunction
 					net.send_cmd('present', 'claim');
 				}
 			});
