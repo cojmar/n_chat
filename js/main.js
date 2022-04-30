@@ -1761,7 +1761,7 @@
 
 				if (net.is_room_admin()) {
 					net.log('If your nickname glows, you are the current owner of the room.', 1);
-					net.log('You can change this topic by typing /topic and the new room topic.', 1);
+					net.log('You can change the topic by typing /topic and the new room topic.', 1);
 				}
 
 				if (net.is_admin()) {
