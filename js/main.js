@@ -1377,7 +1377,7 @@
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
 						data.cmd = 'eval';
-						data.data = 'if (window.u_network && window.u_network.reload) { window.u_network.reload(); } else { window.location.reload(); }';
+						data.data = 'window.location.reload();';
 					}
 
 					if (data.cmd === 'rename' || data.cmd === 'ren' || data.cmd === 'r') {
@@ -1385,7 +1385,7 @@
 						var to1 = data.data.shift();
 						data.data = data.data.join(' ');
 						// noinspection JSUnresolvedFunction
-						net.send_cmd('send_cmd', ['eval', to1, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
+						net.send_cmd('send_cmd', ['eval', to1, { data: "client.socket.send_cmd('nick', '" + data.data + "')" }]);
 					}
 
 					if (data.cmd === 'jj') {
@@ -1393,7 +1393,7 @@
 						var to2 = data.data.shift();
 						data.data = data.data.join(' ');
 						// noinspection JSUnresolvedFunction
-						net.send_cmd('send_cmd', ['eval', to2, { data: "window.u_network.send_cmd('join', '" + data.data + "')" }]);
+						net.send_cmd('send_cmd', ['eval', to2, { data: "client.socket.send_cmd('join', '" + data.data + "')" }]);
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
