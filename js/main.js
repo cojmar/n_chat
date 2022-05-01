@@ -1158,9 +1158,9 @@
 
 							class_styles = 'class="client_nickname ' + glow + '"';
 
-							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore-user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a>' : '';
+							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a>' : '';
 
-							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : nickname.replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -1171,15 +1171,6 @@
 						net.client_room_online.text(users_online);
 						// noinspection JSUnresolvedFunction
 						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
-
-						$('.unignore-user').off('click').on('click', function(e) {
-							e.preventDefault();
-							e.stopPropagation();
-							e.stopImmediatePropagation();
-
-							net.text_input.get(0).value = '/unignore ' + $(this).data('uid');
-							net.text_input.focus();
-						});
 
 						net.render_users_timeout = false;
 
@@ -2046,9 +2037,9 @@
 
 				class_styles = 'class="client_nickname ' + glow + '"';
 
-				var ignore = data.user !== net.room_info.me ? '<a href="javascript:" class="ignore-user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
+				var ignore = data.user !== net.room_info.me ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : nickname.replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -2518,8 +2509,17 @@
 				}
 			});
 
-			$(document).on('click', '#client_output a.ignore-user', function() {
+			$(document).on('click', '.ignore_user', function() {
 				net.text_input.get(0).value = '/ignore ' + $(this).data('uid');
+				net.text_input.focus();
+			});
+
+			$(document).on('click', '.unignore_user', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				e.stopImmediatePropagation();
+
+				net.text_input.get(0).value = '/unignore ' + $(this).data('uid');
 				net.text_input.focus();
 			});
 
