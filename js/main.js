@@ -1060,6 +1060,8 @@
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 							var user = net.room_info.users[users].info.user;
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var fp = net.room_info.users[users].info.fingerprint || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 							var nick = net.room_info.users[users].info.nick;
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 							var xp = net.get_user_level(user)['xp'] || 0;
@@ -1071,9 +1073,9 @@
 							var ignored = !!~ignore_list.indexOf(users);
 
 							if (net.is_default_nick(nick)) {
-								users_array_default.push([user, nick, xp, url, country, ignored]);
+								users_array_default.push([user, nick, xp, url, country, fp, ignored]);
 							} else {
-								users_array_nick.push([user, nick, xp, url, country, ignored]);
+								users_array_nick.push([user, nick, xp, url, country, fp, ignored]);
 							}
 						}
 
@@ -1092,6 +1094,7 @@
 						var nick_obj = {};
 						var url_obj = {};
 						var country_obj = {};
+						var fp_obj = {};
 						var ignored_obj = {};
 
 						users_array_nick.forEach(function(item) {
@@ -1099,7 +1102,8 @@
 							nick_obj[item[0]] = item[1];
 							url_obj[item[0]] = item[3];
 							country_obj[item[0]] = item[4];
-							ignored_obj[item[0]] = item[5];
+							fp_obj[item[0]] = item[5];
+							ignored_obj[item[0]] = item[6];
 						});
 
 						users_array_default.forEach(function(item) {
@@ -1107,7 +1111,8 @@
 							nick_obj[item[0]] = item[1];
 							url_obj[item[0]] = item[3];
 							country_obj[item[0]] = item[4];
-							ignored_obj[item[0]] = item[5];
+							fp_obj[item[0]] = item[5];
+							ignored_obj[item[0]] = item[6];
 						});
 
 						// noinspection JSUnresolvedVariable
@@ -1136,6 +1141,7 @@
 								var origin_nickname = me_is_admin ? 'Nickname ' + nickname + '\n' : '';
 								var origin_url = me_is_admin ? 'URL ' + url_obj[u] + '\n' : '';
 								var origin_country = me_is_admin ? 'Country ' + country_obj[u] + '\n' : '';
+								var origin_fp = me_is_admin ? 'Fingerprint ' + fp_obj[u] + '\n' : '';
 
 								// noinspection DuplicatedCode
 								if (typeof net.room_info.data !== 'undefined') {
@@ -1160,7 +1166,7 @@
 
 							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a>' : '';
 
-							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -1935,6 +1941,7 @@
 				var origin_nickname = '';
 				var origin_url = '';
 				var origin_country = '';
+				var origin_fp = '';
 				var class_styles = '';
 
 				if (!net.user_spam_buffer) {
@@ -1999,6 +2006,8 @@
 					origin_url = me_is_admin ? 'URL ' + (net.room_info.users[user].data.url || '?') + '\n' : '';
 					// noinspection JSUnresolvedVariable
 					origin_country = me_is_admin ? 'Country ' + (net.room_info.users[user].info.country ? (net.room_info.users[user].info.country + ' ' + country_codes[net.room_info.users[user].info.country]) : '?') + '\n' : '';
+					// noinspection JSUnresolvedVariable
+					origin_fp = me_is_admin ? 'Fingerprint ' + (net.room_info.users[user].info.fingerprint ? (net.room_info.users[user].info.fingerprint + ' ' + country_codes[net.room_info.users[user].info.fingerprint]) : '?') + '\n' : '';
 				}
 
 				var color = net.colors[3];
@@ -2047,7 +2056,7 @@
 
 				var ignore = data.user !== net.room_info.me ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
