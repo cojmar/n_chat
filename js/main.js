@@ -375,7 +375,6 @@
 			};
 
 			net.is_spam_room = function() {
-				console.log(net.room_info);
 				if (typeof net.room_info !== 'undefined') {
 					if (typeof net.room_info.name !== 'undefined') {
 						if (net.room_info.name === 'Spam') {
@@ -1936,6 +1935,8 @@
 				var timestamp = Math.floor(Date.now() / 1000);
 				var user = data.user;
 				var is_admin = net.is_admin(user);
+				var is_room_admin = net.is_room_admin(user);
+				var is_spam_room = net.is_spam_room();
 				var me_is_admin = net.is_admin();
 				var cc = '';
 				var nick = '';
@@ -1960,7 +1961,7 @@
 				var spam_time = net.user_spam_buffer[user].last_send ? timestamp - net.user_spam_buffer[user].last_send < 20 : false;
 				var clean_msg = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.msg))).trim();
 
-				if (net.user_spam_buffer[user].last_last_last_msg && !is_admin && spam_time) {
+				if (net.user_spam_buffer[user].last_last_last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.user_spam_buffer[user].last_last_last_msg === clean_msg || ((~clean_msg.indexOf(net.user_spam_buffer[user].last_last_last_msg) || ~net.user_spam_buffer[user].last_last_last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						return false;
 					}
@@ -1970,7 +1971,7 @@
 					net.user_spam_buffer[user].spam_cap = 1;
 				}
 
-				if (net.user_spam_buffer[user].last_send && !is_admin) {
+				if (net.user_spam_buffer[user].last_send && !is_admin && !is_room_admin && !is_spam_room) {
 					if (timestamp - net.user_spam_buffer[user].last_send < net.user_spam_buffer[user].spam_cap) {
 						net.user_spam_buffer[user].last_send = timestamp;
 						net.user_spam_buffer[user].spam_cap++;
@@ -2033,7 +2034,7 @@
 					}
 				}
 
-				if (!is_admin && data.msg.length >= net.max_message_length) {
+				if (!is_admin && !is_room_admin && !is_spam_room && data.msg.length >= net.max_message_length) {
 					data.msg = data.msg.substring(0, net.max_message_length - 1);
 				}
 
@@ -2044,7 +2045,7 @@
 
 				var ignore = data.user !== net.room_info.me ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
