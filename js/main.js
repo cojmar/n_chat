@@ -1634,7 +1634,7 @@
 
 				if (!simplestorage.get('fingerprint')) {
 					fp.then(function(fp) {
-						return fp.get()
+						return fp.get();
 					}).then(function(result) {
 						simplestorage.set('fingerprint', result.visitorId);
 					});
@@ -1655,7 +1655,7 @@
 					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
 				}
 
-				net.render_users(1, true)
+				net.render_users(1, true);
 			});
 
 			net.socket.on('my.info', function(data) {
@@ -1663,7 +1663,7 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				net.me = data;
-				net.render_users(1, true)
+				net.render_users(1, true);
 			});
 
 			net.socket.on('iframe_ready', function(data) {
