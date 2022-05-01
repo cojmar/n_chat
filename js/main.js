@@ -323,8 +323,6 @@
 			}
 
 			net.is_admin = function(user) {
-				if (net.room_info.name === 'Spam') return true;
-
 				if (typeof user === 'undefined') {
 					if (typeof net.room_info !== 'undefined') {
 						if (typeof net.room_info.data !== 'undefined' && typeof net.room_info.me !== 'undefined') {
