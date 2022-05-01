@@ -374,6 +374,19 @@
 				return false;
 			};
 
+			net.is_spam_room = function() {
+				console.log(net.room_info);
+				if (typeof net.room_info !== 'undefined') {
+					if (typeof net.room_info.name !== 'undefined') {
+						if (net.room_info.name === 'Spam') {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			};
+
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
 
@@ -1143,22 +1156,8 @@
 								var origin_country = me_is_admin ? 'Country ' + country_obj[u] + '\n' : '';
 								var origin_fp = me_is_admin ? 'Fingerprint ' + fp_obj[u] + '\n' : '';
 
-								// noinspection DuplicatedCode
-								if (typeof net.room_info.data !== 'undefined') {
-									// noinspection DuplicatedCode
-									if (typeof net.room_info.data.admins !== 'undefined') {
-										if (Array.isArray(net.room_info.data.admins)) {
-											if (net.room_info.data.admins.length > 0) {
-												if (~net.room_info.data.admins.indexOf(u)) {
-													glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
-												}
-											}
-										}
-									}
-
-									if (net.room_info.host === u) {
-										glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
-									}
+								if (net.is_admin(u) || net.is_room_admin(u) || net.is_spam_room()) {
+									glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
 								}
 							}
 
@@ -1238,17 +1237,19 @@
 				// noinspection JSUnresolvedFunction
 				var msg = net.text_input.val();
 				var is_admin = net.is_admin();
+				var is_room_admin = net.is_room_admin();
+				var is_spam_room = net.is_spam_room();
 
-				if (msg.length >= net.max_message_length && !is_admin) {
+				if (msg.length >= net.max_message_length && !is_admin && !is_room_admin && !is_spam_room) {
 					msg = msg.substring(0, net.max_message_length - 1);
 				}
 
-				if (msg.trim().length <= 1 && !is_admin) {
+				if (msg.trim().length <= 1 && !is_admin && !is_room_admin && !is_spam_room) {
 					net.log('Your message is too short.', 4);
 					return false;
 				}
 
-				if (msg.trim().length >= 25 && !~msg.trim().indexOf(' ') && !is_admin) {
+				if (msg.trim().length >= 25 && !~msg.trim().indexOf(' ') && !is_admin && !is_room_admin && !is_spam_room) {
 					net.log('Your message doesn\'t has any spaces.', 4);
 					return false;
 				}
@@ -1475,7 +1476,7 @@
 				var clean_msg = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(msg))).trim();
 
 				// noinspection DuplicatedCode
-				if (net.last_msg && !is_admin && spam_time) {
+				if (net.last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.last_msg === clean_msg || ((~clean_msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
@@ -1483,7 +1484,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (net.last_last_msg && !is_admin && spam_time) {
+				if (net.last_last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.last_last_msg === clean_msg || ((~clean_msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
@@ -1491,7 +1492,7 @@
 				}
 
 				// noinspection DuplicatedCode
-				if (net.last_last_last_msg && !is_admin && spam_time) {
+				if (net.last_last_last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.last_last_last_msg === clean_msg || ((~clean_msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
 						return false;
@@ -1502,12 +1503,13 @@
 					net.spam_cap = 1;
 				}
 
-				if (net.last_send && !is_admin) {
+				if (net.last_send && !is_admin && !is_room_admin && !is_spam_room) {
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
 						net.log('You are writing too fast, wait ' + net.spam_cap + ' second(s)', 4);
 						net.text_input.val('');
+
 						return false;
 					}
 				}
@@ -2026,21 +2028,7 @@
 						}
 					}
 
-					// noinspection DuplicatedCode
-					if (typeof net.room_info.data !== 'undefined') {
-						// noinspection DuplicatedCode
-						if (typeof net.room_info.data.admins !== 'undefined') {
-							if (Array.isArray(net.room_info.data.admins)) {
-								if (net.room_info.data.admins.length > 0) {
-									if (~net.room_info.data.admins.indexOf(user)) {
-										glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
-									}
-								}
-							}
-						}
-					}
-
-					if (user === net.room_info.host) {
+					if (net.is_admin(user) || net.is_room_admin(user) || net.is_spam_room()) {
 						glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
 					}
 				}
