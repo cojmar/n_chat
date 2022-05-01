@@ -2007,7 +2007,7 @@
 					// noinspection JSUnresolvedVariable
 					origin_country = me_is_admin ? 'Country ' + (net.room_info.users[user].info.country ? (net.room_info.users[user].info.country + ' ' + country_codes[net.room_info.users[user].info.country]) : '?') + '\n' : '';
 					// noinspection JSUnresolvedVariable
-					origin_fp = me_is_admin ? 'Fingerprint ' + (net.room_info.users[user].info.fingerprint ? (net.room_info.users[user].info.fingerprint + ' ' + country_codes[net.room_info.users[user].info.fingerprint]) : '?') + '\n' : '';
+					origin_fp = me_is_admin ? 'Fingerprint ' + (net.room_info.users[user].info.fingerprint ? net.room_info.users[user].info.fingerprint : '?') + '\n' : '';
 				}
 
 				var color = net.colors[3];
