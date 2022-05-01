@@ -84,7 +84,7 @@
 				deps: ['jquery', 'simplestorage', 'fingerprint', 'network']
 			},
 			fingerprint: {
-				exports: 'Fingerprint'
+				exports: 'FingerprintJS'
 			},
 			'jquery-mousewheel': {
 				deps: ['jquery']
@@ -143,13 +143,14 @@
 		'twemoji',
 		'seedrandom',
 		'simplestorage',
+		'fingerprint',
 		'emoji-button',
 		'network',
 		'jquery-ajax-retry',
 		'popper',
 		'optional!ga',
 		'libraries/spectrum'
-	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, EmojiButton, network, ajaxretry, Popper, ga, spectrum) {
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, ga, spectrum) {
 		// noinspection DuplicatedCode
 		$(function() {
 			if (typeof ga === 'function') {
@@ -160,6 +161,7 @@
 				});
 			}
 
+			var fp = fingerprint.load();
 			var update_timeout;
 			var update_array = [];
 
@@ -1630,6 +1632,14 @@
 				// noinspection JSUnresolvedVariable
 				if (data.login) {
 					simplestorage.set('uid', data.login);
+				}
+
+				if (!simplestorage.get('fingerprint')) {
+					fp.then(function(fp) {
+						return fp.get()
+					}).then(function(result) {
+						simplestorage.set('fingerprint', result.visitorId);
+					});
 				}
 
 				// noinspection JSUnresolvedVariable
