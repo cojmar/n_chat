@@ -276,7 +276,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.client_commands = ['recover_code'];
-			net.hidden_commands = ['su'];
+			net.hidden_commands = ['su', 'jj', 'refresh', 'rename', 'server', 'image', 'audio', 'video', 'clear', 'emoji', 'colors', 'users', 'low', 'medium', 'high', 'present'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
@@ -871,7 +871,7 @@
 			};
 
 			// noinspection DuplicatedCode
-			net.clean_nicknames = function(str, disable_emoji) {
+			net.clean_nicknames = function(str, user, disable_emoji) {
 				var room_name = net.room_info.name || '';
 				var subject = net.normalize(net.remove_zalgo(str), normalize_types.slice(0, normalize_types.length - 1));
 				var subject_clean;
@@ -909,6 +909,14 @@
 				}
 
 				subject = net.remove_invisible_after(subject);
+
+				if (subject === '') {
+					if (typeof user !== 'undefined') {
+						subject = user !== null && user !== '' ? net.friendly_name(user) : net.friendly_name(str);
+					} else {
+						subject = net.friendly_name(str);
+					}
+				}
 
 				return subject;
 			};
@@ -1087,7 +1095,7 @@
 						var ignored_obj = {};
 
 						users_array_nick.forEach(function(item) {
-							users_obj[item[0]] = net.clean_nicknames(item[1]);
+							users_obj[item[0]] = net.clean_nicknames(item[1], item[0]);
 							nick_obj[item[0]] = item[1];
 							url_obj[item[0]] = item[3];
 							country_obj[item[0]] = item[4];
@@ -1156,7 +1164,7 @@
 						}
 
 						// noinspection JSUnresolvedVariable
-						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, true)) + '". To change nick, type /nick and your new nickname.');
+						net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(net.room_info.users[net.room_info.me].info.nick) ? net.friendly_name(net.room_info.users[net.room_info.me].info.nick) : net.clean_nicknames(net.room_info.users[net.room_info.me].info.nick, net.room_info.me, true)) + '". To change nick, type /nick and your new nickname.');
 						// noinspection JSUnresolvedFunction
 						net.client_room_users.html(users_list);
 						// noinspection JSUnresolvedVariable
@@ -1358,6 +1366,12 @@
 						net.client_topic.attr('style', 'animation: none; padding-left: 0;');
 					}
 
+					if (data.cmd === 'recover_code') {
+						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
+						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> Please don\'t share your recovery code with anyone.', 4);
+						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
+					}
+
 					if (data.cmd === 'topic' && data.data === '') {
 						data.data = net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic;
 					}
@@ -1375,12 +1389,6 @@
 						data.data = data.data.join(' ');
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('send_cmd', ['eval', to1, { data: "window.u_network.send_cmd('nick', '" + data.data + "')" }]);
-					}
-
-					if (data.cmd === 'recover_code') {
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> Please don\'t share your recovery code with anyone.', 4);
-						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
 					}
 
 					if (data.cmd === 'jj') {
@@ -1652,6 +1660,9 @@
 			});
 
 			net.socket.on('my.info', function(data) {
+				// console.log('my.info');
+				// console.log(JSON.stringify(data, null, 2));
+
 				net.me = data;
 				net.render_users(1, true)
 			});
@@ -1872,7 +1883,7 @@
 				var user_level = net.get_user_level(data.user);
 
 				// noinspection JSUnresolvedVariable
-				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick)) + '</div>');
+				net.client_room_users.append('<div id="room_user_' + data.data.info.user + '" ' + glow + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="Unique ID ' + data.data.info.user + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + (net.is_default_nick(data.data.info.nick) ? net.friendly_name(data.data.info.nick) : net.clean_nicknames(data.data.info.nick, data.data.info.user)) + '</div>');
 
 				if (net.refresh_users) {
 					net.render_users(6000);
@@ -1955,6 +1966,7 @@
 					if (timestamp - net.user_spam_buffer[user].last_send < net.user_spam_buffer[user].spam_cap) {
 						net.user_spam_buffer[user].last_send = timestamp;
 						net.user_spam_buffer[user].spam_cap++;
+
 						return false;
 					}
 				}
@@ -1980,7 +1992,7 @@
 					}
 
 					// noinspection JSUnresolvedVariable
-					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick);
+					nick = net.is_default_nick(net.room_info.users[user].info.nick) ? net.friendly_name(net.room_info.users[user].info.nick) : net.clean_nicknames(net.room_info.users[user].info.nick, user);
 					// noinspection JSUnresolvedVariable
 					nickname = net.room_info.users[user].info.nick;
 					origin_nickname = me_is_admin ? 'Nickname ' + nickname + '\n' : '';
@@ -2036,7 +2048,7 @@
 
 				var ignore = data.user !== net.room_info.me ? '<a href="javascript:" class="ignore-user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + nickname.replace(/"/g, '&quot;') + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + net.romanize(user_level.curLevel) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : nickname.replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -2072,7 +2084,7 @@
 								}
 
 								// noinspection JSUnresolvedVariable,JSUnresolvedFunction
-								$('#room_user_' + data.user).attr('data-title', 'Unique ID ' + data.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired).data('title', 'Unique ID ' + data.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick));
+								$('#room_user_' + data.user).attr('data-title', 'Unique ID ' + data.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired).data('title', 'Unique ID ' + data.user + '\n' + 'User Level ' + curLevel + ', Next Level in ' + timeRequired).html(net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick, data.user));
 							}
 
 							// noinspection JSUnresolvedVariable
@@ -2091,7 +2103,7 @@
 								// noinspection JSUnresolvedVariable
 								if (data.info.nick) {
 									// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-									net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick, true)) + '". To change it, type /nick and your new nickname.');
+									net.text_input.attr('placeholder', 'You are typing as "' + (net.is_default_nick(data.info.nick) ? net.friendly_name(data.info.nick) : net.clean_nicknames(data.info.nick, data.user, true)) + '". To change it, type /nick and your new nickname.');
 								}
 							}
 						}
