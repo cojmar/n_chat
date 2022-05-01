@@ -337,6 +337,11 @@
 			'/beta/emuos/assets/js/libraries/moment-timezone-0.5.31.min',
 			'//' + location + '/beta/emuos/assets/js/libraries/moment-timezone-0.5.31.min'
 		],
+		'nosleep.js': [
+			'libraries/nosleep-0.12.0.min',
+			'/beta/emuos/assets/js/libraries/nosleep-0.12.0.min',
+			'//' + location + '/beta/emuos/assets/js/libraries/nosleep-0.12.0.min'
+		],
 		'octokat': [
 			'libraries/octokat-0.10.0',
 			'/beta/emuos/assets/js/libraries/octokat-0.10.0',
