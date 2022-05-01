@@ -160,8 +160,8 @@
 				});
 			}
 
-			var updateTimeout;
-			var updateInProgress = false;
+			var update_timeout;
+			var update_array = [];
 
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
@@ -2098,15 +2098,33 @@
 					}
 				};
 
-				if (!updateInProgress) {
-					updateInProgress = true;
+				var remove = function(arr, value) {
+					var i = 0;
+
+					while (i < arr.length) {
+						if (arr[i] === value) {
+							arr.splice(i, 1);
+						} else {
+							++i;
+						}
+					}
+
+					return arr;
+				};
+
+				if (data.user === net.room_info.me) {
 					update_user_info();
 				} else {
-					clearTimeout(updateTimeout);
-					updateTimeout = setTimeout(function() {
+					if (!~update_array.indexOf(data.user)) {
+						update_array.push(data.user);
 						update_user_info();
-						updateInProgress = false;
-					}, 5000);
+					} else {
+						clearTimeout(update_timeout);
+						update_timeout = setTimeout(function() {
+							update_user_info();
+							remove(update_array, data.user);
+						}, 5000);
+					}
 				}
 			});
 
