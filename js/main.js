@@ -278,7 +278,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.client_commands = ['recover_code'];
-			net.hidden_commands = ['su', 'jj', 'refresh', 'rename', 'server', 'image', 'audio', 'video', 'clear', 'emoji', 'colors', 'users', 'low', 'medium', 'high', 'present'];
+			net.hidden_commands = ['su', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video', 'clear', 'emoji', 'colors', 'users', 'low', 'medium', 'high', 'present'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_info', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
