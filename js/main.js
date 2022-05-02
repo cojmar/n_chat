@@ -1375,7 +1375,7 @@
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload') {
 						// noinspection JSUnresolvedFunction
-						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
+						net.send_cmd('send_cmd', ['server.msg', 'server', {msg: 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'window.location.reload();';
 					}
@@ -1394,6 +1394,34 @@
 						data.data = data.data.join(' ');
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('send_cmd', ['eval', to2, { data: "client.socket.send_cmd('join', '" + data.data + "')" }]);
+					}
+
+					if (data.cmd === 'glow' || data.cmd === 'g') {
+						data.data = data.data.split(' ');
+						var to3 = data.data.shift();
+
+						if (typeof net.room_info !== 'undefined') {
+							if (typeof net.room_info.data !== 'undefined') {
+								if (typeof net.room_info.data.admins !== 'undefined') {
+									if (Array.isArray(net.room_info.data.admins)) {
+										if (net.room_info.data.admins.indexOf(to3) === -1) {
+											net.room_info.data.admins.push(to3);
+										} else {
+											net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(to3), 1)
+										}
+										// noinspection JSUnresolvedFunction
+										net.send_cmd('set_room_data', { admins: 1 });
+										// noinspection JSUnresolvedFunction
+										net.send_cmd('set_room_data', { admins: net.room_info.data.admins });
+									}
+								} else {
+									// noinspection JSUnresolvedFunction
+									net.send_cmd('set_room_data', { admins: 1 });
+									// noinspection JSUnresolvedFunction
+									net.send_cmd('set_room_data', { admins: [to3] });
+								}
+							}
+						}
 					}
 
 					if (data.cmd === 'server' || data.cmd === 's') {
