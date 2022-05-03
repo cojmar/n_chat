@@ -2383,6 +2383,7 @@
 				// console.log(JSON.stringify(data, null, 2));
 
 				clearTimeout(net.event_timeout);
+				clearTimeout(net.event_clear_timeout);
 
 				var el;
 
