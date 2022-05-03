@@ -386,6 +386,18 @@
 				return false;
 			};
 
+			net.is_music_room = function() {
+				if (typeof net.room_info !== 'undefined') {
+					if (typeof net.room_info.name !== 'undefined') {
+						if (net.room_info.name === 'Music') {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			};
+
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
 
@@ -999,7 +1011,7 @@
 
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
-					if (room.startsWith('Emupedia') || room === 'Spam') {
+					if (room.startsWith('Emupedia') || room === 'Spam' || room === 'Music') {
 						// noinspection JSUnfilteredForInLoop
 						if (room === net.room_info.name) {
 							// noinspection JSUnfilteredForInLoop
@@ -1018,7 +1030,7 @@
 				var users_online = Object.keys(net.room_info.users).length;
 				var current_room = net.room_info.name;
 
-				if (!current_room.startsWith('Emupedia')) {
+				if (!current_room.startsWith('Emupedia') && current_room !== 'Spam' && current_room !== 'Music') {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
 				}
@@ -1162,7 +1174,7 @@
 
 							class_styles = 'class="client_nickname ' + glow + '"';
 
-							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔇') + '</a>' : '';
+							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔊') + '</a>' : '';
 
 							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
@@ -1756,11 +1768,23 @@
 
 				if (!net.def_topic) {
 					net.def_topic = net.client_topic.html();
-					net.def_custom_topic = 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic. If you experience any lag you might try and uncheck some settings from the ⚙️ panel.';
+				}
+
+				switch (net.room_info.name) {
+					case 'Music':
+						net.def_custom_topic = 'You can add songs to the playlist and listen to them';
+						break;
+					case 'Spam':
+						net.def_custom_topic = 'If you were moved here that means you are "jailed" temporarily, spamming is allowed here';
+						break;
+					default:
+						net.def_custom_topic = 'If your nickname glows, you are the current owner of the room, you can change this topic by typing /topic and the new room topic.';
+						break;
 				}
 
 				// noinspection JSUnresolvedVariable
 				var topic = net.room_info.data.topic || (net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic);
+
 				net.client_topic.html(topic);
 
 				if (!net.use_animated_topic && net.client_topic) {
@@ -1807,7 +1831,7 @@
 					net.log('Swearing is discouraged on public channels.', 1);
 				}
 
-				if (net.is_room_admin()) {
+				if (net.is_room_admin() && room !== 'Spam') {
 					net.log('If your nickname glows, you are the current owner of the room.', 1);
 					net.log('You can change the topic by typing /topic and the new room topic.', 1);
 				}
@@ -2173,7 +2197,10 @@
 
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
-					if (data[room] > 0 || room === 'Spam') {
+					if (data[room] > 0) {
+						if (room === 'Music' || room === 'Spam') {
+							continue;
+						}
 						// noinspection JSUnfilteredForInLoop
 						sortable.push([room, data[room]]);
 					}
@@ -2182,6 +2209,14 @@
 				sortable.sort(function(a, b) {
 					return b[1] - a[1];
 				});
+
+				for (var room2 in data) {
+					// noinspection JSUnfilteredForInLoop
+					if (room2 === 'Music' || room2 === 'Spam') {
+						// noinspection JSUnfilteredForInLoop
+						sortable.push([room2, data[room2]]);
+					}
+				}
 
 				var objSorted = {};
 
