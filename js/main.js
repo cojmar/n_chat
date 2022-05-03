@@ -2382,6 +2382,8 @@
 				// console.log('server.event');
 				// console.log(JSON.stringify(data, null, 2));
 
+				clearTimeout(net.event_timeout);
+
 				var el;
 
 				if (typeof data.msg === 'string') {
