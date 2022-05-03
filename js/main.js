@@ -274,6 +274,7 @@
 			}
 
 			net.event_timeout = null;
+			net.event_clear_timeout = null;
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
@@ -1041,12 +1042,20 @@
 			};
 
 			net.render_event = function(type) {
-				// noinspection HtmlUnknownTarget
-				net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span><img src="images/events/' + type + '.gif" alt="" /></div>');
-				clearTimeout(net.event_timeout);
-				net.event_timeout = setTimeout(function() {
-					net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
-				}, 5000);
+				if (net.event.find('audio, video').length === 0) {
+					// noinspection HtmlUnknownTarget
+					net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span><img src="images/events/' + type + '.gif" alt="" /></div>');
+
+					clearTimeout(net.event_timeout);
+					net.event_timeout = setTimeout(function() {
+						net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+
+						clearTimeout(net.event_clear_timeout);
+						net.event_clear_timeout = setTimeout(function() {
+							net.event.html('');
+						}, 1000);
+					}, 5000);
+				}
 			};
 
 			net.render_users = function(timeout, force) {
@@ -2371,6 +2380,11 @@
 						if (typeof el !== 'undefined') {
 							el.onended = function() {
 								net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+
+								clearTimeout(net.event_clear_timeout);
+								net.event_clear_timeout = setTimeout(function() {
+									net.event.html('');
+								}, 1000);
 							};
 						}
 					} else {
@@ -2383,6 +2397,11 @@
 						}
 
 						net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+
+						clearTimeout(net.event_clear_timeout);
+						net.event_clear_timeout = setTimeout(function() {
+							net.event.html('');
+						}, 1000);
 					}
 				}
 			});
