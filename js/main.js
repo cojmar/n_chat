@@ -1472,10 +1472,10 @@
 
 						if (~data.data.indexOf('youtube.com') || ~data.data.indexOf('youtu.be')) {
 							function video(url) {
-								var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+								var regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 								var match = url.match(regExp);
 
-								return match && match[7].length === 11 ? match[7] : false;
+								return match && match[1].length === 11 ? match[1] : false;
 							}
 
 							container = '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + video(data.data) + '?controls=0&autoplay=1&modestbranding=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
