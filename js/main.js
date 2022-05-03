@@ -1467,7 +1467,21 @@
 
 					if (data.cmd === 'video' || data.cmd === 'v') {
 						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: '<video autoplay="autoplay" src="' + data.data + '"></video>' }];
+
+						var container = '<video autoplay="autoplay" src="' + data.data + '"></video>';
+
+						if (~data.data.indexOf('youtube.com') || ~data.data.indexOf('youtu.be')) {
+							function video(url) {
+								var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+								var match = url.match(regExp);
+
+								return match && match[7].length === 11 ? match[7] : false;
+							}
+
+							container = '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + video(data.data) + '?controls=0&autoplay=1&modestbranding=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+						}
+
+						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: container }];
 					}
 
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
