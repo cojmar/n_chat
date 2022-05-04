@@ -1,0 +1,4 @@
+include:
+  - js/system.js
+plugins:
+  - jekyll-optional-front-matter
