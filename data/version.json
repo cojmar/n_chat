@@ -1,0 +1,5 @@
+---
+---
+{
+	"version": "{{ site.github.build_revision }}"
+}

@@ -15,8 +15,7 @@
 		browser: {},
 		feature: {},
 		lib: global.$sys ? global.$sys.lib || {} : {},
-		info: {},
-		version: '{{ site.github.build_revision }}'
+		info: {}
 	};
 
 	// region Platform
