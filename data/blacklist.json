@@ -170,6 +170,7 @@
 			"nazi": ["n a z i s", "n a z i", "n.a.zi", "na.zi", "na\\*zi", "nazis", "nazi", "nazy"],
 			"nazism": ["nazism"],
 			"comrade": ["comrade"],
+			"soviet": ["soviet"],
 			"communist": ["comm.unist", "communlst", "communist", "comunist", "commle", "commie", "commy"],
 			"communism": ["co mm u nism", "communism", "comunism"]
 		},
@@ -221,7 +222,7 @@
 			"movie": ["porn"],
 			"smile": ["blood"],
 			"tickled": ["stabbed", "jerkoff"],
-			"student": ["nazi", "communist"],
+			"student": ["nazi", "communist", "soviet"],
 			"meet": ["gangbang", "kidnapped", "bomb", "genocide", " orgy"],
 			"selfie": ["dickpic", "nude"],
 			"sugar": ["drugs"],
