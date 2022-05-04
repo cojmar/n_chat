@@ -60,6 +60,41 @@ label {
 	vertical-align: middle;
 }
 
+#toast-container > div {
+	width: 260px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	opacity: 1;
+	filter: none;
+	-ms-filter: none;
+	border: 1px #4c4c4c solid;
+	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
+}
+
+#toast-container > div:hover {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	opacity: 1;
+	filter: none;
+	-ms-filter: none;
+}
+
+.toast-close-button:focus, .toast-close-button:hover {
+	color: #fff;
+	opacity: 1;
+	filter: none;
+	-ms-filter: none;
+}
+
+#toast-container > .toast-info {
+	background-color: #302f2f;
+	background-image: url(../images/update.svg) !important;
+	background-size: 11% 100%;
+	background-position: 8px center;
+}
+
 /*noinspection DuplicatedCode*/
 #client_command {
 	height: 21px;

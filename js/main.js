@@ -114,6 +114,9 @@
 			socket: {
 				deps: ['bson']
 			},
+			toastr: {
+				deps: ['jquery']
+			},
 			twemoji: {
 				exports: 'twemoji'
 			}
@@ -148,9 +151,10 @@
 		'network',
 		'jquery-ajax-retry',
 		'popper',
+		'toastr',
 		'optional!ga',
 		'libraries/spectrum'
-	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, ga, spectrum) {
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, ga, spectrum) {
 		// noinspection DuplicatedCode
 		$(function() {
 			if (typeof ga === 'function') {
@@ -162,6 +166,7 @@
 			}
 
 			var fp = fingerprint.load();
+			var version_check_interval;
 			var update_timeout;
 			var update_array = [];
 
@@ -1639,12 +1644,15 @@
 			};
 
 			// noinspection DuplicatedCode
-			net.relay = function(url, data, type, headers) {
+			net.relay = function(url, data_type, data, type,  headers) {
 				var ajax_retry_timeout = 1000;
 				var ajax_retry_count = 5;
 				var ajax_timeout = 15 * 1000;
 				var cache = false;
-				var data_type = 'text';
+
+				if (typeof data_type === 'undefined') {
+					data_type = 'json';
+				}
 
 				if (typeof type === 'undefined') {
 					type = 'GET';
@@ -2720,6 +2728,40 @@
 
 				}
 			});
+
+			toastr.options.escapeHtml = true;
+			toastr.options.closeButton = true;
+			toastr.options.preventDuplicates = true;
+			toastr.options.newestOnTop = true;
+			toastr.options.timeOut = 0;
+			toastr.options.extendedTimeOut = 0;
+			toastr.options.showMethod = 'slideDown';
+
+			toastr.options.onclick = function() {
+				location.reload();
+			};
+
+			// noinspection JSUnusedAssignment
+			clearInterval(version_check_interval);
+			// noinspection JSUnusedAssignment
+			version_check_interval = setInterval(function() {
+				net.relay('https://api.github.com/repos/cojmar/n_chat/commits/master').done(function(data) {
+					// noinspection JSUnresolvedVariable
+					if (typeof data.sha !== 'undefined' && typeof $sys.version !== 'undefined') {
+						// noinspection JSUnresolvedVariable
+						if (data.sha !== null && $sys.version !== null) {
+							// noinspection JSUnresolvedVariable
+							if (data.sha !== '' && $sys.version !== '' && $sys.version !== '{{ site.github.build_revision }}') {
+								// noinspection JSUnresolvedVariable
+								if (data.sha === $sys.version) {
+									toastr.info('New update available, click here to reload');
+								}
+							}
+						}
+					}
+				});
+				// noinspection JSUnresolvedVariable
+			}, 2 * 60 * 1000);
 		});
 	});
 }(this));

@@ -427,6 +427,11 @@
 			'/beta/emuos/assets/js/libraries/simplestorage-0.2.1.min',
 			'//' + location + '/beta/emuos/assets/js/libraries/simplestorage-0.2.1.min'
 		],
+		'toastr': [
+			'libraries/toastr-2.1.4.min',
+			'/beta/emuos/assets/js/libraries/toastr-2.1.4.min',
+			'//' + location + '/beta/emuos/assets/js/libraries/toastr-2.1.4.min'
+		],
 		'twemoji': [
 			'libraries/twemoji-14.0.2.min',
 			'/beta/emuos/assets/js/libraries/twemoji-14.0.2.min',
