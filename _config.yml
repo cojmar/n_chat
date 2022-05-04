@@ -1,3 +1,7 @@
+repository: cojmar/n_chat
+source: .
+destination: .
+verbose: true
 include:
   - js/system.js
 plugins:
