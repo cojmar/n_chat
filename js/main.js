@@ -1526,7 +1526,7 @@
 
 						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
 
-						if (!/[a-z]/i.test(net.normalize(data.data)) || data.data.trim() === '' || data.data.length <= 2 || data.data.length > 20) {
+						if ((!is_admin && !/[a-z]/i.test(net.normalize(data.data))) || (!is_admin && data.data.trim() === '') || (!is_admin && data.data.length <= 2) || (!is_admin && data.data.length > 20)) {
 							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short or too long, correct the issue and try again.', 4);
 							return false;
 						}
