@@ -1401,7 +1401,7 @@
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload') {
 						// noinspection JSUnresolvedFunction
-						net.send_cmd('send_cmd', ['server.msg', 'server', {msg: 'reloading...' }]);
+						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'window.location.reload();';
 					}
@@ -1644,7 +1644,7 @@
 			};
 
 			// noinspection DuplicatedCode
-			net.relay = function(url, data_type, data, type,  headers) {
+			net.relay = function(url, data_type, data, type, headers) {
 				var ajax_retry_timeout = 1000;
 				var ajax_retry_count = 5;
 				var ajax_timeout = 15 * 1000;
@@ -2744,6 +2744,7 @@
 			// noinspection JSUnusedAssignment
 			clearInterval(version_check_interval);
 			// noinspection JSUnusedAssignment
+			/*
 			version_check_interval = setInterval(function() {
 				net.relay('https://api.github.com/repos/cojmar/n_chat/commits/master').done(function(data) {
 					// noinspection JSUnresolvedVariable
@@ -2762,6 +2763,7 @@
 				});
 				// noinspection JSUnresolvedVariable
 			}, 2 * 60 * 1000);
+			*/
 		});
 	});
 }(this));
