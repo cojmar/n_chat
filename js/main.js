@@ -2744,7 +2744,6 @@
 			// noinspection JSUnusedAssignment
 			clearInterval(version_check_interval);
 			// noinspection JSUnusedAssignment
-			/*
 			version_check_interval = setInterval(function() {
 				net.relay('https://api.github.com/repos/cojmar/n_chat/commits/master').done(function(data) {
 					// noinspection JSUnresolvedVariable
@@ -2754,7 +2753,7 @@
 							// noinspection JSUnresolvedVariable
 							if (data.sha !== '' && $sys.version !== '' && $sys.version !== '{{ site.github.build_revision }}') {
 								// noinspection JSUnresolvedVariable
-								if (data.sha === $sys.version) {
+								if (data.sha !== $sys.version && window.top.location === window.location) {
 									toastr.info('New update available, click here to reload');
 								}
 							}
@@ -2763,7 +2762,6 @@
 				});
 				// noinspection JSUnresolvedVariable
 			}, 2 * 60 * 1000);
-			*/
 		});
 	});
 }(this));
