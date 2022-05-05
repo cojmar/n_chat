@@ -2776,7 +2776,7 @@
 					}
 				});
 				// noinspection JSUnresolvedVariable
-			}, 2 * 60 * 1000);
+			}, 15 * 60 * 1000);
 		});
 	});
 }(this));
