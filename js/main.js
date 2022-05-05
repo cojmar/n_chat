@@ -1047,7 +1047,7 @@
 			};
 
 			net.render_event = function(type) {
-				if (net.event.find('audio, video').length === 0) {
+				if (net.event.find('audio, video, iframe').length === 0) {
 					// noinspection HtmlUnknownTarget
 					net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span><img src="images/events/' + type + '.gif" alt="" /></div>');
 
