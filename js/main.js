@@ -1110,6 +1110,10 @@
 
 							var ignored = !!~ignore_list.indexOf(users);
 
+							if (net.is_admin(user) || net.is_room_admin(user)) {
+								continue;
+							}
+
 							if (net.is_default_nick(nick)) {
 								users_array_default.push([user, nick, xp, url, country, fp, ignored]);
 							} else {
@@ -1127,6 +1131,28 @@
 							// sort by xp
 							return parseInt(b[2]) - parseInt(a[2]);
 						});
+
+						// noinspection JSUnresolvedVariable
+						for (var admins in net.room_info.users) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_user = net.room_info.users[admins].info.user;
+
+							if (net.is_admin(admin_user) || net.is_room_admin(admin_user)) {
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								var admin_fp = net.room_info.users[admins].info.fingerprint || '?';
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								var admin_nick = net.room_info.users[admins].info.nick;
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								var admin_xp = net.get_user_level(user)['xp'] || 0;
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								var admin_url = net.room_info.users[admins].data.url || '?';
+								// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+								var admin_country = net.room_info.users[admins].info.country ? net.room_info.users[admins].info.country + ' ' + country_codes[net.room_info.users[admins].info.country] : '?';
+								var admin_ignored = !!~ignore_list.indexOf(admins);
+
+								users_array_nick.unshift([admin_user, admin_nick, admin_xp, admin_url, admin_country, admin_fp, admin_ignored]);
+							}
+						}
 
 						var users_obj = {};
 						var nick_obj = {};
@@ -1554,6 +1580,7 @@
 					if (net.text_input.val().length > 0) {
 						net.log('You have unwanted characters in the message you are trying to send, correct the issue and try again', 4);
 					}
+
 					return false;
 				}
 
@@ -1567,6 +1594,7 @@
 				if (net.last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.last_msg === clean_msg || ((~clean_msg.indexOf(net.last_msg) || ~net.last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
+
 						return false;
 					}
 				}
@@ -1575,6 +1603,7 @@
 				if (net.last_last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.last_last_msg === clean_msg || ((~clean_msg.indexOf(net.last_last_msg) || ~net.last_last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
+
 						return false;
 					}
 				}
@@ -1583,6 +1612,7 @@
 				if (net.last_last_last_msg && !is_admin && !is_room_admin && !is_spam_room && spam_time) {
 					if (net.last_last_last_msg === clean_msg || ((~clean_msg.indexOf(net.last_last_last_msg) || ~net.last_last_last_msg.indexOf(clean_msg)) && clean_msg.length >= 10)) {
 						net.log('You can\'t repeat yourself, write something different', 4);
+
 						return false;
 					}
 				}
