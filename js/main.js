@@ -1021,10 +1021,10 @@
 						// noinspection JSUnfilteredForInLoop
 						if (room === net.room_info.name) {
 							// noinspection JSUnfilteredForInLoop
-							html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
+							html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 || net.rooms[room] === 0 ? 's' : '') + ')</option>'
 						} else {
 							// noinspection JSUnfilteredForInLoop
-							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 ? 's' : '') + ')</option>'
+							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 || net.rooms[room] === 0 ? 's' : '') + ')</option>'
 						}
 					}
 				}
@@ -1038,7 +1038,7 @@
 
 				if (!current_room.startsWith('Emupedia') && current_room !== 'Spam' && current_room !== 'Music') {
 					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>');
+					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>');
 				}
 
 				if (typeof cb === 'function') {
@@ -1082,7 +1082,7 @@
 						var room = net.room_info.name;
 
 						// noinspection JSUnresolvedVariable
-						var ignore_list = (net.me) ? Array.from(net.me.private_data.ignore_list || []).map(function(u) {
+						var ignore_list = net.me ? Array.from(net.me.private_data.ignore_list || []).map(function(u) {
 							return u.uid
 						}) : [];
 
@@ -1153,6 +1153,12 @@
 							ignored_obj[item[0]] = item[6];
 						});
 
+						/*for (var a in users_obj) {
+							if (net.is_admin(a)) {
+								//console.log(users_obj);
+							}
+						}*/
+
 						// noinspection JSUnresolvedVariable
 						for (var u in users_obj) {
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
@@ -1200,7 +1206,7 @@
 						// noinspection JSUnresolvedVariable
 						net.client_room_online.text(users_online);
 						// noinspection JSUnresolvedFunction
-						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')');
+						$('.ui-selectmenu-text').text(room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')');
 
 						net.render_users_timeout = false;
 
@@ -1863,11 +1869,11 @@
 
 				if (!room.startsWith('Emupedia')) {
 					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 ? 's' : '') + ')</option>').selectmenu('refresh');
+					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>').selectmenu('refresh');
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour.', 4);
 				}
 
-				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 ? 's' : ''), 1);
+				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : ''), 1);
 				net.log('Type /help to see a list of available commands.', 1);
 				net.log('To change your nickname type /nick and your new nickname.', 1);
 				net.log('To join a channel type /join and the channel name.', 1);
@@ -1956,7 +1962,7 @@
 				net.client_room_online.text(Object.keys(net.room_info.users).length);
 
 				// noinspection JSUnresolvedVariable
-				$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
+				$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 || Object.keys(net.room_info.users).length === 0  ? 's' : '') + ')');
 
 				var color = net.colors[3];
 				var glow = '';
@@ -2015,7 +2021,7 @@
 						// noinspection JSUnresolvedVariable
 						net.client_room_online.text(Object.keys(net.room_info.users).length);
 						// noinspection JSUnresolvedVariable
-						$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 ? 's' : '') + ')');
+						$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 || Object.keys(net.room_info.users).length === 0 ? 's' : '') + ')');
 					});
 				}, 1000);
 
@@ -2244,9 +2250,10 @@
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
 					if (data[room] > 0) {
-						if (room === 'Music' || room === 'Spam') {
+						if (room === 'Emupedia' || room === 'Music' || room === 'Spam') {
 							continue;
 						}
+
 						// noinspection JSUnfilteredForInLoop
 						sortable.push([room, data[room]]);
 					}
@@ -2257,6 +2264,10 @@
 				});
 
 				for (var room2 in data) {
+					if (room2 === 'Emupedia') {
+						sortable.unshift([room2, data[room2]]);
+					}
+
 					// noinspection JSUnfilteredForInLoop
 					if (room2 === 'Music' || room2 === 'Spam') {
 						// noinspection JSUnfilteredForInLoop
