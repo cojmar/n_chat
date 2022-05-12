@@ -1331,10 +1331,7 @@
 				}
 
 				if (msg.charAt(0) === '/') {
-					var data = {
-						cmd: '',
-						data: ''
-					};
+					var data = { cmd: '', data: '' };
 
 					msg = msg.substr(1).split(' ');
 					data.cmd = msg.shift();
@@ -1455,6 +1452,16 @@
 						net.send_cmd('send_cmd', ['server.msg', 'server', { msg: 'reloading...' }]);
 						data.cmd = 'eval';
 						data.data = 'window.location.reload();';
+					}
+
+					if (data.cmd === 'this') {
+						data.data = data.data.split(' ');
+						var f = data.data.shift();
+						var uid = data.data.shift();
+						var room = data.data.shift();
+						data.data = data.data.join(' ');
+						// noinspection JSUnresolvedFunction
+						net.send_cmd('this', [f, [uid, room]])
 					}
 
 					if (data.cmd === 'rename' || data.cmd === 'ren' || data.cmd === 'r') {
