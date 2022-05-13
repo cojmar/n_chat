@@ -1749,7 +1749,7 @@
 				// noinspection JSUnresolvedFunction
 				return $.ajax({
 					type: type,
-					url: url + (!cache ? '?rand=' + new Date().getTime() : ''),
+					url: url,
 					headers: headers,
 					data: data,
 					dataType: data_type,
