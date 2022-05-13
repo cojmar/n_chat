@@ -206,7 +206,7 @@
 
 	// noinspection RegExpUnnecessaryNonCapturingGroup
 	var emoticons = {
-			base: 'https://twemoji.maxcdn.com/v/14.0.2/',
+			base: 'images/libraries/twemoji-14.0.2/',
 			ext: '.png',
 			size: '72x72',
 			className: 'emoticon',
