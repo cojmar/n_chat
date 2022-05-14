@@ -1133,27 +1133,6 @@
 						});
 
 						// noinspection JSUnresolvedVariable
-						for (var admins in net.room_info.users) {
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var admin_user = net.room_info.users[admins].info.user;
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var admin_fp = net.room_info.users[admins].info.fingerprint || '?';
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var admin_nick = net.room_info.users[admins].info.nick;
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var admin_xp = net.get_user_level(admin_user)['xp'] || 0;
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var admin_url = net.room_info.users[admins].data.url || '?';
-							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							var admin_country = net.room_info.users[admins].info.country ? net.room_info.users[admins].info.country + ' ' + country_codes[net.room_info.users[admins].info.country] : '?';
-							var admin_ignored = !!~ignore_list.indexOf(admins);
-
-							if ((net.is_admin(admin_user) || net.is_room_admin(admin_user)) && admin_nick !== '🤖') {
-								users_array_nick.unshift([admin_user, admin_nick, admin_xp, admin_url, admin_country, admin_fp, admin_ignored]);
-							}
-						}
-
-						// noinspection JSUnresolvedVariable
 						for (var bots in net.room_info.users) {
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 							var bot_user = net.room_info.users[bots].info.user;
@@ -1171,6 +1150,27 @@
 
 							if (net.is_admin(bot_user) && bot_nick === '🤖') {
 								users_array_nick.unshift([bot_user, bot_nick, bot_xp, bot_url, bot_country, bot_fp, bot_ignored]);
+							}
+						}
+
+						// noinspection JSUnresolvedVariable
+						for (var admins in net.room_info.users) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_user = net.room_info.users[admins].info.user;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_fp = net.room_info.users[admins].info.fingerprint || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_nick = net.room_info.users[admins].info.nick;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_xp = net.get_user_level(admin_user)['xp'] || 0;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_url = net.room_info.users[admins].data.url || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_country = net.room_info.users[admins].info.country ? net.room_info.users[admins].info.country + ' ' + country_codes[net.room_info.users[admins].info.country] : '?';
+							var admin_ignored = !!~ignore_list.indexOf(admins);
+
+							if ((net.is_admin(admin_user) || net.is_room_admin(admin_user)) && admin_nick !== '🤖') {
+								users_array_nick.unshift([admin_user, admin_nick, admin_xp, admin_url, admin_country, admin_fp, admin_ignored]);
 							}
 						}
 
