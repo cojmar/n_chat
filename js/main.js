@@ -1184,11 +1184,6 @@
 								if (net.is_admin(u) || net.is_room_admin(u) || net.is_spam_room()) {
 									glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
 								}
-
-								if (net.is_admin(u) && nickname === '🤖') {
-									user_level.curLevel = '∞';
-									user_level.timeRequired = '∞';
-								}
 							}
 
 							class_styles = 'class="client_nickname ' + glow + '"';
