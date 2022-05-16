@@ -1091,6 +1091,7 @@
 
 						var users_array_default = [];
 						var users_array_nick = [];
+						var users_array_admins = [];
 						var users_list = '';
 
 						// noinspection JSUnresolvedVariable
@@ -1110,6 +1111,10 @@
 
 							var ignored = !!~ignore_list.indexOf(users);
 
+							if (net.is_admin(user) || net.is_room_admin(user)) {
+								continue;
+							}
+
 							if (net.is_default_nick(nick)) {
 								users_array_default.push([user, nick, xp, url, country, fp, ignored]);
 							} else {
@@ -1127,6 +1132,61 @@
 							// sort by xp
 							return parseInt(b[2]) - parseInt(a[2]);
 						});
+
+						// noinspection JSUnresolvedVariable
+						for (var bots in net.room_info.users) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var bot_user = net.room_info.users[bots].info.user;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var bot_fp = net.room_info.users[bots].info.fingerprint || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var bot_nick = net.room_info.users[bots].info.nick;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var bot_xp = net.get_user_level(bot_user)['xp'] || 0;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var bot_url = net.room_info.users[bots].data.url || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var bot_country = net.room_info.users[bots].info.country ? net.room_info.users[bots].info.country + ' ' + country_codes[net.room_info.users[bots].info.country] : '?';
+							var bot_ignored = !!~ignore_list.indexOf(bots);
+
+							if (net.is_admin(bot_user) && bot_nick === '🤖') {
+								users_array_nick.unshift([bot_user, bot_nick, bot_xp, bot_url, bot_country, bot_fp, bot_ignored]);
+							}
+						}
+
+						// noinspection JSUnresolvedVariable
+						for (var admins in net.room_info.users) {
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_user = net.room_info.users[admins].info.user;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_fp = net.room_info.users[admins].info.fingerprint || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_nick = net.room_info.users[admins].info.nick;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_xp = net.get_user_level(admin_user)['xp'] || 0;
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_url = net.room_info.users[admins].data.url || '?';
+							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+							var admin_country = net.room_info.users[admins].info.country ? net.room_info.users[admins].info.country + ' ' + country_codes[net.room_info.users[admins].info.country] : '?';
+							var admin_ignored = !!~ignore_list.indexOf(admins);
+
+							if ((net.is_admin(admin_user) || net.is_room_admin(admin_user)) && admin_nick !== '🤖') {
+								users_array_admins.push([admin_user, admin_nick, admin_xp, admin_url, admin_country, admin_fp, admin_ignored]);
+							}
+						}
+
+						// noinspection JSCheckFunctionSignatures
+						users_array_admins.sort(function(a, b) {
+							if (!net.refresh_users) {
+								// sort by nickname
+								return a[1].localeCompare(b[1]);
+							}
+
+							// sort by xp
+							return parseInt(b[2]) - parseInt(a[2]);
+						});
+
+						users_array_nick.unshift.apply(users_array_nick, users_array_admins);
 
 						var users_obj = {};
 						var nick_obj = {};
@@ -1183,6 +1243,11 @@
 
 								if (net.is_admin(u) || net.is_room_admin(u) || net.is_spam_room()) {
 									glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
+								}
+
+								if (net.is_admin(u) && nickname === '🤖') {
+									user_level.curLevel = '∞';
+									user_level.timeRequired = '∞';
 								}
 							}
 
