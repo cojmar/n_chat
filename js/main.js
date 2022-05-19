@@ -2560,7 +2560,7 @@
 				if (keys.length > 0) {
 					for (var key in keys) {
 						i++;
-						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> <a class="unban_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> <a class="unban_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key]) + '</a></span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
 					net.log('<span style="color: ' + net.colors[4] + ';">[BAN LIST]</span><br />' + res + '', 4);
@@ -2593,7 +2593,7 @@
 				if (keys.length > 0) {
 					for (var key in keys) {
 						i++;
-						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> <a class="unjail_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> <a class="unjail_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>') + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
 					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] </span><br />' + res + '', 4);
@@ -2791,6 +2791,16 @@
 						net.color_popover.css('visibility', 'hidden');
 					}, 200);
 				}
+			});
+
+			$(document).on('click', '.unban_user', function() {
+				net.text_input.get(0).value = '/unban ' + $(this).data('id');
+				net.text_input.focus();
+			});
+
+			$(document).on('click', '.unjail_user', function() {
+				net.text_input.get(0).value = '/unjail ' + $(this).data('id');
+				net.text_input.focus();
 			});
 
 			$(document).on('click', '.ignore_user', function() {
