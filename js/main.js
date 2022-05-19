@@ -2541,17 +2541,31 @@
 				// console.log('server.bans');
 				// console.log(JSON.stringify(data, null, 2));
 
+				var d = new Date();
+
+				var timestamp = [
+					'<span style="color:' + net.colors[1] + ';">[',
+					('0' + d.getHours()).slice(-2),
+					':',
+					('0' + d.getMinutes()).slice(-2),
+					':',
+					('0' + d.getSeconds()).slice(-2),
+					']</span>'
+				].join('');
+
 				var keys = Object.keys(data);
 				var res = '';
+				var i = 0;
 
 				if (keys.length > 0) {
 					for (var key in keys) {
-						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						i++;
+						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
-					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]&nbsp;</span><br />' + res + '', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[BAN LIST]</span><br />' + res + '', 4);
 				} else {
-					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]&nbsp;No users banned</span>', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[BAN LIST] No users banned</span>', 4);
 				}
 			});
 
@@ -2560,17 +2574,31 @@
 				// console.log('server.bans');
 				// console.log(JSON.stringify(data, null, 2));
 
+				var d = new Date();
+
+				var timestamp = [
+					'<span style="color:' + net.colors[1] + ';">[',
+					('0' + d.getHours()).slice(-2),
+					':',
+					('0' + d.getMinutes()).slice(-2),
+					':',
+					('0' + d.getSeconds()).slice(-2),
+					']</span>'
+				].join('');
+
 				var keys = Object.keys(data);
 				var res = '';
+				var i = 0;
 
 				if (keys.length > 0) {
 					for (var key in keys) {
-						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						i++;
+						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
-					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]&nbsp;</span><br />' + res + '', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] </span><br />' + res + '', 4);
 				} else {
-					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]&nbsp;No users jailed</span>', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] No users jailed</span>', 4);
 				}
 			});
 
