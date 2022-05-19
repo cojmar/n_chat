@@ -2537,6 +2537,44 @@
 			});
 
 			// noinspection DuplicatedCode
+			net.socket.on('server.bans', function(data) {
+				// console.log('server.bans');
+				// console.log(JSON.stringify(data, null, 2));
+
+				var keys = Object.keys(data);
+				var res = '';
+
+				if (keys.length > 0) {
+					for (var key in keys) {
+						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires: ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+					}
+
+					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]</span><br />' + res + '', 4);
+				} else {
+					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]&nbsp;No users banned</span>', 4);
+				}
+			});
+
+			// noinspection DuplicatedCode
+			net.socket.on('server.jail', function(data) {
+				// console.log('server.bans');
+				// console.log(JSON.stringify(data, null, 2));
+
+				var keys = Object.keys(data);
+				var res = '';
+
+				if (keys.length > 0) {
+					for (var key in keys) {
+						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires: ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+					}
+
+					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]</span><br />' + res + '', 4);
+				} else {
+					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]&nbsp;No users jailed</span>', 4);
+				}
+			});
+
+			// noinspection DuplicatedCode
 			net.socket.on('server.who', function(data) {
 				// console.log('server.who');
 				// console.log(JSON.stringify(data, null, 2));
