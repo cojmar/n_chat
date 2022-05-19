@@ -2546,10 +2546,10 @@
 
 				if (keys.length > 0) {
 					for (var key in keys) {
-						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires: ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
-					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]</span><br />' + res + '', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]&nbsp;</span><br />' + res + '', 4);
 				} else {
 					net.log('<span style="color: ' + net.colors[4] + ';">[BANS]&nbsp;No users banned</span>', 4);
 				}
@@ -2565,10 +2565,10 @@
 
 				if (keys.length > 0) {
 					for (var key in keys) {
-						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires: ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						res += '<span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> ' + keys[key] : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> ' + keys[key]) + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
-					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]</span><br />' + res + '', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]&nbsp;</span><br />' + res + '', 4);
 				} else {
 					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL]&nbsp;No users jailed</span>', 4);
 				}
