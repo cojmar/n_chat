@@ -797,5 +797,6 @@ label {
 }
 
 .client_nickname {
+	text-shadow: #000 1px 1px;
 	cursor: pointer;
 }
