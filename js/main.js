@@ -1570,8 +1570,14 @@
 									return match && match[1].length === 11 ? match[1] : false;
 								}
 
+								function getParameterByName(name, url) {
+									var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
+
+									return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+								}
+
 								// noinspection HtmlDeprecatedAttribute
-								container = '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + video(data.data) + '?controls=0&autoplay=1&modestbranding=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+								container = '<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/' + video(data.data) + '?controls=0&autoplay=1&modestbranding=1&rel=0&start=' + (getParameterByName('t', data.data) || 0) + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 							}
 
 							data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: container }];
