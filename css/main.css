@@ -6,6 +6,10 @@
 	--background: #302f2f;
 }
 
+body {
+	text-shadow: #000 1px 1px;
+}
+
 hr {
 	margin-top: 2px;
 	border-color: #808080;
@@ -797,6 +801,5 @@ label {
 }
 
 .client_nickname {
-	text-shadow: #000 1px 1px;
 	cursor: pointer;
 }
