@@ -671,12 +671,12 @@ label {
 }
 
 @-webkit-keyframes glow2 {
-	/*noinspection CssFloatPxLength*/
+	/*noinspection CssNonIntegerLengthInPixels*/
 	from {
 		-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 		filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 	}
-	/*noinspection CssFloatPxLength*/
+	/*noinspection CssNonIntegerLengthInPixels*/
 	to {
 		-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
 		filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
@@ -684,12 +684,12 @@ label {
 }
 
 @-moz-keyframes glow2 {
-	/*noinspection CssFloatPxLength*/
+	/*noinspection CssNonIntegerLengthInPixels*/
 	from {
 		-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 		filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 	}
-	/*noinspection CssFloatPxLength*/
+	/*noinspection CssNonIntegerLengthInPixels*/
 	to {
 		-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
 		filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
@@ -697,12 +697,12 @@ label {
 }
 
 @keyframes glow2 {
-	/*noinspection CssFloatPxLength*/
+	/*noinspection CssNonIntegerLengthInPixels*/
 	from {
 		-webkit-filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 		filter: drop-shadow(0px 0px 0.7px #159904) drop-shadow(0px 0px 0.7px #159904);
 	}
-	/*noinspection CssFloatPxLength*/
+	/*noinspection CssNonIntegerLengthInPixels*/
 	to {
 		-webkit-filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
 		filter: drop-shadow(0px 0px 1.5px #159904) drop-shadow(0px 0px 1.5px #159904);
@@ -711,12 +711,12 @@ label {
 
 @supports (--css: variables) {
 	@-webkit-keyframes glow2 {
-		/*noinspection CssFloatPxLength*/
+		/*noinspection CssNonIntegerLengthInPixels*/
 		from {
 			-webkit-filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
 			filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
 		}
-		/*noinspection CssFloatPxLength*/
+		/*noinspection CssNonIntegerLengthInPixels*/
 		to {
 			-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
 			filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
@@ -724,12 +724,12 @@ label {
 	}
 
 	@-moz-keyframes glow2 {
-		/*noinspection CssFloatPxLength*/
+		/*noinspection CssNonIntegerLengthInPixels*/
 		from {
 			-webkit-filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
 			filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
 		}
-		/*noinspection CssFloatPxLength*/
+		/*noinspection CssNonIntegerLengthInPixels*/
 		to {
 			-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
 			filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
@@ -737,12 +737,12 @@ label {
 	}
 
 	@keyframes glow2 {
-		/*noinspection CssFloatPxLength*/
+		/*noinspection CssNonIntegerLengthInPixels*/
 		from {
 			-webkit-filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
 			filter: drop-shadow(0px 0px 0.7px var(--glow-color-1)) drop-shadow(0px 0px 0.7px var(--glow-color-1));
 		}
-		/*noinspection CssFloatPxLength*/
+		/*noinspection CssNonIntegerLengthInPixels*/
 		to {
 			-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
 			filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
@@ -759,13 +759,14 @@ label {
 	text-shadow: 0 0 3px #fff, 0 0 3px var(--glow-color-2);
 }
 
-/*noinspection CssFloatPxLength*/
+/*noinspection CssNonIntegerLengthInPixels*/
 .glow2 {
 	/*-webkit-animation: glow2 1s ease-in-out infinite alternate;*/
 	/*-moz-animation: glow2 1s ease-in-out infinite alternate;*/
 	/*animation: glow2 1s ease-in-out infinite alternate;*/
 	-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
 	filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+	text-shadow: none;
 }
 
 .emoji-picker {
