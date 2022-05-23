@@ -6,7 +6,7 @@
 	--background: #302f2f;
 }
 
-body {
+body, input, button {
 	text-shadow: #000 1px 1px;
 }
 
