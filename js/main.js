@@ -836,14 +836,25 @@
 					var found = false;
 
 					for (var event in eventss) {
-						var words = events.mapping[event_language][eventss[event]].sort(function(a, b) {
-							return b.length - a.length;
-						});
+						var count = 0;
+						var words = [];
+
+						if (typeof events.mapping[event_language][eventss[event]] === 'object' && !Array.isArray(events.mapping[event_language][eventss[event]]) && events.mapping[event_language][eventss[event]] !== null) {
+							count = events.mapping[event_language][eventss[event]].count;
+							// noinspection JSUnresolvedVariable
+							words = events.mapping[event_language][eventss[event]].triggers.sort(function(a, b) {
+								return b.length - a.length;
+							});
+						} else if (Array.isArray(events.mapping[event_language][eventss[event]])) {
+							words = events.mapping[event_language][eventss[event]].sort(function(a, b) {
+								return b.length - a.length;
+							});
+						}
 
 						for (var word in words) {
 							// noinspection JSUnfilteredForInLoop
 							if (~str.toLowerCase().indexOf(words[word])) {
-								net.render_event(eventss[event]);
+								net.render_event(eventss[event], count > 0 ? (Math.floor(Math.random() * (count - 1 + 1) + 1)) : count);
 								found = true;
 								break;
 							}
@@ -1050,10 +1061,10 @@
 				}
 			};
 
-			net.render_event = function(type) {
+			net.render_event = function(type, count) {
 				if (net.event.find('audio, video, iframe').length === 0) {
 					// noinspection HtmlUnknownTarget
-					net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span><img src="images/events/' + type + '.gif" alt="" /></div>');
+					net.event.html('<div class="animate__animated animate__zoomIn"><span>&nbsp;</span><img src="images/events/' + type + (count > 0 ? count : '') + '.gif" alt="" /></div>');
 
 					clearTimeout(net.event_timeout);
 					net.event_timeout = setTimeout(function() {

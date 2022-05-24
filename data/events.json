@@ -1,60 +1,85 @@
 {
 	"format": {
-		"version": "1.0"
+		"version": "1.1"
 	},
 	"mapping": {
 		"en": {
 			"amogus": ["ඞ", "amogus", "amoungus", "amongus", "amoung us", "among us", "among sus", "amoge us", "sus sus", " sus", "sus ", "sussy baka", "inpostor", "inposter", "impostor", "imposter"],
-			"cat": ["🐱", ":cat:", "meow", "nyan "],
+			"cat": ["🐱", "meow", "nyan "],
 			"cry": ["cry ", "crying "],
 			"dance": ["dance", "dancing", "pepe"],
-			"dog": ["🐶", ":dog:", "woof", "doggy", "doggie", "dogo ", "doggo", "doge ", "doge-"],
+			"dog": ["🐶", "woof", "doggy", "doggie", "dogo ", "doggo", "doge ", "doge-"],
 			"dontcry": ["don't you cry", "dont you cry", "don't u cry", "dont u cry", "don't cry", "dont cry", "dontcry"],
 			"facepalm": ["facepalm", "face palm"],
+			"fight": ["fight", "dropkick", "roundkick", "kick"],
+			"furry": {
+				"count": 5,
+				"triggers": ["furry", "furries"]
+			},
 			"haha": ["jaja", "haha", "hehe", "lmao"],
 			"hugs": [" hugs", "hugs ", " hug", "hug ", "hugging"],
 			"huh": ["huh "],
 			"hypno": ["hypno"],
-			"kisses": ["kisses"],
+			"kiss": {
+				"count": 2,
+				"triggers": ["kisses", "kiss", "smootch"]
+			},
+			"mad": ["mad", "upset"],
 			"matrix": ["matrix"],
-			"megachad": ["megachad"],
+			"megachad": ["megachad", "mega chad"],
 			"megalol": ["omegalul", "omeglul", "megalol", "megalul", "mega lol"],
 			"megapopcorn": ["megapopcorn", "mega popcorn", "mega pop corn"],
-			"music": ["music"],
+			"music": {
+				"count": 2,
+				"triggers": ["music"]
+			},
 			"pats": ["patts", "pats"],
 			"pogchamp": ["pogchamp", "poggers", "pog "],
-			"popcorn": ["🍿", ":popcorn:", "popcorn", "pop corn"],
+			"popcorn": ["🍿", "popcorn", "pop corn"],
 			"popcornfail": ["popcornfail"],
 			"rage": ["🤬", " rage", "r a g e", "raged", "rages", "mad pepe"],
-			"sad": ["sad ", "megasad", "sad pepe"],
+			"sad": ["sad ", "megasad", "mega sad", "sad pepe"],
 			"simp": ["s i m p", "simmp", "simpp", "simp ", "sinp"],
 			"smile": ["smile"],
 			"thanks": ["thanks", "thankyou", "thank you"],
 			"tired": ["tired "],
 			"what": ["whut", "huh"],
+			"yeah": ["hellyeah", "hell yeah", "helayeah", "yeah"],
 			"zzz": ["zzz", "z z z", "sleepy"]
 		},
 		"tr": {
 			"amogus": ["amogus", "amongus", "among us", "among sus", "sus sus", "imposter"],
-			"cat": ["🐱", ":cat:", "kedi ", "nyan "],
+			"cat": ["🐱", "kedi ", "nyan "],
 			"cry": ["agla ", "ağla ", "ağlamak ", "aglamak "],
 			"dance": ["dans ", "pepe"],
-			"dog": ["🐶", ":dog:", "kopek ", "köpek ", "dogo ", "doggo", "doge ", "doge-"],
+			"dog": ["🐶", "kopek ", "köpek ", "dogo ", "doggo", "doge ", "doge-"],
 			"dontcry": ["ağlama", "aglama"],
 			"facepalm": ["yüz avuç içi", "yuz avuc ici"],
+			"fight": ["fight", "dropkick", "roundkick", "kick"],
+			"furry": {
+				"count": 5,
+				"triggers": ["furry", "furries"]
+			},
 			"haha": ["jaja", "haha", "hehe", "lmao"],
 			"hugs": ["sarılma", "sarilma"],
 			"huh": ["huh "],
 			"hypno": ["hipnoz"],
-			"kisses": ["öpücükler", "opucukler"],
+			"kiss": {
+				"count": 2,
+				"triggers": ["öpücükler", "opucukler"]
+			},
+			"mad": ["mad", "upset"],
 			"matrix": ["matrix"],
 			"megachad": ["megachad"],
 			"megalol": ["omegalul", "omeglul", "megalol", "megalul", "mega lol"],
 			"megapopcorn": ["megapopcorn", "mega popcorn", "mega pop corn"],
-			"music": ["müzik", "muzik"],
+			"music": {
+				"count": 2,
+				"triggers": ["müzik", "muzik"]
+			},
 			"pats": ["patlar "],
 			"pogchamp": ["pogchamp", "poggers", "pog "],
-			"popcorn": ["🍿", ":popcorn:", "popcorn", "pop corn"],
+			"popcorn": ["🍿", "popcorn", "pop corn"],
 			"popcornfail": ["popcornfail"],
 			"rage": ["🤬", "öfke ", "ofke "],
 			"simp": ["s i m p", "simmp", "simpp", " simp", "simp ", "sinp"],
@@ -63,6 +88,7 @@
 			"sad": ["üzgün", "uzgun"],
 			"tired": ["yorgun"],
 			"what": ["neyi"],
+			"yeah": ["hellyeah", "hell yeah", "helayeah", "yeah"],
 			"zzz": ["zzz", "z z z", "uykulu"]
 		}
 	}
