@@ -180,6 +180,8 @@
 				mode: 0
 			});
 
+			net.body = $('body');
+
 			var picker = new EmojiButton({
 				theme: 'dark',
 				style: 'twemoji',
@@ -296,6 +298,7 @@
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
 			net.use_animated_emoticons = simplestorage.get('use_animated_emoticons');
 			net.refresh_users = simplestorage.get('refresh_users');
+			net.use_text_shadow = simplestorage.get('use_text_shadow');
 			net.use_colors = simplestorage.get('use_colors');
 
 			if (typeof net.use_blacklist === 'undefined') {
@@ -323,9 +326,20 @@
 				net.refresh_users = true;
 			}
 
+			if (typeof net.use_text_shadow === 'undefined') {
+				simplestorage.set('use_text_shadow', true);
+				net.use_text_shadow = true;
+			}
+
 			if (typeof net.use_colors === 'undefined') {
 				simplestorage.set('use_colors', true);
 				net.use_colors = true;
+			}
+
+			if (net.use_text_shadow) {
+				net.body.addClass('text_shadow');
+			} else {
+				net.body.removeClass('text_shadow');
 			}
 
 			net.is_admin = function(user) {
@@ -1403,6 +1417,17 @@
 						net.render_users(1, true);
 					}
 
+					if (data.cmd === 'text_shadow') {
+						net.use_text_shadow = !net.use_text_shadow;
+						simplestorage.set('use_text_shadow', net.use_text_shadow);
+
+						if (net.use_text_shadow) {
+							net.body.addClass('text_shadow');
+						} else {
+							net.body.removeClass('text_shadow');
+						}
+					}
+
 					if (data.cmd === 'colors') {
 						net.use_colors = !net.use_colors;
 						simplestorage.set('use_colors', net.use_colors);
@@ -1422,11 +1447,26 @@
 						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = false;
+						net.use_text_shadow = false;
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_events', net.use_events);
 						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
+						simplestorage.set('use_text_shadow', net.use_text_shadow);
+
+						if (net.use_animated_topic) {
+							net.client_topic.removeAttr('style');
+						} else {
+							net.client_topic.attr('style', 'animation: none; padding-left: 0;');
+						}
+
+						if (net.use_text_shadow) {
+							net.body.addClass('text_shadow');
+						} else {
+							net.body.removeClass('text_shadow');
+						}
+
 						net.render_users(1, true);
 					}
 
@@ -1437,11 +1477,26 @@
 						net.use_animated_topic = false;
 						net.use_animated_emoticons = false;
 						net.use_colors = true;
+						net.use_text_shadow = true;
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_events', net.use_events);
 						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
+						simplestorage.set('use_text_shadow', net.use_text_shadow);
+
+						if (net.use_animated_topic) {
+							net.client_topic.removeAttr('style');
+						} else {
+							net.client_topic.attr('style', 'animation: none; padding-left: 0;');
+						}
+
+						if (net.use_text_shadow) {
+							net.body.addClass('text_shadow');
+						} else {
+							net.body.removeClass('text_shadow');
+						}
+
 						net.render_users(1, true);
 					}
 
@@ -1452,18 +1507,27 @@
 						net.use_animated_topic = true;
 						net.use_animated_emoticons = true;
 						net.use_colors = true;
+						net.use_text_shadow = true;
 						simplestorage.set('refresh_users', net.refresh_users);
 						simplestorage.set('use_events', net.use_events);
 						simplestorage.set('use_animated_topic', net.use_animated_topic);
 						simplestorage.set('use_animated_emoticons', net.use_animated_emoticons);
 						simplestorage.set('use_colors', net.use_colors);
-						net.render_users(1, true);
-					}
+						simplestorage.set('use_text_shadow', net.use_text_shadow);
 
-					if (net.use_animated_topic) {
-						net.client_topic.removeAttr('style');
-					} else {
-						net.client_topic.attr('style', 'animation: none; padding-left: 0;');
+						if (net.use_animated_topic) {
+							net.client_topic.removeAttr('style');
+						} else {
+							net.client_topic.attr('style', 'animation: none; padding-left: 0;');
+						}
+
+						if (net.use_text_shadow) {
+							net.body.addClass('text_shadow');
+						} else {
+							net.body.removeClass('text_shadow');
+						}
+
+						net.render_users(1, true);
 					}
 
 					if (data.cmd === 'recover_code') {
@@ -2400,6 +2464,7 @@
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
 							'<label><input class="settings_input" id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
 							'<label><input class="settings_input" id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>',
+							'<label><input class="settings_input" id="use_text_shadow" type="checkbox" ' + (net.use_text_shadow ? 'checked="checked"' : '') + '>&nbsp;Show text shadow</label>',
 							'<label><input class="settings_input" id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label><hr style="margin:0;"/>',
 							'<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Low</span>',
 							'<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Medium</span>',
@@ -2424,7 +2489,7 @@
 							last_color = data.items[item].color;
 						}
 
-						net.color_popover.html(html);
+						net.settings_popover.html(html);
 
 						$('.preset_settings').on('mouseover', function() {
 							$(this).css('text-decoration', 'underline');
@@ -2437,6 +2502,17 @@
 							$('.settings_input').each(function() {
 								$(this).prop('checked', net[$(this).prop('id')]);
 							});
+						});
+
+						$('#use_text_shadow').off('change').on('change', function() {
+							net.use_text_shadow = $(this).prop('checked');
+							simplestorage.set('use_text_shadow', net.use_text_shadow);
+
+							if (net.use_text_shadow) {
+								net.body.addClass('text_shadow');
+							} else {
+								net.body.removeClass('text_shadow');
+							}
 						});
 
 						$('#use_colors').off('change').on('change', function() {
@@ -2481,7 +2557,7 @@
 						// noinspection JSUnresolvedVariable
 						if (data.claimable && data.custom_color) {
 							$('#custom_color').spectrum({
-								appendTo: '#client_color_popover',
+								appendTo: '#client_settings_popover',
 								allowEmpty: true,
 								color: last_color
 							}).on('change', function(e, color) {
@@ -2491,11 +2567,11 @@
 						}
 					}
 
-					net.color_popover_instance.update();
+					net.settings_popover_instance.update();
 
-					if (!net.color_popover.hasClass('show')) {
-						net.color_popover.css('visibility', 'visible');
-						net.color_popover.addClass('show');
+					if (!net.settings_popover.hasClass('show')) {
+						net.settings_popover.css('visibility', 'visible');
+						net.settings_popover.addClass('show');
 					}
 				}
 			});
@@ -2675,8 +2751,8 @@
 
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
-			net.color_button = $('#client_colors');
-			net.color_popover = $('#client_color_popover');
+			net.settings_button = $('#client_settings');
+			net.settings_popover = $('#client_settings_popover');
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
@@ -2781,7 +2857,7 @@
 			Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
 
 			// noinspection JSUnresolvedFunction
-			net.color_popover_instance = new Popper(net.emoji_button.get(0), net.color_popover.get(0), {
+			net.settings_popover_instance = new Popper(net.emoji_button.get(0), net.settings_popover.get(0), {
 				placement: 'top-start',
 				modifiers: {
 					flip: {
@@ -2798,14 +2874,14 @@
 				picker.togglePicker(net.emoji_button.get(0));
 			});
 
-			net.color_button.off('click').on('click', function() {
-				if (!net.color_popover.hasClass('show')) {
+			net.settings_button.off('click').on('click', function() {
+				if (!net.settings_popover.hasClass('show')) {
 					// noinspection JSUnresolvedFunction
 					net.send_cmd('present', '');
 				} else {
-					net.color_popover.removeClass('show');
+					net.settings_popover.removeClass('show');
 					setTimeout(function() {
-						net.color_popover.css('visibility', 'hidden');
+						net.settings_popover.css('visibility', 'hidden');
 					}, 200);
 				}
 			});
@@ -2834,14 +2910,14 @@
 				net.text_input.focus();
 			});
 
-			$(document).on('click', '#client_color_popover a.color', function() {
+			$(document).on('click', '#client_settings_popover a.color', function() {
 				// noinspection JSUnresolvedFunction
 				net.send_cmd('present', $(this).data('index'));
 			});
 
-			$(document).on('click', '#client_color_popover a.color-claim', function() {
-				if ($('#client_color_popover a.color-claim').html().indexOf('CUSTOM') === -1) {
-					net.color_popover.removeClass('show');
+			$(document).on('click', '#client_settings_popover a.color-claim', function() {
+				if ($('#client_settings_popover a.color-claim').html().indexOf('CUSTOM') === -1) {
+					net.settings_popover.removeClass('show');
 					// noinspection JSUnresolvedFunction
 					net.send_cmd('present', 'claim');
 				}
@@ -2903,11 +2979,11 @@
 			}
 
 			$(document).mouseup(function(e) {
-				if (!net.color_popover.is(e.target) && !net.color_button.is(e.target) && net.color_popover.has(e.target).length === 0) {
-					net.color_popover.removeClass('show');
+				if (!net.settings_popover.is(e.target) && !net.settings_button.is(e.target) && net.settings_popover.has(e.target).length === 0) {
+					net.settings_popover.removeClass('show');
 
 					setTimeout(function() {
-						net.color_popover.css('visibility', 'hidden');
+						net.settings_popover.css('visibility', 'hidden');
 					}, 200);
 				}
 			});

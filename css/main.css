@@ -6,7 +6,7 @@
 	--background: #302f2f;
 }
 
-body, input, button {
+body.text_shadow, body.text_shadow input, body.text_shadow button {
 	text-shadow: #000 1px 1px;
 }
 
@@ -358,7 +358,7 @@ label {
 }
 
 #client_emoticons,
-#client_colors {
+#client_settings {
 	width: 21px;
 	height: 21px;
 	outline: none;
@@ -372,7 +372,7 @@ label {
 	vertical-align: top;
 }
 
-#client_colors {
+#client_settings {
 	border-left: none;
 	border-right: none;
 }
@@ -468,7 +468,7 @@ label {
 }
 
 /*noinspection CssUnknownProperty,DuplicatedCode*/
-#client_color_popover {
+#client_settings_popover {
 	opacity: 0;
 	visibility: hidden;
 	padding: 10px;
@@ -493,13 +493,13 @@ label {
 	animation: hide var(--animation-duration) var(--animation-easing);
 }
 
-#client_color_popover.show {
+#client_settings_popover.show {
 	opacity: 1;
 	visibility: visible !important;
 	animation: show var(--animation-duration) var(--animation-easing) !important;
 }
 
-#client_color_popover a {
+#client_settings_popover > a {
 	display: block;
 }
 
@@ -803,4 +803,67 @@ label {
 
 .client_nickname {
 	cursor: pointer;
+}
+
+.sp-picker-container, .sp-palette-container {
+	float: none;
+	padding: 10px;
+	margin-bottom: 0;
+	border-left: none;
+}
+
+.sp-container {
+	background-color: #302f2f;
+	border: 1px #4c4c4c solid;
+}
+
+.sp-container button {
+	background-color: #302f2f;
+	background-image: -webkit-linear-gradient(top, #4c4c4c, #302f2f);
+	background-image: -moz-linear-gradient(top, #4c4c4c, #302f2f);
+	background-image: -ms-linear-gradient(top, #4c4c4c, #302f2f);
+	background-image: -o-linear-gradient(top, #4c4c4c, #302f2f);
+	background-image: linear-gradient(to bottom, #4c4c4c, #302f2f);
+	border: 1px solid #4c4c4c;
+	color: #fff;
+	text-shadow: none;
+}
+
+.sp-container button:hover {
+	background-color: #302f2f;
+	background-image: -webkit-linear-gradient(top, #302f2f, #4c4c4c);
+	background-image: -moz-linear-gradient(top, #302f2f, #4c4c4c);
+	background-image: -ms-linear-gradient(top, #302f2f, #4c4c4c);
+	background-image: -o-linear-gradient(top, #302f2f, #4c4c4c);
+	background-image: linear-gradient(to bottom, #302f2f, #4c4c4c);
+	border: 1px solid #4c4c4c;
+	color: #fff;
+	text-shadow: none;
+}
+
+.sp-palette-button-container, .sp-button-container {
+	float: none;
+	margin-top: 7px;
+}
+
+.sp-color, .sp-hue, .sp-clear {
+	border: none;
+}
+
+.sp-replacer {
+	background-color: #302f2f;
+	border: 1px solid #4c4c4c;
+}
+
+.sp-replacer:hover, .sp-replacer.sp-active {
+	border: 1px solid #4c4c4c;
+}
+
+.sp-dd {
+	text-shadow: none;
+	color: white;
+}
+
+.sp-preview {
+	border: none;
 }
