@@ -55,7 +55,7 @@
 			"dog": ["🐶", "kopek ", "köpek ", "dogo ", "doggo", "doge ", "doge-"],
 			"dontcry": ["ağlama", "aglama"],
 			"facepalm": ["yüz avuç içi", "yuz avuc ici"],
-			"fight": ["fight", "dropkick", "roundkick", "kick"],
+			"fight": ["dövüş", "dovus", "uçan tekme", "ucan tekme", "yuvarlak vuruş", "yuvarlak vurus", "tekme"],
 			"furry": {
 				"count": 5,
 				"triggers": ["furry", "furries"]
@@ -68,7 +68,7 @@
 				"count": 2,
 				"triggers": ["öpücükler", "opucukler"]
 			},
-			"mad": ["mad", "upset"],
+			"mad": ["deli", "sinirli"],
 			"matrix": ["matrix"],
 			"megachad": ["megachad"],
 			"megalol": ["omegalul", "omeglul", "megalol", "megalul", "mega lol"],
@@ -77,9 +77,9 @@
 				"count": 2,
 				"triggers": ["müzik", "muzik"]
 			},
-			"pats": ["patlar "],
-			"pogchamp": ["pogchamp", "poggers", "pog "],
-			"popcorn": ["🍿", "popcorn", "pop corn"],
+			"pats": ["patlar ", "aferin"],
+			"pogchamp": ["pogchamp", "poggers", "pog ", "domuz"],
+			"popcorn": ["🍿", "popcorn", "pop corn", "patlamışmısır", "patlamismisir", "patlamış mısır", "patlamis misir"],
 			"popcornfail": ["popcornfail"],
 			"rage": ["🤬", "öfke ", "ofke "],
 			"simp": ["s i m p", "simmp", "simpp", " simp", "simp ", "sinp"],
@@ -88,7 +88,7 @@
 			"sad": ["üzgün", "uzgun"],
 			"tired": ["yorgun"],
 			"what": ["neyi"],
-			"yeah": ["hellyeah", "hell yeah", "helayeah", "yeah"],
+			"yeah": ["tabii", "hellyeah", "hell yeah", "helayeah", "yeah"],
 			"zzz": ["zzz", "z z z", "uykulu"]
 		}
 	}
