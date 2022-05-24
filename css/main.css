@@ -773,10 +773,6 @@ label {
 	border-radius: 0 !important;
 }
 
-.emoji-picker__emojis {
-	overflow-x: hidden;
-}
-
 .emoji-picker__search {
 	border-radius: 0 !important;
 }
@@ -799,6 +795,11 @@ label {
 	scrollbar-face-color: rgba(0, 0, 0, 0.38);
 	scrollbar-track-color: rgba(34, 33, 33, 0.95);
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
+	overflow-x: hidden;
+}
+
+.emoji-picker__emoji {
+	overflow: hidden;
 }
 
 .client_nickname {
@@ -859,11 +860,14 @@ label {
 	border: 1px solid #4c4c4c;
 }
 
+.sp-preview {
+	border: none;
+	margin-right: 0;
+	width: 23px;
+}
+
 .sp-dd {
 	text-shadow: none;
 	color: white;
-}
-
-.sp-preview {
-	border: none;
+	margin-left: 5px;
 }
