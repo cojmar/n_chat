@@ -14,7 +14,7 @@
 			"fight": ["fight", "dropkick", "roundkick", "kick"],
 			"furry": {
 				"count": 5,
-				"triggers": ["furry", "furries"]
+				"triggers": ["furries", "furrys", "furry"]
 			},
 			"haha": ["jaja", "haha", "hehe", "lmao"],
 			"hugs": [" hugs", "hugs ", " hug", "hug ", "hugging"],
@@ -58,7 +58,7 @@
 			"fight": ["dövüş", "dovus", "uçan tekme", "ucan tekme", "yuvarlak vuruş", "yuvarlak vurus", "tekme"],
 			"furry": {
 				"count": 5,
-				"triggers": ["furry", "furries"]
+				"triggers": ["furries", "furrys", "furry"]
 			},
 			"haha": ["jaja", "haha", "hehe", "lmao"],
 			"hugs": ["sarılma", "sarilma"],
