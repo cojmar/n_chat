@@ -1583,12 +1583,14 @@
 					if (data.cmd === 'say' || data.cmd === 's') {
 						data.data = data.data.split(' ');
 
+						console.log(data.data);
+
 						// noinspection JSCheckFunctionSignatures
 						if (Array.isArray(data.data) && data.data.length > 1) {
-							var to = data.data.shift();
+							var from = data.data.shift();
 							data.data = data.data.join(' ');
 							// noinspection JSUnresolvedFunction
-							net.send_cmd('send_cmd' , ['room.msg', to, {room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data}]);
+							net.send_cmd('send_cmd' , ['room.msg', net.room_info.name, {room: net.room_info.name, user: from, msg: data.data}]);
 						} else {
 							// noinspection JSUnresolvedFunction
 							net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data}]);
