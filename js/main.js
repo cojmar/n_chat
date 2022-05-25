@@ -1582,9 +1582,6 @@
 
 					if (data.cmd === 'say' || data.cmd === 's') {
 						data.data = data.data.split(' ');
-
-						console.log(data.data);
-
 						// noinspection JSCheckFunctionSignatures
 						if (Array.isArray(data.data) && data.data.length > 1) {
 							var from = data.data.shift();
