@@ -1584,9 +1584,8 @@
 						data.data = data.data.split(' ');
 						// noinspection JSCheckFunctionSignatures
 						if (Array.isArray(data.data) && data.data.length > 1) {
-							var from = data.data.shift();
-
-							if (from.startsWith('U') && ~from.indexOf('-')) {
+							if (data.data[0].startsWith('U') && ~data.data[0].indexOf('-')) {
+								var from = data.data.shift();
 								data.data = data.data.join(' ');
 								// noinspection JSUnresolvedFunction
 								net.send_cmd('send_cmd' , ['room.msg', net.room_info.name, {room: net.room_info.name, user: from, msg: data.data}]);
