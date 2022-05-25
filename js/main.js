@@ -1568,7 +1568,7 @@
 
 					if (data.cmd === 'say' || data.cmd === 's') {
 						// noinspection JSUnresolvedFunction
-						net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: 'Emupedia-MU', user: '', msg: '.say ' + data.data}]);
+						net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: net.room_info.name, user: '', msg: '.say ' + data.data}]);
 					}
 
 					if (data.cmd === 'jj') {
