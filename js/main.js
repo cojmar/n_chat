@@ -172,7 +172,7 @@
 
 			var servers = ['wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.net/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emupedia.org/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.net/ws/', 'wss://ws.emuos.org/ws/', 'wss://ws.emuos.org/ws/', 'ws://cojmar.ddns.net/ws/'];
 			var domains = ['emupedia.net', 'emuchat.emupedia.net', 'emupedia.org', 'emuchat.emupedia.org', 'emuos.net', 'emuchat.emuos.net', 'emuos.org', 'emuchat.emuos.org', 'cojmar.ddns.net'];
-			var normalize_types = ['wide', 'bold-numbers-only', 'sans-serif-bold-numbers-only', 'cursive-numbers-only', 'double-struck-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'monospace-numbers-only', 'emoji-numbers-only', 'uncategorized', 'diacritics'];
+			var normalize_types = ['wide', 'bold-numbers-only', 'sans-serif-bold-numbers-only', 'cursive-numbers-only', 'double-struck-numbers-only', 'circles', 'circles-bold-numbers-only', 'inverted-circles', 'squares', 'inverted-squares', 'dotted-numbers-only', 'parenthesis-numbers-only', 'subscript', 'superscript', 'monospace-numbers-only', 'emoji-numbers-only', 'uncategorized', 'uncategorized-numbers-only', 'diacritics'];
 
 			var net = network.start({
 				servers: servers,
@@ -345,7 +345,7 @@
 			}
 
 			net.color_delta = function (hex1, hex2) {
-				hex1 = hex1.split('#').join('') ;
+				hex1 = hex1.split('#').join('');
 				hex2 = hex2.split('#').join('');
 
 				var r1 = parseInt(hex1.substring(0, 2), 16);
