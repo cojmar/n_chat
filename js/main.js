@@ -1585,9 +1585,16 @@
 						// noinspection JSCheckFunctionSignatures
 						if (Array.isArray(data.data) && data.data.length > 1) {
 							var from = data.data.shift();
-							data.data = data.data.join(' ');
-							// noinspection JSUnresolvedFunction
-							net.send_cmd('send_cmd' , ['room.msg', net.room_info.name, {room: net.room_info.name, user: from, msg: data.data}]);
+
+							if (from.startsWith('U') && ~from.indexOf('-')) {
+								data.data = data.data.join(' ');
+								// noinspection JSUnresolvedFunction
+								net.send_cmd('send_cmd' , ['room.msg', net.room_info.name, {room: net.room_info.name, user: from, msg: data.data}]);
+							} else {
+								data.data = data.data.join(' ');
+								// noinspection JSUnresolvedFunction
+								net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data}]);
+							}
 						} else {
 							// noinspection JSUnresolvedFunction
 							net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data}]);
