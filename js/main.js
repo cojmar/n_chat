@@ -668,7 +668,7 @@
 			};
 
 			net.remove_numbers = function(str) {
-				return str.replace(/[0-9]/g, '').replace(/one|two|three|four|five|sixty|six|seventy|seven|eighty|eight|ninety|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|hundred|thousand/g, '').replace(/[\u0030-\u0039]/g, '').replace(/\ud83d\udd1f/g, '');
+				return str.replace(/[0-9]/g, '').replace(/one |two|three|four|five|sixty|six|seventy|seven|eighty|eight|ninety|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|hundred|thousand/g, '').replace(/[\u0030-\u0039]/g, '').replace(/\ud83d\udd1f/g, '');
 			};
 
 			net.remove_duplicates = function(str) {
