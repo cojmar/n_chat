@@ -183,6 +183,7 @@
 			net.body = $('body');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
+			net.nick_color_delta2 = 40;
 
 			var picker = new EmojiButton({
 				theme: 'dark',
@@ -380,7 +381,7 @@
 				var gt = Math.abs(g1 - g2);
 				var bt = Math.abs(b1 - b2);
 
-				return rt < r || gt < g || bt < b;
+				return rt < r && gt < g && bt < b;
 			};
 
 			net.is_admin = function(user) {
@@ -1329,7 +1330,7 @@
 
 							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔊') + '</a>' : '';
 
-							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || ~color.indexOf('0000') || net.color_delta2(color, '#000000', 20, 20, 20) ? 'text-shadow: none;' : '') + ' word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -2378,7 +2379,13 @@
 
 				var ignore = data.user !== net.room_info.me && (!net.is_admin(data.user) || data.user === net.bot_uid) ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || ~color.indexOf('0000') || net.color_delta2(color, '#000000', 20, 20, 20) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
+				// console.log('#083b02');
+				// console.log(net.color_delta2('#083b02', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+
+				// console.log('#8f0613');
+				// console.log(net.color_delta2('#8f0613', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
