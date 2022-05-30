@@ -152,9 +152,11 @@
 		'jquery-ajax-retry',
 		'popper',
 		'toastr',
+		'moment',
 		'optional!ga',
-		'libraries/spectrum'
-	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, ga, spectrum) {
+		'libraries/spectrum',
+		'moment-duration'
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, moment, ga, spectrum, momentd) {
 		// noinspection DuplicatedCode
 		$(function() {
 			if (typeof ga === 'function') {
@@ -183,7 +185,7 @@
 			net.body = $('body');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
-			net.nick_color_delta2 = 40;
+			net.nick_color_delta2 = 13;
 
 			var picker = new EmojiButton({
 				theme: 'dark',
@@ -381,7 +383,11 @@
 				var gt = Math.abs(g1 - g2);
 				var bt = Math.abs(b1 - b2);
 
-				return rt < r && gt < g && bt < b;
+				// console.log('RT', rt);
+				// console.log('GT', gt);
+				// console.log('BT', bt);
+
+				return (rt < r && gt < g) || (rt < r && bt < b)/*|| (gt < g && bt < b)*/;
 			};
 
 			net.is_admin = function(user) {
@@ -1329,6 +1335,11 @@
 							class_styles = 'class="client_nickname ' + glow + '"';
 
 							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔊') + '</a>' : '';
+
+							// console.log('#0c200c should be true', net.color_delta2('#0c200c', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+							// console.log('#083b02 should be true', net.color_delta2('#083b02', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+							// console.log('#581a1a should be false', net.color_delta2('#581a1a', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+							// console.log('#8f0613 should be false', net.color_delta2('#8f0613', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 
 							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
@@ -2379,12 +2390,6 @@
 
 				var ignore = data.user !== net.room_info.me && (!net.is_admin(data.user) || data.user === net.bot_uid) ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				// console.log('#083b02');
-				// console.log(net.color_delta2('#083b02', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
-
-				// console.log('#8f0613');
-				// console.log(net.color_delta2('#8f0613', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
-
 				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 			});
 
@@ -2765,7 +2770,7 @@
 						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> <a class="unjail_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> <a class="unjail_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>') + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
 					}
 
-					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] </span><br />' + res + '', 4);
+					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] </span><br />' + res, 4);
 				} else {
 					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] No users jailed</span>', 4);
 				}
@@ -2776,18 +2781,54 @@
 				// console.log('server.who');
 				// console.log(JSON.stringify(data, null, 2));
 
+				var d = new Date();
+
+				var timestamp = [
+					'<span style="color:' + net.colors[1] + ';">[',
+					('0' + d.getHours()).slice(-2),
+					':',
+					('0' + d.getMinutes()).slice(-2),
+					':',
+					('0' + d.getSeconds()).slice(-2),
+					']</span>'
+				].join('');
+
 				var keys = Object.keys(data);
 				var res = '';
 
 				for (var key in keys) {
-					res += '<b>Nickname</b> ' + data[keys[key]][0]['info']['nick'] + ' ';
-					res += '<b>Country</b> ' + data[keys[key]][0]['location']['country'] + ' ';
-					res += '<b>Region</b> ' + data[keys[key]][0]['location']['region'] + ' ';
-					res += '<b>City</b> ' + data[keys[key]][0]['location']['city'] + ' ';
-					res += '<b>Timezone</b> ' + data[keys[key]][0]['location']['timezone'] + ' ';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Nickname</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['nick'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">UID <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['user'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Login <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['login'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Fingerprint <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['fingerprint'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Data</span> <span style="color: ' + net.colors[2] + ';">' + (JSON.stringify(data[keys[key]][0]['data']) || 'NONE')  + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Private Data</span> <span style="color: ' + net.colors[2] + ';">' + (JSON.stringify(data[keys[key]][0]['private_data']) || 'NONE')  + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Disconnected <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['disconnected'] === true ? 'TRUE' : 'FALSE') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Creation Date</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['creation_date'] ? new Date(data[keys[key]][0]['info']['creation_date']).toLocaleString() : '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Last Login Date</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['last_login_date'] ? new Date(data[keys[key]][0]['info']['last_login_date']).toLocaleString() : '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Online Time</span> <span style="color: ' + net.colors[2] + ';">' + moment.duration(parseInt(data[keys[key]][0]['info']['online_time']), 'second').format() + '</span><br />';
+
+					if (typeof data[keys[key]][0]['info']['present'] !== 'undefined') {
+						if (typeof data[keys[key]][0]['info']['present']['items'] !== 'undefined') {
+							if (Array.isArray(data[keys[key]][0]['info']['present']['items']) && data[keys[key]][0]['info']['present']['items'].length > 0) {
+								var  i = 0;
+
+								for (var color in data[keys[key]][0]['info']['present']['items']) {
+									i++;
+									res += timestamp +' <span style="color: ' + net.colors[4] + ';">Color ' + i + ' </span> <span style="color: ' + net.colors[2] + ';"><span style="background-color: ' + data[keys[key]][0]['info']['present']['items'][color]['color'] + ';">' + data[keys[key]][0]['info']['present']['items'][color]['color'] + '</span> <span style="color: ' + net.colors[4] + ';">Date</span> <span style="color: ' + net.colors[2] + ';">' + new Date(parseInt(data[keys[key]][0]['info']['present']['items'][color]['date']) * 1000).toLocaleString() + '</span></span><br />';
+								}
+							}
+						}
+					}
+
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Country from Client</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['country'] + ' ' + country_codes[data[keys[key]][0]['info']['country']] || '?')  + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Country from Server</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['location']['country'] + ' ' + country_codes[data[keys[key]][0]['location']['country']]|| '?')  + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Region</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['location']['region'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">City</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['location']['city'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Timezone</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['location']['timezone'] || '?')  + '</span><br />';
 				}
 
-				net.log('<span style="color: ' + net.colors[4] + ';">[WHOIS]&nbsp;' + res + '</span>', 4);
+				net.log('<span style="color: ' + net.colors[4] + ';">[WHOIS] </span><br />' + res, 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable

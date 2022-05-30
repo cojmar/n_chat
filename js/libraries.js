@@ -323,9 +323,14 @@
 			'//' + location + '/beta/emuos/assets/js/libraries/localforage-nopromise-1.7.4.min'
 		],
 		'moment': [
-			'libraries/moment-2.27.0.min',
-			'/beta/emuos/assets/js/libraries/moment-2.27.0.min',
-			'//' + location + '/beta/emuos/assets/js/libraries/moment-2.27.0.min'
+			'libraries/moment-2.29.1.min',
+			'/beta/emuos/assets/js/libraries/moment-2.29.1.min',
+			'//' + location + '/beta/emuos/assets/js/libraries/moment-2.29.1.min'
+		],
+		'moment-duration': [
+			'libraries/moment-duration-2.2.2',
+			'/beta/emuos/assets/js/libraries/moment-duration-2.2.2',
+			'//' + location + '/beta/emuos/assets/js/libraries/moment-duration-2.2.2'
 		],
 		'moment-holiday': [
 			'libraries/moment-holiday-1.5.1.min',
