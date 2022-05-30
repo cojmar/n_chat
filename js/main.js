@@ -365,6 +365,24 @@
 				return (r + g + b) / 3;
 			};
 
+			net.color_delta2 = function (hex1, hex2, r, g, b) {
+				hex1 = hex1.split('#').join('');
+				hex2 = hex2.split('#').join('');
+
+				var r1 = parseInt(hex1.substring(0, 2), 16);
+				var g1 = parseInt(hex1.substring(2, 4), 16);
+				var b1 = parseInt(hex1.substring(4, 6), 16);
+				var r2 = parseInt(hex2.substring(0, 2), 16);
+				var g2 = parseInt(hex2.substring(2, 4), 16);
+				var b2 = parseInt(hex2.substring(4, 6), 16);
+
+				var rt = Math.abs(r1 - r2);
+				var gt = Math.abs(g1 - g2);
+				var bt = Math.abs(b1 - b2);
+
+				return rt < r || gt < g || bt < b;
+			};
+
 			net.is_admin = function(user) {
 				if (typeof user === 'undefined') {
 					if (typeof net.room_info !== 'undefined') {
@@ -668,7 +686,7 @@
 			};
 
 			net.remove_numbers = function(str) {
-				return str.replace(/[0-9]/g, '').replace(/two|three|four|five|sixty|six|seventy|seven|eighty|eight|ninety|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|hundred|thousand/gi, '').replace(/[\u0030-\u0039]/g, '').replace(/\ud83d\udd1f/g, '');
+				return str.replace(/[0-9]/g, '').replace(/two|three|four|five|sixty|six|seventy|seven|eighty|eight|ninety|nine| ten| ten |eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|hundred|thousand/gi, '').replace(/[\u0030-\u0039]/g, '').replace(/\ud83d\udd1f/g, '');
 			};
 
 			net.remove_duplicates = function(str) {
@@ -992,6 +1010,10 @@
 
 				subject = net.remove_invisible_after(subject);
 
+				if (subject.startsWith('/')) {
+					subject = subject.replace('/', '');
+				}
+
 				if (subject === '') {
 					if (typeof user !== 'undefined') {
 						subject = user !== null && user !== '' ? net.friendly_name(user) : net.friendly_name(str);
@@ -1307,7 +1329,7 @@
 
 							var unignore = ignored_obj[u] ? '<a href="javascript:" class="unignore_user" title="Unignore User" style="color: ' + net.colors[1] + ';" data-uid="' + u + '">' + twemoji.parse('🔊') + '</a>' : '';
 
-							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || ~color.indexOf('0000') || net.color_delta(color, '#000000') >= net.nick_color_delta ? 'text-shadow: none;' : '') + ' word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
+							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || ~color.indexOf('0000') || net.color_delta2(color, '#000000', 20, 20, 20) ? 'text-shadow: none;' : '') + ' word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
 
 						// noinspection JSUnresolvedVariable
@@ -1725,6 +1747,10 @@
 						}
 
 						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
+
+						if (data.data.startsWith('/')) {
+							data.data = data.data.replace('/', '');
+						}
 
 						if ((!is_admin && !/[a-z]/i.test(net.normalize(data.data))) || (!is_admin && data.data.trim() === '') || (!is_admin && data.data.length <= 2) || (!is_admin && data.data.length > 20)) {
 							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short or too long, correct the issue and try again.', 4);
@@ -2352,7 +2378,7 @@
 
 				var ignore = data.user !== net.room_info.me && (!net.is_admin(data.user) || data.user === net.bot_uid) ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || ~color.indexOf('0000') || net.color_delta(color, '#000000') >= net.nick_color_delta ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || ~color.indexOf('0000') || net.color_delta2(color, '#000000', 20, 20, 20) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
