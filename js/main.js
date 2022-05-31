@@ -2473,18 +2473,20 @@
 					return arr;
 				};
 
-				if (data.user === net.room_info.me) {
-					update_user_info();
-				} else {
-					if (!~update_array.indexOf(data.user)) {
-						update_array.push(data.user);
+				if (net.room_info) {
+					if (data.user === net.room_info.me) {
 						update_user_info();
 					} else {
-						clearTimeout(update_timeout);
-						update_timeout = setTimeout(function() {
+						if (!~update_array.indexOf(data.user)) {
+							update_array.push(data.user);
 							update_user_info();
-							remove(update_array, data.user);
-						}, 5000);
+						} else {
+							clearTimeout(update_timeout);
+							update_timeout = setTimeout(function() {
+								update_user_info();
+								remove(update_array, data.user);
+							}, 5000);
+						}
 					}
 				}
 			});
@@ -2721,7 +2723,7 @@
 				if (typeof data.type !== 'undefined') {
 					switch (data.type) {
 						case 'update':
-							var info = data.info || 'New update available, click here to reload';
+							var info = data.msg || 'New update available, click here to reload';
 							toastr.options.onclick = function() {
 								if (window.top === window) {
 									location.reload();
@@ -2730,6 +2732,9 @@
 								}
 							};
 							toastr.info(info);
+							break;
+						default:
+							toastr.info(data.msg || 'Empty notification, you can close me');
 							break;
 					}
 				}
