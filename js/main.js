@@ -306,6 +306,14 @@
 			net.use_text_shadow = simplestorage.get('use_text_shadow');
 			net.use_colors = simplestorage.get('use_colors');
 
+			toastr.options.escapeHtml = true;
+			toastr.options.closeButton = true;
+			toastr.options.preventDuplicates = true;
+			toastr.options.newestOnTop = true;
+			toastr.options.timeOut = 0;
+			toastr.options.extendedTimeOut = 0;
+			toastr.options.showMethod = 'slideDown';
+
 			if (typeof net.use_blacklist === 'undefined') {
 				simplestorage.set('use_blacklist', true);
 				net.use_blacklist = true;
@@ -2710,6 +2718,24 @@
 				}
 			});
 
+			net.socket.on('server.notification', function(data) {
+				if (typeof data.type !== 'undefined') {
+					switch (data.type) {
+						case 'update':
+							var info = data.info || 'New update available, click here to reload';
+							toastr.options.onclick = function() {
+								if (window.top === window) {
+									location.reload();
+								} else {
+									window.parent.postMessage({ cmd: 'iframe_reload' }, '*');
+								}
+							};
+							toastr.info(info);
+							break;
+					}
+				}
+			});
+
 			// noinspection DuplicatedCode
 			net.socket.on('server.bans', function(data) {
 				// console.log('server.bans');
@@ -3128,22 +3154,6 @@
 
 				}
 			});
-
-			toastr.options.escapeHtml = true;
-			toastr.options.closeButton = true;
-			toastr.options.preventDuplicates = true;
-			toastr.options.newestOnTop = true;
-			toastr.options.timeOut = 0;
-			toastr.options.extendedTimeOut = 0;
-			toastr.options.showMethod = 'slideDown';
-
-			toastr.options.onclick = function() {
-				if (window.top === window) {
-					location.reload();
-				} else {
-					window.parent.postMessage({ cmd: 'iframe_reload' }, '*');
-				}
-			};
 
 			// noinspection JSUnusedAssignment
 			clearInterval(version_check_interval);
