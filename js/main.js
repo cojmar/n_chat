@@ -1692,8 +1692,7 @@
 					}
 
 					if (data.cmd === 'clear' || data.cmd === 'c') {
-						data.cmd = 'send_cmd';
-						data.data = ['server.event', net.room_info.name, { user: net.room_info.me, msg: '' }];
+						data.cmd = 'room_info';
 					}
 
 					if (data.cmd === 'image' || data.cmd === 'i') {
