@@ -3130,10 +3130,10 @@
 
 			toastr.options.onclick = function() {
 				if (window.top === window) {
-					console.log('reload');
+					console.log('reload1');
 					location.reload();
 				} else {
-					console.log('reload');
+					console.log('reload2');
 					window.parent.postMessage({ cmd: 'iframe_reload' }, '*');
 				}
 			};
