@@ -1746,6 +1746,8 @@
 					}
 
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
+						console.log(net.disabled_commands);
+						console.log(data.cmd);
 						net.log('Invalid command', 4);
 						net.text_input.val('');
 						return false;
