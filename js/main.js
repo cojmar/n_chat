@@ -3177,7 +3177,15 @@
 							if (data.sha !== '' && $sys.version !== '' && $sys.version !== '{{ site.github.build_revision }}') {
 								// noinspection JSUnresolvedVariable
 								if (data.sha !== $sys.version) {
+									toastr.options.onclick = function() {
+										if (window.top === window) {
+											location.reload();
+										} else {
+											window.parent.postMessage({ cmd: 'iframe_reload' }, '*');
+										}
+									};
 									toastr.info('New update available, click here to reload');
+									toastr.options.onclick = undefined;
 								}
 							}
 						}
