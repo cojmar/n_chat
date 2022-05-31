@@ -3130,6 +3130,7 @@
 
 			toastr.options.onclick = function() {
 				if (window.top === window) {
+					console.log('reload');
 					location.reload();
 				} else {
 					console.log('reload');
@@ -3141,6 +3142,7 @@
 			clearInterval(version_check_interval);
 			// noinspection JSUnusedAssignment
 			version_check_interval = setInterval(function() {
+				console.log('check_version');
 				net.relay('https://api.github.com/repos/cojmar/n_chat/commits/master').done(function(data) {
 					// noinspection JSUnresolvedVariable
 					if (typeof data.sha !== 'undefined' && typeof $sys.version !== 'undefined') {
