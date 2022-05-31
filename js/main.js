@@ -1107,13 +1107,16 @@
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
 					if (room.startsWith('Emupedia') || room === 'Spam' || room === 'Music') {
-						// noinspection JSUnfilteredForInLoop
-						if (room === net.room_info.name) {
+
+						if (net.room_info) {
 							// noinspection JSUnfilteredForInLoop
-							html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 || net.rooms[room] === 0 ? 's' : '') + ')</option>'
-						} else {
-							// noinspection JSUnfilteredForInLoop
-							html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 || net.rooms[room] === 0 ? 's' : '') + ')</option>'
+							if (room === net.room_info.name) {
+								// noinspection JSUnfilteredForInLoop
+								html += '<option selected="selected" value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 || net.rooms[room] === 0 ? 's' : '') + ')</option>'
+							} else {
+								// noinspection JSUnfilteredForInLoop
+								html += '<option value="' + room + '" data-online="' + net.rooms[room] + '">' + room + ' (' + net.rooms[room] + ' user' + (net.rooms[room] > 1 || net.rooms[room] === 0 ? 's' : '') + ')</option>'
+							}
 						}
 					}
 				}
