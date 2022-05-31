@@ -3129,8 +3129,10 @@
 			toastr.options.showMethod = 'slideDown';
 
 			toastr.options.onclick = function() {
-				if (window.top.location === window.location) {
+				if (window.top === window) {
 					location.reload();
+				} else {
+					window.parent.postMessage({ cmd: 'iframe_reload' }, '*');
 				}
 			};
 
