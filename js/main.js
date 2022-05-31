@@ -3132,6 +3132,7 @@
 				if (window.top === window) {
 					location.reload();
 				} else {
+					console.log('reload');
 					window.parent.postMessage({ cmd: 'iframe_reload' }, '*');
 				}
 			};
