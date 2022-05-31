@@ -2734,7 +2734,7 @@
 				if (keys.length > 0) {
 					for (var key in keys) {
 						i++;
-						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> <a class="unban_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> <a class="unban_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key]) + '</a></span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[0] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[1] + ';">IP</span> <a class="unban_user" style="color: ' + net.colors[0] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[1] + ';">Fingerprint</span> <a class="unban_user" style="color: ' + net.colors[0] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key]) + '</a></span> <span style="color: ' + net.colors[1] + ';">Expires</span> ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[0] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[0] + ';">∞</span>') + '<br />';
 					}
 
 					net.log('<span style="color: ' + net.colors[4] + ';">[BAN LIST]</span><br />' + res + '', 4);
@@ -2767,7 +2767,7 @@
 				if (keys.length > 0) {
 					for (var key in keys) {
 						i++;
-						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[2] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[4] + ';">IP</span> <a class="unjail_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[4] + ';">Fingerprint</span> <a class="unjail_user" style="color: ' + net.colors[2] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>') + '</span> Expires ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[2] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[2] + ';">∞</span>') + '<br />';
+						res += timestamp + ' [' + i + '] <span style="color: ' + net.colors[0] + ';">' + (~keys[key].indexOf('.') || ~keys[key].indexOf(':') ? '<span style="color: ' + net.colors[1] + ';">IP</span> <a class="unjail_user" style="color: ' + net.colors[0] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>' : '<span style="color: ' + net.colors[1] + ';">Fingerprint</span> <a class="unjail_user" style="color: ' + net.colors[0] + '; text-decoration: none;" data-id="' + keys[key] + '" href="javascript:">' + keys[key] + '</a>') + '</span> <span style="color: ' + net.colors[1] + ';">Expires</span> ' + (typeof data[keys[key]] === 'number' ? '<span style="color: ' + net.colors[0] + ';">' + new Date(data[keys[key]] * 1000 + (10 * 60 * 1000)).toLocaleString() + '</span>' : '<span style="color: ' + net.colors[0] + ';">∞</span>') + '<br />';
 					}
 
 					net.log('<span style="color: ' + net.colors[4] + ';">[JAIL LIST] </span><br />' + res, 4);
@@ -2798,17 +2798,17 @@
 
 				for (var key in keys) {
 					for (var user in data[keys[key]]) {
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Nickname</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['nick'] || '?') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Room</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['room'] || 'DISCONNECTED') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">UID <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['user'] || '?') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Login <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['login'] || '?') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Fingerprint <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['fingerprint'] || '?') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Data</span> <span style="color: ' + net.colors[2] + ';">' + (JSON.stringify(data[keys[key]][user]['data']) || 'NONE')  + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Private Data</span> <span style="color: ' + net.colors[2] + ';">' + (JSON.stringify(data[keys[key]][user]['private_data']) || 'NONE')  + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Disconnected <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['disconnected'] === true ? 'TRUE' : (data[keys[key]][user]['room'] === false ? 'TRUE' : 'FALSE')) + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Creation Date</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['creation_date'] ? new Date(data[keys[key]][user]['info']['creation_date']).toLocaleString() : '?') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Last Login Date</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['last_login_date'] ? new Date(data[keys[key]][user]['info']['last_login_date']).toLocaleString() : '?') + '</span><br />';
-						res += timestamp +' <span style="color: ' + net.colors[4] + ';">Online Time</span> <span style="color: ' + net.colors[2] + ';">' + moment.duration(parseInt(data[keys[key]][user]['info']['online_time']), 'second').format() + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Nickname</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['nick'] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Room</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['room'] || 'DISCONNECTED') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">UID <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['user'] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Login <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['login'] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Fingerprint <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['fingerprint'] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Data</span> <span style="color: ' + net.colors[0] + ';">' + (JSON.stringify(data[keys[key]][user]['data']) || 'NONE')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Private Data</span> <span style="color: ' + net.colors[0] + ';">' + (JSON.stringify(data[keys[key]][user]['private_data']) || 'NONE')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Disconnected <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['disconnected'] === true ? 'TRUE' : (data[keys[key]][user]['room'] === false ? 'TRUE' : 'FALSE')) + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Creation Date</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['creation_date'] ? new Date(data[keys[key]][user]['info']['creation_date']).toLocaleString() : '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Last Login Date</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['last_login_date'] ? new Date(data[keys[key]][user]['info']['last_login_date']).toLocaleString() : '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Online Time</span> <span style="color: ' + net.colors[0] + ';">' + moment.duration(parseInt(data[keys[key]][user]['info']['online_time']), 'second').format() + '</span><br />';
 
 						if (typeof data[keys[key]][user]['info']['present'] !== 'undefined') {
 							if (typeof data[keys[key]][user]['info']['present']['items'] !== 'undefined') {
@@ -2817,20 +2817,19 @@
 
 									for (var color in data[keys[key]][user]['info']['present']['items']) {
 										i++;
-										res += timestamp +' <span style="color: ' + net.colors[4] + ';">Color ' + i + ' </span> <span style="color: ' + net.colors[2] + ';"><span style="background-color: ' + data[keys[key]][user]['info']['present']['items'][color]['color'] + ';">' + data[keys[key]][user]['info']['present']['items'][color]['color'] + '</span> <span style="color: ' + net.colors[4] + ';">Date</span> <span style="color: ' + net.colors[2] + ';">' + new Date(parseInt(data[keys[key]][user]['info']['present']['items'][color]['date']) * 1000).toLocaleString() + '</span></span><br />';
+										res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Color ' + i + ' </span> <span style="color: ' + net.colors[0] + ';"><span style="background-color: ' + data[keys[key]][user]['info']['present']['items'][color]['color'] + ';">' + data[keys[key]][user]['info']['present']['items'][color]['color'] + '</span> <span style="color: ' + net.colors[1] + ';">Date</span> <span style="color: ' + net.colors[0] + ';">' + new Date(parseInt(data[keys[key]][user]['info']['present']['items'][color]['date']) * 1000).toLocaleString() + '</span></span><br />';
 									}
 								}
 							}
 						}
 
-						res += timestamp + ' <span style="color: ' + net.colors[4] + ';">Country from Client</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['info']['country'] + ' ' + country_codes[data[keys[key]][user]['info']['country']] || '?')  + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[4] + ';">Country from Server</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['location']['country'] + ' ' + country_codes[data[keys[key]][user]['location']['country']]|| '?')  + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[4] + ';">Region</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['location']['region'] || '?') + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[4] + ';">City</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['location']['city'] || '?') + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[4] + ';">Timezone</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][user]['location']['timezone'] || '?')  + '</span><br />';
-						res += timestamp + '=================================================<br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Country from Client</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['country'] + ' ' + country_codes[data[keys[key]][user]['info']['country']] || '?')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Country from Server</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['country'] + ' ' + country_codes[data[keys[key]][user]['location']['country']]|| '?')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Region</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['region'] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">City</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['city'] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Timezone</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['timezone'] || '?')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">=================================================</span><br />';
 					}
-
 				}
 
 				// hackfix for dissapearing text
