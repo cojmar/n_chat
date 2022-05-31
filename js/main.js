@@ -2156,10 +2156,6 @@
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
 
-				if (typeof net.room_info.data === 'undefined') {
-					net.room_info.data = {};
-				}
-
 				net.room_info.data = $.extend(net.room_info.data, data.data);
 
 				// noinspection JSUnresolvedVariable
@@ -2481,20 +2477,18 @@
 					return arr;
 				};
 
-				if (net.room_info) {
-					if (data.user === net.room_info.me) {
+				if (data.user === net.room_info.me) {
+					update_user_info();
+				} else {
+					if (!~update_array.indexOf(data.user)) {
+						update_array.push(data.user);
 						update_user_info();
 					} else {
-						if (!~update_array.indexOf(data.user)) {
-							update_array.push(data.user);
+						clearTimeout(update_timeout);
+						update_timeout = setTimeout(function() {
 							update_user_info();
-						} else {
-							clearTimeout(update_timeout);
-							update_timeout = setTimeout(function() {
-								update_user_info();
-								remove(update_array, data.user);
-							}, 5000);
-						}
+							remove(update_array, data.user);
+						}, 5000);
 					}
 				}
 			});
