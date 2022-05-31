@@ -2798,6 +2798,7 @@
 
 				for (var key in keys) {
 					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Nickname</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['nick'] || '?') + '</span><br />';
+					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Room</span> <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['room'] || '?') + '</span><br />';
 					res += timestamp +' <span style="color: ' + net.colors[4] + ';">UID <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['user'] || '?') + '</span><br />';
 					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Login <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['login'] || '?') + '</span><br />';
 					res += timestamp +' <span style="color: ' + net.colors[4] + ';">Fingerprint <span style="color: ' + net.colors[2] + ';">' + (data[keys[key]][0]['info']['fingerprint'] || '?') + '</span><br />';
