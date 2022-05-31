@@ -2155,7 +2155,13 @@
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
+
+				if (typeof net.room_info.data === 'undefined') {
+					net.room_info.data = {};
+				}
+
 				net.room_info.data = $.extend(net.room_info.data, data.data);
+
 				// noinspection JSUnresolvedVariable
 				if (typeof net.room_info.data.topic !== 'undefined') {
 					// noinspection JSUnresolvedVariable
