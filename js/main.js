@@ -2737,6 +2737,7 @@
 								}
 							};
 							toastr.info(info);
+							toastr.options.onclick = function() {};
 							break;
 						default:
 							toastr.info(data.msg || 'Empty notification, you can close me');
@@ -3185,7 +3186,7 @@
 										}
 									};
 									toastr.info('New update available, click here to reload');
-									toastr.options.onclick = undefined;
+									toastr.options.onclick = function() {};
 								}
 							}
 						}
