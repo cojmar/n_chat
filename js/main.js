@@ -2129,7 +2129,7 @@
 				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel.', 1);
 
 				if (room.startsWith('Emupedia')) {
-					net.log('Swearing is discouraged on public channels.', 1);
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like age, gender, location is discouraged on public channels.', 4);
 				}
 
 				if (net.is_room_admin() && room !== 'Spam') {
