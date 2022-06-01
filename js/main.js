@@ -185,7 +185,7 @@
 			net.body = $('body');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
-			net.nick_color_delta2 = 13;
+			net.nick_color_delta2 = 18;
 
 			var picker = new EmojiButton({
 				theme: 'dark',
@@ -1349,6 +1349,7 @@
 
 							// console.log('#0c200c should be true', net.color_delta2('#0c200c', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#083b02 should be true', net.color_delta2('#083b02', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+							// console.log('#110101 should be true', net.color_delta2('#110101', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#581a1a should be false', net.color_delta2('#581a1a', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#8f0613 should be false', net.color_delta2('#8f0613', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 
