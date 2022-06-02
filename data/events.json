@@ -31,7 +31,7 @@
 			"megapopcorn": ["megapopcorn", "mega popcorn", "mega pop corn"],
 			"music": {
 				"count": 2,
-				"triggers": ["music"]
+				"triggers": ["music", "song"]
 			},
 			"pats": ["patts", "pats"],
 			"pogchamp": ["pogchamp", "poggers", "pog "],
