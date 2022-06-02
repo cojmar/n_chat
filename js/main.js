@@ -200,10 +200,34 @@
 			var emoticons_replace = Object.values(emoticons_data.mapping);
 			var normalize = Object.keys(normalize_data.mapping);
 
+			var blacklist_numbers_regex = {};
 			var blacklist_search_regex = {};
 			var blacklist_search_regex_tr = {};
 			var blacklist_search_regex_pt = {};
 			var blacklist_replace_regex = {};
+
+			// noinspection JSUnresolvedVariable,DuplicatedCode
+			for (var numbers in blacklist_data.mapping.en) {
+				if (numbers === 'numbers') {
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var regex0 = blacklist_data.mapping.en[numbers][0] + '|';
+					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+					var numberssorted = blacklist_data.mapping.en[numbers].sort(function(a, b) {
+						return b.length - a.length;
+					});
+					// noinspection JSUnfilteredForInLoop
+					for (var n in numberssorted) {
+						// noinspection JSUnfilteredForInLoop
+						regex0 += ' ' + numberssorted[n] + '|';
+						// noinspection JSUnfilteredForInLoop
+						regex0 += ' ' + numberssorted[n] + ' |';
+						// noinspection JSUnfilteredForInLoop
+						regex0 += numberssorted[n] + ' |';
+					}
+					// noinspection JSUnfilteredForInLoop
+					blacklist_numbers_regex = new RegExp(regex0.slice(0, -1), 'gi');
+				}
+			}
 
 			// noinspection JSUnresolvedVariable,DuplicatedCode
 			for (var profanity1 in blacklist_data.mapping.en) {
@@ -701,7 +725,7 @@
 			};
 
 			net.remove_numbers = function(str) {
-				return str.replace(/[0-9]/g, '').replace(/two|three|four|five|sixty|six|seventy|seven|eighty|eight|ninety|nine| ten| ten |eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|hundred|thousand/gi, '').replace(/[\u0030-\u0039]/g, '').replace(/\ud83d\udd1f/g, '');
+				return str.replace(/[0-9]/g, '').replace(blacklist_numbers_regex, '').replace(/two|three|four|five|sixty|six|seventy|seven|eighty|eight|ninety|nine| ten| ten |eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|hundred|thousand/gi, '').replace(/[\u0030-\u0039]/g, '').replace(/\ud83d\udd1f/g, '');
 			};
 
 			net.remove_duplicates = function(str) {
@@ -828,6 +852,7 @@
 						for (var p1 in profanity1sorted) {
 							// noinspection JSUnfilteredForInLoop
 							if (str.toLowerCase().split('?').join('').split('!').join('') === profanity1sorted[p1].split('.').join(' ').split('\\$').join('$').trim()) {
+								// console.log(profanity1sorted[p1]);
 								// noinspection JSUnfilteredForInLoop
 								str = language === 'en' ? profanity1 : '``';
 
@@ -848,6 +873,10 @@
 
 					if (language === 'en') {
 						for (var r1 in blacklist_search_regex) {
+							/*if (str.match(blacklist_search_regex[r1])) {
+								console.log(blacklist_search_regex[r1]);
+							}*/
+
 							str = str.replace(blacklist_search_regex[r1], ' ' + r1 + ' ');
 						}
 
