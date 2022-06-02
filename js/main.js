@@ -1695,6 +1695,10 @@
 						data.data = data.data.split(' ');
 						var to3 = data.data.shift();
 
+						if (to3 === '') {
+							to3 = net.room_info.me;
+						}
+
 						if (typeof net.room_info !== 'undefined') {
 							if (typeof net.room_info.data !== 'undefined') {
 								if (typeof net.room_info.data.admins !== 'undefined') {
@@ -2059,9 +2063,9 @@
 								if (Array.isArray(net.room_info.data.admins)) {
 									if (net.room_info.data.admins.indexOf(net.room_info.me) === -1) {
 										net.room_info.data.admins.push(net.room_info.me);
-									} else {
+									}/* else {
 										net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
-									}
+									}*/
 									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: 1 });
 									// noinspection JSUnresolvedFunction
