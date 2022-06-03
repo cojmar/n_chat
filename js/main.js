@@ -2137,11 +2137,11 @@
 				}
 
 				if (room.startsWith('Emupedia')) {
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				} else {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>').selectmenu('refresh');
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				}
 
 				if (net.is_admin()) {
