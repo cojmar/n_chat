@@ -56,7 +56,7 @@
 			"killer": ["k i l l ed", "k i lled", "ki/lled", "kelled", "killed", "ki\\|\\|in", "ki\\|\\|ing", "killin", "killing", "ki//ing", "k//ing", "killer", "k!ller", "kller"],
 			"kill": ["k i....i n g", "killing", "kill all", "killall", "k.i.i.l.s", "k.i.l.l ", "k\\.i\\.l\\.l", "-kills", "\\*kills", "k.i.i.i", "kiii", "k i ll", "killl", "k ! l l", "ki.ll ", "k.ll ", "k.ill ", "ki/ll", "ki/l", "ki././", "k.i.//", "ki..//", "ki.//", "ki//", "ki\\.\\.ll", ",ki\\.ll", "k--l", "keil", "kills", "kill", " kil ", "kll", "kl "],
 			"horny": ["h..o..r..n..y", "h. o. r. n. y.", "h.o.r.n.y", "hr. ny", "h.orny", "ho/rny", "hor\\.\\.\\.ny", "hor..ny", "h. r. n.y", " .horny", "hor\\.ny", "hor\\.ni", "hor.ny", "ho.rni", "ho..rn.y", "horn.y", "ho.r.ny", "horn\\.y", "\\*horn\\.y", "-horn\\.y", "h o r ny", "ho r ny", "ho r n y", "ho rny", "ho rn i", "h\\(\\)rny", "horny", "hrny", "hony", "horni"],
-			"address": ["address"],
+			"address": ["ip address", "address"],
 			"gypsy": ["gypsys", "gypsy"],
 			"clitoris": ["clitoris", "clit "],
 			"boomer": ["b.o.o.m.e.r", "b.oo.m.r", "b o mmer", "boo m er", "boo mer", "bommer", "boommer", "boomer", "bomer", "boomr"],
