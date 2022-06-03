@@ -2824,8 +2824,8 @@
 
 			// noinspection DuplicatedCode
 			net.socket.on('server.who', function(data) {
-				console.log('server.who');
-				console.log(JSON.stringify(data, null, 2));
+				// console.log('server.who');
+				// console.log(JSON.stringify(data, null, 2));
 
 				var d = new Date();
 
