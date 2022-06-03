@@ -2138,7 +2138,7 @@
 				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel.', 1);
 
 				if (room.startsWith('Emupedia')) {
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on public channels. Please try to keep your privacy, this chat is supposed to be annonymous.', 4);
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on public channels. Please try to keep your privacy, this chat is supposed to be anonymous.', 4);
 				}
 
 				if (net.is_room_admin() && room !== 'Spam') {
