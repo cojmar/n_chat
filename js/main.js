@@ -2125,25 +2125,23 @@
 				var users_online = Object.keys(net.room_info.users).length;
 				var room = net.room_info.name;
 
-				if (!room.startsWith('Emupedia')) {
-					net.client_rooms.find('option:selected').removeAttr('selected');
-					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>').selectmenu('refresh');
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
-				}
-
 				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : ''), 1);
 				net.log('Type /help to see a list of available commands.', 1);
 				net.log('To change your nickname type /nick and your new nickname.', 1);
 				net.log('To join a channel type /join and the channel name.', 1);
 				net.log('If you experience any lag you might try and uncheck some settings from the ⚙️ panel.', 1);
 
-				if (room.startsWith('Emupedia')) {
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
-				}
-
 				if (net.is_room_admin() && room !== 'Spam') {
 					net.log('If your nickname glows, you are the current owner of the room.', 1);
 					net.log('You can change the topic by typing /topic and the new room topic.', 1);
+				}
+
+				if (room.startsWith('Emupedia')) {
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
+				} else {
+					net.client_rooms.find('option:selected').removeAttr('selected');
+					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>').selectmenu('refresh');
+					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, social media accounts, ages, genders, addresses, phone numbers, locations is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				}
 
 				if (net.is_admin()) {
