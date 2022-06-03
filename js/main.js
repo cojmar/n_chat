@@ -206,108 +206,83 @@
 			var blacklist_search_regex_pt = {};
 			var blacklist_replace_regex = {};
 
-			// noinspection JSUnresolvedVariable,DuplicatedCode
 			for (var numbers in blacklist_data.mapping.en) {
 				if (numbers === 'numbers') {
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					var regex0 = blacklist_data.mapping.en[numbers][0] + '|';
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 					var numberssorted = blacklist_data.mapping.en[numbers].sort(function(a, b) {
 						return b.length - a.length;
 					});
-					// noinspection JSUnfilteredForInLoop
+
+					var regex0 = '';
+
 					for (var n in numberssorted) {
-						// noinspection JSUnfilteredForInLoop
-						regex0 += ' ' + numberssorted[n] + '|';
-						// noinspection JSUnfilteredForInLoop
-						regex0 += ' ' + numberssorted[n] + ' |';
-						// noinspection JSUnfilteredForInLoop
-						regex0 += numberssorted[n] + ' |';
+						regex0 += numberssorted[n] + '|';
 					}
-					// noinspection JSUnfilteredForInLoop
+
 					blacklist_numbers_regex = new RegExp(regex0.slice(0, -1), 'gi');
+					break;
 				}
 			}
 
-			// noinspection JSUnresolvedVariable,DuplicatedCode
 			for (var profanity1 in blacklist_data.mapping.en) {
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var regex1 = blacklist_data.mapping.en[profanity1][0] + '|';
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 				var profanity1sorted = blacklist_data.mapping.en[profanity1].sort(function(a, b) {
 					return b.length - a.length;
 				});
-				// noinspection JSUnfilteredForInLoop
+
+				var regex1 = '';
+
 				for (var p1 in profanity1sorted) {
-					// noinspection JSUnfilteredForInLoop
-					regex1 += ' ' + profanity1sorted[p1] + '|';
-					// noinspection JSUnfilteredForInLoop
-					regex1 += ' ' + profanity1sorted[p1] + ' |';
-					// noinspection JSUnfilteredForInLoop
-					regex1 += profanity1sorted[p1] + ' |';
+					regex1 += profanity1sorted[p1] + '|';
 				}
-				// noinspection JSUnfilteredForInLoop
+
 				blacklist_search_regex[profanity1] = new RegExp(regex1.slice(0, -1), 'gi');
 			}
 
-			// noinspection JSUnresolvedVariable,DuplicatedCode
 			for (var profanity2 in blacklist_data.replace.en) {
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var regex2 = blacklist_data.replace.en[profanity2][0] + '|';
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+				var regex2 = '';
+
 				for (var p2 in blacklist_data.replace.en[profanity2]) {
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					regex2 += ' ' + blacklist_data.replace.en[profanity2][p2] + '|';
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					regex2 += ' ' + blacklist_data.replace.en[profanity2][p2] + ' |';
-					// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-					regex2 += blacklist_data.replace.en[profanity2][p2] + ' |';
+					regex2 += blacklist_data.replace.en[profanity2][p2] + '|';
 				}
-				// noinspection JSUnfilteredForInLoop
+
 				blacklist_replace_regex[profanity2] = new RegExp(regex2.slice(0, -1), 'gi');
 			}
 
-			// noinspection JSUnresolvedVariable,DuplicatedCode
 			for (var profanity3 in blacklist_data.mapping.tr) {
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var regex3 = blacklist_data.mapping.tr[profanity3][0] + '|';
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 				var profanity3sorted = blacklist_data.mapping.tr[profanity3].sort(function(a, b) {
 					return b.length - a.length;
 				});
-				// noinspection JSUnfilteredForInLoop
+
+				var regex3 = '';
+
 				for (var p3 in profanity3sorted) {
-					// noinspection JSUnfilteredForInLoop
-					regex3 += ' ' + profanity3sorted[p3] + '|';
-					// noinspection JSUnfilteredForInLoop
-					regex3 += ' ' + profanity3sorted[p3] + ' |';
-					// noinspection JSUnfilteredForInLoop
-					regex3 += profanity3sorted[p3] + ' |';
+					regex3 += profanity3sorted[p3] + '|';
 				}
-				// noinspection JSUnfilteredForInLoop
+
 				blacklist_search_regex_tr[profanity3] = new RegExp(regex3.slice(0, -1), 'gi');
 			}
 
-			// noinspection JSUnresolvedVariable,DuplicatedCode
+			// noinspection JSUnresolvedVariable
 			for (var profanity4 in blacklist_data.mapping.pt) {
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-				var regex4 = blacklist_data.mapping.pt[profanity4][0] + '|';
-				// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
+				// noinspection JSUnresolvedVariable
 				var profanity4sorted = blacklist_data.mapping.pt[profanity4].sort(function(a, b) {
 					return b.length - a.length;
 				});
-				// noinspection JSUnfilteredForInLoop
+
+				// noinspection JSUnresolvedVariable
+				var regex4 = '';
+
 				for (var p4 in profanity4sorted) {
-					// noinspection JSUnfilteredForInLoop
-					regex4 += ' ' + profanity4sorted[p4] + '|';
-					// noinspection JSUnfilteredForInLoop
-					regex4 += ' ' + profanity4sorted[p4] + ' |';
-					// noinspection JSUnfilteredForInLoop
-					regex4 += profanity4sorted[p4] + ' |';
+					regex4 += profanity4sorted[p4] + '|';
 				}
-				// noinspection JSUnfilteredForInLoop
+
 				blacklist_search_regex_pt[profanity4] = new RegExp(regex4.slice(0, -1), 'gi');
 			}
+
+			// console.log(blacklist_numbers_regex);
+			// console.log(blacklist_search_regex);
+			// console.log(blacklist_replace_regex);
+			// console.log(blacklist_search_regex_tr);
+			// console.log(blacklist_search_regex_pt);
 
 			net.event_timeout = null;
 			net.event_clear_timeout = null;
