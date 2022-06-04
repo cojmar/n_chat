@@ -3033,7 +3033,7 @@
 					if (typeof e.originalEvent.clipboardData.getData === 'function') {
 						var paste = e.originalEvent.clipboardData.getData('text');
 
-						if (!net.is_admin() && (net.text_input.val().length + paste.length > net.max_paste_length)) {
+						if (!net.is_admin() && !net.is_room_admin() && !net.is_music_room() && !net.is_spam_room() && (net.text_input.val().length + paste.length > net.max_paste_length)) {
 							e.preventDefault();
 							return false;
 						}
