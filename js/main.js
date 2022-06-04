@@ -1706,13 +1706,15 @@
 							if (typeof net.room_info.data !== 'undefined') {
 								if (typeof net.room_info.data.admins !== 'undefined') {
 									if (Array.isArray(net.room_info.data.admins)) {
-										admins = net.room_info.data.admins;
+										admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
+
 
 										if (net.room_info.data.admins.indexOf(to3) === -1) {
 											admins.push(to3);
 										} else {
 											admins.splice(net.room_info.data.admins.indexOf(to3), 1)
 										}
+
 										// noinspection JSUnresolvedFunction
 										net.send_cmd('set_room_data', { admins: 1 });
 										// noinspection JSUnresolvedFunction
