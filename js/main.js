@@ -2176,7 +2176,7 @@
 					net.log('You can change the topic by typing /topic and the new room topic.', 1);
 				}
 
-				if (room.startsWith('Emupedia')) {
+				if (room.startsWith('Emupedia') || room === 'Music' || room === 'Spam') {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				} else {
 					net.client_rooms.find('option:selected').removeAttr('selected');
