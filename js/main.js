@@ -290,10 +290,11 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.client_commands = ['recover_code', 'clear'];
-			net.hidden_commands = ['su', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video', 'emoji', 'text_shadow', 'colors', 'users', 'low', 'medium', 'high', 'present'];
+			net.hidden_commands = ['su', 'dev', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video', 'emoji', 'text_shadow', 'colors', 'users', 'low', 'medium', 'high', 'present'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
+			net.dev_mode = false;
 			net.max_message_length = 160;
 			net.max_paste_length = 60;
 
@@ -799,6 +800,7 @@
 
 			// noinspection DuplicatedCode
 			net.remove_profanity = function(str, language) {
+				var matched = false;
 				var room_name = net.room_info.name || '';
 
 				if (typeof language === 'undefined') {
@@ -837,6 +839,10 @@
 									for (var p2 in blacklist_data.replace[language][profanity2]) {
 										// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
 										if (str.toLowerCase() === blacklist_data.replace[language][profanity2][p2]) {
+											if (net.dev_mode) {
+												matched = true;
+												console.log(str + ' MATCHED ' + blacklist_data.replace[language][profanity2][p2]);
+											}
 											// noinspection JSUnfilteredForInLoop
 											return str = '`' + (language === 'en' ? profanity2 : '') + '`';
 										}
@@ -848,9 +854,12 @@
 
 					if (language === 'en') {
 						for (var r1 in blacklist_search_regex) {
-							/*if (str.match(blacklist_search_regex[r1])) {
-								console.log(blacklist_search_regex[r1]);
-							}*/
+							if (net.dev_mode) {
+								if (str.match(blacklist_search_regex[r1])) {
+									matched = true;
+									console.log(str + ' MATCHED ' + r1);
+								}
+							}
 
 							str = str.replace(blacklist_search_regex[r1], ' ' + r1 + ' ');
 						}
@@ -865,6 +874,10 @@
 							str = str.replace(new RegExp(blacklist_data.mapping[language].swear[swear], 'gi'), '``');
 						}
 					}
+				}
+
+				if (net.dev_mode && matched) {
+					console.log(str.replace(/  +/g, ' ').trim());
 				}
 
 				return str.replace(/  +/g, ' ').trim();
@@ -1357,6 +1370,7 @@
 							// console.log('#581a1a should be false', net.color_delta2('#581a1a', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#8f0613 should be false', net.color_delta2('#8f0613', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#0a00ff should be false', net.color_delta2('#0a00ff', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+							// console.log('#1104da should be false', net.color_delta2('#1104da', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 
 							users_list += '<div id="room_user_' + u + '" ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' word-break: keep-all; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + u + '" data-nickname="' + (net.is_default_nick(nickname) ? users_obj[u].replace(/"/g, '&quot;') : net.clean_nicknames(nickname, u, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" data-title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + u + '\n' + 'User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">' + unignore + users_obj[u] + '</div>';
 						}
@@ -1467,6 +1481,17 @@
 						}
 
 						data.data = json_data;
+					}
+
+					if (data.cmd === 'dev') {
+						net.dev_mode = !net.dev_mode;
+
+						net.log('Development mode ' + (net.dev_mode ? 'ENABLED' : 'DISABLED') + '.', 4);
+
+						if (net.dev_mode) {
+							net.log('Socket is now attached to window.', 4);
+							net.log('Debug messages are shown in console.', 4);
+						}
 					}
 
 					if (data.cmd === 'nickname' || data.cmd === 'name' || data.cmd === 'n') {
@@ -1759,10 +1784,9 @@
 					}
 
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
-						console.log(net.disabled_commands);
-						console.log(data.cmd);
 						net.log('Invalid command', 4);
 						net.text_input.val('');
+
 						return false;
 					}
 
@@ -1972,9 +1996,21 @@
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-			net.socket.on('disconnect', function() {
-				// console.log('disconnect');
-				net.log('You were disconnected from the server...', 4);
+			net.socket.on('disconnect', function(data) {
+				if (net.dev_mode) {
+					console.log('disconnect');
+					console.log(JSON.stringify(data, null, 2));
+				}
+
+				var code = '';
+
+				if (typeof data['code'] !== 'undefined') {
+					if (data.code !== 4666) {
+						code = data.code;
+					}
+				}
+
+				net.log('You were disconnected from the server...' + (code !== '' ? '[Code ' + code + ']' : code), 4);
 			});
 
 			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
@@ -2082,7 +2118,7 @@
 
 				switch (net.room_info.name) {
 					case 'Music':
-						net.def_custom_topic = 'You can add songs to the playlist and listen to them';
+						net.def_custom_topic = 'Music room is under construction, that means it\'s not ready yet';
 						break;
 					case 'Spam':
 						net.def_custom_topic = 'If you were moved here that means you are "jailed" temporarily, spamming is allowed here';
