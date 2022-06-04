@@ -1807,7 +1807,11 @@
 						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
 
 						if (data.data.startsWith('/')) {
-							data.data = data.data.replace('/', '');
+							data.data = data.data.replace('/', '``');
+						}
+
+						if (~data.data.indexOf('🤖')) {
+							data.data = data.data.replace(/🤖/gi, '``');
 						}
 
 						if ((!is_admin && !/[a-z]/i.test(net.normalize(data.data))) || (!is_admin && data.data.trim() === '') || (!is_admin && data.data.length <= 2) || (!is_admin && data.data.length > 20)) {
