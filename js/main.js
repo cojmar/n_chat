@@ -1700,19 +1700,23 @@
 							to3 = net.room_info.me;
 						}
 
+						var admins = [];
+
 						if (typeof net.room_info !== 'undefined') {
 							if (typeof net.room_info.data !== 'undefined') {
 								if (typeof net.room_info.data.admins !== 'undefined') {
 									if (Array.isArray(net.room_info.data.admins)) {
+										admins = net.room_info.data.admins;
+
 										if (net.room_info.data.admins.indexOf(to3) === -1) {
-											net.room_info.data.admins.push(to3);
+											admins.push(to3);
 										} else {
-											net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(to3), 1)
+											admins.splice(net.room_info.data.admins.indexOf(to3), 1)
 										}
 										// noinspection JSUnresolvedFunction
 										net.send_cmd('set_room_data', { admins: 1 });
 										// noinspection JSUnresolvedFunction
-										net.send_cmd('set_room_data', { admins: net.room_info.data.admins });
+										net.send_cmd('set_room_data', { admins: admins });
 									}
 								} else {
 									// noinspection JSUnresolvedFunction
