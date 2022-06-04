@@ -296,7 +296,7 @@
 			net.show_flags = false;
 			net.dev_mode = false;
 			net.max_message_length = 160;
-			net.max_paste_length = 60;
+			net.max_paste_length = 100;
 
 			net.use_blacklist = simplestorage.get('use_blacklist');
 			net.use_events = simplestorage.get('use_events');
