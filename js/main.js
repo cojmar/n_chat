@@ -2184,6 +2184,13 @@
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				}
 
+				net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+
+				clearTimeout(net.event_clear_timeout);
+				net.event_clear_timeout = setTimeout(function() {
+					net.event.html('');
+				}, 1000);
+
 				if (net.is_admin()) {
 					net.text_input.removeAttr('maxlength');
 				} else {
