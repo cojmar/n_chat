@@ -847,27 +847,19 @@
 					}
 
 					if (language === 'en') {
-						var blacklist_search_regex_keys = Object.keys(blacklist_search_regex).sort(function(a, b) {
-							return b.length - a.length;
-						});
-
-						for (var r1 in blacklist_search_regex_keys) {
+						for (var r1 in blacklist_search_regex) {
 							if (net.dev_mode) {
-								if (str.match(blacklist_search_regex[blacklist_search_regex_keys[r1]])) {
+								if (str.match(blacklist_search_regex[r1])) {
 									matched = true;
-									console.log(str + ' MATCHED ' + blacklist_search_regex_keys[r1]);
+									console.log(str + ' MATCHED ' + r1);
 								}
 							}
 
-							str = str.replace(blacklist_search_regex[blacklist_search_regex_keys[r1]], ' ' + blacklist_search_regex_keys[r1] + ' ');
+							str = str.replace(blacklist_search_regex[r1], ' ' + r1 + ' ');
 						}
 
-						var blacklist_replace_regex_keys = Object.keys(blacklist_search_regex).sort(function(a, b) {
-							return b.length - a.length;
-						});
-
-						for (var r2 in blacklist_replace_regex_keys) {
-							str = str.replace(blacklist_replace_regex[blacklist_replace_regex_keys[r2]], ' `' + blacklist_replace_regex_keys[r2] + '` ');
+						for (var r2 in blacklist_replace_regex) {
+							str = str.replace(blacklist_replace_regex[r2], ' `' + r2 + '` ');
 						}
 					} else {
 						// noinspection JSUnresolvedVariable
