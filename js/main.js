@@ -1994,14 +1994,12 @@
 				});
 			};
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,JSUnusedLocalSymbols
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
 				net.log('Trying to reconnect...', 4);
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('disconnect', function(data) {
 				if (net.dev_mode) {
 					console.log('disconnect');
@@ -2019,7 +2017,6 @@
 				net.log('You were disconnected from the server...' + (code !== '' ? '[Code ' + code + ']' : code), 4);
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('auth.info', function(data) {
 				// console.log('auth.info');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2111,7 +2108,6 @@
 				}
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.info', function(data) {
 				// console.log('room.info');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2211,7 +2207,6 @@
 				user.css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.data', function(data) {
 				// console.log('room.data');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2257,7 +2252,6 @@
 				}
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.user_join', function(data) {
 				if (!net.room_info) {
 					return;
@@ -2307,7 +2301,6 @@
 				}
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('room.user_leave', function(data) {
 				if (!net.room_info) {
 					return
@@ -2334,7 +2327,6 @@
 
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 			net.socket.on('room.msg', function(data) {
 				// console.log('room.msg');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2464,7 +2456,15 @@
 				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
+			net.socket.on('silent.msg', function(data) {
+				// console.log('silent.msg');
+				// console.log(JSON.stringify(data, null, 2));
+
+				if (net.dev_mode) {
+					net.log(data, 3);
+				}
+			});
+
 			net.socket.on('room.user_info', function(data) {
 				// console.log('room.user_info');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2803,7 +2803,6 @@
 				}
 			});
 
-			// noinspection DuplicatedCode
 			net.socket.on('server.bans', function(data) {
 				// console.log('server.bans');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2836,7 +2835,6 @@
 				}
 			});
 
-			// noinspection DuplicatedCode
 			net.socket.on('server.jail', function(data) {
 				// console.log('server.bans');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2869,7 +2867,6 @@
 				}
 			});
 
-			// noinspection DuplicatedCode
 			net.socket.on('server.who', function(data) {
 				// console.log('server.who');
 				// console.log(JSON.stringify(data, null, 2));
@@ -2933,7 +2930,6 @@
 				net.lock_scroll = true;
 			});
 
-			// noinspection JSUnresolvedFunction,JSUnresolvedVariable
 			net.socket.on('server.help', function(data) {
 				// console.log('server.help');
 				// console.log(JSON.stringify(data, null, 2));
