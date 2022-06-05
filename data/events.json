@@ -6,7 +6,10 @@
 		"en": {
 			"amogus": ["ඞ", "amogus", "amoungus", "amongus", "amoung us", "among us", "among sus", "amoge us", "sus sus", " sus", "sus ", "sussy baka", "inpostor", "inposter", "impostor", "imposter"],
 			"cat": ["🐱", "meow", "nyan "],
-			"cry": ["cry ", "crying "],
+			"cry": {
+				"count": 2,
+				"triggers": ["cry ", "crying "]
+			},
 			"dance": ["dance", "dancing", "pepe"],
 			"dog": ["🐶", "woof", "doggy", "doggie", "dogo ", "doggo", "doge ", "doge-"],
 			"dontcry": ["don't you cry", "dont you cry", "don't u cry", "dont u cry", "don't cry", "dont cry", "dontcry"],
@@ -16,10 +19,17 @@
 				"count": 5,
 				"triggers": ["furries", "furrys", "furry"]
 			},
-			"haha": ["jaja", "haha", "hehe", "lmao"],
-			"hugs": [" hugs", "hugs ", " hug", "hug ", "hugging"],
-			"huh": ["huh "],
+			"haha": ["jaja", "haha", "hehe", "lol", "lmao"],
+			"hugs": {
+				"count": 3,
+				"triggers": [" hugs", "hugs ", " hug", "hug ", "hugging"]
+			},
+			"huh": ["huh ", "wtf"],
 			"hypno": ["hypno"],
+			"ignore": {
+				"count": 2,
+				"triggers": ["ignore", "mute"]
+			},
 			"kiss": {
 				"count": 2,
 				"triggers": ["kisses", "kiss", "smootch"]
@@ -46,11 +56,11 @@
 			"sad": ["sad ", "megasad", "mega sad", "sad pepe"],
 			"simp": ["s i m p", "simmp", "simpp", "simp ", "sinp"],
 			"smile": ["smile"],
-			"thanks": ["thanks", "thankyou", "thank you"],
+			"thanks": ["thanks", "thankyou", "thank you", "thx", "tx", "ty"],
 			"tired": ["tired "],
 			"what": ["whut", "huh"],
 			"yeah": ["hellyeah", "hell yeah", "helayeah", "yeah"],
-			"zzz": ["zzz", "z z z", "sleepy"]
+			"zzz": ["zzz", "z z z", "sleepy", "sleep"]
 		},
 		"tr": {
 			"amogus": ["amogus", "amongus", "among us", "among sus", "sus sus", "imposter"],
