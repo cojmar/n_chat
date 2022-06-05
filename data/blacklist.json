@@ -234,7 +234,7 @@
 			"sugar": ["drugs"],
 			"omg": ["omfg"],
 			"lmao": ["lmfao"],
-			"what": ["wtf"],
+			"what": ["wtf", " tf"],
 			"gross": ["kinky"],
 			"idk": ["idfk "],
 			"abraham lincoln": ["adolf hitler", "joseph stalin"],
@@ -257,7 +257,7 @@
 			"behind": ["anal", "asshole", "anus", " ass"],
 			"🌼": ["卐", "卍", "ᛋᛋ"],
 			"👌": ["🖕"],
-			"": ["address", "numbers", "emailshidden", "websitesbanned", "spam", "swear", "asfaq", " tf", "age ", "bbc"]
+			"": ["address", "numbers", "emailshidden", "websitesbanned", "spam", "swear", "asfaq", "age ", "bbc"]
 		}
 	}
 }
