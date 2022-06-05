@@ -8,7 +8,7 @@
 			"cat": ["🐱", "meow", "nyan "],
 			"cry": {
 				"count": 2,
-				"triggers": ["cry ", "crying "]
+				"triggers": ["cry ", "crying ", "cries "]
 			},
 			"dance": ["dance", "dancing", "pepe"],
 			"dog": ["🐶", "woof", "doggy", "doggie", "dogo ", "doggo", "doge ", "doge-"],
