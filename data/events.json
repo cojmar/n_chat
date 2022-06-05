@@ -26,6 +26,11 @@
 			},
 			"mad": ["mad", "upset"],
 			"matrix": ["matrix"],
+			"pan": {
+				"count": 3,
+				"type": "png",
+				"triggers": ["pansexual", "pansexula"]
+			},
 			"megachad": ["megachad", "mega chad"],
 			"megalol": ["omegalul", "omeglul", "megalol", "megalul", "mega lol"],
 			"megapopcorn": ["megapopcorn", "mega popcorn", "mega pop corn"],
