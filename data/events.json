@@ -36,17 +36,17 @@
 			},
 			"mad": ["mad", "upset"],
 			"matrix": ["matrix"],
-			"pan": {
-				"count": 3,
-				"type": "png",
-				"triggers": ["pansexual", "pansexula"]
-			},
 			"megachad": ["megachad", "mega chad"],
 			"megalol": ["omegalul", "omeglul", "megalol", "megalul", "mega lol"],
 			"megapopcorn": ["megapopcorn", "mega popcorn", "mega pop corn"],
 			"music": {
 				"count": 2,
 				"triggers": ["music", "song"]
+			},
+			"pan": {
+				"count": 3,
+				"type": "png",
+				"triggers": ["pansexual", "pansexula"]
 			},
 			"pats": ["patts", "pats"],
 			"pogchamp": ["pogchamp", "poggers", "pog "],
@@ -65,7 +65,10 @@
 		"tr": {
 			"amogus": ["amogus", "amongus", "among us", "among sus", "sus sus", "imposter"],
 			"cat": ["🐱", "kedi ", "nyan "],
-			"cry": ["agla ", "ağla ", "ağlamak ", "aglamak "],
+			"cry": {
+				"count": 2,
+				"triggers": ["agla ", "ağla ", "ağlamak ", "aglamak "]
+			},
 			"dance": ["dans ", "pepe"],
 			"dog": ["🐶", "kopek ", "köpek ", "dogo ", "doggo", "doge ", "doge-"],
 			"dontcry": ["ağlama", "aglama"],
@@ -76,9 +79,16 @@
 				"triggers": ["furries", "furrys", "furry"]
 			},
 			"haha": ["jaja", "haha", "hehe", "lmao"],
-			"hugs": ["sarılma", "sarilma"],
+			"hugs": {
+				"count": 3,
+				"triggers": ["sarılma", "sarilma"]
+			},
 			"huh": ["huh "],
 			"hypno": ["hipnoz"],
+			"ignore": {
+				"count": 2,
+				"triggers": ["ignore", "mute"]
+			},
 			"kiss": {
 				"count": 2,
 				"triggers": ["öpücükler", "opucukler"]
@@ -91,6 +101,11 @@
 			"music": {
 				"count": 2,
 				"triggers": ["müzik", "muzik"]
+			},
+			"pan": {
+				"count": 3,
+				"type": "png",
+				"triggers": ["pansexual", "pansexula"]
 			},
 			"pats": ["patlar ", "aferin"],
 			"pogchamp": ["pogchamp", "poggers", "pog ", "domuz"],
