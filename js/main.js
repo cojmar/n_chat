@@ -1479,13 +1479,12 @@
 						data.data = json_data;
 					}
 
-					if (data.cmd === 'dev') {
+					if (data.cmd === 'dev2') {
 						net.dev_mode = !net.dev_mode;
 
 						net.log('Development mode ' + (net.dev_mode ? 'ENABLED' : 'DISABLED') + '.', 4);
 
 						if (net.dev_mode) {
-							net.log('Socket is now attached to window.', 4);
 							net.log('Debug messages are shown in console.', 4);
 						}
 					}
