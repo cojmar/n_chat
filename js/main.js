@@ -1489,10 +1489,6 @@
 						}
 					}
 
-					if (data.cmd === 'nickname' || data.cmd === 'name' || data.cmd === 'n') {
-						data.cmd = 'nick';
-					}
-
 					if (data.cmd === 'w' || data.cmd === 'whois') {
 						data.cmd = 'who';
 					}
@@ -1503,6 +1499,10 @@
 
 					if (data.cmd === 't') {
 						data.cmd = 'topic';
+					}
+
+					if (data.cmd === 'topic' && data.data === '') {
+						data.data = net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic;
 					}
 
 					if (data.cmd === 'emoji') {
@@ -1628,10 +1628,6 @@
 						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
 						net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> Please don\'t share your recovery code with anyone.', 4);
 						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
-					}
-
-					if (data.cmd === 'topic' && data.data === '') {
-						data.data = net.room_info.name.startsWith('Emupedia') ? net.def_topic : net.def_custom_topic;
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload') {
@@ -1784,6 +1780,15 @@
 						}
 					}
 
+					if (data.cmd === 'stop') {
+						net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');
+
+						clearTimeout(net.event_clear_timeout);
+						net.event_clear_timeout = setTimeout(function() {
+							net.event.html('');
+						}, 1000);
+					}
+
 					if (!is_admin && ~net.disabled_commands.indexOf(data.cmd)) {
 						net.log('Invalid command', 4);
 						net.text_input.val('');
@@ -1795,6 +1800,10 @@
 						// noinspection JSUnresolvedFunction
 						net.text_input.val('');
 						return true;
+					}
+
+					if (data.cmd === 'nickname' || data.cmd === 'name' || data.cmd === 'n') {
+						data.cmd = 'nick';
 					}
 
 					// noinspection JSUnresolvedFunction
