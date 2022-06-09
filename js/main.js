@@ -2002,6 +2002,7 @@
 				});
 			};
 
+			// noinspection JSUnusedLocalSymbols
 			net.socket.on('connect', function(data) {
 				// console.log('connect');
 				// console.log(JSON.stringify(data, null, 2));
