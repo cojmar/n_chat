@@ -182,6 +182,8 @@
 				mode: 0
 			});
 
+			net.window = $(window);
+			net.document = $(document);
 			net.body = $('body');
 			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
@@ -193,6 +195,7 @@
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 18;
+			net.max_zoom = net.window.width() <= 640 ? 1.1 : 2.5;
 
 			var picker = new EmojiButton({
 				rootElement: net.console.get(0),
@@ -322,7 +325,7 @@
 				simplestorage.set('zoom', 1);
 				net.zoom = 1;
 			} else {
-				net.console.css('zoom', net.zoom);
+				net.console.css('zoom', net.zoom > net.max_zoom ? net.max_zoom : net.zoom);
 			}
 
 			if (typeof net.use_blacklist === 'undefined') {
@@ -2636,7 +2639,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="2.5" step="0.1" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
+							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="0.1" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
 							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
@@ -3128,22 +3131,22 @@
 				}
 			});
 
-			$(document).on('click', '.unban_user', function() {
+			net.document.on('click', '.unban_user', function() {
 				net.text_input.get(0).value = '/unban ' + $(this).data('id');
 				net.text_input.focus();
 			});
 
-			$(document).on('click', '.unjail_user', function() {
+			net.document.on('click', '.unjail_user', function() {
 				net.text_input.get(0).value = '/unjail ' + $(this).data('id');
 				net.text_input.focus();
 			});
 
-			$(document).on('click', '.ignore_user', function() {
+			net.document.on('click', '.ignore_user', function() {
 				net.text_input.get(0).value = '/ignore ' + $(this).data('uid');
 				net.text_input.focus();
 			});
 
-			$(document).on('click', '.unignore_user', function(e) {
+			net.document.on('click', '.unignore_user', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 				e.stopImmediatePropagation();
@@ -3152,12 +3155,12 @@
 				net.text_input.focus();
 			});
 
-			$(document).on('click', '#client_settings_popover a.color', function() {
+			net.document.on('click', '#client_settings_popover a.color', function() {
 				// noinspection JSUnresolvedFunction
 				net.send_cmd('present', $(this).data('index'));
 			});
 
-			$(document).on('click', '#client_settings_popover a.color-claim', function() {
+			net.document.on('click', '#client_settings_popover a.color-claim', function() {
 				if ($('#client_settings_popover a.color-claim').html().indexOf('CUSTOM') === -1) {
 					net.settings_popover.removeClass('show');
 					// noinspection JSUnresolvedFunction
@@ -3165,7 +3168,7 @@
 				}
 			});
 
-			$(document).on('click', '.client_nickname', function(e) {
+			net.document.on('click', '.client_nickname', function(e) {
 				if (e.shiftKey) {
 					if ($sys.feature.CLIPBOARD) {
 						// noinspection JSIgnoredPromiseFromCall
@@ -3199,7 +3202,7 @@
 				}
 			});
 
-			$(document).on('click', '.do_cmd', function() {
+			net.document.on('click', '.do_cmd', function() {
 				// noinspection JSUnresolvedFunction
 				net.text_input.get(0).value += $(this).text() + ' ';
 				net.text_input.focus();
@@ -3221,7 +3224,7 @@
 				});
 			}
 
-			$(document).mouseup(function(e) {
+			net.document.mouseup(function(e) {
 				if (!net.settings_popover.is(e.target) && !net.settings_button.is(e.target) && net.settings_popover.has(e.target).length === 0) {
 					net.settings_popover.removeClass('show');
 
@@ -3231,7 +3234,7 @@
 				}
 			});
 
-			$(window).on('resize', function() {
+			net.window.on('resize', function() {
 				net.render_chat();
 			}).on('keydown', function(e) {
 				// noinspection JSRedundantSwitchStatement
