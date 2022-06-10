@@ -219,8 +219,7 @@
 			net.nick_color_delta2 = 17;
 			net.step_zoom = net.window.width() <= 640 ? 0.01 : 0.1;
 			net.max_zoom = net.window.width() <= 640 ? 1.1 : 2.5;
-			// net.container = net.window.width() <= 640 ? net.body : net.console;
-			net.container = net.console;
+			net.container = net.window.width() <= 640 ? net.body : net.console;
 
 			var picker = new EmojiButton({
 				rootElement: net.container.get(0),
@@ -337,7 +336,8 @@
 			net.use_text_shadow = simplestorage.get('use_text_shadow');
 			net.use_colors = simplestorage.get('use_colors');
 
-			toastr.target = net.container.getSelector();
+			// toastr.target = net.container.getSelector();
+			toastr.target = net.console;
 			toastr.options.escapeHtml = true;
 			toastr.options.closeButton = true;
 			toastr.options.preventDuplicates = true;
@@ -3239,7 +3239,8 @@
 			if (typeof $.fn.selectmenu === 'function') {
 				// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 				net.client_rooms.selectmenu({
-					appendTo: net.container.getSelector(),
+					// appendTo: net.container.getSelector(),
+					appendTo: net.console,
 					change: function(e, ui) {
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('join', ui.item.value);
