@@ -329,8 +329,8 @@
 			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
-			net.client_commands = ['recover_code', 'clear', 'stop'];
-			net.hidden_commands = ['su', 'dev', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video', 'emoji', 'text_shadow', 'colors', 'users', 'low', 'medium', 'high', 'present'];
+			net.client_commands = ['recover_code', 'clear', 'stop', 'low', 'medium', 'high', 'emoji', 'text_shadow', 'colors'];
+			net.hidden_commands = ['su', 'dev', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video',  'users', 'present', 'room_info'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
