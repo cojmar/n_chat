@@ -3209,6 +3209,7 @@
 			if (typeof $.fn.selectmenu === 'function') {
 				// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 				net.client_rooms.selectmenu({
+					appendTo: '#client_container',
 					change: function(e, ui) {
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('join', ui.item.value);
