@@ -2672,17 +2672,18 @@
 							'<label><input class="settings_input" id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
 							'<label><input class="settings_input" id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>',
 							'<label><input class="settings_input" id="use_text_shadow" type="checkbox" ' + (net.use_text_shadow ? 'checked="checked"' : '') + '>&nbsp;Show text shadow</label>',
-							'<label><input class="settings_input" id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label><hr style="margin:0;"/>',
-							'<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Low</span>',
-							'<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Medium</span>',
-							'<span class="preset_settings" style="cursor:pointer;font-size:10px">High</span>'
-						].join('') + '<hr />';
+							'<label><input class="settings_input" id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label>',
+							'<hr />'
+							// '<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Low</span>',
+							// '<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Medium</span>',
+							// '<span class="preset_settings" style="cursor:pointer;font-size:10px">High</span>'
+						].join('');
 
 						// noinspection JSUnresolvedVariable
 						if (data.claimable) {
 							// noinspection JSUnresolvedVariable
 							var label = (data.custom_color) ? '<input type="color" id="custom_color" /> New color! ' : '🎁 Click here to claim a new color!';
-							html += '<a href="javascript:;" class="color-claim" style="color: orange; text-decoration: none;">' + label + '</a><hr />';
+							html += '<a href="javascript:;" class="color-claim" style="color: orange; text-decoration: none;">' + label + '</a>';
 						}
 
 						var i = 1;
