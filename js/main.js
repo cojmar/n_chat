@@ -214,6 +214,17 @@
 			net.text_input = $('#client_command');
 			net.text_input_button = $('#client_command_send');
 			net.output_div = $('#client_output');
+			net.event = $('#event');
+			net.client_topic = $('#topic_output');
+			net.client_room_users = $('#client_room_users');
+			net.client_room = $('#client_room');
+			net.client_rooms = $('#client_rooms');
+			net.client_room_name = net.client_room.find('span.name');
+			net.client_room_online = net.client_room.find('span.online');
+
+			net.console.show();
+			net.event.show();
+
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 18;
@@ -3069,17 +3080,6 @@
 					}
 				}
 			});
-
-			net.event = $('#event');
-			net.client_topic = $('#topic_output');
-			net.client_room_users = $('#client_room_users');
-			net.client_room = $('#client_room');
-			net.client_rooms = $('#client_rooms');
-			net.client_room_name = net.client_room.find('span.name');
-			net.client_room_online = net.client_room.find('span.online');
-
-			net.console.show();
-			net.event.show();
 
 			// noinspection JSUnresolvedFunction,DuplicatedCode
 			net.text_input.off('keypress').on('keypress', function(e) {
