@@ -3290,6 +3290,7 @@
 							if (data.sha !== '' && $sys.version !== '' && $sys.version !== '{{ site.github.build_revision }}') {
 								// noinspection JSUnresolvedVariable
 								if (data.sha !== $sys.version) {
+									console.log('New update available, click here to reload');
 									toastr.options.onclick = function() {
 										if (window.top === window) {
 											location.reload();
