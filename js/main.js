@@ -292,6 +292,7 @@
 			net.max_message_length = 160;
 			net.max_paste_length = 100;
 
+			net.zoom = simplestorage.get('zoom');
 			net.use_blacklist = simplestorage.get('use_blacklist');
 			net.use_events = simplestorage.get('use_events');
 			net.use_animated_topic = simplestorage.get('use_animated_topic');
@@ -307,6 +308,13 @@
 			toastr.options.timeOut = 0;
 			toastr.options.extendedTimeOut = 0;
 			toastr.options.showMethod = 'slideDown';
+
+			if (typeof net.zoom === 'undefined') {
+				simplestorage.set('zoom', 1);
+				net.zoom = 1;
+			} else {
+				net.body.css('zoom', net.zoom);
+			}
 
 			if (typeof net.use_blacklist === 'undefined') {
 				simplestorage.set('use_blacklist', true);
@@ -2620,6 +2628,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
+							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="4.0" step="0.1" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
 							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
@@ -2663,6 +2672,14 @@
 							$('.settings_input').each(function() {
 								$(this).prop('checked', net[$(this).prop('id')]);
 							});
+						});
+
+						$('#zoom').off('change').on('change', function() {
+							$(this).attr('value', $(this).val());
+							net.zoom = $(this).val();
+							net.body.css('zoom', net.zoom);
+							net.settings_popover_instance.update();
+							simplestorage.set('zoom', net.zoom);
 						});
 
 						$('#use_text_shadow').off('change').on('change', function() {

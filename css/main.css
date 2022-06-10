@@ -508,6 +508,10 @@ label {
 	display: block;
 }
 
+#client_settings_popover #zoom {
+	width: 100%;
+}
+
 .ui-selectmenu-button span.ui-selectmenu-text {
 	padding: 0;
 	text-align: center;
