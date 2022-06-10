@@ -2630,7 +2630,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="4.0" step="0.1" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
+							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="2.5" step="0.1" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
 							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
