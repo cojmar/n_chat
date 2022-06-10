@@ -216,7 +216,7 @@
 			net.output_div = $('#client_output');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
-			net.nick_color_delta2 = 17;
+			net.nick_color_delta2 = 18;
 			net.step_zoom = net.window.width() <= 640 ? 0.01 : 0.1;
 			net.max_zoom = net.window.width() <= 640 ? 1.1 : 2.5;
 			net.container = net.window.width() <= 640 ? net.body : net.console;
@@ -3239,7 +3239,8 @@
 			if (typeof $.fn.selectmenu === 'function') {
 				// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 				net.client_rooms.selectmenu({
-					appendTo: net.container.getSelector(),
+					// appendTo: net.container.getSelector(),
+					appendTo: net.console,
 					change: function(e, ui) {
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('join', ui.item.value);
