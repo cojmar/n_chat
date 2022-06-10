@@ -157,6 +157,28 @@
 		'libraries/spectrum',
 		'moment-duration'
 	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, moment, ga, spectrum, momentd) {
+		if (typeof $.fn.getSelector === 'undefined') {
+			$.fn.getSelector = function() {
+				if ($(this).attr('id')) {
+					return '#' + $(this).attr('id');
+				}
+
+				if ($(this).prop('tagName').toLowerCase() === 'body') {
+					return 'body';
+				}
+
+				var myOwn = $(this).attr('class');
+
+				if (!myOwn) {
+					myOwn = '>' + $(this).prop("tagName");
+				} else {
+					myOwn = '.' + myOwn.split(' ').join('.');
+				}
+
+				return $(this).parent().getSelector() + ' ' + myOwn;
+			}
+		}
+
 		// noinspection DuplicatedCode
 		$(function() {
 			if (typeof ga === 'function') {
@@ -194,11 +216,12 @@
 			net.output_div = $('#client_output');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
-			net.nick_color_delta2 = 18;
-			net.max_zoom = net.window.width() <= 640 ? 1.1 : 2.5;
+			net.nick_color_delta2 = 17;
+			net.max_zoom = net.window.width() <= 640 ? 2.0 : 2.5;
+			net.container = net.window.width() <= 640 ? net.body : net.console;
 
 			var picker = new EmojiButton({
-				rootElement: net.console.get(0),
+				rootElement: net.container.get(0),
 				theme: 'dark',
 				style: 'twemoji',
 				position: 'bottom',
@@ -312,7 +335,7 @@
 			net.use_text_shadow = simplestorage.get('use_text_shadow');
 			net.use_colors = simplestorage.get('use_colors');
 
-			toastr.target = '#client_container';
+			toastr.target = net.container.getSelector();
 			toastr.options.escapeHtml = true;
 			toastr.options.closeButton = true;
 			toastr.options.preventDuplicates = true;
@@ -1382,6 +1405,7 @@
 							// console.log('#0c200c should be true', net.color_delta2('#0c200c', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#083b02 should be true', net.color_delta2('#083b02', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#110101 should be true', net.color_delta2('#110101', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
+							// console.log('#170c25 should be true', net.color_delta2('#170c25', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#581a1a should be false', net.color_delta2('#581a1a', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#8f0613 should be false', net.color_delta2('#8f0613', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
 							// console.log('#0a00ff should be false', net.color_delta2('#0a00ff', '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2));
@@ -3212,7 +3236,7 @@
 			if (typeof $.fn.selectmenu === 'function') {
 				// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols
 				net.client_rooms.selectmenu({
-					appendTo: '#client_container',
+					appendTo: net.container.getSelector(),
 					change: function(e, ui) {
 						// noinspection JSUnresolvedFunction
 						net.send_cmd('join', ui.item.value);
