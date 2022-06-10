@@ -2712,7 +2712,7 @@
 							});
 						});
 
-						$('#zoom').off('change input').on('change input', function() {
+						$('#zoom').off('change').on('change', function() {
 							$(this).attr('value', $(this).val());
 							net.zoom = $(this).val();
 							net.console.css('zoom', net.zoom);
