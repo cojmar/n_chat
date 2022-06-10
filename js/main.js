@@ -337,7 +337,7 @@
 			net.use_colors = simplestorage.get('use_colors');
 
 			// toastr.target = net.container.getSelector();
-			toastr.target = net.console;
+			toastr.target = net.console.getSelector();
 			toastr.options.escapeHtml = true;
 			toastr.options.closeButton = true;
 			toastr.options.preventDuplicates = true;
