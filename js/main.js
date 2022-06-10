@@ -217,8 +217,10 @@
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 17;
+			net.step_zoom = net.window.width() <= 640 ? 0.01 : 0.1;
 			net.max_zoom = net.window.width() <= 640 ? 2.0 : 2.5;
-			net.container = net.window.width() <= 640 ? net.body : net.console;
+			// net.container = net.window.width() <= 640 ? net.body : net.console;
+			net.container = net.console;
 
 			var picker = new EmojiButton({
 				rootElement: net.container.get(0),
@@ -2663,7 +2665,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="0.1" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
+							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="' + net.step_zoom + '" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
 							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
@@ -2709,7 +2711,7 @@
 							});
 						});
 
-						$('#zoom').off('change').on('change', function() {
+						$('#zoom').off('change input').on('change input', function() {
 							$(this).attr('value', $(this).val());
 							net.zoom = $(this).val();
 							net.console.css('zoom', net.zoom);
