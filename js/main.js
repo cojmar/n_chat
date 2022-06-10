@@ -218,7 +218,7 @@
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 17;
 			net.step_zoom = net.window.width() <= 640 ? 0.01 : 0.1;
-			net.max_zoom = net.window.width() <= 640 ? 2.0 : 2.5;
+			net.max_zoom = net.window.width() <= 640 ? 1.1 : 2.5;
 			// net.container = net.window.width() <= 640 ? net.body : net.console;
 			net.container = net.console;
 
