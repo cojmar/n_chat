@@ -6,10 +6,6 @@
 	--background: #302f2f;
 }
 
-body.text_shadow, body.text_shadow input, body.text_shadow button {
-	text-shadow: #000 1px 1px;
-}
-
 hr {
 	margin-top: 2px;
 	border-color: #808080;
@@ -150,6 +146,10 @@ label {
 	font-family: 'EmuOS', 'MS Sans Serif', 'Arial', sans-serif;
 	border: 1px #4c4c4c solid;
 	background-color: rgba(47, 47, 47, 0.7);
+}
+
+#client_container.text_shadow, #client_container.text_shadow input, #client_container.text_shadow button {
+	text-shadow: #000 1px 1px;
 }
 
 #client_users {

@@ -354,9 +354,9 @@
 			}
 
 			if (net.use_text_shadow) {
-				net.body.addClass('text_shadow');
+				net.console.addClass('text_shadow');
 			} else {
-				net.body.removeClass('text_shadow');
+				net.console.removeClass('text_shadow');
 			}
 
 			net.color_delta = function (hex1, hex2) {
@@ -1526,9 +1526,9 @@
 						simplestorage.set('use_text_shadow', net.use_text_shadow);
 
 						if (net.use_text_shadow) {
-							net.body.addClass('text_shadow');
+							net.console.addClass('text_shadow');
 						} else {
-							net.body.removeClass('text_shadow');
+							net.console.removeClass('text_shadow');
 						}
 					}
 
@@ -1566,9 +1566,9 @@
 						}
 
 						if (net.use_text_shadow) {
-							net.body.addClass('text_shadow');
+							net.console.addClass('text_shadow');
 						} else {
-							net.body.removeClass('text_shadow');
+							net.console.removeClass('text_shadow');
 						}
 
 						net.render_users(1, true);
@@ -1596,9 +1596,9 @@
 						}
 
 						if (net.use_text_shadow) {
-							net.body.addClass('text_shadow');
+							net.console.addClass('text_shadow');
 						} else {
-							net.body.removeClass('text_shadow');
+							net.console.removeClass('text_shadow');
 						}
 
 						net.render_users(1, true);
@@ -1626,9 +1626,9 @@
 						}
 
 						if (net.use_text_shadow) {
-							net.body.addClass('text_shadow');
+							net.console.addClass('text_shadow');
 						} else {
-							net.body.removeClass('text_shadow');
+							net.console.removeClass('text_shadow');
 						}
 
 						net.render_users(1, true);
@@ -2689,9 +2689,9 @@
 							simplestorage.set('use_text_shadow', net.use_text_shadow);
 
 							if (net.use_text_shadow) {
-								net.body.addClass('text_shadow');
+								net.console.addClass('text_shadow');
 							} else {
-								net.body.removeClass('text_shadow');
+								net.console.removeClass('text_shadow');
 							}
 						});
 
