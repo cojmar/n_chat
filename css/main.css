@@ -822,6 +822,11 @@ label {
 	overflow: hidden;
 }
 
+.emoji-picker__preview-emoji {
+	height: 43px;
+	overflow: hidden;
+}
+
 .client_nickname {
 	cursor: pointer;
 }
