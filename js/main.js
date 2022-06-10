@@ -191,7 +191,9 @@
 			var picker = new EmojiButton({
 				theme: 'dark',
 				style: 'twemoji',
-				position: 'bottom',
+				position: {
+					container: '#client_container'
+				},
 				emojiSize: '1.2em',
 				emojisPerRow: 6,
 				rows: 5

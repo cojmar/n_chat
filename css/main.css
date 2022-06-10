@@ -778,6 +778,11 @@ label {
 	text-shadow: none;
 }
 
+.emoji-picker-wrapper {
+	position: absolute;
+	bottom: 28px;
+}
+
 .emoji-picker {
 	border-radius: 0 !important;
 }
