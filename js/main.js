@@ -303,6 +303,7 @@
 			net.use_text_shadow = simplestorage.get('use_text_shadow');
 			net.use_colors = simplestorage.get('use_colors');
 
+			toastr.target = '#client_container';
 			toastr.options.escapeHtml = true;
 			toastr.options.closeButton = true;
 			toastr.options.preventDuplicates = true;
