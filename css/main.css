@@ -780,11 +780,17 @@ label {
 
 .emoji-picker-wrapper {
 	position: absolute;
-	bottom: 28px;
+	left: 8px;
+	bottom: 31px;
+	inset: auto auto 30px 8px !important;
 }
 
 .emoji-picker {
 	border-radius: 0 !important;
+}
+
+.emoji-picker.dark {
+	--dark-border-color: #4c4c4c !important;
 }
 
 .emoji-picker__search {

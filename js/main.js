@@ -189,11 +189,10 @@
 			net.nick_color_delta2 = 18;
 
 			var picker = new EmojiButton({
+				rootElement: net.console.get(0),
 				theme: 'dark',
 				style: 'twemoji',
-				position: {
-					container: '#client_container'
-				},
+				position: 'bottom',
 				emojiSize: '1.2em',
 				emojisPerRow: 6,
 				rows: 5
