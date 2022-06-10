@@ -184,6 +184,12 @@
 
 			net.body = $('body');
 			net.console = $('#client_container');
+			net.emoji_button = $('#client_emoticons');
+			net.settings_button = $('#client_settings');
+			net.settings_popover = $('#client_settings_popover');
+			net.text_input = $('#client_command');
+			net.text_input_button = $('#client_command_send');
+			net.output_div = $('#client_output');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 18;
@@ -1131,7 +1137,6 @@
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
 					if (room.startsWith('Emupedia') || room === 'Spam' || room === 'Music') {
-
 						if (net.room_info) {
 							// noinspection JSUnfilteredForInLoop
 							if (room === net.room_info.name) {
@@ -2993,12 +2998,6 @@
 				net.text_input.get(0).focus();
 			});
 
-			net.emoji_button = $('#client_emoticons');
-			net.settings_button = $('#client_settings');
-			net.settings_popover = $('#client_settings_popover');
-			net.text_input = $('#client_command');
-			net.text_input_button = $('#client_command_send');
-			net.output_div = $('#client_output');
 			net.output_div.on('scroll', function() {
 				var output = net.output_div.get(0);
 
