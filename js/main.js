@@ -183,6 +183,7 @@
 			});
 
 			net.body = $('body');
+			net.console = $('#client_container');
 			net.bot_uid = 'U4176153203-2919990363';
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 18;
@@ -313,7 +314,7 @@
 				simplestorage.set('zoom', 1);
 				net.zoom = 1;
 			} else {
-				net.body.css('zoom', net.zoom);
+				net.console.css('zoom', net.zoom);
 			}
 
 			if (typeof net.use_blacklist === 'undefined') {
@@ -2677,7 +2678,7 @@
 						$('#zoom').off('change').on('change', function() {
 							$(this).attr('value', $(this).val());
 							net.zoom = $(this).val();
-							net.body.css('zoom', net.zoom);
+							net.console.css('zoom', net.zoom);
 							net.settings_popover_instance.update();
 							simplestorage.set('zoom', net.zoom);
 						});
@@ -2990,7 +2991,6 @@
 				net.text_input.get(0).focus();
 			});
 
-			net.console = $('#client_container');
 			net.emoji_button = $('#client_emoticons');
 			net.settings_button = $('#client_settings');
 			net.settings_popover = $('#client_settings_popover');
