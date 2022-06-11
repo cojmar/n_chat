@@ -2681,7 +2681,7 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="' + net.step_zoom + '" value="' + (net.zoom ? net.zoom : 1) + '"></label>',
+							'<label style="margin-bottom: 5px;">Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="' + net.step_zoom + '" value="' + (net.zoom ? net.zoom : 1) + '"></label>',
 							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
@@ -2695,7 +2695,7 @@
 						if (data.claimable) {
 							// noinspection JSUnresolvedVariable
 							var label = (data.custom_color) ? '<input type="color" id="custom_color" /> New color! ' : '🎁 Click here to claim a new color!';
-							html += '<a href="javascript:;" class="color-claim" style="color: orange; margin-top: 5px; text-decoration: none;">' + label + '</a>';
+							html += '<a href="javascript:;" class="color-claim" style="color: orange; margin-top: 8px; margin-bottom: 8px; text-decoration: none;">' + label + '</a>';
 						}
 
 						var i = 1;

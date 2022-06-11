@@ -478,7 +478,7 @@ label {
 	opacity: 0;
 	visibility: hidden;
 	padding: 5px;
-	font-size: 14px;
+	font-size: 16px;
 	text-align: center;
 	background: #302f2f;
 	border: 1px #4c4c4c solid;
@@ -511,8 +511,8 @@ label {
 
 #client_settings_popover #zoom {
 	display: block;
-	margin-left: 40px;
-	margin-top: -15px;
+	margin-left: 50px;
+	margin-top: -16px;
 }
 
 .ui-selectmenu-button span.ui-selectmenu-text {
