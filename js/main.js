@@ -240,7 +240,7 @@
 				showPreview: false,
 				emojiSize: '1.2em',
 				emojisPerRow: 6,
-				rows: 5
+				rows: 6
 			});
 
 			picker.on('emoji', function(emoji) {
@@ -2681,25 +2681,21 @@
 				if (typeof data !== 'undefined') {
 					if (typeof data.items !== 'undefined') {
 						var html = [
-							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="' + net.step_zoom + '" value="' + (net.zoom ? net.zoom : 1) + '"></label><hr style="margin:0;"/>',
+							'<label>Zoom&nbsp;<input class="settings_zoom" id="zoom" type="range" min="1.0" max="' + net.max_zoom + '" step="' + net.step_zoom + '" value="' + (net.zoom ? net.zoom : 1) + '"></label>',
 							'<label><input class="settings_input" id="use_blacklist" type="checkbox" ' + (net.use_blacklist ? 'checked="checked"' : '') + '>&nbsp;Words censorship</label>',
 							'<label><input class="settings_input" id="use_events" type="checkbox" ' + (net.use_events ? 'checked="checked"' : '') + '>&nbsp;Animate background</label>',
 							'<label><input class="settings_input" id="use_animated_emoticons" type="checkbox" ' + (net.use_animated_emoticons ? 'checked="checked"' : '') + '>&nbsp;Animate emojis</label>',
 							'<label><input class="settings_input" id="use_animated_topic" type="checkbox" ' + (net.use_animated_topic ? 'checked="checked"' : '') + '>&nbsp;Animate topic</label>',
 							'<label><input class="settings_input" id="refresh_users" type="checkbox" ' + (net.refresh_users ? 'checked="checked"' : '') + '>&nbsp;Auto sort users by level</label>',
 							'<label><input class="settings_input" id="use_text_shadow" type="checkbox" ' + (net.use_text_shadow ? 'checked="checked"' : '') + '>&nbsp;Show text shadow</label>',
-							'<label><input class="settings_input" id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label>',
-							'<hr />'
-							// '<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Low</span>',
-							// '<span class="preset_settings" style="cursor:pointer;font-size:10px;margin-right:10px;">Medium</span>',
-							// '<span class="preset_settings" style="cursor:pointer;font-size:10px">High</span>'
+							'<label><input class="settings_input" id="use_colors" type="checkbox" ' + (net.use_colors ? 'checked="checked"' : '') + '>&nbsp;Show colors</label>'
 						].join('');
 
 						// noinspection JSUnresolvedVariable
 						if (data.claimable) {
 							// noinspection JSUnresolvedVariable
 							var label = (data.custom_color) ? '<input type="color" id="custom_color" /> New color! ' : '🎁 Click here to claim a new color!';
-							html += '<a href="javascript:;" class="color-claim" style="color: orange; text-decoration: none;">' + label + '</a>';
+							html += '<a href="javascript:;" class="color-claim" style="color: orange; margin-top: 5px; text-decoration: none;">' + label + '</a>';
 						}
 
 						var i = 1;

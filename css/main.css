@@ -16,6 +16,7 @@ label {
 	display: block;
 	width: 100%;
 	text-align: left;
+	height: 16px;
 }
 
 /*noinspection CssOverwrittenProperties*/
@@ -455,8 +456,8 @@ label {
 	margin-top: 0;
 	margin-left: -3px;
 	width: auto !important;
-	min-width: 200px;
-	max-height: 267px;
+	/*min-width: 200px;*/
+	max-height: 240px;
 	white-space: nowrap;
 	overflow-x: hidden;
 	scrollbar-base-color: #222;
@@ -476,8 +477,8 @@ label {
 #client_settings_popover {
 	opacity: 0;
 	visibility: hidden;
-	padding: 10px;
-	font-size: 18px;
+	padding: 5px;
+	font-size: 14px;
 	text-align: center;
 	background: #302f2f;
 	border: 1px #4c4c4c solid;
@@ -509,16 +510,14 @@ label {
 }
 
 #client_settings_popover #zoom {
-	width: 70%;
+	display: block;
+	margin-left: 40px;
+	margin-top: -15px;
 }
 
 .ui-selectmenu-button span.ui-selectmenu-text {
 	padding: 0;
 	text-align: center;
-}
-
-.ui-selectmenu-button span.ui-icon {
-	/*margin-top: -12px;*/
 }
 
 .ui-menu-item {
@@ -824,6 +823,10 @@ label {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 	overflow-x: hidden;
+}
+
+.emoji-picker__category-name {
+	margin: 0.2em 0 !important;
 }
 
 .emoji-picker__search-container {
