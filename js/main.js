@@ -2695,7 +2695,7 @@
 						if (data.claimable) {
 							// noinspection JSUnresolvedVariable
 							var label = (data.custom_color) ? '<input type="color" id="custom_color" /> New color! ' : '🎁 Click here to claim a new color!';
-							html += '<a href="javascript:;" class="color-claim" style="color: orange; margin-top: 8px; margin-bottom: 8px; text-decoration: none;">' + label + '</a>';
+							html += '<a href="javascript:;" class="color-claim" style="color: orange; margin-top: 8px; text-decoration: none;">' + label + '</a>';
 						}
 
 						var i = 1;
@@ -2703,7 +2703,7 @@
 
 						for (var item in data.items) {
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							html += '<a href="javascript:;" class="color" style="color: ' + ((i - 1) === data.item_index ? '#ffffff' : data.items[item].color) + '; text-decoration:none; ' + ((i - 1) === data.item_index ? 'background-color:' + data.items[item].color : '') + '" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
+							html += '<a href="javascript:;" class="color" style="margin-top: ' + (i === 1 ? 8 : 0)  +  'px; color: ' + ((i - 1) === data.item_index ? '#ffffff' : data.items[item].color) + '; text-decoration:none; ' + ((i - 1) === data.item_index ? 'background-color:' + data.items[item].color : '') + '" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
 							i++;
 							// noinspection JSUnfilteredForInLoop
 							last_color = data.items[item].color;
