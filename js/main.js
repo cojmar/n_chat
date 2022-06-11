@@ -229,7 +229,7 @@
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 18;
 			net.step_zoom = net.window.width() <= 640 ? 0.01 : 0.1;
-			net.max_zoom = net.window.width() <= 640 ? 1.2 : 2.5;
+			net.max_zoom = net.window.width() <= 640 ? 1.16 : 2.5;
 			net.container = net.window.width() <= 640 ? net.body : net.console;
 
 			var picker = new EmojiButton({
@@ -240,7 +240,7 @@
 				showPreview: false,
 				emojiSize: '1.2em',
 				emojisPerRow: 6,
-				rows: 6
+				rows: 5
 			});
 
 			picker.on('emoji', function(emoji) {
