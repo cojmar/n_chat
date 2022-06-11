@@ -233,7 +233,7 @@
 			net.container = net.window.width() <= 640 ? net.body : net.console;
 
 			var picker = new EmojiButton({
-				rootElement: net.container.get(0),
+				rootElement: net.console.get(0),
 				theme: 'dark',
 				style: 'twemoji',
 				position: 'bottom',

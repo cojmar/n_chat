@@ -787,16 +787,16 @@ label {
 
 .emoji-picker {
 	border-radius: 0 !important;
-	--emoji-size-multiplier: 1.5;
-	--category-name-size: 0.85em;
-	--category-button-height: 1.4em;
-	--category-button-size: 1.1em;
-	--category-border-bottom-size: 2px;
-	--dark-border-color: #4c4c4c;
+	--emoji-size-multiplier: 1.5 !important;
+	--category-name-size: 0.85em !important;
+	--category-button-height: 1.4em !important;
+	--category-button-size: 1.1em !important;
+	--category-border-bottom-size: 2px !important;
+	--dark-border-color: #4c4c4c !important;
 }
 
 .emoji-picker__content {
-	padding: 0.3em;
+	padding: 0.3em !important;
 }
 
 .emoji-picker__search {
@@ -821,13 +821,13 @@ label {
 	scrollbar-face-color: rgba(0, 0, 0, 0.38);
 	scrollbar-track-color: rgba(34, 33, 33, 0.95);
 	scrollbar-color: rgba(0, 0, 0, 0.38) rgba(34, 33, 33, 0.95);
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 	overflow-x: hidden;
 }
 
 .emoji-picker__search-container {
-	margin: 0.3em;
+	margin: 0.3em !important;
 }
 
 .emoji-picker__container {
