@@ -229,7 +229,7 @@
 			net.nick_color_delta = 0.8758169934640523;
 			net.nick_color_delta2 = 18;
 			net.step_zoom = net.window.width() <= 640 ? 0.01 : 0.1;
-			net.max_zoom = net.window.width() <= 640 ? 1.06 : 2.5;
+			net.max_zoom = net.window.width() <= 640 ? 1.2 : 2.5;
 			net.container = net.window.width() <= 640 ? net.body : net.console;
 
 			var picker = new EmojiButton({
@@ -237,9 +237,14 @@
 				theme: 'dark',
 				style: 'twemoji',
 				position: 'bottom',
+				showPreview: false,
 				emojiSize: '1.2em',
 				emojisPerRow: 6,
-				rows: 5
+				rows: 6
+			});
+
+			picker.on('emoji', function(emoji) {
+				net.text_input.get(0).value += emoji;
 			});
 
 			var emoticons_search = Object.keys(emoticons_data.mapping);
@@ -3120,10 +3125,6 @@
 				} else {
 					net.client_topic.removeAttr('style');
 				}
-			});
-
-			picker.on('emoji', function(emoji) {
-				net.text_input.get(0).value += emoji;
 			});
 
 			Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
