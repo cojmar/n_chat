@@ -1167,7 +1167,7 @@
 						}
 					}
 
-					while (output.scrollHeight - net.output_div.height() > 50) {
+					while (output.scrollHeight - net.output_div.height() > 150) {
 						$(net.output_div.children().get(0)).remove();
 					}
 
