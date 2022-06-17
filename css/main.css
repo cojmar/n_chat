@@ -850,6 +850,33 @@ label {
 	cursor: pointer;
 }
 
+@keyframes textclip {
+	
+	0%{
+		background-size: auto auto;
+		background-clip: border-box;
+		background-size: 200% auto;
+		
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	99% {		
+		background-size: 300% auto;
+		background-position: 400% center;
+	}
+
+	100% {	
+		background:none; 
+		background-size: initial;
+		background-clip: initial;
+		background-size: initial;
+		-webkit-text-fill-color: initial;
+		-webkit-background-clip: initial;		
+	}
+
+}
+
 .sp-picker-container, .sp-palette-container {
 	float: none;
 	padding: 10px;
