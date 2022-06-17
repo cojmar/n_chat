@@ -2522,7 +2522,7 @@
 					user_level.curLevel = '∞';
 					user_level.timeRequired = '∞';
 				}
-				var gradient_colors = [net.colors[3],net.colors[3],net.colors[3]]
+				var gradient_colors = [net.colors[3],'#000000','#ffffff']
 				if (room_user && room_user.info && room_user.info.present && room_user.info.present.items){
 					if(room_user.info.present.items[0]) gradient_colors[0] = room_user.info.present.items[0].color
 					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[0]
@@ -2531,7 +2531,7 @@
 					
 				net.use_gradient = true
 				
-				var gradient_nick = (is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) ?[
+				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ?[
 					'background: linear-gradient(to right,'+gradient_colors[0]+' 10%,'+gradient_colors[1]+' 50%,'+gradient_colors[2]+' 60%)',												
 					'animation: textclip 5s linear forwards'					
 				].join(';'):''
