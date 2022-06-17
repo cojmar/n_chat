@@ -2525,8 +2525,8 @@
 				var gradient_colors = [net.colors[3],'#000000','#ffffff']
 				if (room_user && room_user.info && room_user.info.present && room_user.info.present.items){
 					if(room_user.info.present.items[0]) gradient_colors[0] = room_user.info.present.items[0].color
-					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[0]
-					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[1]
+					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[1]
+					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[2]
 				}
 					
 				net.use_gradient = true
