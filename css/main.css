@@ -852,18 +852,20 @@ label {
 
 @keyframes textclip {
 	
-	0%{
-		background-size: auto auto;
+	0%{		
 		background-clip: border-box;
-		background-size: 200% auto;
+		background-size: 400% auto;
 		
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
 
+	
+
 	99% {		
-		background-size: 300% auto;
-		background-position: 400% center;
+		
+		background-position: left -200% center;
+		
 	}
 
 	100% {	

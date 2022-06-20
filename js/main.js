@@ -2533,7 +2533,7 @@
 				
 				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ?[
 					'background: linear-gradient(to right,'+gradient_colors[0]+' 10%,'+gradient_colors[1]+' 50%,'+gradient_colors[2]+' 60%)',												
-					'animation: textclip 5s linear forwards'					
+					'animation: textclip 2.5s linear forwards'					
 				].join(';'):''
 
 				
