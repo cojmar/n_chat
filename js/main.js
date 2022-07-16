@@ -2191,7 +2191,7 @@
 
 				switch (net.room_info.name) {
 					case 'Music':
-						net.def_custom_topic = 'Music room is under construction, that means it\'s not ready yet';
+						net.def_custom_topic = 'Use .play youtube link, to play youtubes';
 						break;
 					case 'Spam':
 						net.def_custom_topic = 'If you were moved here that means you are "jailed" temporarily, spamming is allowed here';
