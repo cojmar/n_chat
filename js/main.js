@@ -335,7 +335,7 @@
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.client_commands = ['recover_code', 'clear', 'stop', 'low', 'medium', 'high', 'emoji', 'text_shadow', 'colors'];
-			net.hidden_commands = ['su', 'dev', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video',  'users', 'present', 'room_info'];
+			net.hidden_commands = ['su', 'dev', 'jj', 'refresh', 'rename', 'glow', 'server', 'image', 'audio', 'video', 'users', 'present', 'room_info'];
 			net.disabled_commands = ['connect', 'disconnect', 'auth', 'my_info', 'list', 'leave', 'room_msg', 'room_data', 'room_users', 'set_data', 'set_room_data'];
 			net.lock_scroll = true;
 			net.show_flags = false;
@@ -410,7 +410,7 @@
 				net.console.removeClass('text_shadow');
 			}
 
-			net.color_delta = function (hex1, hex2) {
+			net.color_delta = function(hex1, hex2) {
 				hex1 = hex1.split('#').join('');
 				hex2 = hex2.split('#').join('');
 
@@ -431,7 +431,7 @@
 				return (r + g + b) / 3;
 			};
 
-			net.color_delta2 = function (hex1, hex2, r, g, b) {
+			net.color_delta2 = function(hex1, hex2, r, g, b) {
 				hex1 = hex1.split('#').join('');
 				hex2 = hex2.split('#').join('');
 
@@ -450,7 +450,7 @@
 				// console.log('GT', gt);
 				// console.log('BT', bt);
 
-				return (rt < r && gt < g) || (rt < r && bt < b)/*|| (gt < g && bt < b)*/;
+				return (rt < r && gt < g) || (rt < r && bt < b) /*|| (gt < g && bt < b)*/ ;
 			};
 
 			net.is_admin = function(user) {
@@ -765,7 +765,7 @@
 			};
 
 			net.remove_zalgo = function(str) {
-				return str.replace(/[\u0300-\u036F\u0483-\u0486]/g, '').replace(/[\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '');
+				return str.replace(/[\u030B\u0300-\u036F\u0483-\u0486\u064E\u064F]/g, '').replace(/[\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\u0483-\u0486\u05C7\u0610-\u061A\u0656-\u065F\u0670\u06D6-\u06ED\u0711\u0730-\u073F\u0743-\u074A\u0F18-\u0F19\u0F35\u0F37\u0F72-\u0F73\u0F7A-\u0F81\u0F84\u0e00-\u0eff\uFC5E-\uFC62]{2,}/gi, '');
 			};
 
 			// noinspection DuplicatedCode
@@ -1717,15 +1717,15 @@
 								var from = data.data.shift();
 								data.data = data.data.join(' ');
 								// noinspection JSUnresolvedFunction
-								net.send_cmd('send_cmd' , ['room.msg', net.room_info.name, {room: net.room_info.name, user: from, msg: data.data}]);
+								net.send_cmd('send_cmd', ['room.msg', net.room_info.name, { room: net.room_info.name, user: from, msg: data.data }]);
 							} else {
 								data.data = data.data.join(' ');
 								// noinspection JSUnresolvedFunction
-								net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data}]);
+								net.send_cmd('send_cmd', ['room.msg', net.bot_uid, { room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data }]);
 							}
 						} else {
 							// noinspection JSUnresolvedFunction
-							net.send_cmd('send_cmd' , ['room.msg', net.bot_uid, {room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data}]);
+							net.send_cmd('send_cmd', ['room.msg', net.bot_uid, { room: net.room_info.name, user: net.room_info.me, msg: '.say ' + data.data }]);
 						}
 					}
 
@@ -2149,9 +2149,10 @@
 								if (Array.isArray(net.room_info.data.admins)) {
 									if (net.room_info.data.admins.indexOf(net.room_info.me) === -1) {
 										net.room_info.data.admins.push(net.room_info.me);
-									}/* else {
-										net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
-									}*/
+									}
+									/* else {
+																			net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
+																		}*/
 									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: 1 });
 									// noinspection JSUnresolvedFunction
@@ -2334,7 +2335,7 @@
 				net.client_room_online.text(Object.keys(net.room_info.users).length);
 
 				// noinspection JSUnresolvedVariable
-				$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 || Object.keys(net.room_info.users).length === 0  ? 's' : '') + ')');
+				$('.ui-selectmenu-text').text(net.room_info.name + ' (' + Object.keys(net.room_info.users).length + ' user' + (Object.keys(net.room_info.users).length > 1 || Object.keys(net.room_info.users).length === 0 ? 's' : '') + ')');
 
 				var color = net.colors[3];
 				var glow = '';
@@ -2491,7 +2492,7 @@
 				var color = net.colors[3];
 				var glow = '';
 
-			
+
 
 
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
@@ -2523,27 +2524,27 @@
 					user_level.curLevel = '∞';
 					user_level.timeRequired = '∞';
 				}
-				var gradient_colors = [net.colors[3],'#000000','#ffffff']
-				if (room_user && room_user.info && room_user.info.present && room_user.info.present.items){
-					if(room_user.info.present.items[0]) gradient_colors[0] = room_user.info.present.items[0].color
+				var gradient_colors = [net.colors[3], '#000000', '#ffffff']
+				if (room_user && room_user.info && room_user.info.present && room_user.info.present.items) {
+					if (room_user.info.present.items[0]) gradient_colors[0] = room_user.info.present.items[0].color
 					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[1]
 					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[2]
 				}
-					
-				net.use_gradient = true
-				
-				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ?[
-					'background: linear-gradient(to right,'+gradient_colors[0]+' 10%,'+gradient_colors[1]+' 50%,'+gradient_colors[2]+' 60%)',												
-					'animation: textclip 2.5s linear forwards'					
-				].join(';'):''
 
-				
+				net.use_gradient = true
+
+				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ? [
+					'background: linear-gradient(to right,' + gradient_colors[0] + ' 10%,' + gradient_colors[1] + ' 50%,' + gradient_colors[2] + ' 60%)',
+					'animation: textclip 2.5s linear forwards'
+				].join(';') : ''
+
+
 
 				class_styles = 'class="client_nickname ' + glow + '"';
 
 				var ignore = data.user !== net.room_info.me && (!net.is_admin(data.user) || data.user === net.bot_uid) ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';'+gradient_nick+'" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';' + gradient_nick + '" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 			});
 
 			net.socket.on('bot.msg', function(data) {
@@ -2723,7 +2724,7 @@
 
 						for (var item in data.items) {
 							// noinspection JSUnfilteredForInLoop,JSUnresolvedVariable
-							html += '<a href="javascript:;" class="color" style="margin-top: ' + (i === 1 ? 8 : 0)  +  'px; color: ' + ((i - 1) === data.item_index ? '#ffffff' : data.items[item].color) + '; text-decoration:none; ' + ((i - 1) === data.item_index ? 'background-color:' + data.items[item].color : '') + '" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
+							html += '<a href="javascript:;" class="color" style="margin-top: ' + (i === 1 ? 8 : 0) + 'px; color: ' + ((i - 1) === data.item_index ? '#ffffff' : data.items[item].color) + '; text-decoration:none; ' + ((i - 1) === data.item_index ? 'background-color:' + data.items[item].color : '') + '" data-index="' + i + '" data-color="' + data.items[item].color + '">Color ' + i + '</a>';
 							i++;
 							// noinspection JSUnfilteredForInLoop
 							last_color = data.items[item].color;
@@ -2989,8 +2990,8 @@
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">UID <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['user'] || '?') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Login <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['login'] || '?') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Fingerprint <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['fingerprint'] || '?') + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Data</span> <span style="color: ' + net.colors[0] + ';">' + (JSON.stringify(data[keys[key]][user]['data']) || 'NONE')  + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Private Data</span> <span style="color: ' + net.colors[0] + ';">' + (JSON.stringify(data[keys[key]][user]['private_data']) || 'NONE')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Data</span> <span style="color: ' + net.colors[0] + ';">' + (JSON.stringify(data[keys[key]][user]['data']) || 'NONE') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Private Data</span> <span style="color: ' + net.colors[0] + ';">' + (JSON.stringify(data[keys[key]][user]['private_data']) || 'NONE') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Disconnected <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['disconnected'] === true ? 'TRUE' : (data[keys[key]][user]['room'] === false ? 'TRUE' : 'FALSE')) + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Creation Date</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['creation_date'] ? new Date(data[keys[key]][user]['info']['creation_date']).toLocaleString() : '?') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Last Login Date</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['last_login_date'] ? new Date(data[keys[key]][user]['info']['last_login_date']).toLocaleString() : '?') + '</span><br />';
@@ -2999,7 +3000,7 @@
 						if (typeof data[keys[key]][user]['info']['present'] !== 'undefined') {
 							if (typeof data[keys[key]][user]['info']['present']['items'] !== 'undefined') {
 								if (Array.isArray(data[keys[key]][user]['info']['present']['items']) && data[keys[key]][user]['info']['present']['items'].length > 0) {
-									var  i = 0;
+									var i = 0;
 
 									for (var color in data[keys[key]][user]['info']['present']['items']) {
 										i++;
@@ -3009,11 +3010,11 @@
 							}
 						}
 
-						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Country from Client</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['country'] + ' ' + country_codes[data[keys[key]][user]['info']['country']] || '?')  + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Country from Server</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['country'] + ' ' + country_codes[data[keys[key]][user]['location']['country']]|| '?')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Country from Client</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['info']['country'] + ' ' + country_codes[data[keys[key]][user]['info']['country']] || '?') + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Country from Server</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['country'] + ' ' + country_codes[data[keys[key]][user]['location']['country']] || '?') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Region</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['region'] || '?') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">City</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['city'] || '?') + '</span><br />';
-						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Timezone</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['timezone'] || '?')  + '</span><br />';
+						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">Timezone</span> <span style="color: ' + net.colors[0] + ';">' + (data[keys[key]][user]['location']['timezone'] || '?') + '</span><br />';
 						res += timestamp + ' <span style="color: ' + net.colors[1] + ';">=================================================</span><br />';
 					}
 				}
