@@ -1883,10 +1883,6 @@
 							data.data = data.data.replace('/', '``');
 						}
 
-						if (~data.data.indexOf('🤖')) {
-							data.data = data.data.replace(/🤖/gi, '``');
-						}
-
 						if ((!is_admin && !/[a-z]/i.test(net.normalize(data.data))) || (!is_admin && data.data.trim() === '') || (!is_admin && data.data.length <= 2) || (!is_admin && data.data.length > 20)) {
 							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short or too long, correct the issue and try again.', 4);
 							return false;
@@ -2538,21 +2534,25 @@
 					user_level.curLevel = '∞';
 					user_level.timeRequired = '∞';
 				}
-				var gradient_colors = [net.colors[3], '#000000', '#ffffff']
+
+				var gradient_colors = [net.colors[3], '#000000', '#ffffff'];
+
+				// noinspection JSUnresolvedVariable
 				if (room_user && room_user.info && room_user.info.present && room_user.info.present.items) {
-					if (room_user.info.present.items[0]) gradient_colors[0] = room_user.info.present.items[0].color
-					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[1]
-					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[2]
+					if (room_user.info.present.items[0]) {
+						gradient_colors[0] = room_user.info.present.items[0].color;
+					}
+
+					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[1];
+					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[2];
 				}
 
-				net.use_gradient = true
+				net.use_gradient = true;
 
 				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ? [
 					'background: linear-gradient(to right,' + gradient_colors[0] + ' 10%,' + gradient_colors[1] + ' 50%,' + gradient_colors[2] + ' 60%)',
 					'animation: textclip 2.5s linear forwards'
-				].join(';') : ''
-
-
+				].join(';') : '';
 
 				class_styles = 'class="client_nickname ' + glow + '"';
 
