@@ -340,6 +340,7 @@
 			net.lock_scroll = true;
 			net.show_flags = false;
 			net.dev_mode = false;
+			net.check_bnc = false;
 			net.max_message_length = 160;
 			net.max_paste_length = 100;
 
@@ -1892,6 +1893,10 @@
 						}
 					}
 
+					if (data.cmd === 'bnc') {
+						net.check_bnc = true;
+					}
+
 					// noinspection JSUnresolvedFunction
 					net.send_cmd(data.cmd, typeof data.data === 'string' ? data.data.trim() : data.data);
 					net.text_input.val('');
@@ -2128,6 +2133,15 @@
 			net.socket.on('my.info', function(data) {
 				// console.log('my.info');
 				// console.log(JSON.stringify(data, null, 2));
+
+				if (net.check_bnc) {
+					net.check_bnc = false;
+					if (typeof data['private_data'] !== 'undefined') {
+						if (typeof data['private_data']['bnc'] !== 'undefined') {
+							net.log('<span style="color: ' + net.colors[4] + ';">[BNC] </span> ' + (data['private_data']['bnc'] === true ? 'ON' : 'OFF'), 4);
+						}
+					}
+				}
 
 				net.me = data;
 				net.render_users(1, true);
