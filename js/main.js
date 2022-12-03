@@ -340,6 +340,7 @@
 			net.lock_scroll = true;
 			net.show_flags = false;
 			net.dev_mode = false;
+			net.check_bnc = false;
 			net.max_message_length = 160;
 			net.max_paste_length = 100;
 
@@ -1883,14 +1884,14 @@
 							data.data = data.data.replace('/', '``');
 						}
 
-						if (~data.data.indexOf('🤖')) {
-							data.data = data.data.replace(/🤖/gi, '``');
-						}
-
 						if ((!is_admin && !/[a-z]/i.test(net.normalize(data.data))) || (!is_admin && data.data.trim() === '') || (!is_admin && data.data.length <= 2) || (!is_admin && data.data.length > 20)) {
 							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short or too long, correct the issue and try again.', 4);
 							return false;
 						}
+					}
+
+					if (data.cmd === 'bnc') {
+						net.check_bnc = true;
 					}
 
 					// noinspection JSUnresolvedFunction
@@ -2129,6 +2130,15 @@
 			net.socket.on('my.info', function(data) {
 				// console.log('my.info');
 				// console.log(JSON.stringify(data, null, 2));
+
+				if (net.check_bnc) {
+					net.check_bnc = false;
+					if (typeof data['private_data'] !== 'undefined') {
+						if (typeof data['private_data']['bnc'] !== 'undefined') {
+							net.log('<span style="color: ' + net.colors[4] + ';">[BNC] </span> ' + (data['private_data']['bnc'] === true ? 'ON' : 'OFF'), 4);
+						}
+					}
+				}
 
 				net.me = data;
 				net.render_users(1, true);
@@ -2525,21 +2535,25 @@
 					user_level.curLevel = '∞';
 					user_level.timeRequired = '∞';
 				}
-				var gradient_colors = [net.colors[3], '#000000', '#ffffff']
+
+				var gradient_colors = [net.colors[3], '#000000', '#ffffff'];
+
+				// noinspection JSUnresolvedVariable
 				if (room_user && room_user.info && room_user.info.present && room_user.info.present.items) {
-					if (room_user.info.present.items[0]) gradient_colors[0] = room_user.info.present.items[0].color
-					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[1]
-					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[2]
+					if (room_user.info.present.items[0]) {
+						gradient_colors[0] = room_user.info.present.items[0].color;
+					}
+
+					gradient_colors[1] = (room_user.info.present.items[1]) ? room_user.info.present.items[1].color : gradient_colors[1];
+					gradient_colors[2] = (room_user.info.present.items[2]) ? room_user.info.present.items[2].color : gradient_colors[2];
 				}
 
-				net.use_gradient = true
+				net.use_gradient = true;
 
 				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ? [
 					'background: linear-gradient(to right,' + gradient_colors[0] + ' 10%,' + gradient_colors[1] + ' 50%,' + gradient_colors[2] + ' 60%)',
 					'animation: textclip 2.5s linear forwards'
-				].join(';') : ''
-
-
+				].join(';') : '';
 
 				class_styles = 'class="client_nickname ' + glow + '"';
 
