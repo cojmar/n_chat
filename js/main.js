@@ -661,6 +661,7 @@
 			// noinspection DuplicatedCode
 			net.get_user_level = function(user_id) {
 				var timeRequired = '∞';
+				var xp_factor = 1.5
 
 				var def_ret = {
 					curLevel: 0,
@@ -682,7 +683,7 @@
 				}
 
 				// noinspection JSUnresolvedVariable
-				var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000) : 1;
+				var XP = room_user && room_user.info ? room_user.info.online_time + Math.floor((Math.floor((Date.now() - Date.parse(room_user.info.last_login_date)) / 1000)) * xp_factor) : 1;
 				var div = 50;
 				var curPoints = (XP <= 0 ? 1 : XP) / div;
 				var curLevel = Math.floor(.25 * Math.sqrt(curPoints)) + 1;
