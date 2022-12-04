@@ -1076,10 +1076,8 @@
 						subject = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(subject))).trim();
 					}
 
-					// subject = subject.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
-
 					if (net.use_blacklist) {
-						subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|/\\]/g, '');
+						subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"|/\\]/g, '');
 					} else {
 						subject_clean = subject;
 					}
@@ -2508,9 +2506,6 @@
 
 				var color = net.colors[3];
 				var glow = '';
-
-
-
 
 				// noinspection JSUnresolvedFunction,JSUnresolvedVariable,DuplicatedCode
 				if (typeof net.room_info !== 'undefined') {
