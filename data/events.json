@@ -4,6 +4,10 @@
 	},
 	"mapping": {
 		"en": {
+			"tree": {
+				"count": 2,
+				"triggers": ["tree"]
+			},
 			"snow": {
 				"count": 2,
 				"triggers": ["snow"]
