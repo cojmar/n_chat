@@ -77,6 +77,19 @@
 			"zzz": ["zzz", "z z z", "sleepy", "sleep"]
 		},
 		"tr": {
+			"tree": {
+				"count": 2,
+				"triggers": ["tree"]
+			},
+			"snow": {
+				"count": 2,
+				"triggers": ["snow"]
+			},
+			"santa": {
+				"count": 4,
+				"triggers": ["santa"]
+			},
+			"emupedia": ["emupedia", "emuos", "emu"],
 			"amogus": ["amogus", "amongus", "among us", "among sus", "sus sus", "imposter"],
 			"cat": ["🐱", "kedi ", "nyan "],
 			"cry": {
