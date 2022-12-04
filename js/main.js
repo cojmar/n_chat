@@ -763,7 +763,7 @@
 			};
 
 			net.remove_duplicates = function(str) {
-				return str.replace(/(.)\1{2,}/gi, '$1');
+				return str.replace(/([^`])\1{2,}/gi, '$1').replace(/(.)\1{7,}/gi, '$1');
 			};
 
 			net.remove_zalgo = function(str) {
