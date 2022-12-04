@@ -5,9 +5,11 @@
 	"mapping": {
 		"en": {
 			"snow": {
+				"triggers": ["snow"],
 				"count": 2
 			},
 			"santa": {
+				"triggers": ["santa"],
 				"count": 4
 			},
 			"emupedia": ["emupedia", "emuos", "emu"],
