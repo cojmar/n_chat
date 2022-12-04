@@ -1018,7 +1018,7 @@
 					subject = net.remove_profanity(net.remove_duplicates(net.remove_spam(net.remove_numbers(net.normalize(net.remove_zalgo(str), language !== 'en' ? normalize_types.slice(0, normalize_types.length - 1) : undefined)))));
 
 					if (net.use_blacklist) {
-						subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|/\\]/g, '');
+						subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"|/\\]/g, '');
 					} else {
 						subject_clean = subject;
 					}
@@ -1882,7 +1882,7 @@
 							data.data = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(data.data))).trim();
 						}
 
-						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>`.,'"]/g, '');
+						data.data = data.data.replace(/(<([^>]+)>)/gi, '').replace(/[<>.,'"]/g, '');
 
 						if (data.data.startsWith('/')) {
 							data.data = data.data.replace('/', '``');
