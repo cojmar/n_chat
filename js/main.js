@@ -662,7 +662,7 @@
 			// noinspection DuplicatedCode
 			net.get_user_level = function(user_id) {
 				var timeRequired = '∞';
-				var xp_factor = 1.5
+				var xp_factor = 1.5;
 
 				var def_ret = {
 					curLevel: 0,
@@ -1070,7 +1070,7 @@
 
 				// noinspection DuplicatedCode
 				if (room_name.startsWith('Emupedia')) {
-					subject = net.remove_profanity(net.remove_duplicates(net.remove_spam(subject)), 'en');
+					subject = net.remove_profanity(net.remove_duplicates(net.remove_spam(net.remove_numbers(net.remove_zalgo(net.normalize(subject, normalize_types.slice(0, normalize_types.length - 1)))))), 'en');
 
 					if (net.use_blacklist) {
 						subject_clean = subject.replace(/&lt;/g, '').replace(/&gt;/g, '').replace(/[-_*?!.,:;#<>(){}\[\]~^'"`|/\\]/g, '');
