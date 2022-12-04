@@ -5,12 +5,12 @@
 	"mapping": {
 		"en": {
 			"snow": {
-				"triggers": ["snow"],
-				"count": 2
+				"count": 2,
+				"triggers": ["snow"]
 			},
 			"santa": {
-				"triggers": ["santa"],
-				"count": 4
+				"count": 4,
+				"triggers": ["santa"]
 			},
 			"emupedia": ["emupedia", "emuos", "emu"],
 			"amogus": ["ඞ", "amogus", "amoungus", "amongus", "amoung us", "among us", "among sus", "amoge us", "sus sus", " sus", "sus ", "sussy baka", "inpostor", "inposter", "impostor", "imposter"],
