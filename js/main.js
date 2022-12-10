@@ -662,7 +662,7 @@
 			// noinspection DuplicatedCode
 			net.get_user_level = function(user_id) {
 				var timeRequired = '∞';
-				var xp_factor = 1.5;
+				var xp_factor = (net.me) ? net.me.xp_factor : 1;
 
 				var def_ret = {
 					curLevel: 0,
