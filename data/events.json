@@ -73,6 +73,7 @@
 			"thanks": ["thanks", "thankyou", "thank you", "thx", "tx", "ty"],
 			"tired": ["tired "],
 			"what": ["whut", "huh"],
+			"xmas": ["xmas"],
 			"yeah": ["hellyeah", "hell yeah", "helayeah", "yeah"],
 			"zzz": ["zzz", "z z z", "sleepy", "sleep"]
 		},
@@ -145,6 +146,7 @@
 			"sad": ["üzgün", "uzgun"],
 			"tired": ["yorgun"],
 			"what": ["neyi"],
+			"xmas": ["xmas"],
 			"yeah": ["tabii", "hellyeah", "hell yeah", "helayeah", "yeah"],
 			"zzz": ["zzz", "z z z", "uykulu"]
 		}
