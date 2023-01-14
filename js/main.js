@@ -2684,7 +2684,7 @@
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
 					if (data[room] > 0) {
-						if (room === 'Emupedia' || room === 'afk' || room === 'Music' || room === 'Spam') {
+						if (room === 'Emupedia' || room === 'AFK' || room === 'Music' || room === 'Spam') {
 							continue;
 						}
 
