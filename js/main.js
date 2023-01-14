@@ -530,6 +530,18 @@
 				return false;
 			};
 
+			net.is_afk_room = function() {
+				if (typeof net.room_info !== 'undefined') {
+					if (typeof net.room_info.name !== 'undefined') {
+						if (net.room_info.name === 'afk') {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			};
+
 			net.increase_brightness = function(hex, percent) {
 				hex = hex.replace(/^\s*#|\s*$/g, '');
 
@@ -1187,7 +1199,7 @@
 
 				for (var room in net.rooms) {
 					// noinspection JSUnfilteredForInLoop
-					if (room.startsWith('Emupedia') || room === 'Spam' || room === 'Music') {
+					if (room.startsWith('Emupedia') || room === 'afk' || room === 'Spam' || room === 'Music') {
 						if (net.room_info) {
 							// noinspection JSUnfilteredForInLoop
 							if (room === net.room_info.name) {
@@ -1208,7 +1220,7 @@
 				var users_online = Object.keys(net.room_info.users).length;
 				var current_room = net.room_info.name;
 
-				if (!current_room.startsWith('Emupedia') && current_room !== 'Spam' && current_room !== 'Music') {
+				if (!current_room.startsWith('Emupedia') && current_room !== 'afk' && current_room !== 'Spam' && current_room !== 'Music') {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + current_room + '" data-online="' + users_online + '">' + current_room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>');
 				}
@@ -2206,8 +2218,11 @@
 				}
 
 				switch (net.room_info.name) {
+					case 'afk':
+						net.def_custom_topic = 'You are AFK type /join Emupedia to get back';
+						break;
 					case 'Music':
-						net.def_custom_topic = 'Use .play youtube link, to play youtubes';
+						net.def_custom_topic = 'Use .play YouTube link, to play a YouTube video';
 						break;
 					case 'Spam':
 						net.def_custom_topic = 'If you were moved here that means you are "jailed" temporarily, spamming is allowed here';
@@ -2261,7 +2276,7 @@
 					net.log('You can change the topic by typing /topic and the new room topic.', 1);
 				}
 
-				if (room.startsWith('Emupedia') || room === 'Music' || room === 'Spam') {
+				if (room.startsWith('Emupedia') || room === 'afk' || room === 'Music' || room === 'Spam') {
 					net.log('<img class="emoji" draggable="false" alt="⚠" src="https://twemoji.maxcdn.com/v/14.0.2/72x72/26a0.png"> CAUTION! Swearing and sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				} else {
 					net.client_rooms.find('option:selected').removeAttr('selected');
@@ -2669,7 +2684,7 @@
 				for (var room in data) {
 					// noinspection JSUnfilteredForInLoop
 					if (data[room] > 0) {
-						if (room === 'Emupedia' || room === 'Music' || room === 'Spam') {
+						if (room === 'Emupedia' || room === 'afk' || room === 'Music' || room === 'Spam') {
 							continue;
 						}
 
@@ -2688,7 +2703,7 @@
 					}
 
 					// noinspection JSUnfilteredForInLoop
-					if (room2 === 'Music' || room2 === 'Spam') {
+					if (room2 === 'afk' || room2 === 'Music' || room2 === 'Spam') {
 						// noinspection JSUnfilteredForInLoop
 						sortable.push([room2, data[room2]]);
 					}
