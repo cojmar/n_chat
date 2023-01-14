@@ -2703,7 +2703,7 @@
 					}
 
 					// noinspection JSUnfilteredForInLoop
-					if (room2 === 'afk' || room2 === 'Music' || room2 === 'Spam') {
+					if (room2 === 'AFK' || room2 === 'Music' || room2 === 'Spam') {
 						// noinspection JSUnfilteredForInLoop
 						sortable.push([room2, data[room2]]);
 					}
