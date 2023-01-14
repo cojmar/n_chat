@@ -2219,7 +2219,7 @@
 
 				switch (net.room_info.name) {
 					case 'AFK':
-						net.def_custom_topic = 'You are AFK type /join Emupedia to get back';
+						net.def_custom_topic = 'You are AFK type anything to get back';
 						break;
 					case 'Music':
 						net.def_custom_topic = 'Use .play YouTube link, to play a YouTube video';
