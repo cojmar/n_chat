@@ -1705,8 +1705,8 @@
 					}
 
 					if (data.cmd === 'recover_code') {
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
-						net.log('<img class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> Please don\'t share your recovery code with anyone.', 4);
+						net.log('<img loading="lazy" class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
+						net.log('<img loading="lazy" class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> Please don\'t share your recovery code with anyone.', 4);
 						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
 					}
 
@@ -2269,7 +2269,7 @@
 				net.log('Type /help to see a list of available commands.', 1);
 				net.log('To change your nickname type /nick and your new nickname.', 1);
 				net.log('To join a channel type /join and the channel name.', 1);
-				net.log('If you experience any lag you might try and uncheck some settings from the <img class="emoji" draggable="false" alt="⚙️" src="images/libraries/twemoji-14.0.2/svg/2699.svg"> panel.', 1);
+				net.log('If you experience any lag you might try and uncheck some settings from the <img loading="lazy" class="emoji" draggable="false" alt="⚙️" src="images/libraries/twemoji-14.0.2/svg/2699.svg"> panel.', 1);
 
 				if (net.is_room_admin() && room !== 'Spam') {
 					net.log('If your nickname glows, you are the current owner of the room.', 1);
@@ -2277,11 +2277,11 @@
 				}
 
 				if (room.startsWith('Emupedia') || room === 'AFK' || room === 'Music' || room === 'Spam') {
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Swearing and sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
+					net.log('<img loading="lazy" class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Swearing and sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on public channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				} else {
 					net.client_rooms.find('option:selected').removeAttr('selected');
 					net.client_rooms.prepend('<option selected="selected" value="' + room + '" data-online="' + users_online + '">' + room + ' (' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : '') + ')</option>').selectmenu('refresh');
-					net.log('<img class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
+					net.log('<img loading="lazy" class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Emupedia is not responsible for what happens in private channels! The chat is not being actively monitored by moderators, you may experience swearing, bullying, harassing or lewd and explicit behaviour. Sharing private information like IPs, real names, real locations, social media accounts, ages, genders, email addresses, phone numbers, anything that can be used to identify yourself or others is discouraged on private channels. Please try to protect your privacy, this chat is supposed to be anonymous.', 4);
 				}
 
 				/*net.event.find('div').first().attr('class', 'animate__animated animate__zoomOut');

@@ -437,7 +437,7 @@ var twemoji = (function (
       if (iconId && src) {
         // recycle the match string replacing the emoji
         // with its image counter part
-        ret = '<img '.concat(
+        ret = '<img loading="lazy" '.concat(
           'class="', options.className, '" ',
           'draggable="false" ',
           // needs to preserve user original intent
