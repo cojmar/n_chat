@@ -331,7 +331,7 @@
 
 			net.event_timeout = null;
 			net.event_clear_timeout = null;
-			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d'];
+			net.colors = ['#b4adad', '#395fa4', '#159904', '#4c4c4c', '#e1c532', '#79667d', '#ffad00'];
 			net.chat_buffer = [];
 			net.spam_buffer = [];
 			net.client_commands = ['recover_code', 'clear', 'stop', 'low', 'medium', 'high', 'emoji', 'text_shadow', 'colors'];
@@ -1707,7 +1707,7 @@
 					if (data.cmd === 'recover_code') {
 						net.log('<img loading="lazy" class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> CAUTION! Emupedia is not responsible for what happens if you share your recovery code.', 4);
 						net.log('<img loading="lazy" class="emoji" draggable="false" alt="⚠" src="images/libraries/twemoji-14.0.2/svg/26a0.svg"> Please don\'t share your recovery code with anyone.', 4);
-						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 4);
+						net.log('In case you lose your level you can recover it by running this command <b style="color: #fff;">/recover ' + simplestorage.get('uid') + '</b>', 2);
 					}
 
 					if (data.cmd === 'refresh' || data.cmd === 'reload') {
@@ -2127,7 +2127,7 @@
 
 				// noinspection JSUnresolvedVariable
 				if (data.login === data.info.nick) {
-					net.log('Type /nick <nickname> to set your name', 0);
+					net.log('Type /nick <nickname> to set your name', 2);
 				}
 
 				// noinspection JSUnresolvedFunction
@@ -2266,14 +2266,14 @@
 				var room = net.room_info.name;
 
 				net.log('You are now talking in ' + room + ' with ' + users_online + ' user' + (users_online > 1 || users_online === 0 ? 's' : ''), 1);
-				net.log('Type /help to see a list of available commands.', 1);
-				net.log('To change your nickname type /nick and your new nickname.', 1);
-				net.log('To join a channel type /join and the channel name.', 1);
-				net.log('If you experience any lag you might try and uncheck some settings from the <img loading="lazy" class="emoji" draggable="false" alt="⚙️" src="images/libraries/twemoji-14.0.2/svg/2699.svg"> panel.', 1);
+				net.log('Type /help to see a list of available commands.', 2);
+				net.log('To change your nickname type /nick and your new nickname.', 2);
+				net.log('To join a channel type /join and the channel name.', 2);
+				net.log('If you experience any lag you might try and uncheck some settings from the <img loading="lazy" class="emoji" draggable="false" alt="⚙️" src="images/libraries/twemoji-14.0.2/svg/2699.svg"> panel.', 6);
 
 				if (net.is_room_admin() && room !== 'Spam') {
 					net.log('If your nickname glows, you are the current owner of the room.', 1);
-					net.log('You can change the topic by typing /topic and the new room topic.', 1);
+					net.log('You can change the topic by typing /topic and the new room topic.', 2);
 				}
 
 				if (room.startsWith('Emupedia') || room === 'AFK' || room === 'Music' || room === 'Spam') {
