@@ -432,6 +432,11 @@
 			'/beta/emuos/assets/js/libraries/simplestorage-0.2.1.min',
 			'//' + location + '/beta/emuos/assets/js/libraries/simplestorage-0.2.1.min'
 		],
+		'tinycon': [
+			'libraries/tinycon-0.6.8.min',
+			'/beta/emuos/assets/js/libraries/tinycon-0.6.8.min',
+			'//' + location + '/beta/emuos/assets/js/libraries/tinycon-0.6.8.min'
+		],
 		'toastr': [
 			'libraries/toastr-2.1.4.min',
 			'/beta/emuos/assets/js/libraries/toastr-2.1.4.min',
