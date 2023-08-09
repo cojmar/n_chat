@@ -3380,7 +3380,7 @@
 					}
 				});
 				// noinspection JSUnresolvedVariable
-			}, 15 * 60 * 1000);
+			}, 5 * 60 * 1000);
 		});
 	});
 }(this));
