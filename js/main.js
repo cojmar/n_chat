@@ -2283,6 +2283,11 @@
 				net.log('Type /help to see a list of available commands.', 2);
 				net.log('To change your nickname type /nick and your new nickname.', 2);
 				net.log('To join a channel type /join and the channel name.', 2);
+
+				if (room !== 'AFK') {
+					net.log('If you don\'t write anything after some time you will be moved to the AFK channel, just type anything to get back.', 2);
+				}
+
 				net.log('If you experience any lag you might try and uncheck some settings from the <img loading="lazy" class="emoji" draggable="false" alt="⚙️" src="images/libraries/twemoji-14.0.2/svg/2699.svg"> panel.', 6);
 
 				if (net.is_room_admin() && room !== 'Spam') {
