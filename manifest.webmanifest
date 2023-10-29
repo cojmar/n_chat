@@ -7,8 +7,8 @@
 	"categories": ["gaming", "entertainment", "education" ,"emupedia", "emulation", "emulator", "dosbox", "dosgame", "retrogaming", "retrocomputing", "video-games", "games"],
 	"display": "fullscreen",
 	"orientation": "landscape",
-	"theme_color": "#ff7300",
-	"background_color": "#000000",
+	"theme_color": "#395fa4",
+	"background_color": "#333333",
 	"start_url": "index.html",
 	"icons": [{
 		"src": "images/emuchat-logo-16.png",
