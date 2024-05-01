@@ -2192,8 +2192,8 @@
 										net.room_info.data.admins.push(net.room_info.me);
 									}
 									/* else {
-																			net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
-																		}*/
+										net.room_info.data.admins.splice(net.room_info.data.admins.indexOf(net.room_info.me), 1)
+									}*/
 									// noinspection JSUnresolvedFunction
 									net.send_cmd('set_room_data', { admins: 1 });
 									// noinspection JSUnresolvedFunction
