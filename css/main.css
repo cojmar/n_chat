@@ -430,6 +430,11 @@ label {
 	display: none;
 }
 
+.ui-selectmenu-menu.ui-selectmenu-open {
+	position: absolute;
+	inset: 23px 5px auto auto !important;
+}
+
 #client_rooms-button {
 	display: none;
 	width: 100% !important;
@@ -482,6 +487,7 @@ label {
 	text-align: center;
 	background: #302f2f;
 	border: 1px #4c4c4c solid;
+	inset: auto auto 30px 8px !important;
 	/* max-height: 200px; */
 	/*overflow-x: hidden;*/
 	/*overflow-y: auto;*/

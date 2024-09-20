@@ -3199,18 +3199,7 @@
 			Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
 
 			// noinspection JSUnresolvedFunction
-			net.settings_popover_instance = new Popper(net.emoji_button.get(0), net.settings_popover.get(0), {
-				placement: 'top-start',
-				modifiers: {
-					flip: {
-						behavior: ['left']
-					},
-					offset: {
-						enabled: true,
-						offset: '0,2'
-					}
-				}
-			});
+			net.settings_popover_instance = new Popper(net.settings_button.get(0), net.settings_popover.get(0), { placement: 'top' });
 
 			net.emoji_button.off('click').on('click', function() {
 				picker.togglePicker(net.emoji_button.get(0));
