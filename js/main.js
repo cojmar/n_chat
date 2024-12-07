@@ -2593,16 +2593,16 @@
 
 				net.use_gradient = true;
 
-				var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ? [
+				/*var gradient_nick = ((is_admin || is_room_admin || is_spam_room || is_music_room || net.use_gradient) && net.use_colors) ? [
 					'background: linear-gradient(to right,' + gradient_colors[0] + ' 10%,' + gradient_colors[1] + ' 50%,' + gradient_colors[2] + ' 60%)',
 					'animation: textclip 2.5s linear forwards'
-				].join(';') : '';
+				].join(';') : '';*/
 
 				class_styles = 'class="client_nickname ' + glow + '"';
 
 				var ignore = data.user !== net.room_info.me && (!net.is_admin(data.user) || data.user === net.bot_uid) ? '<a href="javascript:" class="ignore_user" title="Ignore User" style="color: ' + net.colors[1] + ';" data-uid="' + user + '">[' + twemoji.parse('🔇') + ']</a>' : '';
 
-				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';' + gradient_nick + '" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
+				net.log('<span title="User Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '" style="color: ' + net.colors[1] + ';">[' + ((net.is_admin(user) && user === net.bot_uid) ? '∞' : net.romanize(user_level.curLevel)) + ']</span>' + ignore + cc + '<span ' + class_styles + ' style="color: ' + (glow ? '#4c4c4c' : color) + '; ' + (color === '#000000' || color === '#000' || net.color_delta2(color, '#000000', net.nick_color_delta2, net.nick_color_delta2, net.nick_color_delta2) ? 'text-shadow: none;' : '') + ' overflow: hidden; --glow-color-1: ' + color + '; --glow-color-2: ' + net.increase_brightness(color, 20) + ';' + '" data-uid="' + user + '" data-nickname="' + (net.is_default_nick(nickname) ? nick.replace(/"/g, '&quot;') : net.clean_nicknames(nickname, user, true).replace(/"/g, '&quot;')) + '" title="' + origin_nickname.replace(/"/g, '&quot;') + origin_url.replace(/"/g, '&quot;') + origin_country.replace(/"/g, '&quot;') + origin_fp.replace(/"/g, '&quot;') + 'Unique ID ' + user + '\nUser Level ' + user_level.curLevel + ', Next Level in ' + user_level.timeRequired + '">[' + nick + ']&nbsp;</span>' + net.clean(data.msg, is_admin || is_room_admin || is_spam_room));
 
 				net.update_unseen_messages();
 			});
