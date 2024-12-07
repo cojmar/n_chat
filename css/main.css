@@ -802,13 +802,13 @@ label {
 }
 
 .rgb {
-	background: linear-gradient(124deg, #ff2400, #ff4a00, #e8b71d, #e3e81d, #a8e81d, #1de840, #1de880, #1ddde8, #1d8fe8, #2b1de8, #801de8, #dd00f3, #ff24f3);
+	background: linear-gradient(124deg, #ff2400, #ff4a00, #e8b71d, #e3e81d, #a8e81d, #1de840, #1de880, #1ddde8, #1d8fe8, #2b1de8, #801de8, #dd00f3, #ff24f3) !important;
 	background-size: 2000% 2000%;
 	color: transparent !important;
 	animation-fill-mode: forwards;
 	-webkit-background-clip: text;
 	-webkit-animation: rgb 15s ease infinite;
-	animation: rgb 15s ease infinite;
+	animation: rgb 15s ease infinite !important;
 	text-shadow: none;
 }
 
