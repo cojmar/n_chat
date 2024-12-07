@@ -2566,7 +2566,7 @@
 						glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
 					}
 
-					if (user === 'U7156559076-3207715310' || u === 'U7156559076-3226490709') {
+					if (user === 'U7156559076-3207715310' || user === 'U7156559076-3226490709') {
 						glow = 'rgb';
 					}
 				}
