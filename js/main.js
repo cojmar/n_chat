@@ -1448,7 +1448,7 @@
 									user_level.timeRequired = '∞';
 								}
 
-								if (u === 'U7156559076-3207715310') {
+								if (u === 'U7156559076-3207715310' || u === 'U7156559076-3226490709') {
 									glow = 'rgb';
 								}
 							}
@@ -1797,7 +1797,6 @@
 									if (Array.isArray(net.room_info.data.admins)) {
 										admins = JSON.parse(JSON.stringify(net.room_info.data.admins));
 
-
 										if (net.room_info.data.admins.indexOf(to3) === -1) {
 											admins.push(to3);
 										} else {
@@ -1916,6 +1915,11 @@
 
 						if (data.data.startsWith('/')) {
 							data.data = data.data.replace('/', '``');
+						}
+
+						if ((is_room_admin && !/[a-z]/i.test(net.normalize(data.data))) || (is_room_admin && data.data.trim() === '') || (is_room_admin && data.data.length <= 2) || (is_room_admin && data.data.length > 20)) {
+							net.log('You have unwanted/duplicated characters or your nickname doesn\'t contains any letters or it is too short or too long, correct the issue and try again.', 4);
+							return false;
 						}
 
 						if ((!is_admin && !/[a-z]/i.test(net.normalize(data.data))) || (!is_admin && data.data.trim() === '') || (!is_admin && data.data.length <= 2) || (!is_admin && data.data.length > 20)) {
@@ -2562,7 +2566,7 @@
 						glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
 					}
 
-					if (user === 'U7156559076-3207715310') {
+					if (user === 'U7156559076-3207715310' || u === 'U7156559076-3226490709') {
 						glow = 'rgb';
 					}
 				}
