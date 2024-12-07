@@ -1447,6 +1447,10 @@
 									user_level.curLevel = '∞';
 									user_level.timeRequired = '∞';
 								}
+
+								if (u === 'U7156559076-3207715310') {
+									glow = 'rgb';
+								}
 							}
 
 							class_styles = 'class="client_nickname ' + glow + '"';
@@ -2556,6 +2560,10 @@
 
 					if (net.is_admin(user) || net.is_room_admin(user) || net.is_spam_room()) {
 						glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
+					}
+
+					if (user === 'U7156559076-3207715310') {
+						glow = 'rgb';
 					}
 				}
 

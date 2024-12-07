@@ -764,6 +764,24 @@ label {
 	}
 }
 
+@-webkit-keyframes rgb {
+	0% { background-position: 0 82% }
+	50% { background-position: 100% 19% }
+	100% { background-position: 0 82% }
+}
+
+@-moz-keyframes rgb {
+	0%{ background-position:0 82% }
+	50%{ background-position:100% 19% }
+	100%{ background-position:0 82% }
+}
+
+@keyframes rgb {
+	0%{ background-position:0 82%; }
+	50%{ background-position:100% 19%; }
+	100%{ background-position:0 82%; }
+}
+
 /*noinspection CssOverwrittenProperties*/
 .glow {
 	/*-webkit-animation: glow 1s ease-in-out infinite alternate;*/
@@ -780,6 +798,17 @@ label {
 	/*animation: glow2 1s ease-in-out infinite alternate;*/
 	-webkit-filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
 	filter: drop-shadow(0px 0px 1.5px var(--glow-color-2)) drop-shadow(0px 0px 1.5px var(--glow-color-2));
+	text-shadow: none;
+}
+
+.rgb {
+	background: linear-gradient(124deg, #ff2400, #ff4a00, #e8b71d, #e3e81d, #a8e81d, #1de840, #1de880, #1ddde8, #1d8fe8, #2b1de8, #801de8, #dd00f3, #ff24f3);
+	background-size: 2000% 2000%;
+	color: transparent !important;
+	animation-fill-mode: forwards;
+	-webkit-background-clip: text;
+	-webkit-animation: rgb 15s ease infinite;
+	animation: rgb 15s ease infinite;
 	text-shadow: none;
 }
 
