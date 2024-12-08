@@ -1,4 +1,4 @@
-// noinspection DuplicatedCode
+// noinspection DuplicatedCode,HtmlUnknownTarget
 
 // noinspection ThisExpressionReferencesGlobalObjectJS,JSUnusedLocalSymbols,DuplicatedCode
 (function(global) {
@@ -1955,7 +1955,6 @@
 				var timestamp = Math.floor(Date.now() / 1000);
 				// noinspection JSUnresolvedVariable
 				var spam_time = net.last_send ? timestamp - net.last_send < 20 : false;
-
 				var clean_msg = net.remove_combining(net.remove_invisible_after(net.remove_invisible_before(msg))).trim();
 
 				// noinspection DuplicatedCode
@@ -1989,7 +1988,7 @@
 					net.spam_cap = 1;
 				}
 
-				if (net.last_send && !is_admin && !is_room_admin && !is_spam_room) {
+				if (net.last_send) {
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
