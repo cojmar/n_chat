@@ -1988,7 +1988,7 @@
 					net.spam_cap = 1;
 				}
 
-				if (net.last_send) {
+				if (net.last_send && !is_admin && !is_room_admin && !is_spam_room) {
 					if (timestamp - net.last_send < net.spam_cap) {
 						net.last_send = timestamp;
 						net.spam_cap++;
@@ -2565,7 +2565,7 @@
 						glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
 					}
 
-					if (user === 'U7156559076-3207715310' || user === 'U7156559076-3226490709') {
+					if (user === 'U7156559076-3207715310' || user === 'U7156559076-3226490709' || user === 'U7156559076-11810570') {
 						glow = 'rgb';
 					}
 				}
