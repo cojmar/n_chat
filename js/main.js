@@ -2513,7 +2513,6 @@
 				}
 
 				net.user_spam_buffer[user].last_send = timestamp;
-
 				net.user_spam_buffer[user].last_last_last_msg = net.user_spam_buffer[user].last_last_msg;
 				net.user_spam_buffer[user].last_last_msg = net.user_spam_buffer[user].last_msg;
 				net.user_spam_buffer[user].last_msg = clean_msg;
@@ -2560,14 +2559,14 @@
 							color = room_user.info.present.items[room_user.info.present.item_index].color;
 						}
 					}
+				}
 
-					if (net.is_admin(user) || net.is_room_admin(user) || net.is_spam_room()) {
-						glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
-					}
+				if (net.is_admin(user) || net.is_room_admin(user) || net.is_spam_room()) {
+					glow = !$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow';
+				}
 
-					if (user === 'U7156559076-3207715310' || user === 'U7156559076-3226490709' || user === 'U7156559076-11810570') {
-						glow = 'rgb';
-					}
+				if (user === 'U7156559076-3207715310' || user === 'U7156559076-3226490709' || user === 'U7156559076-11810570') {
+					glow = 'rgb';
 				}
 
 				if (!is_admin && !is_room_admin && !is_spam_room && data.msg.length >= net.max_message_length) {
