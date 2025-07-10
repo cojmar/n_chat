@@ -56,6 +56,10 @@
 				"count": 2,
 				"triggers": ["music", "song"]
 			},
+			"ognuke": {
+				"type": "png",
+				"triggers": ["ognuke", "og nuke"]
+			},
 			"pan": {
 				"count": 3,
 				"type": "png",
