@@ -37,7 +37,7 @@ label {
 
 #event div {
 	margin: auto;
-	max-width: 800px;
+	/*max-width: 800px;*/
 	height: 100%;
 	white-space: nowrap;
 }
@@ -49,6 +49,7 @@ label {
 }
 
 #event img {
+	max-width: 800px;
 	width: 50%;
 	vertical-align: middle;
 }
