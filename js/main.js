@@ -345,6 +345,7 @@
 			net.is_focused = false;
 			net.unseen_messages = 0;
 			net.max_message_length = 160;
+			net.max_admin_message_length = 5000;
 			net.max_paste_length = 100;
 
 			net.zoom = simplestorage.get('zoom');
@@ -1541,8 +1542,12 @@
 				var is_room_admin = net.is_room_admin();
 				var is_spam_room = net.is_spam_room();
 
-				if (msg.length >= net.max_message_length && !is_admin && !is_room_admin && !is_spam_room) {
-					msg = msg.substring(0, net.max_message_length - 1);
+				if (msg.length >= net.max_message_length) {
+					if (!is_admin && !is_room_admin && !is_spam_room) {
+						msg = msg.substring(0, net.max_message_length - 1);
+					} else {
+						msg = msg.substring(0, net.max_admin_message_length - 1);
+					}
 				}
 
 				if (msg.trim().length <= 1 && !is_admin && !is_room_admin && !is_spam_room) {
@@ -2221,7 +2226,7 @@
 					}
 
 					if (net.is_admin()) {
-						net.text_input.removeAttr('maxlength');
+						net.text_input.attr('maxlength', net.max_admin_message_length);
 					} else {
 						net.text_input.attr('maxlength', net.max_message_length);
 					}
@@ -2318,7 +2323,7 @@
 				}, 1000);*/
 
 				if (net.is_admin()) {
-					net.text_input.removeAttr('maxlength');
+					net.text_input.attr('maxlength', net.max_admin_message_length);
 				} else {
 					net.text_input.attr('maxlength', net.max_message_length);
 				}
@@ -2374,7 +2379,7 @@
 				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
 
 				if (net.is_admin()) {
-					net.text_input.removeAttr('maxlength');
+					net.text_input.attr('maxlength', net.max_admin_message_length);
 				} else {
 					net.text_input.attr('maxlength', net.max_message_length);
 				}
@@ -2569,8 +2574,12 @@
 					glow = 'rgb';
 				}
 
-				if (!is_admin && !is_room_admin && !is_spam_room && data.msg.length >= net.max_message_length) {
-					data.msg = data.msg.substring(0, net.max_message_length - 1);
+				if (data.msg.length >= net.max_message_length) {
+					if (!is_admin && !is_room_admin && !is_spam_room) {
+						data.msg = data.msg.substring(0, net.max_message_length - 1);
+					} else {
+						data.msg = data.msg.substring(0, net.max_admin_message_length - 1);
+					}
 				}
 
 				// noinspection JSUnresolvedVariable
