@@ -985,3 +985,149 @@ label {
 .grecaptcha-badge {
 	display: none;
 }
+
+#popup {
+	color: #fff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	overflow: auto;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	display: inline-block !important;
+	background: #000;
+	z-index: 1000002;
+}
+
+.ageDisclaimer {
+	text-align: center;
+	margin: 0;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #2e2e2e;
+	position: relative;
+	top: 100px;
+	padding: 4rem 2rem;
+	box-shadow: 0 0 40px 5px rgba(255, 255, 255, .15);
+	background-color: #000;
+	display: inline-block !important;
+	max-width: 750px;
+}
+
+.contentMTubes {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.logoImg {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	border: none;
+	height: auto;
+	width: 150px;
+}
+
+.heading1 {
+	text-align: center;
+	font-size: 2.5rem;
+	margin: 1.5rem 0 1rem;
+	font-weight: 700;
+	background-color: initial;
+	line-height: initial;
+	padding: 0;
+	text-transform: none;
+}
+
+.bodyText, .bottomText {
+	text-align: center;
+	padding: 0;
+	font-size: 1.25rem;
+	margin: 0;
+	color: #ccc;
+}
+
+.bodyText a, .bottomText a {
+	color: #ff9000;
+	outline-style: none;
+	text-decoration: none;
+}
+
+.bodyText a:hover, .bottomText a:hover {
+	text-decoration: underline;
+}
+
+.orangeButton {
+	display: inline-block;
+	font-family: inherit;
+	cursor: pointer;
+	position: relative;
+	outline: 0 none;
+	text-align: center;
+	appearance: none;
+	vertical-align: top;
+	text-decoration: none;
+	border: 0;
+	background: #f90;
+	-webkit-border-radius: 5px;
+	margin: 3rem 0 0;
+	font-size: 1.25rem;
+	width: 21rem;
+	max-width: 100%;
+	padding: 1rem;
+	font-weight: 700;
+	color: #000;
+}
+
+.orangeButton:hover {
+	background: #ffa31a;
+}
+
+.greyButton:hover {
+	background: #3f3f3f;
+}
+
+.greyButton {
+	border: none;
+	border-radius: 4px;
+	display: inline-block;
+	font-family: inherit;
+	cursor: pointer;
+	position: relative;
+	outline: 0 none;
+	text-align: center;
+	appearance: none;
+	vertical-align: top;
+	text-decoration: none;
+	background: #1f1f1f;
+	font-size: 1.25rem;
+	width: 21rem;
+	max-width: 100%;
+	padding: 1rem;
+	font-weight: 700;
+	color: #fff;
+	margin: 3rem 0 0 10px;
+}
+
+.rtaDisclaimerWrapper {
+	color: #fff;
+	font-size: 12px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.copyright {
+	color: #969696;
+}
