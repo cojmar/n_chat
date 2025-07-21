@@ -1001,7 +1001,7 @@ label {
 	overflow: auto;
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
-	display: inline-block !important;
+	display:none !important;
 	background: #000;
 	z-index: 1000002;
 }
