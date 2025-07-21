@@ -19,25 +19,6 @@
 		console.log('%cUnless you understand exactly what you are doing, close this window and stay safe.', 'font-size: 16px; color: #00A478;');
 	}
 
-	window.GoogleAnalyticsObject = '__ga__';
-
-	window.__ga__ = function() {
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-
-			// noinspection JSUnresolvedVariable
-			if (arg.constructor === Object && arg.hitCallback) {
-				arg.hitCallback();
-			}
-		}
-	};
-
-	window.__ga__.q = [
-		['create', 'UA-47896346-6', 'auto']
-	];
-
-	window.__ga__.l = Date.now();
-
 	// noinspection JSUnresolvedFunction,JSUnusedGlobalSymbols,JSUnusedLocalSymbols,DuplicatedCode
 	define('optional', [], {
 		load: function(name, req, onload, config) {
@@ -154,10 +135,9 @@
 		'toastr',
 		'tinycon',
 		'moment',
-		'optional!ga',
 		'libraries/spectrum',
 		'moment-duration'
-	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, Tinycon, moment, ga, spectrum, momentd) {
+	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, Tinycon, moment, spectrum, momentd) {
 		if (typeof $.fn.getSelector === 'undefined') {
 			$.fn.getSelector = function() {
 				if ($(this).attr('id')) {
@@ -182,14 +162,6 @@
 
 		// noinspection DuplicatedCode
 		$(function() {
-			if (typeof ga === 'function') {
-				ga('send', {
-					hitType: 'pageview',
-					page: window.location.pathname,
-					title: window.location.href
-				});
-			}
-
 			var fp = fingerprint.load();
 			var version_check_interval;
 			var update_timeout;
