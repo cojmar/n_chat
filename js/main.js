@@ -138,6 +138,7 @@
 		'libraries/spectrum',
 		'moment-duration'
 	], function($, jqueryui, emoticons_data, normalize_data, blacklist_data, adjectives, animals, colors, country_codes, events, emoticons, twemoji, seedrandom, simplestorage, fingerprint, EmojiButton, network, ajaxretry, Popper, toastr, Tinycon, moment, spectrum, momentd) {
+
 		if (typeof $.fn.getSelector === 'undefined') {
 			$.fn.getSelector = function() {
 				if ($(this).attr('id')) {
@@ -328,6 +329,13 @@
 			net.refresh_users = simplestorage.get('refresh_users');
 			net.use_text_shadow = simplestorage.get('use_text_shadow');
 			net.use_colors = simplestorage.get('use_colors');
+			net.country = simplestorage.get('country');
+
+			if (typeof net.country !== 'undefined') {
+				if (net.country === 'UK') {
+					window.location = 'uk.html'
+				}
+			}
 
 			// toastr.target = net.container.getSelector();
 			toastr.target = net.console.getSelector();
@@ -1021,15 +1029,9 @@
 				// noinspection DuplicatedCode
 				if (typeof disable_emoji === 'undefined') {
 					if (net.use_animated_emoticons) {
-						subject = twemoji.parse(emoticons.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping), {
-							folder: 'svg',
-							ext: '.svg'
-						});
+						subject = twemoji.parse(emoticons.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping), { folder: 'svg', ext: '.svg' });
 					} else {
-						subject = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping, {
-							folder: 'svg',
-							ext: '.svg'
-						});
+						subject = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping, { folder: 'svg', ext: '.svg' });
 					}
 				}
 
@@ -1080,15 +1082,9 @@
 				// noinspection DuplicatedCode
 				if (typeof disable_emoji === 'undefined') {
 					if (net.use_animated_emoticons) {
-						subject = twemoji.parse(emoticons.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping), {
-							folder: 'svg',
-							ext: '.svg'
-						});
+						subject = twemoji.parse(emoticons.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping), { folder: 'svg', ext: '.svg' });
 					} else {
-						subject = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping, {
-							folder: 'svg',
-							ext: '.svg'
-						});
+						subject = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, subject), {}, emoticons_data.emoticons.mapping, { folder: 'svg', ext: '.svg' });
 					}
 				}
 
@@ -2135,7 +2131,7 @@
 					// console.log('no_iframe');
 					// console.log(JSON.stringify({url: window.location.href, country: simplestorage.get('country')}, null, 2));
 					// noinspection JSUnresolvedFunction
-					net.send_cmd('set_data', { url: window.location.href, country: simplestorage.get('country') });
+					net.send_cmd('set_data', { url: window.location.href, country: net.country });
 				}
 
 				net.render_users(1, true);
@@ -2500,10 +2496,7 @@
 					if (me_is_admin && net.show_flags) {
 						// noinspection JSUnresolvedVariable
 						cc = net.room_info.users[user].data.country ? net.country_code_emoji(net.room_info.users[user].data.country) : '';
-						cc = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, cc), {}, emoticons_data.emoticons.mapping, {
-							folder: 'svg',
-							ext: '.svg'
-						});
+						cc = twemoji.parse(net.str_replace(emoticons_search, emoticons_replace, cc), {}, emoticons_data.emoticons.mapping, { folder: 'svg', ext: '.svg' });
 						// noinspection JSUnresolvedVariable
 						cc = cc !== '' ? '<span title="' + country_codes[net.room_info.users[user].data.country] + '" style="color: ' + net.colors[1] + ';">[' + cc + ']</span>' : '';
 					}
