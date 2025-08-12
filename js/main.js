@@ -335,6 +335,10 @@
 				if (net.country === 'UK') {
 					window.location = 'uk.html'
 				}
+
+				if (net.country === 'AU') {
+					window.location = 'au.html'
+				}
 			}
 
 			// toastr.target = net.container.getSelector();
