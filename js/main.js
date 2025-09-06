@@ -2540,7 +2540,7 @@
 				}
 
 				if (user === 'U7156559076-3207715310' || user === 'U7156559076-3226490709' || user === 'U7156559076-11810570') {
-					glow = 'rgb';
+					glow += ' rgb';
 				}
 
 				if (data.msg.length >= net.max_message_length) {
