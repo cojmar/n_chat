@@ -811,7 +811,7 @@ label {
 	background-clip: text;
 	-webkit-animation: rgb 15s ease infinite;
 	animation: rgb 15s ease infinite !important;
-	text-shadow: none;
+	/* text-shadow: none; */
 }
 
 .emoji-picker-wrapper {
