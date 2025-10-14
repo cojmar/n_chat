@@ -506,6 +506,18 @@
 				return false;
 			};
 
+			net.is_bot_room = function() {
+				if (typeof net.room_info !== 'undefined') {
+					if (typeof net.room_info.name !== 'undefined') {
+						if (net.room_info.name === 'BotTest') {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			};
+
 			net.is_music_room = function() {
 				if (typeof net.room_info !== 'undefined') {
 					if (typeof net.room_info.name !== 'undefined') {
@@ -2350,7 +2362,7 @@
 
 				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
 
-				if (net.is_admin()) {
+				if (net.is_admin() ) {
 					net.text_input.attr('maxlength', net.max_admin_message_length);
 				} else {
 					net.text_input.attr('maxlength', net.max_message_length);
@@ -2445,6 +2457,7 @@
 				var is_admin = net.is_admin(user);
 				var is_room_admin = net.is_room_admin(user);
 				var is_spam_room = net.is_spam_room();
+				var is_bot_room = net.is_bot_room();
 				var is_music_room = net.is_music_room();
 				var me_is_admin = net.is_admin();
 				var cc = '';
@@ -2544,7 +2557,7 @@
 				}
 
 				if (data.msg.length >= net.max_message_length) {
-					if (!is_admin && !is_room_admin && !is_spam_room) {
+					if (!is_admin && !is_room_admin && !is_spam_room && !is_bot_room && user !== net.bot_uid) {
 						data.msg = data.msg.substring(0, net.max_message_length - 1);
 					} else {
 						data.msg = data.msg.substring(0, net.max_admin_message_length - 1);

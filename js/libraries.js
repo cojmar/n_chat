@@ -498,8 +498,7 @@
 			'//' + location + '/beta/emuos/assets/js/window'
 		],
 		'socket': '//ws.' + location + '/server/app/u_socket_es5',
-		'network': '//ws.' + location + '/server/app/network_iframe',
-		'ga': '//www.google-analytics.com/analytics'
+		'network': '//ws.' + location + '/server/app/network_iframe'
 	};
 
 	// endregion
