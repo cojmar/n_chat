@@ -2362,7 +2362,7 @@
 
 				$('#room_user_' + net.room_info.host).css('color', '#4c4c4c').addClass(!$sys.browser.isIE && !$sys.browser.isFirefox ? 'glow2' : 'glow');
 
-				if (net.is_admin() ) {
+				if (net.is_admin()) {
 					net.text_input.attr('maxlength', net.max_admin_message_length);
 				} else {
 					net.text_input.attr('maxlength', net.max_message_length);
