@@ -336,6 +336,10 @@
 					window.location = 'uk.html'
 				}
 
+				if (net.country === 'CA') {
+					window.location = 'ca.html'
+				}
+
 				if (net.country === 'AU') {
 					window.location = 'au.html'
 				}
